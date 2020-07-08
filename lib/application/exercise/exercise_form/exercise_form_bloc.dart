@@ -28,10 +28,10 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
     yield* event.when(
         init: _bindInitToState,
         exerciseNameChanged: _bindExerciseNameChangedToState,
-        exerciseLevelChanged: null,
-        exerciseToolChanged: null,
-        exerciseTypeChanged: null,
-        exerciseTargetChanged: null,
+        exerciseLevelChanged: _bindExerciseLevelChangedToState,
+        exerciseToolChanged: _bindExerciseToolChangedToState,
+        exerciseTypeChanged: _bindExerciseTypeChangedToState,
+        exerciseTargetChanged: _bindExerciseTargetChangedToState,
         added: null);
   }
 
@@ -46,5 +46,29 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
     yield state.copyWith(
         exercise: state.exercise.copyWith(name: ExerciseName(name)),
         addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindExerciseLevelChangedToState(
+      ExerciseLevel level) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(level: level), addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindExerciseToolChangedToState(
+      ExerciseTool tool) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(tool: tool), addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindExerciseTypeChangedToState(
+      ExerciseType type) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(type: type), addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindExerciseTargetChangedToState(
+      ExerciseTarget target) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(target: target), addStatus: none());
   }
 }
