@@ -124,7 +124,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
   }
 }
 
-class _$_Exercise implements _Exercise {
+class _$_Exercise extends _Exercise {
   const _$_Exercise(
       {@required this.id,
       @required this.name,
@@ -137,7 +137,8 @@ class _$_Exercise implements _Exercise {
         assert(level != null),
         assert(tool != null),
         assert(type != null),
-        assert(target != null);
+        assert(target != null),
+        super._();
 
   @override
   final UniqueId id;
@@ -190,7 +191,8 @@ class _$_Exercise implements _Exercise {
       __$ExerciseCopyWithImpl<_Exercise>(this, _$identity);
 }
 
-abstract class _Exercise implements Exercise {
+abstract class _Exercise extends Exercise {
+  const _Exercise._() : super._();
   const factory _Exercise(
       {@required UniqueId id,
       @required ExerciseName name,

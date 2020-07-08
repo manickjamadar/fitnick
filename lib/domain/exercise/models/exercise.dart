@@ -10,7 +10,8 @@ import 'exercise_type.dart';
 part "exercise.freezed.dart";
 
 @freezed
-abstract class Exercise with _$Exercise {
+abstract class Exercise implements _$Exercise {
+  const Exercise._();
   const factory Exercise({
     @required UniqueId id,
     @required ExerciseName name,
@@ -19,4 +20,13 @@ abstract class Exercise with _$Exercise {
     @required ExerciseType type,
     @required ExerciseTarget target,
   }) = _Exercise;
+  factory Exercise.initial() {
+    return Exercise(
+        id: UniqueId(),
+        name: ExerciseName(""),
+        level: ExerciseLevel.beginner,
+        tool: ExerciseTool.bodyWeight,
+        type: ExerciseType.warmUp,
+        target: ExerciseTarget.biceps);
+  }
 }
