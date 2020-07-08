@@ -33,6 +33,6 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
     yield failureOrSuccess.fold(
         (failure) => ExerciseHubState.loadedError(failure: failure),
         (List<Exercise> exercises) =>
-            ExerciseHubState.loaded(exercise: exercises));
+            ExerciseHubState.loaded(exercises: exercises));
   }
 }

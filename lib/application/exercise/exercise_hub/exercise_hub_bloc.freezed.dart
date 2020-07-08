@@ -737,20 +737,22 @@ class _$ExerciseHubStateTearOff {
     return const _ExerciseHubLoading();
   }
 
-  _ExerciseHubLoaded loaded({@required List<Exercise> exercise}) {
+  _ExerciseHubLoaded loaded({@required List<Exercise> exercises}) {
     return _ExerciseHubLoaded(
-      exercise: exercise,
+      exercises: exercises,
     );
   }
 
-  _ExerciseHubError loadedError({@required ExerciseFailure failure}) {
-    return _ExerciseHubError(
+  _ExerciseHubLoadedError loadedError({@required ExerciseFailure failure}) {
+    return _ExerciseHubLoadedError(
       failure: failure,
     );
   }
 
-  _ExerciseHubError reorderedError({@required ExerciseFailure failure}) {
-    return _ExerciseHubError(
+  _ExerciseHubReorderedError reorderedError(
+      {@required List<Exercise> exercises, @required ExerciseFailure failure}) {
+    return _ExerciseHubReorderedError(
+      exercises: exercises,
       failure: failure,
     );
   }
@@ -763,31 +765,33 @@ mixin _$ExerciseHubState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Exercise> exercise),
+    @required Result loaded(List<Exercise> exercises),
     @required Result loadedError(ExerciseFailure failure),
-    @required Result reorderedError(ExerciseFailure failure),
+    @required
+        Result reorderedError(
+            List<Exercise> exercises, ExerciseFailure failure),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Exercise> exercise),
+    Result loaded(List<Exercise> exercises),
     Result loadedError(ExerciseFailure failure),
-    Result reorderedError(ExerciseFailure failure),
+    Result reorderedError(List<Exercise> exercises, ExerciseFailure failure),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result loading(_ExerciseHubLoading value),
     @required Result loaded(_ExerciseHubLoaded value),
-    @required Result loadedError(_ExerciseHubError value),
-    @required Result reorderedError(_ExerciseHubError value),
+    @required Result loadedError(_ExerciseHubLoadedError value),
+    @required Result reorderedError(_ExerciseHubReorderedError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result loading(_ExerciseHubLoading value),
     Result loaded(_ExerciseHubLoaded value),
-    Result loadedError(_ExerciseHubError value),
-    Result reorderedError(_ExerciseHubError value),
+    Result loadedError(_ExerciseHubLoadedError value),
+    Result reorderedError(_ExerciseHubReorderedError value),
     @required Result orElse(),
   });
 }
@@ -844,9 +848,11 @@ class _$_ExerciseHubLoading implements _ExerciseHubLoading {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Exercise> exercise),
+    @required Result loaded(List<Exercise> exercises),
     @required Result loadedError(ExerciseFailure failure),
-    @required Result reorderedError(ExerciseFailure failure),
+    @required
+        Result reorderedError(
+            List<Exercise> exercises, ExerciseFailure failure),
   }) {
     assert(loading != null);
     assert(loaded != null);
@@ -859,9 +865,9 @@ class _$_ExerciseHubLoading implements _ExerciseHubLoading {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Exercise> exercise),
+    Result loaded(List<Exercise> exercises),
     Result loadedError(ExerciseFailure failure),
-    Result reorderedError(ExerciseFailure failure),
+    Result reorderedError(List<Exercise> exercises, ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -876,8 +882,8 @@ class _$_ExerciseHubLoading implements _ExerciseHubLoading {
   Result map<Result extends Object>({
     @required Result loading(_ExerciseHubLoading value),
     @required Result loaded(_ExerciseHubLoaded value),
-    @required Result loadedError(_ExerciseHubError value),
-    @required Result reorderedError(_ExerciseHubError value),
+    @required Result loadedError(_ExerciseHubLoadedError value),
+    @required Result reorderedError(_ExerciseHubReorderedError value),
   }) {
     assert(loading != null);
     assert(loaded != null);
@@ -891,8 +897,8 @@ class _$_ExerciseHubLoading implements _ExerciseHubLoading {
   Result maybeMap<Result extends Object>({
     Result loading(_ExerciseHubLoading value),
     Result loaded(_ExerciseHubLoaded value),
-    Result loadedError(_ExerciseHubError value),
-    Result reorderedError(_ExerciseHubError value),
+    Result loadedError(_ExerciseHubLoadedError value),
+    Result reorderedError(_ExerciseHubReorderedError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -911,7 +917,7 @@ abstract class _$ExerciseHubLoadedCopyWith<$Res> {
   factory _$ExerciseHubLoadedCopyWith(
           _ExerciseHubLoaded value, $Res Function(_ExerciseHubLoaded) then) =
       __$ExerciseHubLoadedCopyWithImpl<$Res>;
-  $Res call({List<Exercise> exercise});
+  $Res call({List<Exercise> exercises});
 }
 
 class __$ExerciseHubLoadedCopyWithImpl<$Res>
@@ -926,39 +932,39 @@ class __$ExerciseHubLoadedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object exercise = freezed,
+    Object exercises = freezed,
   }) {
     return _then(_ExerciseHubLoaded(
-      exercise:
-          exercise == freezed ? _value.exercise : exercise as List<Exercise>,
+      exercises:
+          exercises == freezed ? _value.exercises : exercises as List<Exercise>,
     ));
   }
 }
 
 class _$_ExerciseHubLoaded implements _ExerciseHubLoaded {
-  const _$_ExerciseHubLoaded({@required this.exercise})
-      : assert(exercise != null);
+  const _$_ExerciseHubLoaded({@required this.exercises})
+      : assert(exercises != null);
 
   @override
-  final List<Exercise> exercise;
+  final List<Exercise> exercises;
 
   @override
   String toString() {
-    return 'ExerciseHubState.loaded(exercise: $exercise)';
+    return 'ExerciseHubState.loaded(exercises: $exercises)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ExerciseHubLoaded &&
-            (identical(other.exercise, exercise) ||
+            (identical(other.exercises, exercises) ||
                 const DeepCollectionEquality()
-                    .equals(other.exercise, exercise)));
+                    .equals(other.exercises, exercises)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercise);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercises);
 
   @override
   _$ExerciseHubLoadedCopyWith<_ExerciseHubLoaded> get copyWith =>
@@ -968,29 +974,31 @@ class _$_ExerciseHubLoaded implements _ExerciseHubLoaded {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Exercise> exercise),
+    @required Result loaded(List<Exercise> exercises),
     @required Result loadedError(ExerciseFailure failure),
-    @required Result reorderedError(ExerciseFailure failure),
+    @required
+        Result reorderedError(
+            List<Exercise> exercises, ExerciseFailure failure),
   }) {
     assert(loading != null);
     assert(loaded != null);
     assert(loadedError != null);
     assert(reorderedError != null);
-    return loaded(exercise);
+    return loaded(exercises);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Exercise> exercise),
+    Result loaded(List<Exercise> exercises),
     Result loadedError(ExerciseFailure failure),
-    Result reorderedError(ExerciseFailure failure),
+    Result reorderedError(List<Exercise> exercises, ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (loaded != null) {
-      return loaded(exercise);
+      return loaded(exercises);
     }
     return orElse();
   }
@@ -1000,8 +1008,8 @@ class _$_ExerciseHubLoaded implements _ExerciseHubLoaded {
   Result map<Result extends Object>({
     @required Result loading(_ExerciseHubLoading value),
     @required Result loaded(_ExerciseHubLoaded value),
-    @required Result loadedError(_ExerciseHubError value),
-    @required Result reorderedError(_ExerciseHubError value),
+    @required Result loadedError(_ExerciseHubLoadedError value),
+    @required Result reorderedError(_ExerciseHubReorderedError value),
   }) {
     assert(loading != null);
     assert(loaded != null);
@@ -1015,8 +1023,8 @@ class _$_ExerciseHubLoaded implements _ExerciseHubLoaded {
   Result maybeMap<Result extends Object>({
     Result loading(_ExerciseHubLoading value),
     Result loaded(_ExerciseHubLoaded value),
-    Result loadedError(_ExerciseHubError value),
-    Result reorderedError(_ExerciseHubError value),
+    Result loadedError(_ExerciseHubLoadedError value),
+    Result reorderedError(_ExerciseHubReorderedError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1028,37 +1036,37 @@ class _$_ExerciseHubLoaded implements _ExerciseHubLoaded {
 }
 
 abstract class _ExerciseHubLoaded implements ExerciseHubState {
-  const factory _ExerciseHubLoaded({@required List<Exercise> exercise}) =
+  const factory _ExerciseHubLoaded({@required List<Exercise> exercises}) =
       _$_ExerciseHubLoaded;
 
-  List<Exercise> get exercise;
+  List<Exercise> get exercises;
   _$ExerciseHubLoadedCopyWith<_ExerciseHubLoaded> get copyWith;
 }
 
-abstract class _$ExerciseHubErrorCopyWith<$Res> {
-  factory _$ExerciseHubErrorCopyWith(
-          _ExerciseHubError value, $Res Function(_ExerciseHubError) then) =
-      __$ExerciseHubErrorCopyWithImpl<$Res>;
+abstract class _$ExerciseHubLoadedErrorCopyWith<$Res> {
+  factory _$ExerciseHubLoadedErrorCopyWith(_ExerciseHubLoadedError value,
+          $Res Function(_ExerciseHubLoadedError) then) =
+      __$ExerciseHubLoadedErrorCopyWithImpl<$Res>;
   $Res call({ExerciseFailure failure});
 
   $ExerciseFailureCopyWith<$Res> get failure;
 }
 
-class __$ExerciseHubErrorCopyWithImpl<$Res>
+class __$ExerciseHubLoadedErrorCopyWithImpl<$Res>
     extends _$ExerciseHubStateCopyWithImpl<$Res>
-    implements _$ExerciseHubErrorCopyWith<$Res> {
-  __$ExerciseHubErrorCopyWithImpl(
-      _ExerciseHubError _value, $Res Function(_ExerciseHubError) _then)
-      : super(_value, (v) => _then(v as _ExerciseHubError));
+    implements _$ExerciseHubLoadedErrorCopyWith<$Res> {
+  __$ExerciseHubLoadedErrorCopyWithImpl(_ExerciseHubLoadedError _value,
+      $Res Function(_ExerciseHubLoadedError) _then)
+      : super(_value, (v) => _then(v as _ExerciseHubLoadedError));
 
   @override
-  _ExerciseHubError get _value => super._value as _ExerciseHubError;
+  _ExerciseHubLoadedError get _value => super._value as _ExerciseHubLoadedError;
 
   @override
   $Res call({
     Object failure = freezed,
   }) {
-    return _then(_ExerciseHubError(
+    return _then(_ExerciseHubLoadedError(
       failure: failure == freezed ? _value.failure : failure as ExerciseFailure,
     ));
   }
@@ -1074,8 +1082,9 @@ class __$ExerciseHubErrorCopyWithImpl<$Res>
   }
 }
 
-class _$_ExerciseHubError implements _ExerciseHubError {
-  const _$_ExerciseHubError({@required this.failure}) : assert(failure != null);
+class _$_ExerciseHubLoadedError implements _ExerciseHubLoadedError {
+  const _$_ExerciseHubLoadedError({@required this.failure})
+      : assert(failure != null);
 
   @override
   final ExerciseFailure failure;
@@ -1088,7 +1097,7 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ExerciseHubError &&
+        (other is _ExerciseHubLoadedError &&
             (identical(other.failure, failure) ||
                 const DeepCollectionEquality().equals(other.failure, failure)));
   }
@@ -1098,16 +1107,19 @@ class _$_ExerciseHubError implements _ExerciseHubError {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(failure);
 
   @override
-  _$ExerciseHubErrorCopyWith<_ExerciseHubError> get copyWith =>
-      __$ExerciseHubErrorCopyWithImpl<_ExerciseHubError>(this, _$identity);
+  _$ExerciseHubLoadedErrorCopyWith<_ExerciseHubLoadedError> get copyWith =>
+      __$ExerciseHubLoadedErrorCopyWithImpl<_ExerciseHubLoadedError>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Exercise> exercise),
+    @required Result loaded(List<Exercise> exercises),
     @required Result loadedError(ExerciseFailure failure),
-    @required Result reorderedError(ExerciseFailure failure),
+    @required
+        Result reorderedError(
+            List<Exercise> exercises, ExerciseFailure failure),
   }) {
     assert(loading != null);
     assert(loaded != null);
@@ -1120,9 +1132,9 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Exercise> exercise),
+    Result loaded(List<Exercise> exercises),
     Result loadedError(ExerciseFailure failure),
-    Result reorderedError(ExerciseFailure failure),
+    Result reorderedError(List<Exercise> exercises, ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1137,8 +1149,8 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   Result map<Result extends Object>({
     @required Result loading(_ExerciseHubLoading value),
     @required Result loaded(_ExerciseHubLoaded value),
-    @required Result loadedError(_ExerciseHubError value),
-    @required Result reorderedError(_ExerciseHubError value),
+    @required Result loadedError(_ExerciseHubLoadedError value),
+    @required Result reorderedError(_ExerciseHubReorderedError value),
   }) {
     assert(loading != null);
     assert(loaded != null);
@@ -1152,8 +1164,8 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   Result maybeMap<Result extends Object>({
     Result loading(_ExerciseHubLoading value),
     Result loaded(_ExerciseHubLoaded value),
-    Result loadedError(_ExerciseHubError value),
-    Result reorderedError(_ExerciseHubError value),
+    Result loadedError(_ExerciseHubLoadedError value),
+    Result reorderedError(_ExerciseHubReorderedError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1164,38 +1176,42 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   }
 }
 
-abstract class _ExerciseHubError implements ExerciseHubState {
-  const factory _ExerciseHubError({@required ExerciseFailure failure}) =
-      _$_ExerciseHubError;
+abstract class _ExerciseHubLoadedError implements ExerciseHubState {
+  const factory _ExerciseHubLoadedError({@required ExerciseFailure failure}) =
+      _$_ExerciseHubLoadedError;
 
   ExerciseFailure get failure;
-  _$ExerciseHubErrorCopyWith<_ExerciseHubError> get copyWith;
+  _$ExerciseHubLoadedErrorCopyWith<_ExerciseHubLoadedError> get copyWith;
 }
 
-abstract class _$ExerciseHubErrorCopyWith<$Res> {
-  factory _$ExerciseHubErrorCopyWith(
-          _ExerciseHubError value, $Res Function(_ExerciseHubError) then) =
-      __$ExerciseHubErrorCopyWithImpl<$Res>;
-  $Res call({ExerciseFailure failure});
+abstract class _$ExerciseHubReorderedErrorCopyWith<$Res> {
+  factory _$ExerciseHubReorderedErrorCopyWith(_ExerciseHubReorderedError value,
+          $Res Function(_ExerciseHubReorderedError) then) =
+      __$ExerciseHubReorderedErrorCopyWithImpl<$Res>;
+  $Res call({List<Exercise> exercises, ExerciseFailure failure});
 
   $ExerciseFailureCopyWith<$Res> get failure;
 }
 
-class __$ExerciseHubErrorCopyWithImpl<$Res>
+class __$ExerciseHubReorderedErrorCopyWithImpl<$Res>
     extends _$ExerciseHubStateCopyWithImpl<$Res>
-    implements _$ExerciseHubErrorCopyWith<$Res> {
-  __$ExerciseHubErrorCopyWithImpl(
-      _ExerciseHubError _value, $Res Function(_ExerciseHubError) _then)
-      : super(_value, (v) => _then(v as _ExerciseHubError));
+    implements _$ExerciseHubReorderedErrorCopyWith<$Res> {
+  __$ExerciseHubReorderedErrorCopyWithImpl(_ExerciseHubReorderedError _value,
+      $Res Function(_ExerciseHubReorderedError) _then)
+      : super(_value, (v) => _then(v as _ExerciseHubReorderedError));
 
   @override
-  _ExerciseHubError get _value => super._value as _ExerciseHubError;
+  _ExerciseHubReorderedError get _value =>
+      super._value as _ExerciseHubReorderedError;
 
   @override
   $Res call({
+    Object exercises = freezed,
     Object failure = freezed,
   }) {
-    return _then(_ExerciseHubError(
+    return _then(_ExerciseHubReorderedError(
+      exercises:
+          exercises == freezed ? _value.exercises : exercises as List<Exercise>,
       failure: failure == freezed ? _value.failure : failure as ExerciseFailure,
     ));
   }
@@ -1211,60 +1227,74 @@ class __$ExerciseHubErrorCopyWithImpl<$Res>
   }
 }
 
-class _$_ExerciseHubError implements _ExerciseHubError {
-  const _$_ExerciseHubError({@required this.failure}) : assert(failure != null);
+class _$_ExerciseHubReorderedError implements _ExerciseHubReorderedError {
+  const _$_ExerciseHubReorderedError(
+      {@required this.exercises, @required this.failure})
+      : assert(exercises != null),
+        assert(failure != null);
 
+  @override
+  final List<Exercise> exercises;
   @override
   final ExerciseFailure failure;
 
   @override
   String toString() {
-    return 'ExerciseHubState.reorderedError(failure: $failure)';
+    return 'ExerciseHubState.reorderedError(exercises: $exercises, failure: $failure)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ExerciseHubError &&
+        (other is _ExerciseHubReorderedError &&
+            (identical(other.exercises, exercises) ||
+                const DeepCollectionEquality()
+                    .equals(other.exercises, exercises)) &&
             (identical(other.failure, failure) ||
                 const DeepCollectionEquality().equals(other.failure, failure)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failure);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(exercises) ^
+      const DeepCollectionEquality().hash(failure);
 
   @override
-  _$ExerciseHubErrorCopyWith<_ExerciseHubError> get copyWith =>
-      __$ExerciseHubErrorCopyWithImpl<_ExerciseHubError>(this, _$identity);
+  _$ExerciseHubReorderedErrorCopyWith<_ExerciseHubReorderedError>
+      get copyWith =>
+          __$ExerciseHubReorderedErrorCopyWithImpl<_ExerciseHubReorderedError>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Exercise> exercise),
+    @required Result loaded(List<Exercise> exercises),
     @required Result loadedError(ExerciseFailure failure),
-    @required Result reorderedError(ExerciseFailure failure),
+    @required
+        Result reorderedError(
+            List<Exercise> exercises, ExerciseFailure failure),
   }) {
     assert(loading != null);
     assert(loaded != null);
     assert(loadedError != null);
     assert(reorderedError != null);
-    return reorderedError(failure);
+    return reorderedError(exercises, failure);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Exercise> exercise),
+    Result loaded(List<Exercise> exercises),
     Result loadedError(ExerciseFailure failure),
-    Result reorderedError(ExerciseFailure failure),
+    Result reorderedError(List<Exercise> exercises, ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (reorderedError != null) {
-      return reorderedError(failure);
+      return reorderedError(exercises, failure);
     }
     return orElse();
   }
@@ -1274,8 +1304,8 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   Result map<Result extends Object>({
     @required Result loading(_ExerciseHubLoading value),
     @required Result loaded(_ExerciseHubLoaded value),
-    @required Result loadedError(_ExerciseHubError value),
-    @required Result reorderedError(_ExerciseHubError value),
+    @required Result loadedError(_ExerciseHubLoadedError value),
+    @required Result reorderedError(_ExerciseHubReorderedError value),
   }) {
     assert(loading != null);
     assert(loaded != null);
@@ -1289,8 +1319,8 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   Result maybeMap<Result extends Object>({
     Result loading(_ExerciseHubLoading value),
     Result loaded(_ExerciseHubLoaded value),
-    Result loadedError(_ExerciseHubError value),
-    Result reorderedError(_ExerciseHubError value),
+    Result loadedError(_ExerciseHubLoadedError value),
+    Result reorderedError(_ExerciseHubReorderedError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1301,10 +1331,12 @@ class _$_ExerciseHubError implements _ExerciseHubError {
   }
 }
 
-abstract class _ExerciseHubError implements ExerciseHubState {
-  const factory _ExerciseHubError({@required ExerciseFailure failure}) =
-      _$_ExerciseHubError;
+abstract class _ExerciseHubReorderedError implements ExerciseHubState {
+  const factory _ExerciseHubReorderedError(
+      {@required List<Exercise> exercises,
+      @required ExerciseFailure failure}) = _$_ExerciseHubReorderedError;
 
+  List<Exercise> get exercises;
   ExerciseFailure get failure;
-  _$ExerciseHubErrorCopyWith<_ExerciseHubError> get copyWith;
+  _$ExerciseHubReorderedErrorCopyWith<_ExerciseHubReorderedError> get copyWith;
 }
