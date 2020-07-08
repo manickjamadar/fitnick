@@ -22,7 +22,7 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
   ) async* {
     yield* event.when(
         init: _bindInitToState,
-        exerciseAdded: null,
+        exerciseAdded: _bindAddedToState,
         exerciseUpdated: null,
         exerciseDeleted: null,
         exerciseReordered: null);
@@ -34,5 +34,14 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
         (failure) => ExerciseHubState.loadedError(failure: failure),
         (List<Exercise> exercises) =>
             ExerciseHubState.loaded(exercises: exercises));
+  }
+
+  Stream<ExerciseHubState> _bindAddedToState(Exercise exercise) async* {
+    yield state.maybeWhen(
+        orElse: () => state,
+        loaded: (List<Exercise> exercises) =>
+            ExerciseHubState.loaded(exercises: [...exercises, exercise]),
+        reorderedError: (List<Exercise> exercises, _) =>
+            ExerciseHubState.loaded(exercises: [...exercises, exercise]));
   }
 }
