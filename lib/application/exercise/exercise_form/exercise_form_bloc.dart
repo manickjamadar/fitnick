@@ -32,7 +32,7 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
         exerciseToolChanged: _bindExerciseToolChangedToState,
         exerciseTypeChanged: _bindExerciseTypeChangedToState,
         exerciseTargetChanged: _bindExerciseTargetChangedToState,
-        added: null);
+        added: _bindExerciseAddedToState);
   }
 
   Stream<ExerciseFormState> _bindInitToState(
@@ -70,5 +70,20 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
       ExerciseTarget target) async* {
     yield state.copyWith(
         exercise: state.exercise.copyWith(target: target), addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindExerciseAddedToState() async* {
+    yield state.copyWith(isAdding: true, addStatus: none());
+    Either<ExerciseFailure, Unit> failureOrSuccess;
+    if (state.exercise.isValid) {
+      failureOrSuccess = state.isEditing
+          ? await iExerciseFacade.updateExercise(state.exercise)
+          : await iExerciseFacade.createExercise(state.exercise);
+    } else {
+      yield state.copyWith(
+          shouldShowErrorMessages: true,
+          isAdding: false,
+          addStatus: optionOf(failureOrSuccess));
+    }
   }
 }
