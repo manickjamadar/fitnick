@@ -23,9 +23,9 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
     yield* event.when(
         init: _bindInitToState,
         exerciseAdded: _bindAddedToState,
-        exerciseUpdated: null,
-        exerciseDeleted: null,
-        exerciseReordered: null);
+        exerciseUpdated: _bindUpdatedToState,
+        exerciseDeleted: _bindDeletedToState,
+        exerciseReordered: _bindReorderedToState);
   }
 
   Stream<ExerciseHubState> _bindInitToState() async* {
@@ -43,5 +43,15 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
             ExerciseHubState.loaded(exercises: [...exercises, exercise]),
         reorderedError: (List<Exercise> exercises, _) =>
             ExerciseHubState.loaded(exercises: [...exercises, exercise]));
+  }
+
+  Stream<ExerciseHubState> _bindUpdatedToState(Exercise exercise) async* {
+    //TODO: implement update
+  }
+  Stream<ExerciseHubState> _bindDeletedToState(UniqueId execiseId) async* {
+    //TODO: implement delete
+  }
+  Stream<ExerciseHubState> _bindReorderedToState() async* {
+    //TODO: implement reordered
   }
 }
