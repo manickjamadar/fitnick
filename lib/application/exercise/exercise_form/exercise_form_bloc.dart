@@ -25,12 +25,18 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
     ExerciseFormEvent event,
   ) async* {
     yield* event.when(
-        init: null,
+        init: _bindInitToState,
         exerciseNameChanged: null,
         exerciseLevelChanged: null,
         exerciseToolChanged: null,
         exerciseTypeChanged: null,
         exerciseTargetChanged: null,
         added: null);
+  }
+
+  Stream<ExerciseFormState> _bindInitToState(
+      Option<Exercise> exerciseOption) async* {
+    yield exerciseOption.fold(
+        () => state, (Exercise exercise) => state.copyWith(exercise: exercise));
   }
 }

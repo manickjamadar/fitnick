@@ -12,9 +12,9 @@ T _$identity<T>(T value) => value;
 class _$ExerciseFormEventTearOff {
   const _$ExerciseFormEventTearOff();
 
-  _ExerciseFormInit init(Option<Exercise> exercise) {
+  _ExerciseFormInit init(Option<Exercise> exerciseOption) {
     return _ExerciseFormInit(
-      exercise,
+      exerciseOption,
     );
   }
 
@@ -59,7 +59,7 @@ const $ExerciseFormEvent = _$ExerciseFormEventTearOff();
 mixin _$ExerciseFormEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -69,7 +69,7 @@ mixin _$ExerciseFormEvent {
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -120,7 +120,7 @@ abstract class _$ExerciseFormInitCopyWith<$Res> {
   factory _$ExerciseFormInitCopyWith(
           _ExerciseFormInit value, $Res Function(_ExerciseFormInit) then) =
       __$ExerciseFormInitCopyWithImpl<$Res>;
-  $Res call({Option<Exercise> exercise});
+  $Res call({Option<Exercise> exerciseOption});
 }
 
 class __$ExerciseFormInitCopyWithImpl<$Res>
@@ -135,37 +135,41 @@ class __$ExerciseFormInitCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object exercise = freezed,
+    Object exerciseOption = freezed,
   }) {
     return _then(_ExerciseFormInit(
-      exercise == freezed ? _value.exercise : exercise as Option<Exercise>,
+      exerciseOption == freezed
+          ? _value.exerciseOption
+          : exerciseOption as Option<Exercise>,
     ));
   }
 }
 
 class _$_ExerciseFormInit implements _ExerciseFormInit {
-  const _$_ExerciseFormInit(this.exercise) : assert(exercise != null);
+  const _$_ExerciseFormInit(this.exerciseOption)
+      : assert(exerciseOption != null);
 
   @override
-  final Option<Exercise> exercise;
+  final Option<Exercise> exerciseOption;
 
   @override
   String toString() {
-    return 'ExerciseFormEvent.init(exercise: $exercise)';
+    return 'ExerciseFormEvent.init(exerciseOption: $exerciseOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ExerciseFormInit &&
-            (identical(other.exercise, exercise) ||
+            (identical(other.exerciseOption, exerciseOption) ||
                 const DeepCollectionEquality()
-                    .equals(other.exercise, exercise)));
+                    .equals(other.exerciseOption, exerciseOption)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercise);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(exerciseOption);
 
   @override
   _$ExerciseFormInitCopyWith<_ExerciseFormInit> get copyWith =>
@@ -174,7 +178,7 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -189,13 +193,13 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
     assert(exerciseTypeChanged != null);
     assert(exerciseTargetChanged != null);
     assert(added != null);
-    return init(exercise);
+    return init(exerciseOption);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -206,7 +210,7 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   }) {
     assert(orElse != null);
     if (init != null) {
-      return init(exercise);
+      return init(exerciseOption);
     }
     return orElse();
   }
@@ -253,10 +257,10 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
 }
 
 abstract class _ExerciseFormInit implements ExerciseFormEvent {
-  const factory _ExerciseFormInit(Option<Exercise> exercise) =
+  const factory _ExerciseFormInit(Option<Exercise> exerciseOption) =
       _$_ExerciseFormInit;
 
-  Option<Exercise> get exercise;
+  Option<Exercise> get exerciseOption;
   _$ExerciseFormInitCopyWith<_ExerciseFormInit> get copyWith;
 }
 
@@ -318,7 +322,7 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -339,7 +343,7 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -461,7 +465,7 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -482,7 +486,7 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -605,7 +609,7 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -626,7 +630,7 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -749,7 +753,7 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -770,7 +774,7 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -893,7 +897,7 @@ class _$_ExerciseTargetChanged implements _ExerciseTargetChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -914,7 +918,7 @@ class _$_ExerciseTargetChanged implements _ExerciseTargetChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),
@@ -1015,7 +1019,7 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result init(Option<Exercise> exercise),
+    @required Result init(Option<Exercise> exerciseOption),
     @required Result exerciseNameChanged(String name),
     @required Result exerciseLevelChanged(ExerciseLevel level),
     @required Result exerciseToolChanged(ExerciseTool tool),
@@ -1036,7 +1040,7 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result init(Option<Exercise> exercise),
+    Result init(Option<Exercise> exerciseOption),
     Result exerciseNameChanged(String name),
     Result exerciseLevelChanged(ExerciseLevel level),
     Result exerciseToolChanged(ExerciseTool tool),

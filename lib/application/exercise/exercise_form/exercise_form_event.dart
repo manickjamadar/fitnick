@@ -2,7 +2,7 @@ part of 'exercise_form_bloc.dart';
 
 @freezed
 abstract class ExerciseFormEvent with _$ExerciseFormEvent {
-  const factory ExerciseFormEvent.init(Option<Exercise> exercise) =
+  const factory ExerciseFormEvent.init(Option<Exercise> exerciseOption) =
       _ExerciseFormInit;
   const factory ExerciseFormEvent.exerciseNameChanged(String name) =
       _ExerciseNamedChanged;
