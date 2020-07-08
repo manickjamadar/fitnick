@@ -13,12 +13,14 @@ class _$ExerciseTearOff {
   const _$ExerciseTearOff();
 
   _Exercise call(
-      {@required ExerciseName name,
+      {@required UniqueId id,
+      @required ExerciseName name,
       @required ExerciseLevel level,
       @required ExerciseTool tool,
       @required ExerciseType type,
       @required ExerciseTarget target}) {
     return _Exercise(
+      id: id,
       name: name,
       level: level,
       tool: tool,
@@ -32,6 +34,7 @@ class _$ExerciseTearOff {
 const $Exercise = _$ExerciseTearOff();
 
 mixin _$Exercise {
+  UniqueId get id;
   ExerciseName get name;
   ExerciseLevel get level;
   ExerciseTool get tool;
@@ -45,7 +48,8 @@ abstract class $ExerciseCopyWith<$Res> {
   factory $ExerciseCopyWith(Exercise value, $Res Function(Exercise) then) =
       _$ExerciseCopyWithImpl<$Res>;
   $Res call(
-      {ExerciseName name,
+      {UniqueId id,
+      ExerciseName name,
       ExerciseLevel level,
       ExerciseTool tool,
       ExerciseType type,
@@ -61,6 +65,7 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
 
   @override
   $Res call({
+    Object id = freezed,
     Object name = freezed,
     Object level = freezed,
     Object tool = freezed,
@@ -68,6 +73,7 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
     Object target = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed ? _value.id : id as UniqueId,
       name: name == freezed ? _value.name : name as ExerciseName,
       level: level == freezed ? _value.level : level as ExerciseLevel,
       tool: tool == freezed ? _value.tool : tool as ExerciseTool,
@@ -82,7 +88,8 @@ abstract class _$ExerciseCopyWith<$Res> implements $ExerciseCopyWith<$Res> {
       __$ExerciseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {ExerciseName name,
+      {UniqueId id,
+      ExerciseName name,
       ExerciseLevel level,
       ExerciseTool tool,
       ExerciseType type,
@@ -99,6 +106,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object id = freezed,
     Object name = freezed,
     Object level = freezed,
     Object tool = freezed,
@@ -106,6 +114,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
     Object target = freezed,
   }) {
     return _then(_Exercise(
+      id: id == freezed ? _value.id : id as UniqueId,
       name: name == freezed ? _value.name : name as ExerciseName,
       level: level == freezed ? _value.level : level as ExerciseLevel,
       tool: tool == freezed ? _value.tool : tool as ExerciseTool,
@@ -117,17 +126,21 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
 
 class _$_Exercise implements _Exercise {
   const _$_Exercise(
-      {@required this.name,
+      {@required this.id,
+      @required this.name,
       @required this.level,
       @required this.tool,
       @required this.type,
       @required this.target})
-      : assert(name != null),
+      : assert(id != null),
+        assert(name != null),
         assert(level != null),
         assert(tool != null),
         assert(type != null),
         assert(target != null);
 
+  @override
+  final UniqueId id;
   @override
   final ExerciseName name;
   @override
@@ -141,13 +154,15 @@ class _$_Exercise implements _Exercise {
 
   @override
   String toString() {
-    return 'Exercise(name: $name, level: $level, tool: $tool, type: $type, target: $target)';
+    return 'Exercise(id: $id, name: $name, level: $level, tool: $tool, type: $type, target: $target)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Exercise &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.level, level) ||
@@ -163,6 +178,7 @@ class _$_Exercise implements _Exercise {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(level) ^
       const DeepCollectionEquality().hash(tool) ^
@@ -176,12 +192,15 @@ class _$_Exercise implements _Exercise {
 
 abstract class _Exercise implements Exercise {
   const factory _Exercise(
-      {@required ExerciseName name,
+      {@required UniqueId id,
+      @required ExerciseName name,
       @required ExerciseLevel level,
       @required ExerciseTool tool,
       @required ExerciseType type,
       @required ExerciseTarget target}) = _$_Exercise;
 
+  @override
+  UniqueId get id;
   @override
   ExerciseName get name;
   @override

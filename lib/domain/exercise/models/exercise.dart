@@ -1,3 +1,4 @@
+import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../value_object/exercise_name.dart';
@@ -11,6 +12,7 @@ part "exercise.freezed.dart";
 @freezed
 abstract class Exercise with _$Exercise {
   const factory Exercise({
+    @required UniqueId id,
     @required ExerciseName name,
     @required ExerciseLevel level,
     @required ExerciseTool tool,
