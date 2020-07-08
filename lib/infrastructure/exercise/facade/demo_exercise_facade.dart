@@ -20,4 +20,11 @@ class DemoExerciseFacade extends IExerciseFacade {
     await _wait();
     return Right([]);
   }
+
+  @override
+  Future<Either<ExerciseFailure, Unit>> updateExercise(
+      Exercise exercise) async {
+    await _wait();
+    return Right(unit);
+  }
 }
