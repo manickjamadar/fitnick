@@ -9,6 +9,7 @@ import 'package:fitnick/domain/exercise/models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/exercise_type.dart';
+import 'package:fitnick/domain/exercise/value_object/exercise_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'exercise_form_event.dart';
@@ -26,7 +27,7 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
   ) async* {
     yield* event.when(
         init: _bindInitToState,
-        exerciseNameChanged: null,
+        exerciseNameChanged: _bindExerciseNameChangedToState,
         exerciseLevelChanged: null,
         exerciseToolChanged: null,
         exerciseTypeChanged: null,
@@ -38,5 +39,12 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
       Option<Exercise> exerciseOption) async* {
     yield exerciseOption.fold(
         () => state, (Exercise exercise) => state.copyWith(exercise: exercise));
+  }
+
+  Stream<ExerciseFormState> _bindExerciseNameChangedToState(
+      String name) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(name: ExerciseName(name)),
+        addStatus: none());
   }
 }
