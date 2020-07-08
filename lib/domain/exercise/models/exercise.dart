@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
+import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../value_object/exercise_name.dart';
@@ -29,4 +31,9 @@ abstract class Exercise implements _$Exercise {
         type: ExerciseType.warmUp,
         target: ExerciseTarget.biceps);
   }
+  Option<ValueFailure> failureOption() {
+    return name.value.fold((l) => Some(l), (r) => none());
+  }
+
+  bool get isValid => failureOption().isNone();
 }
