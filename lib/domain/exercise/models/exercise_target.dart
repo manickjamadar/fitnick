@@ -38,6 +38,10 @@ class ExerciseTarget extends Equatable {
       name: "Calf", category: ExerciseTargetCategory.lowerBody);
   static const glute = ExerciseTarget._(
       name: "Glute", category: ExerciseTargetCategory.lowerBody);
+  static const hamstring = ExerciseTarget._(
+      name: "Hamstring", category: ExerciseTargetCategory.lowerBody);
+  static const hip =
+      ExerciseTarget._(name: "Hip", category: ExerciseTargetCategory.lowerBody);
 //core
   static const lowerAbs = ExerciseTarget._(
       name: "Lower Abs", category: ExerciseTargetCategory.core);
