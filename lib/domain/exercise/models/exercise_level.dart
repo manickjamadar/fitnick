@@ -10,6 +10,8 @@ class ExerciseLevel extends Equatable {
   static const intermediate = ExerciseLevel._(name: "Intermediate");
   static const advanced = ExerciseLevel._(name: "Advanced");
 
+  static const all = [beginner, intermediate, advanced];
+
   @override
   List<Object> get props => [name];
   @override
