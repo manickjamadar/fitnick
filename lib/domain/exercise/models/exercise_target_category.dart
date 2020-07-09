@@ -8,6 +8,8 @@ class ExerciseTargetCategory extends Equatable {
   static const upperBody = ExerciseTargetCategory._(name: "Upper Body");
   static const lowerBody = ExerciseTargetCategory._(name: "Lower Body");
   static const core = ExerciseTargetCategory._(name: "Core");
+
+  static const all = [upperBody, lowerBody, core];
   @override
   List<Object> get props => [name];
   @override
