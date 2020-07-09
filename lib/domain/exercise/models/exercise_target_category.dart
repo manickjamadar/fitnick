@@ -1,9 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/foundation.dart';
 
-class ExerciseTargetCategory extends Equatable {
-  final String name;
-  const ExerciseTargetCategory._({@required this.name});
+class ExerciseTargetCategory extends Name {
+  const ExerciseTargetCategory._({@required String name}) : super(name);
 
   static const upperBody = ExerciseTargetCategory._(name: "Upper Body");
   static const lowerBody = ExerciseTargetCategory._(name: "Lower Body");

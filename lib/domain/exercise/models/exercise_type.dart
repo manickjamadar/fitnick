@@ -1,10 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/foundation.dart';
 
-class ExerciseType extends Equatable {
-  final String name;
-
-  const ExerciseType._({@required this.name});
+class ExerciseType extends Name {
+  const ExerciseType._({@required String name}) : super(name);
 
   static const warmUp = ExerciseType._(name: "Warm Up");
   static const cardio = ExerciseType._(name: "Cardio");
