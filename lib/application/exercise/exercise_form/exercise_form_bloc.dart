@@ -38,7 +38,9 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
   Stream<ExerciseFormState> _bindInitToState(
       Option<Exercise> exerciseOption) async* {
     yield exerciseOption.fold(
-        () => state, (Exercise exercise) => state.copyWith(exercise: exercise));
+        () => state,
+        (Exercise exercise) =>
+            state.copyWith(exercise: exercise, isEditing: true));
   }
 
   Stream<ExerciseFormState> _bindExerciseNameChangedToState(
