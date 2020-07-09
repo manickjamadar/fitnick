@@ -1,4 +1,5 @@
 import 'package:fitnick/presentation/core/my_icons.dart';
+import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -40,7 +41,7 @@ class AddButtons extends StatelessWidget {
           backgroundColor: Colors.blue,
           label: 'Add Exercise',
           labelStyle: TextStyle(fontSize: 12.0),
-          onTap: () => print('Add Exercise'),
+          onTap: () => onAddExercise(context),
         ),
         SpeedDialChild(
           child: Icon(MyIcons.progression),
@@ -51,5 +52,9 @@ class AddButtons extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void onAddExercise(BuildContext context) {
+    Navigator.pushNamed(context, ExerciseFormScreen.routeName);
   }
 }
