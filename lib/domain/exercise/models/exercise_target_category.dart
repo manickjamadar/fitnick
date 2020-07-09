@@ -14,6 +14,6 @@ class ExerciseTargetCategory extends Equatable {
   List<Object> get props => [name];
   @override
   String toString() {
-    return "Exercise Type Category : $name";
+    return "Exercise Target Category : $name";
   }
 }
