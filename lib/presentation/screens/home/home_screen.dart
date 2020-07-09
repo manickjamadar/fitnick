@@ -1,6 +1,8 @@
+import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/routine_tab.dart';
+import 'package:fitnick/presentation/screens/home/widgets/add_buttons.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("FitNick"),
       ),
+      floatingActionButton: AddButtons(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,
         onTap: (i) => setState(() {
@@ -23,11 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
         }),
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.group_work), title: Text("Routine")),
+              icon: Icon(MyIcons.routine), title: Text("Routine")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center), title: Text("Exercise")),
+              icon: Icon(MyIcons.exercise), title: Text("Exercise")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.trending_up), title: Text("Progression")),
+              icon: Icon(MyIcons.progression), title: Text("Progression")),
         ],
       ),
       body: IndexedStack(
