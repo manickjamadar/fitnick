@@ -8,17 +8,20 @@ part of 'exercise_entity.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+ExerciseEntity _$ExerciseEntityFromJson(Map<String, dynamic> json) {
+  return _ExerciseEntity.fromJson(json);
+}
 
 class _$ExerciseEntityTearOff {
   const _$ExerciseEntityTearOff();
 
   _ExerciseEntity call(
-      {@required UniqueId id,
+      {@required @JsonKey(name: 'id') UniqueId id,
       @required String name,
-      @required ExerciseLevel level,
-      @required ExerciseTool tool,
-      @required ExerciseType type,
-      @required ExerciseTarget target}) {
+      @required @JsonKey(name: 'level') ExerciseLevel level,
+      @required @JsonKey(name: 'tool') ExerciseTool tool,
+      @required @JsonKey(name: 'type') ExerciseType type,
+      @required @JsonKey(name: 'target') ExerciseTarget target}) {
     return _ExerciseEntity(
       id: id,
       name: name,
@@ -34,13 +37,19 @@ class _$ExerciseEntityTearOff {
 const $ExerciseEntity = _$ExerciseEntityTearOff();
 
 mixin _$ExerciseEntity {
+  @JsonKey(name: 'id')
   UniqueId get id;
   String get name;
+  @JsonKey(name: 'level')
   ExerciseLevel get level;
+  @JsonKey(name: 'tool')
   ExerciseTool get tool;
+  @JsonKey(name: 'type')
   ExerciseType get type;
+  @JsonKey(name: 'target')
   ExerciseTarget get target;
 
+  Map<String, dynamic> toJson();
   $ExerciseEntityCopyWith<ExerciseEntity> get copyWith;
 }
 
@@ -49,12 +58,12 @@ abstract class $ExerciseEntityCopyWith<$Res> {
           ExerciseEntity value, $Res Function(ExerciseEntity) then) =
       _$ExerciseEntityCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id,
+      {@JsonKey(name: 'id') UniqueId id,
       String name,
-      ExerciseLevel level,
-      ExerciseTool tool,
-      ExerciseType type,
-      ExerciseTarget target});
+      @JsonKey(name: 'level') ExerciseLevel level,
+      @JsonKey(name: 'tool') ExerciseTool tool,
+      @JsonKey(name: 'type') ExerciseType type,
+      @JsonKey(name: 'target') ExerciseTarget target});
 }
 
 class _$ExerciseEntityCopyWithImpl<$Res>
@@ -92,12 +101,12 @@ abstract class _$ExerciseEntityCopyWith<$Res>
       __$ExerciseEntityCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id,
+      {@JsonKey(name: 'id') UniqueId id,
       String name,
-      ExerciseLevel level,
-      ExerciseTool tool,
-      ExerciseType type,
-      ExerciseTarget target});
+      @JsonKey(name: 'level') ExerciseLevel level,
+      @JsonKey(name: 'tool') ExerciseTool tool,
+      @JsonKey(name: 'type') ExerciseType type,
+      @JsonKey(name: 'target') ExerciseTarget target});
 }
 
 class __$ExerciseEntityCopyWithImpl<$Res>
@@ -130,34 +139,42 @@ class __$ExerciseEntityCopyWithImpl<$Res>
   }
 }
 
-class _$_ExerciseEntity
-    with DiagnosticableTreeMixin
-    implements _ExerciseEntity {
+@JsonSerializable(explicitToJson: true)
+class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
   const _$_ExerciseEntity(
-      {@required this.id,
+      {@required @JsonKey(name: 'id') this.id,
       @required this.name,
-      @required this.level,
-      @required this.tool,
-      @required this.type,
-      @required this.target})
+      @required @JsonKey(name: 'level') this.level,
+      @required @JsonKey(name: 'tool') this.tool,
+      @required @JsonKey(name: 'type') this.type,
+      @required @JsonKey(name: 'target') this.target})
       : assert(id != null),
         assert(name != null),
         assert(level != null),
         assert(tool != null),
         assert(type != null),
-        assert(target != null);
+        assert(target != null),
+        super._();
+
+  factory _$_ExerciseEntity.fromJson(Map<String, dynamic> json) =>
+      _$_$_ExerciseEntityFromJson(json);
 
   @override
+  @JsonKey(name: 'id')
   final UniqueId id;
   @override
   final String name;
   @override
+  @JsonKey(name: 'level')
   final ExerciseLevel level;
   @override
+  @JsonKey(name: 'tool')
   final ExerciseTool tool;
   @override
+  @JsonKey(name: 'type')
   final ExerciseType type;
   @override
+  @JsonKey(name: 'target')
   final ExerciseTarget target;
 
   @override
@@ -209,28 +226,43 @@ class _$_ExerciseEntity
   @override
   _$ExerciseEntityCopyWith<_ExerciseEntity> get copyWith =>
       __$ExerciseEntityCopyWithImpl<_ExerciseEntity>(this, _$identity);
-}
-
-abstract class _ExerciseEntity implements ExerciseEntity {
-  const factory _ExerciseEntity(
-      {@required UniqueId id,
-      @required String name,
-      @required ExerciseLevel level,
-      @required ExerciseTool tool,
-      @required ExerciseType type,
-      @required ExerciseTarget target}) = _$_ExerciseEntity;
 
   @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ExerciseEntityToJson(this);
+  }
+}
+
+abstract class _ExerciseEntity extends ExerciseEntity {
+  const _ExerciseEntity._() : super._();
+  const factory _ExerciseEntity(
+          {@required @JsonKey(name: 'id') UniqueId id,
+          @required String name,
+          @required @JsonKey(name: 'level') ExerciseLevel level,
+          @required @JsonKey(name: 'tool') ExerciseTool tool,
+          @required @JsonKey(name: 'type') ExerciseType type,
+          @required @JsonKey(name: 'target') ExerciseTarget target}) =
+      _$_ExerciseEntity;
+
+  factory _ExerciseEntity.fromJson(Map<String, dynamic> json) =
+      _$_ExerciseEntity.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
   UniqueId get id;
   @override
   String get name;
   @override
+  @JsonKey(name: 'level')
   ExerciseLevel get level;
   @override
+  @JsonKey(name: 'tool')
   ExerciseTool get tool;
   @override
+  @JsonKey(name: 'type')
   ExerciseType get type;
   @override
+  @JsonKey(name: 'target')
   ExerciseTarget get target;
   @override
   _$ExerciseEntityCopyWith<_ExerciseEntity> get copyWith;
