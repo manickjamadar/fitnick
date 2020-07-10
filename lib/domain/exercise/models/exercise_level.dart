@@ -2,11 +2,11 @@ import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseLevel extends Name {
-  const ExerciseLevel._({@required String name}) : super(name);
+  const ExerciseLevel({@required String name}) : super(name);
 
-  static const beginner = ExerciseLevel._(name: "Beginner");
-  static const intermediate = ExerciseLevel._(name: "Intermediate");
-  static const advanced = ExerciseLevel._(name: "Advanced");
+  static const beginner = ExerciseLevel(name: "Beginner");
+  static const intermediate = ExerciseLevel(name: "Intermediate");
+  static const advanced = ExerciseLevel(name: "Advanced");
 
   static const all = [beginner, intermediate, advanced];
 

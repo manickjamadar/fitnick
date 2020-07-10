@@ -4,53 +4,53 @@ import 'package:flutter/foundation.dart';
 
 class ExerciseTarget extends Name {
   final ExerciseTargetCategory category;
-  const ExerciseTarget._({@required String name, @required this.category})
+  const ExerciseTarget({@required String name, @required this.category})
       : super(name);
 //upper body
-  static const biceps = ExerciseTarget._(
+  static const biceps = ExerciseTarget(
       name: "Biceps", category: ExerciseTargetCategory.upperBody);
-  static const triceps = ExerciseTarget._(
+  static const triceps = ExerciseTarget(
       name: "Triceps", category: ExerciseTargetCategory.upperBody);
-  static const shoulder = ExerciseTarget._(
+  static const shoulder = ExerciseTarget(
       name: "Shoulder", category: ExerciseTargetCategory.upperBody);
-  static const fullChest = ExerciseTarget._(
+  static const fullChest = ExerciseTarget(
       name: "Full Chest", category: ExerciseTargetCategory.upperBody);
-  static const upperChest = ExerciseTarget._(
+  static const upperChest = ExerciseTarget(
       name: "upper Chest", category: ExerciseTargetCategory.upperBody);
-  static const middleChest = ExerciseTarget._(
+  static const middleChest = ExerciseTarget(
       name: "middle Chest", category: ExerciseTargetCategory.upperBody);
-  static const lowerChest = ExerciseTarget._(
+  static const lowerChest = ExerciseTarget(
       name: "lower Chest", category: ExerciseTargetCategory.upperBody);
-  static const lats = ExerciseTarget._(
-      name: "Lats", category: ExerciseTargetCategory.upperBody);
-  static const forearm = ExerciseTarget._(
+  static const lats =
+      ExerciseTarget(name: "Lats", category: ExerciseTargetCategory.upperBody);
+  static const forearm = ExerciseTarget(
       name: "Forearm", category: ExerciseTargetCategory.upperBody);
-  static const traps = ExerciseTarget._(
-      name: "Traps", category: ExerciseTargetCategory.upperBody);
-  static const neck = ExerciseTarget._(
-      name: "Neck", category: ExerciseTargetCategory.upperBody);
+  static const traps =
+      ExerciseTarget(name: "Traps", category: ExerciseTargetCategory.upperBody);
+  static const neck =
+      ExerciseTarget(name: "Neck", category: ExerciseTargetCategory.upperBody);
 //lower body
   static const leg =
-      ExerciseTarget._(name: "Leg", category: ExerciseTargetCategory.lowerBody);
-  static const calf = ExerciseTarget._(
-      name: "Calf", category: ExerciseTargetCategory.lowerBody);
-  static const glute = ExerciseTarget._(
-      name: "Glute", category: ExerciseTargetCategory.lowerBody);
-  static const hamstring = ExerciseTarget._(
+      ExerciseTarget(name: "Leg", category: ExerciseTargetCategory.lowerBody);
+  static const calf =
+      ExerciseTarget(name: "Calf", category: ExerciseTargetCategory.lowerBody);
+  static const glute =
+      ExerciseTarget(name: "Glute", category: ExerciseTargetCategory.lowerBody);
+  static const hamstring = ExerciseTarget(
       name: "Hamstring", category: ExerciseTargetCategory.lowerBody);
   static const hip =
-      ExerciseTarget._(name: "Hip", category: ExerciseTargetCategory.lowerBody);
+      ExerciseTarget(name: "Hip", category: ExerciseTargetCategory.lowerBody);
 //core
-  static const lowerAbs = ExerciseTarget._(
-      name: "Lower Abs", category: ExerciseTargetCategory.core);
-  static const upperAbs = ExerciseTarget._(
-      name: "Upper Abs", category: ExerciseTargetCategory.core);
+  static const lowerAbs =
+      ExerciseTarget(name: "Lower Abs", category: ExerciseTargetCategory.core);
+  static const upperAbs =
+      ExerciseTarget(name: "Upper Abs", category: ExerciseTargetCategory.core);
   static const fullAbs =
-      ExerciseTarget._(name: "Full Abs", category: ExerciseTargetCategory.core);
+      ExerciseTarget(name: "Full Abs", category: ExerciseTargetCategory.core);
   static const back =
-      ExerciseTarget._(name: "Back", category: ExerciseTargetCategory.core);
+      ExerciseTarget(name: "Back", category: ExerciseTargetCategory.core);
   static const obliques =
-      ExerciseTarget._(name: "Obliques", category: ExerciseTargetCategory.core);
+      ExerciseTarget(name: "Obliques", category: ExerciseTargetCategory.core);
   static const all = [
     biceps,
     triceps,
