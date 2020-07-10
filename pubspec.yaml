@@ -30,6 +30,7 @@ dependencies:
   flutter_bloc: ^5.0.1
   get_it: ^4.0.2
   flutter_speed_dial: ^1.2.5
+  json_annotation: ^3.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +42,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^0.11.2
   build_runner: ^1.10.0
+  json_serializable: ^3.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
