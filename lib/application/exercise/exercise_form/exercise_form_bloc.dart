@@ -81,11 +81,10 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
       failureOrSuccess = state.isEditing
           ? await iExerciseFacade.updateExercise(state.exercise)
           : await iExerciseFacade.createExercise(state.exercise);
-    } else {
-      yield state.copyWith(
-          shouldShowErrorMessages: true,
-          isAdding: false,
-          addStatus: optionOf(failureOrSuccess));
     }
+    yield state.copyWith(
+        shouldShowErrorMessages: true,
+        isAdding: false,
+        addStatus: optionOf(failureOrSuccess));
   }
 }
