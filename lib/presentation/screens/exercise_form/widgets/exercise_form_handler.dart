@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ExerciseFormHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final exerciseformBloc = BlocProvider.of<ExerciseFormBloc>(context);
     return BlocBuilder<ExerciseFormBloc, ExerciseFormState>(
       builder: (context, state) {
         return Padding(
@@ -17,14 +18,15 @@ class ExerciseFormHandler extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              buildNameInput(),
+              if (state.isAdding) LinearProgressIndicator(),
+              buildNameInput(state),
               buildSpace(),
               Selector<ExerciseLevel>(
                 value: state.exercise.level,
                 label: "Level",
                 options: ExerciseLevel.all,
                 onChanged: (newValue) {
-                  BlocProvider.of<ExerciseFormBloc>(context)
+                  exerciseformBloc
                       .add(ExerciseFormEvent.exerciseLevelChanged(newValue));
                 },
               ),
@@ -33,7 +35,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 label: "Tool",
                 options: ExerciseTool.all,
                 onChanged: (newValue) {
-                  BlocProvider.of<ExerciseFormBloc>(context)
+                  exerciseformBloc
                       .add(ExerciseFormEvent.exerciseToolChanged(newValue));
                 },
               ),
@@ -42,7 +44,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 label: "Type",
                 options: ExerciseType.all,
                 onChanged: (newValue) {
-                  BlocProvider.of<ExerciseFormBloc>(context)
+                  exerciseformBloc
                       .add(ExerciseFormEvent.exerciseTypeChanged(newValue));
                 },
               ),
@@ -51,7 +53,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 label: "Muscle Target",
                 options: ExerciseTarget.all,
                 onChanged: (newValue) {
-                  BlocProvider.of<ExerciseFormBloc>(context)
+                  exerciseformBloc
                       .add(ExerciseFormEvent.exerciseTargetChanged(newValue));
                 },
               ),
@@ -62,7 +64,9 @@ class ExerciseFormHandler extends StatelessWidget {
                   child: Text("Add"),
                   color: Colors.black,
                   textColor: Colors.white,
-                  onPressed: () {},
+                  onPressed: () {
+                    exerciseformBloc.add(ExerciseFormEvent.added());
+                  },
                 ),
               )
             ],
@@ -72,10 +76,16 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  Widget buildNameInput() {
-    return TextField(
+  Widget buildNameInput(ExerciseFormState state) {
+    // final execiseState = BlocProvider.of<ExerciseFormBloc>(context).state;
+    return TextFormField(
       decoration: InputDecoration(
-          border: OutlineInputBorder(), labelText: "Exercise Name"),
+          errorText: state.shouldShowErrorMessages
+              ? state.exercise.name.value
+                  .fold((l) => "invalid value", (r) => null)
+              : null,
+          border: OutlineInputBorder(),
+          labelText: "Exercise Name"),
     );
   }
 
