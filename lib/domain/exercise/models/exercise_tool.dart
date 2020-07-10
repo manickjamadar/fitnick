@@ -8,6 +8,8 @@ class ExerciseTool extends Name {
   static const pushUpBar = ExerciseTool._(name: "Push Up Bar");
   static const miniBand = ExerciseTool._(name: "Mini Band");
 
+  static const all = [bodyWeight, pushUpBar, miniBand];
+
   @override
   List<Object> get props => [name];
   @override
