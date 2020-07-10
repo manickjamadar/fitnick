@@ -14,15 +14,22 @@ part "exercise_entity.g.dart";
 
 @freezed
 abstract class ExerciseEntity implements _$ExerciseEntity {
+  static const String collectionName = "exercise";
+  static const String KEY_ID = "id";
+  static const String KEY_NAME = "name";
+  static const String KEY_LEVEL = "level";
+  static const String KEY_TOOL = "tool";
+  static const String KEY_TYPE = "type";
+  static const String KEY_TARGET = "target";
   const ExerciseEntity._();
   @JsonSerializable(explicitToJson: true)
   const factory ExerciseEntity({
-    @JsonKey(name: "id") @required UniqueId id,
-    @required String name,
-    @JsonKey(name: "level") @required ExerciseLevel level,
-    @JsonKey(name: "tool") @required ExerciseTool tool,
-    @JsonKey(name: "type") @required ExerciseType type,
-    @JsonKey(name: "target") @required ExerciseTarget target,
+    @JsonKey(name: KEY_ID) @required UniqueId id,
+    @JsonKey(name: KEY_NAME) @required String name,
+    @JsonKey(name: KEY_LEVEL) @required ExerciseLevel level,
+    @JsonKey(name: KEY_TOOL) @required ExerciseTool tool,
+    @JsonKey(name: KEY_TYPE) @required ExerciseType type,
+    @JsonKey(name: KEY_TARGET) @required ExerciseTarget target,
   }) = _ExerciseEntity;
   factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
       _$ExerciseEntityFromJson(json);
