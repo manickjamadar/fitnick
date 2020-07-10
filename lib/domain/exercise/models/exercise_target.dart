@@ -30,8 +30,6 @@ class ExerciseTarget extends Name {
   static const neck = ExerciseTarget._(
       name: "Neck", category: ExerciseTargetCategory.upperBody);
 //lower body
-  static const thigh = ExerciseTarget._(
-      name: "Thigh", category: ExerciseTargetCategory.lowerBody);
   static const leg =
       ExerciseTarget._(name: "Leg", category: ExerciseTargetCategory.lowerBody);
   static const calf = ExerciseTarget._(
@@ -53,6 +51,29 @@ class ExerciseTarget extends Name {
       ExerciseTarget._(name: "Back", category: ExerciseTargetCategory.core);
   static const obliques =
       ExerciseTarget._(name: "Obliques", category: ExerciseTargetCategory.core);
+  static const all = [
+    biceps,
+    triceps,
+    shoulder,
+    fullChest,
+    upperChest,
+    middleChest,
+    lowerChest,
+    lats,
+    forearm,
+    traps,
+    neck,
+    leg,
+    calf,
+    glute,
+    hamstring,
+    hip,
+    fullAbs,
+    lowerAbs,
+    upperAbs,
+    obliques,
+    back
+  ];
   @override
   List<Object> get props => [name, category];
   @override
