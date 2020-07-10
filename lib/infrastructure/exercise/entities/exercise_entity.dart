@@ -57,7 +57,7 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
       KEY_LEVEL: jsonEncode(level.toJson()),
       KEY_TOOL: jsonEncode(tool.toJson()),
       KEY_TYPE: jsonEncode(type.toJson()),
-      KEY_TARGET: jsonEncode(type.toJson())
+      KEY_TARGET: jsonEncode(target.toJson())
     };
   }
 
