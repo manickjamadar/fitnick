@@ -12,7 +12,7 @@ import '../../../domain/exercise/models/sub_models/exercise_type.dart';
 import '../../../domain/exercise/value_object/exercise_name.dart';
 
 part "exercise_entity.freezed.dart";
-// part "exercise_entity.g.dart";
+part "exercise_entity.g.dart";
 
 @freezed
 abstract class ExerciseEntity implements _$ExerciseEntity {
@@ -33,10 +33,10 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
     @JsonKey(name: KEY_TYPE) @required ExerciseType type,
     @JsonKey(name: KEY_TARGET) @required ExerciseTarget target,
   }) = _ExerciseEntity;
-  // factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
-  //     _$ExerciseEntityFromJson(json);
+  factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
+      _$ExerciseEntityFromJson(json);
 
-  factory ExerciseEntity.fromJson(Map<String, dynamic> json) {
+  factory ExerciseEntity.fromLocalJson(Map<String, dynamic> json) {
     return ExerciseEntity(
       id: UniqueId.fromString(json[KEY_ID] as String),
       name: json[KEY_NAME] as String,
@@ -50,7 +50,7 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
           jsonDecode(json[KEY_TARGET] as String) as Map<String, dynamic>),
     );
   }
-  Map<String, String> toJson() {
+  Map<String, String> toLocalJson() {
     return {
       KEY_ID: id.value,
       KEY_NAME: name,
