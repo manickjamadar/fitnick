@@ -30,7 +30,8 @@ class _SelectorState<T extends Name> extends State<Selector<T>> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(widget.label),
+        Text(widget.label,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         DropdownButton<T>(
           value: currentValue,
           onChanged: (nextValue) {
