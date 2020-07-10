@@ -1,7 +1,10 @@
 import 'package:fitnick/domain/exercise/models/exercise_target_category.dart';
 import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part "exercise_target.g.dart";
 
+@JsonSerializable(explicitToJson: true)
 class ExerciseTarget extends Name {
   final ExerciseTargetCategory category;
   const ExerciseTarget({@required String name, @required this.category})
@@ -74,6 +77,9 @@ class ExerciseTarget extends Name {
     obliques,
     back
   ];
+  factory ExerciseTarget.fromJson(Map<String, dynamic> json) =>
+      _$ExerciseTargetFromJson(json);
+  Map<String, dynamic> toJson() => _$ExerciseTargetToJson(this);
   @override
   List<Object> get props => [name, category];
   @override

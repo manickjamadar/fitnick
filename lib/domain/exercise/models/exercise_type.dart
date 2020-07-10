@@ -1,6 +1,9 @@
 import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
+part "exercise_type.g.dart";
 
+@JsonSerializable()
 class ExerciseType extends Name {
   const ExerciseType({@required String name}) : super(name);
 
@@ -10,7 +13,9 @@ class ExerciseType extends Name {
   static const stretching = ExerciseType(name: "Stretching");
 
   static const all = [warmUp, cardio, strength, stretching];
-
+  factory ExerciseType.fromJson(Map<String, dynamic> json) =>
+      _$ExerciseTypeFromJson(json);
+  Map<String, dynamic> toJson() => _$ExerciseTypeToJson(this);
   @override
   List<Object> get props => [name];
   @override

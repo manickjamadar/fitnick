@@ -1,6 +1,9 @@
 import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'exercise_tool.g.dart';
 
+@JsonSerializable()
 class ExerciseTool extends Name {
   const ExerciseTool({@required String name}) : super(name);
 
@@ -9,7 +12,9 @@ class ExerciseTool extends Name {
   static const miniBand = ExerciseTool(name: "Mini Band");
 
   static const all = [bodyWeight, pushUpBar, miniBand];
-
+  factory ExerciseTool.fromJson(Map<String, dynamic> json) =>
+      _$ExerciseToolFromJson(json);
+  Map<String, dynamic> toJson() => _$ExerciseToolToJson(this);
   @override
   List<Object> get props => [name];
   @override
