@@ -9,6 +9,8 @@ class ExerciseType extends Name {
   static const strength = ExerciseType._(name: "Strength");
   static const stretching = ExerciseType._(name: "Stretching");
 
+  static const all = [warmUp, cardio, strength, stretching];
+
   @override
   List<Object> get props => [name];
   @override
