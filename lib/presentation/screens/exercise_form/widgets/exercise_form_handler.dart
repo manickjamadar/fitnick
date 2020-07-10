@@ -19,7 +19,7 @@ class ExerciseFormHandler extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (state.isAdding) LinearProgressIndicator(),
-              buildNameInput(state),
+              buildNameInput(context),
               buildSpace(),
               Selector<ExerciseLevel>(
                 value: state.exercise.level,
@@ -76,9 +76,13 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  Widget buildNameInput(ExerciseFormState state) {
-    // final execiseState = BlocProvider.of<ExerciseFormBloc>(context).state;
+  Widget buildNameInput(BuildContext context) {
+    final exerciseFormBloc = BlocProvider.of<ExerciseFormBloc>(context);
+    final state = exerciseFormBloc.state;
     return TextFormField(
+      onChanged: (value) {
+        exerciseFormBloc.add(ExerciseFormEvent.exerciseNameChanged(value));
+      },
       decoration: InputDecoration(
           errorText: state.shouldShowErrorMessages
               ? state.exercise.name.value
