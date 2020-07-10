@@ -1,5 +1,7 @@
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/exercise/models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/exercise_tool.dart';
@@ -18,8 +20,7 @@ class ExerciseFormHandler extends StatelessWidget {
           failureOrSuccess.fold(
               (failure) => showFailureMessage(
                   context, getExerciseFailureMessage(failure)), (_) {
-            print("success");
-            print(state.exercise);
+            onAddSuccess(context);
           });
         });
       },
@@ -108,6 +109,14 @@ class ExerciseFormHandler extends StatelessWidget {
           border: OutlineInputBorder(),
           labelText: "Exercise Name"),
     );
+  }
+
+  void onAddSuccess(BuildContext context) {
+    final exerciseFormBloc = BlocProvider.of<ExerciseFormBloc>(context);
+    final exerciseHubBloc = BlocProvider.of<ExerciseHubBloc>(context);
+    final Exercise exercise = exerciseFormBloc.state.exercise;
+    exerciseHubBloc.add(ExerciseHubEvent.exerciseAdded(exercise: exercise));
+    Navigator.pop(context);
   }
 
   void showFailureMessage(BuildContext context, String message) {
