@@ -13,64 +13,70 @@ class ExerciseFormHandler extends StatelessWidget {
     final exerciseformBloc = BlocProvider.of<ExerciseFormBloc>(context);
     return BlocBuilder<ExerciseFormBloc, ExerciseFormState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              if (state.isAdding) LinearProgressIndicator(),
-              buildNameInput(context),
-              buildSpace(),
-              Selector<ExerciseLevel>(
-                value: state.exercise.level,
-                label: "Level",
-                options: ExerciseLevel.all,
-                onChanged: (newValue) {
-                  exerciseformBloc
-                      .add(ExerciseFormEvent.exerciseLevelChanged(newValue));
-                },
+        return Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buildNameInput(context),
+                  buildSpace(),
+                  Selector<ExerciseLevel>(
+                    value: state.exercise.level,
+                    label: "Level",
+                    options: ExerciseLevel.all,
+                    onChanged: (newValue) {
+                      exerciseformBloc.add(
+                          ExerciseFormEvent.exerciseLevelChanged(newValue));
+                    },
+                  ),
+                  Selector<ExerciseTool>(
+                    value: state.exercise.tool,
+                    label: "Tool",
+                    options: ExerciseTool.all,
+                    onChanged: (newValue) {
+                      exerciseformBloc
+                          .add(ExerciseFormEvent.exerciseToolChanged(newValue));
+                    },
+                  ),
+                  Selector<ExerciseType>(
+                    value: state.exercise.type,
+                    label: "Type",
+                    options: ExerciseType.all,
+                    onChanged: (newValue) {
+                      exerciseformBloc
+                          .add(ExerciseFormEvent.exerciseTypeChanged(newValue));
+                    },
+                  ),
+                  Selector<ExerciseTarget>(
+                    value: state.exercise.target,
+                    label: "Muscle Target",
+                    options: ExerciseTarget.all,
+                    onChanged: (newValue) {
+                      exerciseformBloc.add(
+                          ExerciseFormEvent.exerciseTargetChanged(newValue));
+                    },
+                  ),
+                  Spacer(),
+                  Container(
+                    width: double.infinity,
+                    child: RaisedButton(
+                      child: Text("Add"),
+                      color: Colors.black,
+                      textColor: Colors.white,
+                      onPressed: state.isAdding
+                          ? null
+                          : () {
+                              exerciseformBloc.add(ExerciseFormEvent.added());
+                            },
+                    ),
+                  )
+                ],
               ),
-              Selector<ExerciseTool>(
-                value: state.exercise.tool,
-                label: "Tool",
-                options: ExerciseTool.all,
-                onChanged: (newValue) {
-                  exerciseformBloc
-                      .add(ExerciseFormEvent.exerciseToolChanged(newValue));
-                },
-              ),
-              Selector<ExerciseType>(
-                value: state.exercise.type,
-                label: "Type",
-                options: ExerciseType.all,
-                onChanged: (newValue) {
-                  exerciseformBloc
-                      .add(ExerciseFormEvent.exerciseTypeChanged(newValue));
-                },
-              ),
-              Selector<ExerciseTarget>(
-                value: state.exercise.target,
-                label: "Muscle Target",
-                options: ExerciseTarget.all,
-                onChanged: (newValue) {
-                  exerciseformBloc
-                      .add(ExerciseFormEvent.exerciseTargetChanged(newValue));
-                },
-              ),
-              Spacer(),
-              Container(
-                width: double.infinity,
-                child: RaisedButton(
-                  child: Text("Add"),
-                  color: Colors.black,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    exerciseformBloc.add(ExerciseFormEvent.added());
-                  },
-                ),
-              )
-            ],
-          ),
+            ),
+            if (state.isAdding) buildLoading()
+          ],
         );
       },
     );
@@ -90,6 +96,15 @@ class ExerciseFormHandler extends StatelessWidget {
               : null,
           border: OutlineInputBorder(),
           labelText: "Exercise Name"),
+    );
+  }
+
+  Widget buildLoading() {
+    return Container(
+      color: Colors.black.withOpacity(0.3),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
