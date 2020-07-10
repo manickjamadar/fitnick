@@ -1,12 +1,13 @@
-import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/core/unique_id.dart';
+import '../../../domain/exercise/models/exercise.dart';
 import '../../../domain/exercise/models/sub_models/exercise_level.dart';
 import '../../../domain/exercise/models/sub_models/exercise_target.dart';
 import '../../../domain/exercise/models/sub_models/exercise_tool.dart';
 import '../../../domain/exercise/models/sub_models/exercise_type.dart';
+import '../../../domain/exercise/value_object/exercise_name.dart';
 
 part "exercise_entity.freezed.dart";
 part "exercise_entity.g.dart";
@@ -25,4 +26,31 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
   }) = _ExerciseEntity;
   factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
       _$ExerciseEntityFromJson(json);
+
+  factory ExerciseEntity.fromModel(Exercise exercise) {
+    return ExerciseEntity(
+        id: exercise.id,
+        name: exercise.name.safeValue,
+        level: exercise.level,
+        tool: exercise.tool,
+        type: exercise.type,
+        target: exercise.target);
+  }
+  Exercise toModel() {
+    return Exercise(
+        id: this.id,
+        name: ExerciseName(this.name),
+        level: this.level,
+        tool: this.tool,
+        type: this.type,
+        target: this.target);
+  }
+
+  static Map<String, dynamic> fromModelToJson(Exercise exercise) {
+    return ExerciseEntity.fromModel(exercise).toJson();
+  }
+
+  static Exercise fromJsonToModel(Map<String, dynamic> json) {
+    return ExerciseEntity.fromJson(json).toModel();
+  }
 }
