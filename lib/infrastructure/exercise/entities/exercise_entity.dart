@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,7 +12,7 @@ import '../../../domain/exercise/models/sub_models/exercise_type.dart';
 import '../../../domain/exercise/value_object/exercise_name.dart';
 
 part "exercise_entity.freezed.dart";
-part "exercise_entity.g.dart";
+// part "exercise_entity.g.dart";
 
 @freezed
 abstract class ExerciseEntity implements _$ExerciseEntity {
@@ -31,8 +33,33 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
     @JsonKey(name: KEY_TYPE) @required ExerciseType type,
     @JsonKey(name: KEY_TARGET) @required ExerciseTarget target,
   }) = _ExerciseEntity;
-  factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
-      _$ExerciseEntityFromJson(json);
+  // factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
+  //     _$ExerciseEntityFromJson(json);
+
+  factory ExerciseEntity.fromJson(Map<String, dynamic> json) {
+    return ExerciseEntity(
+      id: UniqueId.fromString(json[KEY_ID] as String),
+      name: json[KEY_NAME] as String,
+      level: ExerciseLevel.fromJson(
+          jsonDecode(json[KEY_LEVEL] as String) as Map<String, dynamic>),
+      tool: ExerciseTool.fromJson(
+          jsonDecode(json[KEY_TOOL] as String) as Map<String, dynamic>),
+      type: ExerciseType.fromJson(
+          jsonDecode(json[KEY_TYPE] as String) as Map<String, dynamic>),
+      target: ExerciseTarget.fromJson(
+          jsonDecode(json[KEY_TARGET] as String) as Map<String, dynamic>),
+    );
+  }
+  Map<String, String> toJson() {
+    return {
+      KEY_ID: id.value,
+      KEY_NAME: name,
+      KEY_LEVEL: jsonEncode(level.toJson()),
+      KEY_TOOL: jsonEncode(tool.toJson()),
+      KEY_TYPE: jsonEncode(type.toJson()),
+      KEY_TARGET: jsonEncode(type.toJson())
+    };
+  }
 
   factory ExerciseEntity.fromModel(Exercise exercise) {
     return ExerciseEntity(
