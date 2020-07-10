@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'presentation/core/app.dart';
 
-void main() {
-  initLocator();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocator();
   runApp(BlocProvider<ExerciseHubBloc>(
       create: (_) => locator<ExerciseHubBloc>()..add(ExerciseHubEvent.init()),
       child: App()));
