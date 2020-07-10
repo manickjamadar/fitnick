@@ -1,48 +1,33 @@
 import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/material.dart';
 
-class Selector<T extends Name> extends StatefulWidget {
+class Selector<T extends Name> extends StatelessWidget {
   final String label;
   final List<T> options;
   final void Function(T) onChanged;
-  final T initialValue;
+  final T value;
   const Selector(
       {Key key,
       @required this.label,
       @required this.options,
-      @required this.initialValue,
+      @required this.value,
       this.onChanged})
       : super(key: key);
-  @override
-  _SelectorState<T> createState() => _SelectorState<T>();
-}
-
-class _SelectorState<T extends Name> extends State<Selector<T>> {
-  T currentValue;
-  @override
-  void initState() {
-    currentValue = widget.initialValue;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(widget.label,
+        Text(label,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         DropdownButton<T>(
-          value: currentValue,
+          value: value,
           onChanged: (nextValue) {
-            setState(() {
-              currentValue = nextValue;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged(nextValue);
+            if (onChanged != null) {
+              onChanged(nextValue);
             }
           },
-          items: widget.options
+          items: options
               .map((option) => DropdownMenuItem<T>(
                     child: Text(option.name),
                     value: option,
