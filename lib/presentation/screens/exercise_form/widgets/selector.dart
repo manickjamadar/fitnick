@@ -5,8 +5,13 @@ class Selector<T extends Name> extends StatefulWidget {
   final String label;
   final List<T> options;
   final void Function(T) onChanged;
+  final T initialValue;
   const Selector(
-      {Key key, @required this.label, @required this.options, this.onChanged})
+      {Key key,
+      @required this.label,
+      @required this.options,
+      @required this.initialValue,
+      this.onChanged})
       : super(key: key);
   @override
   _SelectorState<T> createState() => _SelectorState<T>();
@@ -16,7 +21,7 @@ class _SelectorState<T extends Name> extends State<Selector<T>> {
   T currentValue;
   @override
   void initState() {
-    currentValue = widget.options[0];
+    currentValue = widget.initialValue;
     super.initState();
   }
 
