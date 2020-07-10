@@ -1,4 +1,5 @@
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
+import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/exercise_tool.dart';
@@ -11,7 +12,17 @@ class ExerciseFormHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final exerciseformBloc = BlocProvider.of<ExerciseFormBloc>(context);
-    return BlocBuilder<ExerciseFormBloc, ExerciseFormState>(
+    return BlocConsumer<ExerciseFormBloc, ExerciseFormState>(
+      listener: (context, state) {
+        state.addStatus.fold(() => null, (failureOrSuccess) {
+          failureOrSuccess.fold(
+              (failure) => showFailureMessage(
+                  context, getExerciseFailureMessage(failure)), (_) {
+            print("success");
+            print(state.exercise);
+          });
+        });
+      },
       builder: (context, state) {
         return Stack(
           children: <Widget>[
@@ -97,6 +108,13 @@ class ExerciseFormHandler extends StatelessWidget {
           border: OutlineInputBorder(),
           labelText: "Exercise Name"),
     );
+  }
+
+  void showFailureMessage(BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(message, style: TextStyle(color: Colors.white)),
+      backgroundColor: Colors.red,
+    ));
   }
 
   Widget buildLoading() {
