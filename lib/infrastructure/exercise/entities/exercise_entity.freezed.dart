@@ -16,12 +16,12 @@ class _$ExerciseEntityTearOff {
   const _$ExerciseEntityTearOff();
 
   _ExerciseEntity call(
-      {@required @JsonKey(name: KEY_ID) UniqueId id,
-      @required @JsonKey(name: KEY_NAME) String name,
-      @required @JsonKey(name: KEY_LEVEL) ExerciseLevel level,
-      @required @JsonKey(name: KEY_TOOL) ExerciseTool tool,
-      @required @JsonKey(name: KEY_TYPE) ExerciseType type,
-      @required @JsonKey(name: KEY_TARGET) ExerciseTarget target}) {
+      {@required @JsonKey(name: 'id') UniqueId id,
+      @required @JsonKey(name: 'name') String name,
+      @required @JsonKey(name: 'level') ExerciseLevel level,
+      @required @JsonKey(name: 'tool') ExerciseTool tool,
+      @required @JsonKey(name: 'type') ExerciseType type,
+      @required @JsonKey(name: 'target') ExerciseTarget target}) {
     return _ExerciseEntity(
       id: id,
       name: name,
@@ -37,17 +37,17 @@ class _$ExerciseEntityTearOff {
 const $ExerciseEntity = _$ExerciseEntityTearOff();
 
 mixin _$ExerciseEntity {
-  @JsonKey(name: KEY_ID)
+  @JsonKey(name: 'id')
   UniqueId get id;
-  @JsonKey(name: KEY_NAME)
+  @JsonKey(name: 'name')
   String get name;
-  @JsonKey(name: KEY_LEVEL)
+  @JsonKey(name: 'level')
   ExerciseLevel get level;
-  @JsonKey(name: KEY_TOOL)
+  @JsonKey(name: 'tool')
   ExerciseTool get tool;
-  @JsonKey(name: KEY_TYPE)
+  @JsonKey(name: 'type')
   ExerciseType get type;
-  @JsonKey(name: KEY_TARGET)
+  @JsonKey(name: 'target')
   ExerciseTarget get target;
 
   Map<String, dynamic> toJson();
@@ -59,12 +59,12 @@ abstract class $ExerciseEntityCopyWith<$Res> {
           ExerciseEntity value, $Res Function(ExerciseEntity) then) =
       _$ExerciseEntityCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: KEY_ID) UniqueId id,
-      @JsonKey(name: KEY_NAME) String name,
-      @JsonKey(name: KEY_LEVEL) ExerciseLevel level,
-      @JsonKey(name: KEY_TOOL) ExerciseTool tool,
-      @JsonKey(name: KEY_TYPE) ExerciseType type,
-      @JsonKey(name: KEY_TARGET) ExerciseTarget target});
+      {@JsonKey(name: 'id') UniqueId id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'level') ExerciseLevel level,
+      @JsonKey(name: 'tool') ExerciseTool tool,
+      @JsonKey(name: 'type') ExerciseType type,
+      @JsonKey(name: 'target') ExerciseTarget target});
 }
 
 class _$ExerciseEntityCopyWithImpl<$Res>
@@ -102,12 +102,12 @@ abstract class _$ExerciseEntityCopyWith<$Res>
       __$ExerciseEntityCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: KEY_ID) UniqueId id,
-      @JsonKey(name: KEY_NAME) String name,
-      @JsonKey(name: KEY_LEVEL) ExerciseLevel level,
-      @JsonKey(name: KEY_TOOL) ExerciseTool tool,
-      @JsonKey(name: KEY_TYPE) ExerciseType type,
-      @JsonKey(name: KEY_TARGET) ExerciseTarget target});
+      {@JsonKey(name: 'id') UniqueId id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'level') ExerciseLevel level,
+      @JsonKey(name: 'tool') ExerciseTool tool,
+      @JsonKey(name: 'type') ExerciseType type,
+      @JsonKey(name: 'target') ExerciseTarget target});
 }
 
 class __$ExerciseEntityCopyWithImpl<$Res>
@@ -143,12 +143,12 @@ class __$ExerciseEntityCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
   const _$_ExerciseEntity(
-      {@required @JsonKey(name: KEY_ID) this.id,
-      @required @JsonKey(name: KEY_NAME) this.name,
-      @required @JsonKey(name: KEY_LEVEL) this.level,
-      @required @JsonKey(name: KEY_TOOL) this.tool,
-      @required @JsonKey(name: KEY_TYPE) this.type,
-      @required @JsonKey(name: KEY_TARGET) this.target})
+      {@required @JsonKey(name: 'id') this.id,
+      @required @JsonKey(name: 'name') this.name,
+      @required @JsonKey(name: 'level') this.level,
+      @required @JsonKey(name: 'tool') this.tool,
+      @required @JsonKey(name: 'type') this.type,
+      @required @JsonKey(name: 'target') this.target})
       : assert(id != null),
         assert(name != null),
         assert(level != null),
@@ -161,22 +161,22 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
       _$_$_ExerciseEntityFromJson(json);
 
   @override
-  @JsonKey(name: KEY_ID)
+  @JsonKey(name: 'id')
   final UniqueId id;
   @override
-  @JsonKey(name: KEY_NAME)
+  @JsonKey(name: 'name')
   final String name;
   @override
-  @JsonKey(name: KEY_LEVEL)
+  @JsonKey(name: 'level')
   final ExerciseLevel level;
   @override
-  @JsonKey(name: KEY_TOOL)
+  @JsonKey(name: 'tool')
   final ExerciseTool tool;
   @override
-  @JsonKey(name: KEY_TYPE)
+  @JsonKey(name: 'type')
   final ExerciseType type;
   @override
-  @JsonKey(name: KEY_TARGET)
+  @JsonKey(name: 'target')
   final ExerciseTarget target;
 
   @override
@@ -238,34 +238,34 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
 abstract class _ExerciseEntity extends ExerciseEntity {
   const _ExerciseEntity._() : super._();
   const factory _ExerciseEntity(
-          {@required @JsonKey(name: KEY_ID) UniqueId id,
-          @required @JsonKey(name: KEY_NAME) String name,
-          @required @JsonKey(name: KEY_LEVEL) ExerciseLevel level,
-          @required @JsonKey(name: KEY_TOOL) ExerciseTool tool,
-          @required @JsonKey(name: KEY_TYPE) ExerciseType type,
-          @required @JsonKey(name: KEY_TARGET) ExerciseTarget target}) =
+          {@required @JsonKey(name: 'id') UniqueId id,
+          @required @JsonKey(name: 'name') String name,
+          @required @JsonKey(name: 'level') ExerciseLevel level,
+          @required @JsonKey(name: 'tool') ExerciseTool tool,
+          @required @JsonKey(name: 'type') ExerciseType type,
+          @required @JsonKey(name: 'target') ExerciseTarget target}) =
       _$_ExerciseEntity;
 
   factory _ExerciseEntity.fromJson(Map<String, dynamic> json) =
       _$_ExerciseEntity.fromJson;
 
   @override
-  @JsonKey(name: KEY_ID)
+  @JsonKey(name: 'id')
   UniqueId get id;
   @override
-  @JsonKey(name: KEY_NAME)
+  @JsonKey(name: 'name')
   String get name;
   @override
-  @JsonKey(name: KEY_LEVEL)
+  @JsonKey(name: 'level')
   ExerciseLevel get level;
   @override
-  @JsonKey(name: KEY_TOOL)
+  @JsonKey(name: 'tool')
   ExerciseTool get tool;
   @override
-  @JsonKey(name: KEY_TYPE)
+  @JsonKey(name: 'type')
   ExerciseType get type;
   @override
-  @JsonKey(name: KEY_TARGET)
+  @JsonKey(name: 'target')
   ExerciseTarget get target;
   @override
   _$ExerciseEntityCopyWith<_ExerciseEntity> get copyWith;

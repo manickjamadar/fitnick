@@ -26,12 +26,12 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
   const ExerciseEntity._();
   @JsonSerializable(explicitToJson: true)
   const factory ExerciseEntity({
-    @JsonKey(name: KEY_ID) @required UniqueId id,
-    @JsonKey(name: KEY_NAME) @required String name,
-    @JsonKey(name: KEY_LEVEL) @required ExerciseLevel level,
-    @JsonKey(name: KEY_TOOL) @required ExerciseTool tool,
-    @JsonKey(name: KEY_TYPE) @required ExerciseType type,
-    @JsonKey(name: KEY_TARGET) @required ExerciseTarget target,
+    @JsonKey(name: "id") @required UniqueId id,
+    @JsonKey(name: "name") @required String name,
+    @JsonKey(name: "level") @required ExerciseLevel level,
+    @JsonKey(name: "tool") @required ExerciseTool tool,
+    @JsonKey(name: "type") @required ExerciseType type,
+    @JsonKey(name: "target") @required ExerciseTarget target,
   }) = _ExerciseEntity;
   factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
       _$ExerciseEntityFromJson(json);
