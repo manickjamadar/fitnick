@@ -1,5 +1,6 @@
-import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../domain/exercise/models/sub_models/name.dart';
 
 class Selector<T extends Name> extends StatelessWidget {
   final String label;

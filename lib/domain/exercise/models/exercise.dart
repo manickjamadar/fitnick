@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:fitnick/domain/core/unique_id.dart';
-import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/unique_id.dart';
+import '../../core/value/value_failure.dart';
 import '../value_object/exercise_name.dart';
-import 'exercise_level.dart';
-import 'exercise_target.dart';
-import 'exercise_tool.dart';
-import 'exercise_type.dart';
+import 'sub_models/exercise_level.dart';
+import 'sub_models/exercise_target.dart';
+import 'sub_models/exercise_tool.dart';
+import 'sub_models/exercise_type.dart';
 
 part "exercise.freezed.dart";
 

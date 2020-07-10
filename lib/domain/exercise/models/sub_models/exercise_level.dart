@@ -1,6 +1,8 @@
-import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'name.dart';
+
 part "exercise_level.g.dart";
 
 @JsonSerializable()

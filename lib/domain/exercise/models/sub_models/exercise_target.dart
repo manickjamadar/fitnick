@@ -1,7 +1,9 @@
-import 'package:fitnick/domain/exercise/models/exercise_target_category.dart';
-import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'exercise_target_category.dart';
+import 'name.dart';
+
 part "exercise_target.g.dart";
 
 @JsonSerializable(explicitToJson: true)

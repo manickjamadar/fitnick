@@ -1,14 +1,15 @@
-import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
-import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
-import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
-import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/domain/exercise/models/exercise_level.dart';
-import 'package:fitnick/domain/exercise/models/exercise_target.dart';
-import 'package:fitnick/domain/exercise/models/exercise_tool.dart';
-import 'package:fitnick/domain/exercise/models/exercise_type.dart';
-import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../application/exercise/exercise_form/exercise_form_bloc.dart';
+import '../../../../application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import '../../../../domain/exercise/failure/exercise_failure.dart';
+import '../../../../domain/exercise/models/exercise.dart';
+import '../../../../domain/exercise/models/sub_models/exercise_level.dart';
+import '../../../../domain/exercise/models/sub_models/exercise_target.dart';
+import '../../../../domain/exercise/models/sub_models/exercise_tool.dart';
+import '../../../../domain/exercise/models/sub_models/exercise_type.dart';
+import 'selector.dart';
 
 class ExerciseFormHandler extends StatelessWidget {
   @override
