@@ -1,12 +1,12 @@
-import 'package:fitnick/domain/exercise/models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/name.dart';
 import 'package:flutter/material.dart';
 
 class Selector<T extends Name> extends StatefulWidget {
   final String label;
   final List<T> options;
-
-  const Selector({Key key, @required this.label, @required this.options})
+  final void Function(T) onChanged;
+  const Selector(
+      {Key key, @required this.label, @required this.options, this.onChanged})
       : super(key: key);
   @override
   _SelectorState<T> createState() => _SelectorState<T>();
@@ -32,6 +32,9 @@ class _SelectorState<T extends Name> extends State<Selector<T>> {
             setState(() {
               currentValue = nextValue;
             });
+            if (widget.onChanged != null) {
+              widget.onChanged(nextValue);
+            }
           },
           items: widget.options
               .map((option) => DropdownMenuItem<T>(
