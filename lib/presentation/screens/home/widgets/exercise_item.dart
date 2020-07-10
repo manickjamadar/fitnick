@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:flutter/material.dart';
+import "../../../core/helpers/string_extension.dart";
 
 class ExerciseItem extends StatelessWidget {
   final Exercise exercise;
@@ -9,10 +9,20 @@ class ExerciseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return exercise.failureOption().fold(
-        () => ListTile(
-                title: Text(
-              exercise.name.safeValue,
-            )),
+        () => Card(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListTile(
+                  leading: CircleAvatar(child: Icon(Icons.fitness_center)),
+                  title: Text(
+                    exercise.name.safeValue.capitalize(),
+                  ),
+                  subtitle: Text(
+                      "${exercise.level.name} , ${exercise.tool.name} , ${exercise.type.name}"),
+                  trailing: Text(exercise.target.name),
+                ),
+              ),
+            ),
         (a) => Container(
               color: Colors.red,
               height: 30,
