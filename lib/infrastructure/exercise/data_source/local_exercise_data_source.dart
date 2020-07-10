@@ -8,12 +8,15 @@ class LocalExerciseDataSource extends IExerciseDataSource {
   LocalExerciseDataSource({@required Database database}) : db = database;
   @override
   Future<void> addExercise(ExerciseEntity exerciseEntity) async {
-    await db.insert(ExerciseEntity.collectionName, exerciseEntity.toJson());
+    await db.insert(
+        ExerciseEntity.collectionName, exerciseEntity.toLocalJson());
   }
 
   @override
   Future<List<ExerciseEntity>> finalAll() async {
     final rawExercises = await db.query(ExerciseEntity.collectionName);
-    return rawExercises.map((json) => ExerciseEntity.fromJson(json)).toList();
+    return rawExercises
+        .map((json) => ExerciseEntity.fromLocalJson(json))
+        .toList();
   }
 }

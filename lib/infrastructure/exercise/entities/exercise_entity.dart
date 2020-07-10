@@ -79,12 +79,4 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
         type: this.type,
         target: this.target);
   }
-
-  static Map<String, dynamic> fromModelToJson(Exercise exercise) {
-    return ExerciseEntity.fromModel(exercise).toJson();
-  }
-
-  static Exercise fromJsonToModel(Map<String, dynamic> json) {
-    return ExerciseEntity.fromJson(json).toModel();
-  }
 }
