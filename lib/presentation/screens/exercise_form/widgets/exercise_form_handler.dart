@@ -20,24 +20,40 @@ class ExerciseFormHandler extends StatelessWidget {
               buildNameInput(),
               buildSpace(),
               Selector<ExerciseLevel>(
-                initialValue: state.exercise.level,
+                value: state.exercise.level,
                 label: "Level",
                 options: ExerciseLevel.all,
+                onChanged: (newValue) {
+                  BlocProvider.of<ExerciseFormBloc>(context)
+                      .add(ExerciseFormEvent.exerciseLevelChanged(newValue));
+                },
               ),
               Selector<ExerciseTool>(
-                initialValue: state.exercise.tool,
+                value: state.exercise.tool,
                 label: "Tool",
                 options: ExerciseTool.all,
+                onChanged: (newValue) {
+                  BlocProvider.of<ExerciseFormBloc>(context)
+                      .add(ExerciseFormEvent.exerciseToolChanged(newValue));
+                },
               ),
               Selector<ExerciseType>(
-                initialValue: state.exercise.type,
+                value: state.exercise.type,
                 label: "Type",
                 options: ExerciseType.all,
+                onChanged: (newValue) {
+                  BlocProvider.of<ExerciseFormBloc>(context)
+                      .add(ExerciseFormEvent.exerciseTypeChanged(newValue));
+                },
               ),
               Selector<ExerciseTarget>(
-                initialValue: state.exercise.target,
+                value: state.exercise.target,
                 label: "Muscle Target",
                 options: ExerciseTarget.all,
+                onChanged: (newValue) {
+                  BlocProvider.of<ExerciseFormBloc>(context)
+                      .add(ExerciseFormEvent.exerciseTargetChanged(newValue));
+                },
               ),
               Spacer(),
               Container(
