@@ -1,4 +1,5 @@
 import 'package:fitnick/domain/core/unique_id.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/i_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/entities/exercise_entity.dart';
 import 'package:flutter/foundation.dart';
@@ -25,5 +26,12 @@ class LocalExerciseDataSource extends IExerciseDataSource {
   Future<void> deleteExercise(UniqueId exerciseId) async {
     await db.delete(ExerciseEntity.collectionName,
         where: "${ExerciseEntity.KEY_ID} = ?", whereArgs: [exerciseId.value]);
+  }
+
+  @override
+  Future<void> updateExercise(ExerciseEntity exerciseEntity) async {
+    await db.update(ExerciseEntity.collectionName, exerciseEntity.toLocalJson(),
+        where: "${ExerciseEntity.KEY_ID} = ?",
+        whereArgs: [exerciseEntity.id.value]);
   }
 }

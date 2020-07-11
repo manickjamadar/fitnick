@@ -41,9 +41,14 @@ class LocalExerciseFacade extends IExerciseFacade {
   }
 
   @override
-  Future<Either<ExerciseFailure, Unit>> updateExercise(Exercise exercise) {
-    // TODO: implement updateExercise
-    throw UnimplementedError();
+  Future<Either<ExerciseFailure, Unit>> updateExercise(
+      Exercise exercise) async {
+    try {
+      await dataSource.updateExercise(ExerciseEntity.fromModel(exercise));
+      return Right(unit);
+    } catch (error) {
+      return Left(ExerciseFailure.update());
+    }
   }
 
   @override
