@@ -50,13 +50,35 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
     //TODO: implement update
   }
   Stream<ExerciseHubState> _bindDeletedToState(UniqueId execiseId) async* {
-    //TODO: implement delete
+    yield* state.maybeWhen(orElse: () async* {
+      yield state;
+    }, loaded: (List<Exercise> exercises) async* {
+      yield* _mapDeletedToState(execiseId, exercises);
+    }, reorderedError: (List<Exercise> exercises, _) async* {
+      yield* _mapDeletedToState(execiseId, exercises);
+    });
   }
+
   Stream<ExerciseHubState> _bindReorderedToState() async* {
     //TODO: implement reordered
   }
   Stream<ExerciseHubState> _mapAddedToState(
       Exercise exercise, List<Exercise> exerciseList) async* {
     yield ExerciseHubState.loaded(exercises: [exercise, ...exerciseList]);
+  }
+
+  Stream<ExerciseHubState> _mapDeletedToState(
+      UniqueId exerciseId, List<Exercise> exerciseList) async* {
+    yield ExerciseHubState.loaded(
+        exercises: exerciseList
+            .where((exercise) => exercise.id != exerciseId)
+            .toList());
+    final failureOrSuccess = await iExerciseFacade.deleteExercise(exerciseId);
+    if (failureOrSuccess.isLeft()) {
+      yield* failureOrSuccess.fold((failure) async* {
+        yield ExerciseHubState.loaded(exercises: exerciseList);
+        yield ExerciseHubState.loadedError(failure: ExerciseFailure.delete());
+      }, (r) => null);
+    }
   }
 }
