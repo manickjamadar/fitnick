@@ -12,22 +12,14 @@ T _$identity<T>(T value) => value;
 class _$ExerciseActorEventTearOff {
   const _$ExerciseActorEventTearOff();
 
-  _ActorAdded added({@required Exercise exercise}) {
-    return _ActorAdded(
-      exercise: exercise,
-    );
-  }
-
-  _ActorUpdated updated({@required Exercise exercise}) {
-    return _ActorUpdated(
-      exercise: exercise,
-    );
-  }
-
   _ActorDeleted deleted({@required UniqueId exerciseId}) {
     return _ActorDeleted(
       exerciseId: exerciseId,
     );
+  }
+
+  _ActorReordered reordered() {
+    return const _ActorReordered();
   }
 }
 
@@ -37,28 +29,24 @@ const $ExerciseActorEvent = _$ExerciseActorEventTearOff();
 mixin _$ExerciseActorEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result added(Exercise exercise),
-    @required Result updated(Exercise exercise),
     @required Result deleted(UniqueId exerciseId),
+    @required Result reordered(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result added(Exercise exercise),
-    Result updated(Exercise exercise),
     Result deleted(UniqueId exerciseId),
+    Result reordered(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result added(_ActorAdded value),
-    @required Result updated(_ActorUpdated value),
     @required Result deleted(_ActorDeleted value),
+    @required Result reordered(_ActorReordered value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result added(_ActorAdded value),
-    Result updated(_ActorUpdated value),
     Result deleted(_ActorDeleted value),
+    Result reordered(_ActorReordered value),
     @required Result orElse(),
   });
 }
@@ -76,268 +64,6 @@ class _$ExerciseActorEventCopyWithImpl<$Res>
   final ExerciseActorEvent _value;
   // ignore: unused_field
   final $Res Function(ExerciseActorEvent) _then;
-}
-
-abstract class _$ActorAddedCopyWith<$Res> {
-  factory _$ActorAddedCopyWith(
-          _ActorAdded value, $Res Function(_ActorAdded) then) =
-      __$ActorAddedCopyWithImpl<$Res>;
-  $Res call({Exercise exercise});
-
-  $ExerciseCopyWith<$Res> get exercise;
-}
-
-class __$ActorAddedCopyWithImpl<$Res>
-    extends _$ExerciseActorEventCopyWithImpl<$Res>
-    implements _$ActorAddedCopyWith<$Res> {
-  __$ActorAddedCopyWithImpl(
-      _ActorAdded _value, $Res Function(_ActorAdded) _then)
-      : super(_value, (v) => _then(v as _ActorAdded));
-
-  @override
-  _ActorAdded get _value => super._value as _ActorAdded;
-
-  @override
-  $Res call({
-    Object exercise = freezed,
-  }) {
-    return _then(_ActorAdded(
-      exercise: exercise == freezed ? _value.exercise : exercise as Exercise,
-    ));
-  }
-
-  @override
-  $ExerciseCopyWith<$Res> get exercise {
-    if (_value.exercise == null) {
-      return null;
-    }
-    return $ExerciseCopyWith<$Res>(_value.exercise, (value) {
-      return _then(_value.copyWith(exercise: value));
-    });
-  }
-}
-
-class _$_ActorAdded implements _ActorAdded {
-  const _$_ActorAdded({@required this.exercise}) : assert(exercise != null);
-
-  @override
-  final Exercise exercise;
-
-  @override
-  String toString() {
-    return 'ExerciseActorEvent.added(exercise: $exercise)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _ActorAdded &&
-            (identical(other.exercise, exercise) ||
-                const DeepCollectionEquality()
-                    .equals(other.exercise, exercise)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercise);
-
-  @override
-  _$ActorAddedCopyWith<_ActorAdded> get copyWith =>
-      __$ActorAddedCopyWithImpl<_ActorAdded>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result added(Exercise exercise),
-    @required Result updated(Exercise exercise),
-    @required Result deleted(UniqueId exerciseId),
-  }) {
-    assert(added != null);
-    assert(updated != null);
-    assert(deleted != null);
-    return added(exercise);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result added(Exercise exercise),
-    Result updated(Exercise exercise),
-    Result deleted(UniqueId exerciseId),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (added != null) {
-      return added(exercise);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result added(_ActorAdded value),
-    @required Result updated(_ActorUpdated value),
-    @required Result deleted(_ActorDeleted value),
-  }) {
-    assert(added != null);
-    assert(updated != null);
-    assert(deleted != null);
-    return added(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result added(_ActorAdded value),
-    Result updated(_ActorUpdated value),
-    Result deleted(_ActorDeleted value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (added != null) {
-      return added(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ActorAdded implements ExerciseActorEvent {
-  const factory _ActorAdded({@required Exercise exercise}) = _$_ActorAdded;
-
-  Exercise get exercise;
-  _$ActorAddedCopyWith<_ActorAdded> get copyWith;
-}
-
-abstract class _$ActorUpdatedCopyWith<$Res> {
-  factory _$ActorUpdatedCopyWith(
-          _ActorUpdated value, $Res Function(_ActorUpdated) then) =
-      __$ActorUpdatedCopyWithImpl<$Res>;
-  $Res call({Exercise exercise});
-
-  $ExerciseCopyWith<$Res> get exercise;
-}
-
-class __$ActorUpdatedCopyWithImpl<$Res>
-    extends _$ExerciseActorEventCopyWithImpl<$Res>
-    implements _$ActorUpdatedCopyWith<$Res> {
-  __$ActorUpdatedCopyWithImpl(
-      _ActorUpdated _value, $Res Function(_ActorUpdated) _then)
-      : super(_value, (v) => _then(v as _ActorUpdated));
-
-  @override
-  _ActorUpdated get _value => super._value as _ActorUpdated;
-
-  @override
-  $Res call({
-    Object exercise = freezed,
-  }) {
-    return _then(_ActorUpdated(
-      exercise: exercise == freezed ? _value.exercise : exercise as Exercise,
-    ));
-  }
-
-  @override
-  $ExerciseCopyWith<$Res> get exercise {
-    if (_value.exercise == null) {
-      return null;
-    }
-    return $ExerciseCopyWith<$Res>(_value.exercise, (value) {
-      return _then(_value.copyWith(exercise: value));
-    });
-  }
-}
-
-class _$_ActorUpdated implements _ActorUpdated {
-  const _$_ActorUpdated({@required this.exercise}) : assert(exercise != null);
-
-  @override
-  final Exercise exercise;
-
-  @override
-  String toString() {
-    return 'ExerciseActorEvent.updated(exercise: $exercise)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _ActorUpdated &&
-            (identical(other.exercise, exercise) ||
-                const DeepCollectionEquality()
-                    .equals(other.exercise, exercise)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercise);
-
-  @override
-  _$ActorUpdatedCopyWith<_ActorUpdated> get copyWith =>
-      __$ActorUpdatedCopyWithImpl<_ActorUpdated>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result added(Exercise exercise),
-    @required Result updated(Exercise exercise),
-    @required Result deleted(UniqueId exerciseId),
-  }) {
-    assert(added != null);
-    assert(updated != null);
-    assert(deleted != null);
-    return updated(exercise);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result added(Exercise exercise),
-    Result updated(Exercise exercise),
-    Result deleted(UniqueId exerciseId),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (updated != null) {
-      return updated(exercise);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result added(_ActorAdded value),
-    @required Result updated(_ActorUpdated value),
-    @required Result deleted(_ActorDeleted value),
-  }) {
-    assert(added != null);
-    assert(updated != null);
-    assert(deleted != null);
-    return updated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result added(_ActorAdded value),
-    Result updated(_ActorUpdated value),
-    Result deleted(_ActorDeleted value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (updated != null) {
-      return updated(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ActorUpdated implements ExerciseActorEvent {
-  const factory _ActorUpdated({@required Exercise exercise}) = _$_ActorUpdated;
-
-  Exercise get exercise;
-  _$ActorUpdatedCopyWith<_ActorUpdated> get copyWith;
 }
 
 abstract class _$ActorDeletedCopyWith<$Res> {
@@ -400,22 +126,19 @@ class _$_ActorDeleted implements _ActorDeleted {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result added(Exercise exercise),
-    @required Result updated(Exercise exercise),
     @required Result deleted(UniqueId exerciseId),
+    @required Result reordered(),
   }) {
-    assert(added != null);
-    assert(updated != null);
     assert(deleted != null);
+    assert(reordered != null);
     return deleted(exerciseId);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result added(Exercise exercise),
-    Result updated(Exercise exercise),
     Result deleted(UniqueId exerciseId),
+    Result reordered(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -428,22 +151,19 @@ class _$_ActorDeleted implements _ActorDeleted {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result added(_ActorAdded value),
-    @required Result updated(_ActorUpdated value),
     @required Result deleted(_ActorDeleted value),
+    @required Result reordered(_ActorReordered value),
   }) {
-    assert(added != null);
-    assert(updated != null);
     assert(deleted != null);
+    assert(reordered != null);
     return deleted(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result added(_ActorAdded value),
-    Result updated(_ActorUpdated value),
     Result deleted(_ActorDeleted value),
+    Result reordered(_ActorReordered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -460,6 +180,94 @@ abstract class _ActorDeleted implements ExerciseActorEvent {
 
   UniqueId get exerciseId;
   _$ActorDeletedCopyWith<_ActorDeleted> get copyWith;
+}
+
+abstract class _$ActorReorderedCopyWith<$Res> {
+  factory _$ActorReorderedCopyWith(
+          _ActorReordered value, $Res Function(_ActorReordered) then) =
+      __$ActorReorderedCopyWithImpl<$Res>;
+}
+
+class __$ActorReorderedCopyWithImpl<$Res>
+    extends _$ExerciseActorEventCopyWithImpl<$Res>
+    implements _$ActorReorderedCopyWith<$Res> {
+  __$ActorReorderedCopyWithImpl(
+      _ActorReordered _value, $Res Function(_ActorReordered) _then)
+      : super(_value, (v) => _then(v as _ActorReordered));
+
+  @override
+  _ActorReordered get _value => super._value as _ActorReordered;
+}
+
+class _$_ActorReordered implements _ActorReordered {
+  const _$_ActorReordered();
+
+  @override
+  String toString() {
+    return 'ExerciseActorEvent.reordered()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ActorReordered);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result deleted(UniqueId exerciseId),
+    @required Result reordered(),
+  }) {
+    assert(deleted != null);
+    assert(reordered != null);
+    return reordered();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result deleted(UniqueId exerciseId),
+    Result reordered(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (reordered != null) {
+      return reordered();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result deleted(_ActorDeleted value),
+    @required Result reordered(_ActorReordered value),
+  }) {
+    assert(deleted != null);
+    assert(reordered != null);
+    return reordered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result deleted(_ActorDeleted value),
+    Result reordered(_ActorReordered value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (reordered != null) {
+      return reordered(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ActorReordered implements ExerciseActorEvent {
+  const factory _ActorReordered() = _$_ActorReordered;
 }
 
 class _$ExerciseActorStateTearOff {

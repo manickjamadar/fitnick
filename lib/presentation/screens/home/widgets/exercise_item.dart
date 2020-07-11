@@ -32,8 +32,8 @@ class ExerciseItem extends StatelessWidget {
         child: SlidableDrawerDismissal(),
         dragDismissible: false,
         onDismissed: (actionType) {
-          BlocProvider.of<ExerciseHubBloc>(context)
-              .add(ExerciseHubEvent.exerciseDeleted(exerciseId: exercise.id));
+          // BlocProvider.of<ExerciseHubBloc>(context)
+          //     .add(ExerciseHubEvent.exerciseDeleted(exerciseId: exercise.id));
         },
       ),
       key: ValueKey(exercise.id.value),
@@ -53,8 +53,8 @@ class ExerciseItem extends StatelessWidget {
             color: Colors.red,
             icon: Icons.delete,
             onTap: () {
-              final state = Slidable.of(ctx);
-              state.dismiss();
+              // final state = Slidable.of(ctx);
+              // state.dismiss();
             },
           ),
         ),
