@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,12 +41,13 @@ class ExerciseItem extends StatelessWidget {
           caption: 'Edit',
           color: Colors.blue,
           icon: Icons.edit,
-          onTap: () {
-            Navigator.push(
+          onTap: () async {
+            final String message = await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (_) =>
                         ExerciseFormScreen.generateRoute(Some(exercise))));
+            showMessage(context, message: message, type: SuccessMessage());
           },
         ),
         Builder(
