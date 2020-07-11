@@ -4,7 +4,6 @@ import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
 import 'package:fitnick/external/local_databse_provider.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/i_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/local_exercise_data_source.dart';
-import 'package:fitnick/infrastructure/exercise/facade/demo_exercise_facade.dart';
 import 'package:fitnick/infrastructure/exercise/facade/local_exercise_facade.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sqflite/sqflite.dart';
