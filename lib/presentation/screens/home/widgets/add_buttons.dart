@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,11 @@ class AddButtons extends StatelessWidget {
     );
   }
 
-  void onAddExercise(BuildContext context) {
-    Navigator.pushNamed(context, ExerciseFormScreen.routeName);
+  void onAddExercise(BuildContext context) async {
+    String message = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => ExerciseFormScreen.generateRoute(none())));
+    showMessage(context, message: message, type: SuccessMessage());
   }
 }
