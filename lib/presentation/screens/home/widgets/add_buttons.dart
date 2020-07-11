@@ -61,6 +61,8 @@ class AddButtons extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (_) => ExerciseFormScreen.generateRoute(none())));
-    showMessage(context, message: message, type: SuccessMessage());
+    if (message != null) {
+      showMessage(context, message: message, type: SuccessMessage());
+    }
   }
 }

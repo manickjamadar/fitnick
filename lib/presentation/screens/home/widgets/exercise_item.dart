@@ -47,7 +47,9 @@ class ExerciseItem extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (_) =>
                         ExerciseFormScreen.generateRoute(Some(exercise))));
-            showMessage(context, message: message, type: SuccessMessage());
+            if (message != null) {
+              showMessage(context, message: message, type: SuccessMessage());
+            }
           },
         ),
         Builder(
