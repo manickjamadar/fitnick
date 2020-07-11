@@ -12,9 +12,9 @@ T _$identity<T>(T value) => value;
 class _$ExerciseActorEventTearOff {
   const _$ExerciseActorEventTearOff();
 
-  _ActorDeleted deleted({@required UniqueId exerciseId}) {
+  _ActorDeleted deleted({@required Exercise exercise}) {
     return _ActorDeleted(
-      exerciseId: exerciseId,
+      exercise: exercise,
     );
   }
 
@@ -29,12 +29,12 @@ const $ExerciseActorEvent = _$ExerciseActorEventTearOff();
 mixin _$ExerciseActorEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result deleted(UniqueId exerciseId),
+    @required Result deleted(Exercise exercise),
     @required Result reordered(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result deleted(UniqueId exerciseId),
+    Result deleted(Exercise exercise),
     Result reordered(),
     @required Result orElse(),
   });
@@ -70,7 +70,9 @@ abstract class _$ActorDeletedCopyWith<$Res> {
   factory _$ActorDeletedCopyWith(
           _ActorDeleted value, $Res Function(_ActorDeleted) then) =
       __$ActorDeletedCopyWithImpl<$Res>;
-  $Res call({UniqueId exerciseId});
+  $Res call({Exercise exercise});
+
+  $ExerciseCopyWith<$Res> get exercise;
 }
 
 class __$ActorDeletedCopyWithImpl<$Res>
@@ -85,39 +87,47 @@ class __$ActorDeletedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object exerciseId = freezed,
+    Object exercise = freezed,
   }) {
     return _then(_ActorDeleted(
-      exerciseId:
-          exerciseId == freezed ? _value.exerciseId : exerciseId as UniqueId,
+      exercise: exercise == freezed ? _value.exercise : exercise as Exercise,
     ));
+  }
+
+  @override
+  $ExerciseCopyWith<$Res> get exercise {
+    if (_value.exercise == null) {
+      return null;
+    }
+    return $ExerciseCopyWith<$Res>(_value.exercise, (value) {
+      return _then(_value.copyWith(exercise: value));
+    });
   }
 }
 
 class _$_ActorDeleted implements _ActorDeleted {
-  const _$_ActorDeleted({@required this.exerciseId})
-      : assert(exerciseId != null);
+  const _$_ActorDeleted({@required this.exercise}) : assert(exercise != null);
 
   @override
-  final UniqueId exerciseId;
+  final Exercise exercise;
 
   @override
   String toString() {
-    return 'ExerciseActorEvent.deleted(exerciseId: $exerciseId)';
+    return 'ExerciseActorEvent.deleted(exercise: $exercise)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ActorDeleted &&
-            (identical(other.exerciseId, exerciseId) ||
+            (identical(other.exercise, exercise) ||
                 const DeepCollectionEquality()
-                    .equals(other.exerciseId, exerciseId)));
+                    .equals(other.exercise, exercise)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exerciseId);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercise);
 
   @override
   _$ActorDeletedCopyWith<_ActorDeleted> get copyWith =>
@@ -126,24 +136,24 @@ class _$_ActorDeleted implements _ActorDeleted {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result deleted(UniqueId exerciseId),
+    @required Result deleted(Exercise exercise),
     @required Result reordered(),
   }) {
     assert(deleted != null);
     assert(reordered != null);
-    return deleted(exerciseId);
+    return deleted(exercise);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result deleted(UniqueId exerciseId),
+    Result deleted(Exercise exercise),
     Result reordered(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (deleted != null) {
-      return deleted(exerciseId);
+      return deleted(exercise);
     }
     return orElse();
   }
@@ -175,10 +185,9 @@ class _$_ActorDeleted implements _ActorDeleted {
 }
 
 abstract class _ActorDeleted implements ExerciseActorEvent {
-  const factory _ActorDeleted({@required UniqueId exerciseId}) =
-      _$_ActorDeleted;
+  const factory _ActorDeleted({@required Exercise exercise}) = _$_ActorDeleted;
 
-  UniqueId get exerciseId;
+  Exercise get exercise;
   _$ActorDeletedCopyWith<_ActorDeleted> get copyWith;
 }
 
@@ -218,7 +227,7 @@ class _$_ActorReordered implements _ActorReordered {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result deleted(UniqueId exerciseId),
+    @required Result deleted(Exercise exercise),
     @required Result reordered(),
   }) {
     assert(deleted != null);
@@ -229,7 +238,7 @@ class _$_ActorReordered implements _ActorReordered {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result deleted(UniqueId exerciseId),
+    Result deleted(Exercise exercise),
     Result reordered(),
     @required Result orElse(),
   }) {
@@ -287,9 +296,9 @@ class _$ExerciseActorStateTearOff {
     );
   }
 
-  _ActorError error({@required ExerciseFailure failure}) {
+  _ActorError error({@required String message}) {
     return _ActorError(
-      failure: failure,
+      message: message,
     );
   }
 }
@@ -303,14 +312,14 @@ mixin _$ExerciseActorState {
     @required Result initial(),
     @required Result acting(),
     @required Result success(String message),
-    @required Result error(ExerciseFailure failure),
+    @required Result error(String message),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result acting(),
     Result success(String message),
-    Result error(ExerciseFailure failure),
+    Result error(String message),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -384,7 +393,7 @@ class _$_ActorInitial implements _ActorInitial {
     @required Result initial(),
     @required Result acting(),
     @required Result success(String message),
-    @required Result error(ExerciseFailure failure),
+    @required Result error(String message),
   }) {
     assert(initial != null);
     assert(acting != null);
@@ -399,7 +408,7 @@ class _$_ActorInitial implements _ActorInitial {
     Result initial(),
     Result acting(),
     Result success(String message),
-    Result error(ExerciseFailure failure),
+    Result error(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -481,7 +490,7 @@ class _$_Acting implements _Acting {
     @required Result initial(),
     @required Result acting(),
     @required Result success(String message),
-    @required Result error(ExerciseFailure failure),
+    @required Result error(String message),
   }) {
     assert(initial != null);
     assert(acting != null);
@@ -496,7 +505,7 @@ class _$_Acting implements _Acting {
     Result initial(),
     Result acting(),
     Result success(String message),
-    Result error(ExerciseFailure failure),
+    Result error(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -602,7 +611,7 @@ class _$_ActorSuccess implements _ActorSuccess {
     @required Result initial(),
     @required Result acting(),
     @required Result success(String message),
-    @required Result error(ExerciseFailure failure),
+    @required Result error(String message),
   }) {
     assert(initial != null);
     assert(acting != null);
@@ -617,7 +626,7 @@ class _$_ActorSuccess implements _ActorSuccess {
     Result initial(),
     Result acting(),
     Result success(String message),
-    Result error(ExerciseFailure failure),
+    Result error(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -670,9 +679,7 @@ abstract class _$ActorErrorCopyWith<$Res> {
   factory _$ActorErrorCopyWith(
           _ActorError value, $Res Function(_ActorError) then) =
       __$ActorErrorCopyWithImpl<$Res>;
-  $Res call({ExerciseFailure failure});
-
-  $ExerciseFailureCopyWith<$Res> get failure;
+  $Res call({String message});
 }
 
 class __$ActorErrorCopyWithImpl<$Res>
@@ -687,46 +694,36 @@ class __$ActorErrorCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object failure = freezed,
+    Object message = freezed,
   }) {
     return _then(_ActorError(
-      failure: failure == freezed ? _value.failure : failure as ExerciseFailure,
+      message: message == freezed ? _value.message : message as String,
     ));
-  }
-
-  @override
-  $ExerciseFailureCopyWith<$Res> get failure {
-    if (_value.failure == null) {
-      return null;
-    }
-    return $ExerciseFailureCopyWith<$Res>(_value.failure, (value) {
-      return _then(_value.copyWith(failure: value));
-    });
   }
 }
 
 class _$_ActorError implements _ActorError {
-  const _$_ActorError({@required this.failure}) : assert(failure != null);
+  const _$_ActorError({@required this.message}) : assert(message != null);
 
   @override
-  final ExerciseFailure failure;
+  final String message;
 
   @override
   String toString() {
-    return 'ExerciseActorState.error(failure: $failure)';
+    return 'ExerciseActorState.error(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ActorError &&
-            (identical(other.failure, failure) ||
-                const DeepCollectionEquality().equals(other.failure, failure)));
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failure);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
 
   @override
   _$ActorErrorCopyWith<_ActorError> get copyWith =>
@@ -738,13 +735,13 @@ class _$_ActorError implements _ActorError {
     @required Result initial(),
     @required Result acting(),
     @required Result success(String message),
-    @required Result error(ExerciseFailure failure),
+    @required Result error(String message),
   }) {
     assert(initial != null);
     assert(acting != null);
     assert(success != null);
     assert(error != null);
-    return error(failure);
+    return error(message);
   }
 
   @override
@@ -753,12 +750,12 @@ class _$_ActorError implements _ActorError {
     Result initial(),
     Result acting(),
     Result success(String message),
-    Result error(ExerciseFailure failure),
+    Result error(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error(failure);
+      return error(message);
     }
     return orElse();
   }
@@ -796,9 +793,8 @@ class _$_ActorError implements _ActorError {
 }
 
 abstract class _ActorError implements ExerciseActorState {
-  const factory _ActorError({@required ExerciseFailure failure}) =
-      _$_ActorError;
+  const factory _ActorError({@required String message}) = _$_ActorError;
 
-  ExerciseFailure get failure;
+  String get message;
   _$ActorErrorCopyWith<_ActorError> get copyWith;
 }
