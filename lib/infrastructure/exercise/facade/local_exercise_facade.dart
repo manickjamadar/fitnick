@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
@@ -43,5 +44,16 @@ class LocalExerciseFacade extends IExerciseFacade {
   Future<Either<ExerciseFailure, Unit>> updateExercise(Exercise exercise) {
     // TODO: implement updateExercise
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<ExerciseFailure, Unit>> deleteExercise(
+      UniqueId exerciseId) async {
+    try {
+      await dataSource.deleteExercise(exerciseId);
+      return Right(unit);
+    } catch (error) {
+      return Left(ExerciseFailure.delete());
+    }
   }
 }
