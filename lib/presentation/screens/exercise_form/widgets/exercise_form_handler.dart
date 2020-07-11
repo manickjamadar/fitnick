@@ -114,9 +114,7 @@ class ExerciseFormHandler extends StatelessWidget {
   }
 
   void onFormSuccess(BuildContext context) {
-    final exerciseFormBloc = BlocProvider.of<ExerciseFormBloc>(context);
     final exerciseHubBloc = BlocProvider.of<ExerciseHubBloc>(context);
-    final Exercise exercise = exerciseFormBloc.state.exercise;
     exerciseHubBloc.add(ExerciseHubEvent.refreshed());
     Navigator.pop(context);
   }
