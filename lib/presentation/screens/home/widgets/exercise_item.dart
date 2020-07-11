@@ -1,3 +1,4 @@
+import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +29,6 @@ class ExerciseItem extends StatelessWidget {
 
   Widget buildExerciseItem(BuildContext context) {
     return Slidable(
-      dismissal: SlidableDismissal(
-        child: SlidableDrawerDismissal(),
-        dragDismissible: false,
-        onDismissed: (actionType) {
-          // BlocProvider.of<ExerciseHubBloc>(context)
-          //     .add(ExerciseHubEvent.exerciseDeleted(exerciseId: exercise.id));
-        },
-      ),
       key: ValueKey(exercise.id.value),
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
@@ -53,8 +46,7 @@ class ExerciseItem extends StatelessWidget {
             color: Colors.red,
             icon: Icons.delete,
             onTap: () {
-              // final state = Slidable.of(ctx);
-              // state.dismiss();
+              _onExerciseDelete(context, exercise);
             },
           ),
         ),
@@ -79,5 +71,10 @@ class ExerciseItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onExerciseDelete(BuildContext context, Exercise exercise) {
+    BlocProvider.of<ExerciseActorBloc>(context)
+        .add(ExerciseActorEvent.deleted(exercise: exercise));
   }
 }
