@@ -16,8 +16,11 @@ class ExerciseListView extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         final exercise = exercises[index];
-        return ExerciseItem(
-          exercise: exercise,
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          child: ExerciseItem(
+            exercise: exercise,
+          ),
         );
       },
       itemCount: exercises.length,
