@@ -37,13 +37,13 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
   }
 
   Stream<ExerciseHubState> _bindAddedToState(Exercise exercise) async* {
-    yield state.maybeWhen(
-        orElse: () => state,
-        loaded: (List<Exercise> exercises) => ExerciseHubState.loaded(
-            exercises: _mergeNewExercise(exercises, exercise)),
-        reorderedError: (List<Exercise> exercises, _) =>
-            ExerciseHubState.loaded(
-                exercises: _mergeNewExercise(exercises, exercise)));
+    yield* state.maybeWhen(orElse: () async* {
+      yield state;
+    }, loaded: (List<Exercise> exercises) async* {
+      yield* _mapAddedToState(exercise, exercises);
+    }, reorderedError: (List<Exercise> exercises, _) async* {
+      yield* _mapAddedToState(exercise, exercises);
+    });
   }
 
   Stream<ExerciseHubState> _bindUpdatedToState(Exercise exercise) async* {
@@ -55,8 +55,8 @@ class ExerciseHubBloc extends Bloc<ExerciseHubEvent, ExerciseHubState> {
   Stream<ExerciseHubState> _bindReorderedToState() async* {
     //TODO: implement reordered
   }
-  List<Exercise> _mergeNewExercise(
-      List<Exercise> oldExercises, Exercise newExercise) {
-    return [newExercise, ...oldExercises];
+  Stream<ExerciseHubState> _mapAddedToState(
+      Exercise exercise, List<Exercise> exerciseList) async* {
+    yield ExerciseHubState.loaded(exercises: [exercise, ...exerciseList]);
   }
 }
