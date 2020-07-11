@@ -23,6 +23,14 @@ class _$ExerciseFailureTearOff {
   _Find find() {
     return const _Find();
   }
+
+  _Update update() {
+    return const _Update();
+  }
+
+  _Delete delete() {
+    return const _Delete();
+  }
 }
 
 // ignore: unused_element
@@ -34,12 +42,16 @@ mixin _$ExerciseFailure {
     @required Result unexpected(),
     @required Result create(),
     @required Result find(),
+    @required Result update(),
+    @required Result delete(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result unexpected(),
     Result create(),
     Result find(),
+    Result update(),
+    Result delete(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -47,12 +59,16 @@ mixin _$ExerciseFailure {
     @required Result unexpected(_Unexpected value),
     @required Result create(_Create value),
     @required Result find(_Find value),
+    @required Result update(_Update value),
+    @required Result delete(_Delete value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result unexpected(_Unexpected value),
     Result create(_Create value),
     Result find(_Find value),
+    Result update(_Update value),
+    Result delete(_Delete value),
     @required Result orElse(),
   });
 }
@@ -111,10 +127,14 @@ class _$_Unexpected implements _Unexpected {
     @required Result unexpected(),
     @required Result create(),
     @required Result find(),
+    @required Result update(),
+    @required Result delete(),
   }) {
     assert(unexpected != null);
     assert(create != null);
     assert(find != null);
+    assert(update != null);
+    assert(delete != null);
     return unexpected();
   }
 
@@ -124,6 +144,8 @@ class _$_Unexpected implements _Unexpected {
     Result unexpected(),
     Result create(),
     Result find(),
+    Result update(),
+    Result delete(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -139,10 +161,14 @@ class _$_Unexpected implements _Unexpected {
     @required Result unexpected(_Unexpected value),
     @required Result create(_Create value),
     @required Result find(_Find value),
+    @required Result update(_Update value),
+    @required Result delete(_Delete value),
   }) {
     assert(unexpected != null);
     assert(create != null);
     assert(find != null);
+    assert(update != null);
+    assert(delete != null);
     return unexpected(this);
   }
 
@@ -152,6 +178,8 @@ class _$_Unexpected implements _Unexpected {
     Result unexpected(_Unexpected value),
     Result create(_Create value),
     Result find(_Find value),
+    Result update(_Update value),
+    Result delete(_Delete value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -202,10 +230,14 @@ class _$_Create implements _Create {
     @required Result unexpected(),
     @required Result create(),
     @required Result find(),
+    @required Result update(),
+    @required Result delete(),
   }) {
     assert(unexpected != null);
     assert(create != null);
     assert(find != null);
+    assert(update != null);
+    assert(delete != null);
     return create();
   }
 
@@ -215,6 +247,8 @@ class _$_Create implements _Create {
     Result unexpected(),
     Result create(),
     Result find(),
+    Result update(),
+    Result delete(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -230,10 +264,14 @@ class _$_Create implements _Create {
     @required Result unexpected(_Unexpected value),
     @required Result create(_Create value),
     @required Result find(_Find value),
+    @required Result update(_Update value),
+    @required Result delete(_Delete value),
   }) {
     assert(unexpected != null);
     assert(create != null);
     assert(find != null);
+    assert(update != null);
+    assert(delete != null);
     return create(this);
   }
 
@@ -243,6 +281,8 @@ class _$_Create implements _Create {
     Result unexpected(_Unexpected value),
     Result create(_Create value),
     Result find(_Find value),
+    Result update(_Update value),
+    Result delete(_Delete value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -293,10 +333,14 @@ class _$_Find implements _Find {
     @required Result unexpected(),
     @required Result create(),
     @required Result find(),
+    @required Result update(),
+    @required Result delete(),
   }) {
     assert(unexpected != null);
     assert(create != null);
     assert(find != null);
+    assert(update != null);
+    assert(delete != null);
     return find();
   }
 
@@ -306,6 +350,8 @@ class _$_Find implements _Find {
     Result unexpected(),
     Result create(),
     Result find(),
+    Result update(),
+    Result delete(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -321,10 +367,14 @@ class _$_Find implements _Find {
     @required Result unexpected(_Unexpected value),
     @required Result create(_Create value),
     @required Result find(_Find value),
+    @required Result update(_Update value),
+    @required Result delete(_Delete value),
   }) {
     assert(unexpected != null);
     assert(create != null);
     assert(find != null);
+    assert(update != null);
+    assert(delete != null);
     return find(this);
   }
 
@@ -334,6 +384,8 @@ class _$_Find implements _Find {
     Result unexpected(_Unexpected value),
     Result create(_Create value),
     Result find(_Find value),
+    Result update(_Update value),
+    Result delete(_Delete value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -346,4 +398,210 @@ class _$_Find implements _Find {
 
 abstract class _Find implements ExerciseFailure {
   const factory _Find() = _$_Find;
+}
+
+abstract class _$UpdateCopyWith<$Res> {
+  factory _$UpdateCopyWith(_Update value, $Res Function(_Update) then) =
+      __$UpdateCopyWithImpl<$Res>;
+}
+
+class __$UpdateCopyWithImpl<$Res> extends _$ExerciseFailureCopyWithImpl<$Res>
+    implements _$UpdateCopyWith<$Res> {
+  __$UpdateCopyWithImpl(_Update _value, $Res Function(_Update) _then)
+      : super(_value, (v) => _then(v as _Update));
+
+  @override
+  _Update get _value => super._value as _Update;
+}
+
+class _$_Update implements _Update {
+  const _$_Update();
+
+  @override
+  String toString() {
+    return 'ExerciseFailure.update()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Update);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result unexpected(),
+    @required Result create(),
+    @required Result find(),
+    @required Result update(),
+    @required Result delete(),
+  }) {
+    assert(unexpected != null);
+    assert(create != null);
+    assert(find != null);
+    assert(update != null);
+    assert(delete != null);
+    return update();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result unexpected(),
+    Result create(),
+    Result find(),
+    Result update(),
+    Result delete(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (update != null) {
+      return update();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result unexpected(_Unexpected value),
+    @required Result create(_Create value),
+    @required Result find(_Find value),
+    @required Result update(_Update value),
+    @required Result delete(_Delete value),
+  }) {
+    assert(unexpected != null);
+    assert(create != null);
+    assert(find != null);
+    assert(update != null);
+    assert(delete != null);
+    return update(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result unexpected(_Unexpected value),
+    Result create(_Create value),
+    Result find(_Find value),
+    Result update(_Update value),
+    Result delete(_Delete value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (update != null) {
+      return update(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Update implements ExerciseFailure {
+  const factory _Update() = _$_Update;
+}
+
+abstract class _$DeleteCopyWith<$Res> {
+  factory _$DeleteCopyWith(_Delete value, $Res Function(_Delete) then) =
+      __$DeleteCopyWithImpl<$Res>;
+}
+
+class __$DeleteCopyWithImpl<$Res> extends _$ExerciseFailureCopyWithImpl<$Res>
+    implements _$DeleteCopyWith<$Res> {
+  __$DeleteCopyWithImpl(_Delete _value, $Res Function(_Delete) _then)
+      : super(_value, (v) => _then(v as _Delete));
+
+  @override
+  _Delete get _value => super._value as _Delete;
+}
+
+class _$_Delete implements _Delete {
+  const _$_Delete();
+
+  @override
+  String toString() {
+    return 'ExerciseFailure.delete()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Delete);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result unexpected(),
+    @required Result create(),
+    @required Result find(),
+    @required Result update(),
+    @required Result delete(),
+  }) {
+    assert(unexpected != null);
+    assert(create != null);
+    assert(find != null);
+    assert(update != null);
+    assert(delete != null);
+    return delete();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result unexpected(),
+    Result create(),
+    Result find(),
+    Result update(),
+    Result delete(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (delete != null) {
+      return delete();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result unexpected(_Unexpected value),
+    @required Result create(_Create value),
+    @required Result find(_Find value),
+    @required Result update(_Update value),
+    @required Result delete(_Delete value),
+  }) {
+    assert(unexpected != null);
+    assert(create != null);
+    assert(find != null);
+    assert(update != null);
+    assert(delete != null);
+    return delete(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result unexpected(_Unexpected value),
+    Result create(_Create value),
+    Result find(_Find value),
+    Result update(_Update value),
+    Result delete(_Delete value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (delete != null) {
+      return delete(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Delete implements ExerciseFailure {
+  const factory _Delete() = _$_Delete;
 }
