@@ -8,4 +8,5 @@ abstract class ValueObject<T> {
   const ValueObject(this.value);
   bool get isValid => value.isRight();
   T get safeValue => value.fold((l) => throw UnexpectedValueError(l), id);
+  T get dangerValue => value.fold((l) => l.invalidValue, id);
 }
