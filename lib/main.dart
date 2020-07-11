@@ -1,3 +1,4 @@
+import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,15 @@ import 'presentation/core/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocator();
-  runApp(BlocProvider<ExerciseHubBloc>(
-      create: (_) => locator<ExerciseHubBloc>()..add(ExerciseHubEvent.init()),
-      child: App()));
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<ExerciseHubBloc>(
+        create: (_) => locator<ExerciseHubBloc>()..add(ExerciseHubEvent.init()),
+      ),
+      BlocProvider<ExerciseActorBloc>(
+        create: (_) => locator<ExerciseActorBloc>(),
+      )
+    ],
+    child: App(),
+  ));
 }
