@@ -1,5 +1,6 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,9 +21,15 @@ class ExerciseFormHandler extends StatelessWidget {
       listener: (context, state) {
         state.addStatus.fold(() => null, (failureOrSuccess) {
           failureOrSuccess.fold(
-              (failure) => showFailureMessage(
-                  context, getExerciseFailureMessage(failure)), (_) {
+              (failure) => showMessage(context,
+                  message: getExerciseFailureMessage(failure),
+                  type: ErrorMessage()), (_) {
             onFormSuccess(context);
+            Navigator.pop(context, [
+              state.isEditing
+                  ? "${state.exercise.name.safeValue} updated successfully"
+                  : "${state.exercise.name.safeValue} added successfully"
+            ]);
           });
         });
       },
@@ -99,7 +106,11 @@ class ExerciseFormHandler extends StatelessWidget {
   Widget buildNameInput(BuildContext context) {
     final exerciseFormBloc = BlocProvider.of<ExerciseFormBloc>(context);
     final state = exerciseFormBloc.state;
+    final exerciseName = state.exercise.name.dangerValue;
     return TextFormField(
+      key: ValueKey(state.isEditing),
+      initialValue: exerciseName,
+      autofocus: !state.isEditing,
       onChanged: (value) {
         exerciseFormBloc.add(ExerciseFormEvent.exerciseNameChanged(value));
       },
@@ -116,7 +127,6 @@ class ExerciseFormHandler extends StatelessWidget {
   void onFormSuccess(BuildContext context) {
     final exerciseHubBloc = BlocProvider.of<ExerciseHubBloc>(context);
     exerciseHubBloc.add(ExerciseHubEvent.refreshed());
-    Navigator.pop(context);
   }
 
   void showFailureMessage(BuildContext context, String message) {
