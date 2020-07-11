@@ -1,5 +1,7 @@
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import "../../../core/helpers/string_extension.dart";
 
@@ -9,9 +11,8 @@ class ExerciseItem extends StatelessWidget {
   const ExerciseItem({Key key, @required this.exercise}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return exercise
-        .failureOption()
-        .fold(() => buildExerciseItem(), (a) => buildExerciseErrorCard());
+    return exercise.failureOption().fold(
+        () => buildExerciseItem(context), (a) => buildExerciseErrorCard());
   }
 
   Container buildExerciseErrorCard() {
@@ -25,8 +26,17 @@ class ExerciseItem extends StatelessWidget {
     );
   }
 
-  Widget buildExerciseItem() {
+  Widget buildExerciseItem(BuildContext context) {
     return Slidable(
+      dismissal: SlidableDismissal(
+        child: SlidableDrawerDismissal(),
+        dragDismissible: false,
+        onDismissed: (actionType) {
+          BlocProvider.of<ExerciseHubBloc>(context)
+              .add(ExerciseHubEvent.exerciseDeleted(exerciseId: exercise.id));
+        },
+      ),
+      key: ValueKey(exercise.id.value),
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: buildExerciseCard(),
@@ -37,11 +47,16 @@ class ExerciseItem extends StatelessWidget {
           icon: Icons.edit,
           onTap: () {},
         ),
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () {},
+        Builder(
+          builder: (ctx) => IconSlideAction(
+            caption: 'Delete',
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () {
+              final state = Slidable.of(ctx);
+              state.dismiss();
+            },
+          ),
         ),
       ],
     );
