@@ -83,7 +83,7 @@ class ExerciseFormHandler extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     child: RaisedButton(
-                      child: Text("Add"),
+                      child: Text("Save"),
                       color: Colors.black,
                       textColor: Colors.white,
                       onPressed: state.isAdding
