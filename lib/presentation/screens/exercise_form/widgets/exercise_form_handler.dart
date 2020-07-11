@@ -25,11 +25,11 @@ class ExerciseFormHandler extends StatelessWidget {
                   message: getExerciseFailureMessage(failure),
                   type: ErrorMessage()), (_) {
             onFormSuccess(context);
-            Navigator.pop(context, [
-              state.isEditing
-                  ? "${state.exercise.name.safeValue} updated successfully"
-                  : "${state.exercise.name.safeValue} added successfully"
-            ]);
+            Navigator.pop(
+                context,
+                state.isEditing
+                    ? "${state.exercise.name.safeValue} updated successfully"
+                    : "${state.exercise.name.safeValue} added successfully");
           });
         });
       },
