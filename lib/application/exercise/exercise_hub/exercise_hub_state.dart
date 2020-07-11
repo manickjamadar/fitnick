@@ -7,7 +7,4 @@ abstract class ExerciseHubState with _$ExerciseHubState {
       _ExerciseHubLoaded;
   const factory ExerciseHubState.loadedError(
       {@required ExerciseFailure failure}) = _ExerciseHubLoadedError;
-  const factory ExerciseHubState.reorderedError(
-      {@required List<Exercise> exercises,
-      @required ExerciseFailure failure}) = _ExerciseHubReorderedError;
 }

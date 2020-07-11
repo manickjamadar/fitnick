@@ -1,8 +1,9 @@
+import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/exercise/exercise_form/exercise_form_bloc.dart';
-import '../../../../application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import '../../../../domain/exercise/failure/exercise_failure.dart';
 import '../../../../domain/exercise/models/exercise.dart';
 import '../../../../domain/exercise/models/sub_models/exercise_level.dart';
@@ -21,7 +22,7 @@ class ExerciseFormHandler extends StatelessWidget {
           failureOrSuccess.fold(
               (failure) => showFailureMessage(
                   context, getExerciseFailureMessage(failure)), (_) {
-            onAddSuccess(context);
+            onFormSuccess(context);
           });
         });
       },
@@ -112,11 +113,11 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  void onAddSuccess(BuildContext context) {
+  void onFormSuccess(BuildContext context) {
     final exerciseFormBloc = BlocProvider.of<ExerciseFormBloc>(context);
     final exerciseHubBloc = BlocProvider.of<ExerciseHubBloc>(context);
     final Exercise exercise = exerciseFormBloc.state.exercise;
-    exerciseHubBloc.add(ExerciseHubEvent.exerciseAdded(exercise: exercise));
+    exerciseHubBloc.add(ExerciseHubEvent.refreshed());
     Navigator.pop(context);
   }
 

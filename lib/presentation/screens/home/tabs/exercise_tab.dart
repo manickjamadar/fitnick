@@ -13,8 +13,6 @@ class ExerciseTab extends StatelessWidget {
           loading: () => buildLoading(),
           loaded: (List<Exercise> exercises) => buildExercises(exercises),
           loadedError: (_) => buildLoadedFailed(),
-          reorderedError: (List<Exercise> exercises, _) =>
-              buildExercises(exercises),
         );
       },
     );
