@@ -1,7 +1,7 @@
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
-import 'package:fitnick/presentation/screens/home/tabs/routine_tab.dart';
+import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/home/widgets/add_buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }),
         items: [
           BottomNavigationBarItem(
-              icon: Icon(MyIcons.routine), title: Text("Routine")),
+              icon: Icon(MyIcons.workout), title: Text("Workout")),
           BottomNavigationBarItem(
               icon: Icon(MyIcons.exercise), title: Text("Exercise")),
           BottomNavigationBarItem(
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: IndexedStack(
         index: currentTab,
-        children: <Widget>[RoutineTab(), ExerciseTab(), ProgressionTab()],
+        children: <Widget>[WorkoutTab(), ExerciseTab(), ProgressionTab()],
       ),
     );
   }

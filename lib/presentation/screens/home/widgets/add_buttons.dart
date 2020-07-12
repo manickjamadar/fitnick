@@ -33,11 +33,11 @@ class AddButtons extends StatelessWidget {
       shape: CircleBorder(),
       children: [
         SpeedDialChild(
-            child: Icon(MyIcons.routine),
+            child: Icon(MyIcons.workout),
             backgroundColor: Colors.red,
-            label: 'Add Workout Routine',
+            label: 'Add Workout',
             labelStyle: TextStyle(fontSize: 12.0),
-            onTap: () => print('Add Workout Routine')),
+            onTap: () => print('Add Workout')),
         SpeedDialChild(
           child: Icon(MyIcons.exercise),
           backgroundColor: Colors.blue,
