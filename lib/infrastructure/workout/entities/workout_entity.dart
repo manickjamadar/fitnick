@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:fitnick/domain/core/unique_id.dart';
+import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part "workout_entity.freezed.dart";
 part "workout_entity.g.dart";
@@ -17,4 +20,24 @@ abstract class WorkoutEntity implements _$WorkoutEntity {
       @required List<UniqueId> exerciseIds}) = _WorkoutEntity;
   factory WorkoutEntity.fromJson(Map<String, dynamic> json) =>
       _$WorkoutEntityFromJson(json);
+
+  factory WorkoutEntity.fromLocalJson(Map<String, dynamic> json) {
+    return WorkoutEntity(
+        id: UniqueId.fromString(json[KEY_ID] as String),
+        name: json[KEY_NAME] as String,
+        exerciseIds: (jsonDecode(json[KEY_EXERCISE_IDS] as String)
+                .cast<String>())
+            .map<UniqueId>((String stringId) => UniqueId.fromString(stringId))
+            .toList());
+  }
+  Map<String, dynamic> toLocalJson() {
+    return {
+      KEY_ID: id.value,
+      KEY_NAME: name,
+      KEY_EXERCISE_IDS: jsonEncode(exerciseIds.map((id) => id.value).toList())
+    };
+  }
+
+  factory WorkoutEntity.fromModel(Workout workout) {}
+  Workout toModel() {}
 }
