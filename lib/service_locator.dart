@@ -6,8 +6,11 @@ import 'package:fitnick/external/local_databse_provider.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/i_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/local_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/facade/local_exercise_facade.dart';
+import 'package:fitnick/infrastructure/workout/facade/local_workout_facade.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'domain/workout/facade/i_workout_facade.dart';
 
 final locator = GetIt.instance;
 
@@ -31,6 +34,7 @@ void initDataSource() {
 void initFacade() {
   locator.registerLazySingleton<IExerciseFacade>(
       () => LocalExerciseFacade(dataSource: locator<IExerciseDataSource>()));
+  locator.registerLazySingleton<IWorkoutFacade>(() => LocalWorkoutFacade());
 }
 
 void initBloc() {
