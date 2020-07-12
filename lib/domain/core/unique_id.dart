@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 part "unique_id.g.dart";
 
 @JsonSerializable()
-class UniqueId {
+class UniqueId extends Equatable {
   final String value;
   const UniqueId._(this.value);
   factory UniqueId() {
@@ -16,4 +17,7 @@ class UniqueId {
   factory UniqueId.fromJson(Map<String, dynamic> json) =>
       _$UniqueIdFromJson(json);
   Map<String, dynamic> toJson() => _$UniqueIdToJson(this);
+
+  @override
+  List<Object> get props => [value];
 }
