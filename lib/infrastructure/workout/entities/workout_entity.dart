@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:fitnick/domain/core/unique_id.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
+import 'package:fitnick/domain/workout/value_object/workout_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part "workout_entity.freezed.dart";
 part "workout_entity.g.dart";
@@ -38,6 +40,20 @@ abstract class WorkoutEntity implements _$WorkoutEntity {
     };
   }
 
-  factory WorkoutEntity.fromModel(Workout workout) {}
-  Workout toModel() {}
+  factory WorkoutEntity.fromModel(Workout workout) {
+    return WorkoutEntity(
+        id: workout.id,
+        name: workout.name.safeValue,
+        exerciseIds:
+            workout.exercises.map((Exercise exercise) => exercise.id).toList());
+  }
+  Workout toModel(List<Exercise> exercises) {
+    return Workout(
+        id: id,
+        name: WorkoutName(name),
+        exercises: exercises
+            .where(
+                (Exercise exercise) => exerciseIds.indexOf(exercise.id) != -1)
+            .toList());
+  }
 }
