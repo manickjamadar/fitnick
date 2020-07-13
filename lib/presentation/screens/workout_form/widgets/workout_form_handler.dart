@@ -5,6 +5,8 @@ import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/save_button.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +53,7 @@ class WorkoutFormHandler extends StatelessWidget {
             height: 20,
           ),
           Text("Exercises", style: Theme.of(context).textTheme.subtitle1),
+          buildWorkoutExeriseList(context),
           SizedBox(
             height: 20,
           ),
@@ -68,6 +71,25 @@ class WorkoutFormHandler extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Widget buildWorkoutExeriseList(BuildContext context) {
+    return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
+      builder: (_, state) {
+        return Column(
+            children: state.workout.exercises
+                .map((exercise) => ExerciseItem(
+                      exercise: exercise,
+                      exerciseItemType:
+                          ExerciseItemType.removable(onRemove: (_) {
+                        BlocProvider.of<WorkoutFormBloc>(context).add(
+                            WorkoutFormEvent.exerciseRemoved(
+                                exerciseId: exercise.id));
+                      }),
+                    ))
+                .toList());
+      },
     );
   }
 
