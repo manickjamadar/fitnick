@@ -18,8 +18,11 @@ class LocalDatabaseProvider {
   static Future<Database> _init() async {
     final documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, dbName);
-    return await openDatabase(path, version: dbVersion,
-        onCreate: (Database db, _) async {
+    return await openDatabase(path, version: dbVersion, onCreate: _onCreate);
+  }
+
+  static void _onCreate(Database db, _) async {
+    {
       await db.execute('''
           CREATE TABLE IF NOT EXISTS ${ExerciseEntity.collectionName}(
             ${ExerciseEntity.KEY_ID} TEXT PRIMARY KEY,
@@ -37,6 +40,6 @@ class LocalDatabaseProvider {
             ${WorkoutEntity.KEY_EXERCISE_IDS} TEXT NOT NULL
           );
       ''');
-    });
+    }
   }
 }
