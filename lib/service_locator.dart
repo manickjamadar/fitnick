@@ -1,6 +1,7 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/workout/workout_hub/workout_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
 import 'package:fitnick/external/local_databse_provider.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/i_exercise_data_source.dart';
@@ -51,4 +52,6 @@ void initBloc() {
   locator.registerFactory<ExerciseActorBloc>(() => ExerciseActorBloc(
         exerciseFacade: locator<IExerciseFacade>(),
       ));
+  locator.registerFactory<WorkoutHubBloc>(
+      () => WorkoutHubBloc(workoutFacade: locator<IWorkoutFacade>()));
 }
