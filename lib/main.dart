@@ -14,12 +14,12 @@ void main() async {
       BlocProvider<ExerciseHubBloc>(
         create: (_) => locator<ExerciseHubBloc>()..add(ExerciseHubEvent.init()),
       ),
+      BlocProvider<ExerciseActorBloc>(
+        create: (_) => locator<ExerciseActorBloc>(),
+      ),
       BlocProvider<WorkoutHubBloc>(
         create: (_) => locator<WorkoutHubBloc>()..add(WorkoutHubEvent.init()),
       ),
-      BlocProvider<ExerciseActorBloc>(
-        create: (_) => locator<ExerciseActorBloc>(),
-      )
     ],
     child: App(),
   ));
