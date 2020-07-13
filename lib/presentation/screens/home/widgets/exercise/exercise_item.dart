@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,14 +19,9 @@ class ExerciseItem extends StatelessWidget {
         () => buildExerciseItem(context), (a) => buildExerciseErrorCard());
   }
 
-  Container buildExerciseErrorCard() {
-    return Container(
-      color: Colors.red,
-      height: 30,
-      child: Text(
-        "Exercise Item Error",
-        style: TextStyle(color: Colors.white),
-      ),
+  Widget buildExerciseErrorCard() {
+    return ErrorCard(
+      title: "Exercise Item Error",
     );
   }
 
