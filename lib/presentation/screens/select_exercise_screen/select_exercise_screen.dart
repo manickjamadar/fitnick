@@ -1,4 +1,5 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
@@ -31,22 +32,35 @@ class SelectExerciseScreen extends StatelessWidget {
   Widget buildLoaded(BuildContext context, List<Exercise> exercises) {
     return Stack(
       children: <Widget>[
-        buildExerciseList(exercises),
+        buildExerciseList(context, exercises),
         buildDoneButton(context)
       ],
     );
   }
 
-  ListView buildExerciseList(List<Exercise> exercises) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        final exercise = exercises[index];
-        return ExerciseItem(
-          exercise: exercise,
-          exerciseItemType: ExerciseItemType.selectable(onSelect: (_) {}),
+  Widget buildExerciseList(BuildContext context, List<Exercise> exercises) {
+    return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
+      builder: (_, state) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            final exercise = exercises[index];
+            final bool isSelected = state.workout.exercises
+                .any((wExercise) => wExercise.id == exercise.id);
+            return ExerciseItem(
+              exercise: exercise,
+              exerciseItemType: ExerciseItemType.selectable(
+                  onSelect: (_) {
+                    BlocProvider.of<WorkoutFormBloc>(context).add(isSelected
+                        ? WorkoutFormEvent.exerciseRemoved(
+                            exerciseId: exercise.id)
+                        : WorkoutFormEvent.exerciseAdded(exercise: exercise));
+                  },
+                  selected: isSelected),
+            );
+          },
+          itemCount: exercises.length,
         );
       },
-      itemCount: exercises.length,
     );
   }
 
