@@ -1,5 +1,6 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/save_button.dart';
@@ -112,8 +113,9 @@ class ExerciseFormHandler extends StatelessWidget {
       },
       decoration: InputDecoration(
           errorText: state.shouldShowErrorMessages
-              ? state.exercise.name.value
-                  .fold((l) => "invalid value", (r) => null)
+              ? state.exercise.name.value.fold(
+                  (nameFailure) => getValueFailureMessage(nameFailure),
+                  (r) => null)
               : null,
           border: OutlineInputBorder(),
           labelText: "Exercise Name"),

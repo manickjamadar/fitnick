@@ -5,3 +5,7 @@ part "value_failure.freezed.dart";
 abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.empty({@required T invalidValue}) = _Empty<T>;
 }
+
+String getValueFailureMessage(ValueFailure failure) {
+  return failure.when(empty: (_) => "Invalid Empty value");
+}
