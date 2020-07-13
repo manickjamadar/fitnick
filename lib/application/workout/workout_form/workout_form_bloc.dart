@@ -57,7 +57,7 @@ class WorkoutFormBloc extends Bloc<WorkoutFormEvent, WorkoutFormState> {
       UniqueId exerciseId) async* {
     final oldExercises = state.workout.exercises;
     final newExercises =
-        oldExercises.where((exercise) => exercise.id != exercise.id).toList();
+        oldExercises.where((exercise) => exercise.id != exerciseId).toList();
     yield state.copyWith(
         workout: state.workout.copyWith(exercises: newExercises),
         addStatus: none());
