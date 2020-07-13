@@ -1,6 +1,7 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -137,12 +138,7 @@ class ExerciseFormHandler extends StatelessWidget {
   }
 
   Widget buildLoading() {
-    return Container(
-      color: Colors.black.withOpacity(0.3),
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return ExecutingIndicator();
   }
 
   Widget buildSpace() {
