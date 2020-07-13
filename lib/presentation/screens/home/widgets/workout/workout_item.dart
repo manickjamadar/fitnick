@@ -1,4 +1,5 @@
 import 'package:fitnick/domain/workout/models/workout.dart';
+import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,9 @@ class WorkoutItem extends StatelessWidget {
     return Card(
       margin: EdgeInsets.all(0),
       child: ListTile(
+        leading: CircleAvatar(
+          child: Icon(MyIcons.workout),
+        ),
         title: Text(workout.name.safeValue),
         subtitle: Text("${_getExerciseCount(workout)} exercises"),
       ),
