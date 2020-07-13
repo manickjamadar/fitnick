@@ -6,6 +6,8 @@ import 'package:fitnick/external/local_databse_provider.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/i_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/local_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/facade/local_exercise_facade.dart';
+import 'package:fitnick/infrastructure/workout/data_source/i_workout_data_source.dart';
+import 'package:fitnick/infrastructure/workout/data_source/local_workout_data_source.dart';
 import 'package:fitnick/infrastructure/workout/facade/local_workout_facade.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sqflite/sqflite.dart';
@@ -29,12 +31,16 @@ Future<void> initExternal() async {
 void initDataSource() {
   locator.registerLazySingleton<IExerciseDataSource>(
       () => LocalExerciseDataSource(database: locator<Database>()));
+  locator.registerLazySingleton<IWorkoutDataSource>(
+      () => LocalWorkoutDataSource(database: locator<Database>()));
 }
 
 void initFacade() {
   locator.registerLazySingleton<IExerciseFacade>(
       () => LocalExerciseFacade(dataSource: locator<IExerciseDataSource>()));
-  locator.registerLazySingleton<IWorkoutFacade>(() => LocalWorkoutFacade());
+  locator.registerLazySingleton<IWorkoutFacade>(() => LocalWorkoutFacade(
+      exerciseFacade: locator<IExerciseFacade>(),
+      workoutDataSource: locator<IWorkoutDataSource>()));
 }
 
 void initBloc() {
