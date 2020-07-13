@@ -1,4 +1,5 @@
 import 'package:fitnick/infrastructure/exercise/entities/exercise_entity.dart';
+import 'package:fitnick/infrastructure/workout/entities/workout_entity.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -29,6 +30,13 @@ class LocalDatabaseProvider {
             ${ExerciseEntity.KEY_TARGET} TEXT NOT NULL
           );
         ''');
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS ${WorkoutEntity.collectionName}(
+            ${WorkoutEntity.KEY_ID} TEXT PRIMARY KEY,
+            ${WorkoutEntity.KEY_NAME} TEXT NOT NULL,
+            ${WorkoutEntity.KEY_EXERCISE_IDS} TEXT NOT NULL
+          );
+      ''');
     });
   }
 }
