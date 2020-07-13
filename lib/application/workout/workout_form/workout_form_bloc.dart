@@ -19,6 +19,25 @@ class WorkoutFormBloc extends Bloc<WorkoutFormEvent, WorkoutFormState> {
   Stream<WorkoutFormState> mapEventToState(
     WorkoutFormEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    yield* event.when(
+        init: _mapInitToState,
+        nameChanged: _mapNameChangedToState,
+        exerciseAdded: _mapExerciseAddedToState,
+        exerciseRemoved: _mapExerciseRemovedToState,
+        saved: _mapSavedToState);
   }
+
+  Stream<WorkoutFormState> _mapInitToState(
+      Option<Workout> workoutOption) async* {
+    yield workoutOption.fold(
+        () => state,
+        (Workout workout) => state.copyWith(
+            workout: workout, isEditing: true, addStatus: none()));
+  }
+
+  Stream<WorkoutFormState> _mapNameChangedToState(String name) async* {}
+  Stream<WorkoutFormState> _mapExerciseAddedToState(Exercise exercise) async* {}
+  Stream<WorkoutFormState> _mapExerciseRemovedToState(
+      UniqueId exerciseId) async* {}
+  Stream<WorkoutFormState> _mapSavedToState() async* {}
 }
