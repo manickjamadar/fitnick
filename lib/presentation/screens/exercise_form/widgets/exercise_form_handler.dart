@@ -2,6 +2,7 @@ import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,18 +82,12 @@ class ExerciseFormHandler extends StatelessWidget {
                     },
                   ),
                   Spacer(),
-                  Container(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      child: Text("Save"),
-                      color: Colors.black,
-                      textColor: Colors.white,
-                      onPressed: state.isAdding
-                          ? null
-                          : () {
-                              exerciseformBloc.add(ExerciseFormEvent.added());
-                            },
-                    ),
+                  SaveButton(
+                    onPressed: state.isAdding
+                        ? null
+                        : () {
+                            exerciseformBloc.add(ExerciseFormEvent.added());
+                          },
                   )
                 ],
               ),
