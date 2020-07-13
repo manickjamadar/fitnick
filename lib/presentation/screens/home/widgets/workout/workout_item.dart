@@ -15,6 +15,7 @@ class WorkoutItem extends StatelessWidget {
 
   Widget buildWorkoutCard() {
     return Card(
+      margin: EdgeInsets.all(0),
       child: ListTile(
         title: Text(workout.name.safeValue),
         subtitle: Text("${_getExerciseCount(workout)} exercises"),
