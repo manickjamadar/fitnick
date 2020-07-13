@@ -1,6 +1,5 @@
-import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise_item.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseListView extends StatelessWidget {

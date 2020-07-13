@@ -1,9 +1,8 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
-import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exerise_list_view.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/exerise_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
