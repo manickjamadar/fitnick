@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
+import 'package:fitnick/presentation/screens/workout_form/workout_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -37,7 +38,7 @@ class AddButtons extends StatelessWidget {
             backgroundColor: Colors.red,
             label: 'Add Workout',
             labelStyle: TextStyle(fontSize: 12.0),
-            onTap: () => print('Add Workout')),
+            onTap: () => onAddWorkout(context)),
         SpeedDialChild(
           child: Icon(MyIcons.exercise),
           backgroundColor: Colors.blue,
@@ -61,6 +62,16 @@ class AddButtons extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (_) => ExerciseFormScreen.generateRoute(none())));
+    if (message != null) {
+      showMessage(context, message: message, type: SuccessMessage());
+    }
+  }
+
+  void onAddWorkout(BuildContext context) async {
+    String message = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => WorkoutFormScreen.generateRoute(none())));
     if (message != null) {
       showMessage(context, message: message, type: SuccessMessage());
     }
