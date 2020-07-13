@@ -5,6 +5,7 @@ import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/save_button.dart';
+import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,7 +56,13 @@ class WorkoutFormHandler extends StatelessWidget {
           ),
           FlatButton(
             child: Text("+ Add Exercise"),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SelectExerciseScreen.generateRoute(),
+                  ));
+            },
           )
         ],
       ),
