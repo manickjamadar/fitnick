@@ -34,6 +34,7 @@ class WorkoutRunningBloc
     } else {
       yield WorkoutRunningState(
           currentIndex: Some(0),
+          length: workout.exercises.length,
           rest: Duration(seconds: 0),
           totalRest: Duration(seconds: 0),
           isResting: false,
@@ -43,8 +44,30 @@ class WorkoutRunningBloc
     }
   }
 
-  Stream<WorkoutRunningState> _mapNextToState() async* {}
-  Stream<WorkoutRunningState> _mapPreviousToState() async* {}
+  Stream<WorkoutRunningState> _mapNextToState() async* {
+    if (state.hasNextExercise) {
+      _resetRestTimer();
+      yield state.currentIndex.fold(
+          () => state,
+          (index) => state.copyWith(
+              currentIndex: Some(index + 1),
+              hasPreviousExercise: true,
+              hasNextExercise: (index + 1) < (state.length - 1)));
+    }
+  }
+
+  Stream<WorkoutRunningState> _mapPreviousToState() async* {
+    if (state.hasPreviousExercise) {
+      _resetRestTimer();
+      yield state.currentIndex.fold(
+          () => state,
+          (index) => state.copyWith(
+              currentIndex: Some(index - 1),
+              hasPreviousExercise: (index - 1) > 0,
+              hasNextExercise: true));
+    }
+  }
+
   Stream<WorkoutRunningState> _mapRestToggleToState() async* {
     if (state.isResting) {
       _resetRestTimer();

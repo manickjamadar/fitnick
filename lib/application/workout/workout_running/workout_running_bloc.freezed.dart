@@ -962,6 +962,7 @@ class _$WorkoutRunningStateTearOff {
 
   _WorkoutRunningState call(
       {@required Option<int> currentIndex,
+      @required int length,
       @required Duration rest,
       @required Duration totalRest,
       @required bool isResting,
@@ -970,6 +971,7 @@ class _$WorkoutRunningStateTearOff {
       @required bool isCompleted}) {
     return _WorkoutRunningState(
       currentIndex: currentIndex,
+      length: length,
       rest: rest,
       totalRest: totalRest,
       isResting: isResting,
@@ -985,6 +987,7 @@ const $WorkoutRunningState = _$WorkoutRunningStateTearOff();
 
 mixin _$WorkoutRunningState {
   Option<int> get currentIndex;
+  int get length;
   Duration get rest;
   Duration get totalRest;
   bool get isResting;
@@ -1001,6 +1004,7 @@ abstract class $WorkoutRunningStateCopyWith<$Res> {
       _$WorkoutRunningStateCopyWithImpl<$Res>;
   $Res call(
       {Option<int> currentIndex,
+      int length,
       Duration rest,
       Duration totalRest,
       bool isResting,
@@ -1020,6 +1024,7 @@ class _$WorkoutRunningStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object currentIndex = freezed,
+    Object length = freezed,
     Object rest = freezed,
     Object totalRest = freezed,
     Object isResting = freezed,
@@ -1031,6 +1036,7 @@ class _$WorkoutRunningStateCopyWithImpl<$Res>
       currentIndex: currentIndex == freezed
           ? _value.currentIndex
           : currentIndex as Option<int>,
+      length: length == freezed ? _value.length : length as int,
       rest: rest == freezed ? _value.rest : rest as Duration,
       totalRest:
           totalRest == freezed ? _value.totalRest : totalRest as Duration,
@@ -1055,6 +1061,7 @@ abstract class _$WorkoutRunningStateCopyWith<$Res>
   @override
   $Res call(
       {Option<int> currentIndex,
+      int length,
       Duration rest,
       Duration totalRest,
       bool isResting,
@@ -1076,6 +1083,7 @@ class __$WorkoutRunningStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object currentIndex = freezed,
+    Object length = freezed,
     Object rest = freezed,
     Object totalRest = freezed,
     Object isResting = freezed,
@@ -1087,6 +1095,7 @@ class __$WorkoutRunningStateCopyWithImpl<$Res>
       currentIndex: currentIndex == freezed
           ? _value.currentIndex
           : currentIndex as Option<int>,
+      length: length == freezed ? _value.length : length as int,
       rest: rest == freezed ? _value.rest : rest as Duration,
       totalRest:
           totalRest == freezed ? _value.totalRest : totalRest as Duration,
@@ -1106,6 +1115,7 @@ class __$WorkoutRunningStateCopyWithImpl<$Res>
 class _$_WorkoutRunningState extends _WorkoutRunningState {
   const _$_WorkoutRunningState(
       {@required this.currentIndex,
+      @required this.length,
       @required this.rest,
       @required this.totalRest,
       @required this.isResting,
@@ -1113,6 +1123,7 @@ class _$_WorkoutRunningState extends _WorkoutRunningState {
       @required this.hasPreviousExercise,
       @required this.isCompleted})
       : assert(currentIndex != null),
+        assert(length != null),
         assert(rest != null),
         assert(totalRest != null),
         assert(isResting != null),
@@ -1123,6 +1134,8 @@ class _$_WorkoutRunningState extends _WorkoutRunningState {
 
   @override
   final Option<int> currentIndex;
+  @override
+  final int length;
   @override
   final Duration rest;
   @override
@@ -1138,7 +1151,7 @@ class _$_WorkoutRunningState extends _WorkoutRunningState {
 
   @override
   String toString() {
-    return 'WorkoutRunningState(currentIndex: $currentIndex, rest: $rest, totalRest: $totalRest, isResting: $isResting, hasNextExercise: $hasNextExercise, hasPreviousExercise: $hasPreviousExercise, isCompleted: $isCompleted)';
+    return 'WorkoutRunningState(currentIndex: $currentIndex, length: $length, rest: $rest, totalRest: $totalRest, isResting: $isResting, hasNextExercise: $hasNextExercise, hasPreviousExercise: $hasPreviousExercise, isCompleted: $isCompleted)';
   }
 
   @override
@@ -1148,6 +1161,8 @@ class _$_WorkoutRunningState extends _WorkoutRunningState {
             (identical(other.currentIndex, currentIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.currentIndex, currentIndex)) &&
+            (identical(other.length, length) ||
+                const DeepCollectionEquality().equals(other.length, length)) &&
             (identical(other.rest, rest) ||
                 const DeepCollectionEquality().equals(other.rest, rest)) &&
             (identical(other.totalRest, totalRest) ||
@@ -1171,6 +1186,7 @@ class _$_WorkoutRunningState extends _WorkoutRunningState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(currentIndex) ^
+      const DeepCollectionEquality().hash(length) ^
       const DeepCollectionEquality().hash(rest) ^
       const DeepCollectionEquality().hash(totalRest) ^
       const DeepCollectionEquality().hash(isResting) ^
@@ -1188,6 +1204,7 @@ abstract class _WorkoutRunningState extends WorkoutRunningState {
   const _WorkoutRunningState._() : super._();
   const factory _WorkoutRunningState(
       {@required Option<int> currentIndex,
+      @required int length,
       @required Duration rest,
       @required Duration totalRest,
       @required bool isResting,
@@ -1197,6 +1214,8 @@ abstract class _WorkoutRunningState extends WorkoutRunningState {
 
   @override
   Option<int> get currentIndex;
+  @override
+  int get length;
   @override
   Duration get rest;
   @override

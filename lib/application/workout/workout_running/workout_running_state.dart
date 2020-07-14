@@ -5,6 +5,7 @@ abstract class WorkoutRunningState implements _$WorkoutRunningState {
   const WorkoutRunningState._();
   const factory WorkoutRunningState(
       {@required Option<int> currentIndex,
+      @required int length,
       @required Duration rest,
       @required Duration totalRest,
       @required bool isResting,
@@ -14,6 +15,7 @@ abstract class WorkoutRunningState implements _$WorkoutRunningState {
   factory WorkoutRunningState.initial() {
     return WorkoutRunningState(
         currentIndex: none(),
+        length: 0,
         rest: Duration(seconds: 0),
         totalRest: Duration(seconds: 0),
         isResting: false,

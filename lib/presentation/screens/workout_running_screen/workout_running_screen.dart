@@ -73,7 +73,8 @@ class WorkoutRunningScreen extends StatelessWidget {
                 Icons.arrow_back_ios,
                 size: 40,
               ),
-              onPressed: state.hasPreviousExercise ? () {} : null,
+              onPressed:
+                  state.hasPreviousExercise ? () => _onPrevious(context) : null,
               iconSize: 40),
           if (state.isResting)
             CircleAvatar(
@@ -95,11 +96,21 @@ class WorkoutRunningScreen extends StatelessWidget {
                 Icons.arrow_forward_ios,
                 size: 40,
               ),
-              onPressed: state.hasNextExercise ? () {} : null,
+              onPressed: state.hasNextExercise ? () => _onNext(context) : null,
               iconSize: 40),
         ],
       ),
     );
+  }
+
+  void _onNext(BuildContext context) {
+    BlocProvider.of<WorkoutRunningBloc>(context)
+        .add(WorkoutRunningEvent.next());
+  }
+
+  void _onPrevious(BuildContext context) {
+    BlocProvider.of<WorkoutRunningBloc>(context)
+        .add(WorkoutRunningEvent.previous());
   }
 
   void onPlayOrPause(BuildContext context) {
