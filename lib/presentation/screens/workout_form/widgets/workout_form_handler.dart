@@ -33,7 +33,7 @@ class WorkoutFormHandler extends StatelessWidget {
       builder: (context, state) {
         return Stack(
           children: <Widget>[
-            buildForm(context),
+            SingleChildScrollView(child: buildForm(context)),
             buildSaveButton(context),
             if (state.isAdding) ExecutingIndicator()
           ],

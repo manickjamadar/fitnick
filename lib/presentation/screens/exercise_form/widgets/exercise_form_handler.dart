@@ -37,66 +37,84 @@ class ExerciseFormHandler extends StatelessWidget {
         });
       },
       builder: (context, state) {
-        return Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  buildNameInput(context),
-                  buildSpace(),
-                  Selector<ExerciseLevel>(
-                    value: state.exercise.level,
-                    label: "Level",
-                    options: ExerciseLevel.all,
-                    onChanged: (newValue) {
-                      exerciseformBloc.add(
-                          ExerciseFormEvent.exerciseLevelChanged(newValue));
-                    },
+        return Container(
+          // height: 400,
+          child: Stack(
+            fit: StackFit.loose,
+            children: <Widget>[
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      buildNameInput(context),
+                      buildSpace(),
+                      Selector<ExerciseLevel>(
+                        value: state.exercise.level,
+                        label: "Level",
+                        options: ExerciseLevel.all,
+                        onChanged: (newValue) {
+                          exerciseformBloc.add(
+                              ExerciseFormEvent.exerciseLevelChanged(newValue));
+                        },
+                      ),
+                      Selector<ExerciseTool>(
+                        value: state.exercise.tool,
+                        label: "Tool",
+                        options: ExerciseTool.all,
+                        onChanged: (newValue) {
+                          exerciseformBloc.add(
+                              ExerciseFormEvent.exerciseToolChanged(newValue));
+                        },
+                      ),
+                      Selector<ExerciseType>(
+                        value: state.exercise.type,
+                        label: "Type",
+                        options: ExerciseType.all,
+                        onChanged: (newValue) {
+                          exerciseformBloc.add(
+                              ExerciseFormEvent.exerciseTypeChanged(newValue));
+                        },
+                      ),
+                      Selector<ExerciseTarget>(
+                        value: state.exercise.target,
+                        label: "Muscle Target",
+                        options: ExerciseTarget.all,
+                        onChanged: (newValue) {
+                          exerciseformBloc.add(
+                              ExerciseFormEvent.exerciseTargetChanged(
+                                  newValue));
+                        },
+                      ),
+                      // Spacer(),
+                    ],
                   ),
-                  Selector<ExerciseTool>(
-                    value: state.exercise.tool,
-                    label: "Tool",
-                    options: ExerciseTool.all,
-                    onChanged: (newValue) {
-                      exerciseformBloc
-                          .add(ExerciseFormEvent.exerciseToolChanged(newValue));
-                    },
-                  ),
-                  Selector<ExerciseType>(
-                    value: state.exercise.type,
-                    label: "Type",
-                    options: ExerciseType.all,
-                    onChanged: (newValue) {
-                      exerciseformBloc
-                          .add(ExerciseFormEvent.exerciseTypeChanged(newValue));
-                    },
-                  ),
-                  Selector<ExerciseTarget>(
-                    value: state.exercise.target,
-                    label: "Muscle Target",
-                    options: ExerciseTarget.all,
-                    onChanged: (newValue) {
-                      exerciseformBloc.add(
-                          ExerciseFormEvent.exerciseTargetChanged(newValue));
-                    },
-                  ),
-                  Spacer(),
-                  SaveButton(
-                    onPressed: state.isAdding
-                        ? null
-                        : () {
-                            exerciseformBloc.add(ExerciseFormEvent.added());
-                          },
-                  )
-                ],
+                ),
               ),
-            ),
-            if (state.isAdding) buildLoading()
-          ],
+              buildSaveButton(state, exerciseformBloc),
+              if (state.isAdding) buildLoading()
+            ],
+          ),
         );
       },
+    );
+  }
+
+  Widget buildSaveButton(
+      ExerciseFormState state, ExerciseFormBloc exerciseformBloc) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: SaveButton(
+          onPressed: state.isAdding
+              ? null
+              : () {
+                  exerciseformBloc.add(ExerciseFormEvent.added());
+                },
+        ),
+      ),
     );
   }
 
