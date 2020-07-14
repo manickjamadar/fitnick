@@ -1,6 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
+import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
+import 'package:fitnick/presentation/screens/workout_form/workout_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -12,10 +15,10 @@ class WorkoutItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return workout
         .failureOption()
-        .fold(() => buildWorkoutItem(), (a) => buildWorkoutErrorCard());
+        .fold(() => buildWorkoutItem(context), (a) => buildWorkoutErrorCard());
   }
 
-  Widget buildWorkoutItem() {
+  Widget buildWorkoutItem(BuildContext context) {
     return Slidable(
       key: ValueKey(workout.id.value),
       actionPane: SlidableDrawerActionPane(),
@@ -26,7 +29,7 @@ class WorkoutItem extends StatelessWidget {
           caption: "Edit",
           color: Colors.blue,
           icon: Icons.edit,
-          onTap: () {},
+          onTap: () => _onWorkoutEdit(context),
         ),
         IconSlideAction(
           caption: "Delete",
@@ -36,6 +39,16 @@ class WorkoutItem extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onWorkoutEdit(BuildContext context) async {
+    final String message = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => WorkoutFormScreen.generateRoute(Some(workout))));
+    if (message != null) {
+      showMessage(context, message: message, type: SuccessMessage());
+    }
   }
 
   Widget buildWorkoutCard() {
