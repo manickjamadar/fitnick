@@ -1,3 +1,4 @@
+import 'package:fitnick/presentation/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class SaveButton extends StatelessWidget {
@@ -8,13 +9,9 @@ class SaveButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: RaisedButton(
-          child: Text(title),
-          color: Colors.black,
-          textColor: Colors.white,
-          onPressed: onPressed),
+    return CustomButton(
+      title: title,
+      onPressed: onPressed,
     );
   }
 }
