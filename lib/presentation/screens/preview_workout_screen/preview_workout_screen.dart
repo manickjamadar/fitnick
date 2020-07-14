@@ -1,6 +1,7 @@
 import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:fitnick/presentation/core/widgets/buttom_button.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exerise_list_view.dart';
+import 'package:fitnick/presentation/screens/workout_running_screen/workout_running_screen.dart';
 import 'package:flutter/material.dart';
 
 class PreviewWorkoutScreen extends StatelessWidget {
@@ -20,11 +21,19 @@ class PreviewWorkoutScreen extends StatelessWidget {
           ),
           BottomButton(
             title: "Start Workout",
-            onPressed: () {},
+            onPressed: () => _onStartWorkout(context),
           )
         ],
       ),
     );
+  }
+
+  void _onStartWorkout(BuildContext context) {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => WorkoutRunningScreen.generateRoute(workout: workout),
+        ));
   }
 
   static const String routeName = "/preview_workout";
