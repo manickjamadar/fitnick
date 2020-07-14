@@ -49,7 +49,11 @@ class WorkoutRunningScreen extends StatelessWidget {
             exercise: exercise,
           ),
           Spacer(),
-          if (state.isResting) Text("Rest : ${_printRest(state.rest)}"),
+          if (state.isResting)
+            Text(
+              "Rest : ${_printRest(state.rest)}",
+              style: TextStyle(color: Colors.red, fontSize: 28),
+            ),
           buildRunnerController(context, state),
         ],
       ),
