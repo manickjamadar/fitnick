@@ -21,7 +21,9 @@ class PreviewWorkoutScreen extends StatelessWidget {
           ),
           BottomButton(
             title: "Start Workout",
-            onPressed: () => _onStartWorkout(context),
+            onPressed: workout.exercises.isEmpty
+                ? null
+                : () => _onStartWorkout(context),
           )
         ],
       ),
