@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
+import 'package:fitnick/application/workout/workout_hub/workout_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
@@ -45,16 +46,7 @@ class ExerciseItem extends StatelessWidget {
           caption: 'Edit',
           color: Colors.blue,
           icon: Icons.edit,
-          onTap: () async {
-            final String message = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) =>
-                        ExerciseFormScreen.generateRoute(Some(exercise))));
-            if (message != null) {
-              showMessage(context, message: message, type: SuccessMessage());
-            }
-          },
+          onTap: () => _onEdit(context),
         ),
         Builder(
           builder: (ctx) => IconSlideAction(
@@ -132,6 +124,17 @@ class ExerciseItem extends StatelessWidget {
                     : Colors.grey[400],
               ));
         });
+  }
+
+  void _onEdit(BuildContext context) async {
+    final String message = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => ExerciseFormScreen.generateRoute(Some(exercise))));
+    if (message != null) {
+      showMessage(context, message: message, type: SuccessMessage());
+    }
+    BlocProvider.of<WorkoutHubBloc>(context).add(WorkoutHubEvent.refreshed());
   }
 
   void _onExerciseDelete(BuildContext context, Exercise exercise) {
