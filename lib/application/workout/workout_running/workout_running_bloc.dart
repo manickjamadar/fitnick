@@ -77,7 +77,11 @@ class WorkoutRunningBloc
     }
   }
 
-  Stream<WorkoutRunningState> _mapCompleteToState() async* {}
+  Stream<WorkoutRunningState> _mapCompleteToState() async* {
+    streamSubscription?.cancel();
+    yield state.copyWith(isCompleted: true);
+  }
+
   Stream<WorkoutRunningState> _mapResetRestToState() async* {
     yield state.copyWith(isResting: false, rest: Duration(seconds: 0));
   }

@@ -18,7 +18,12 @@ class WorkoutRunningScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text(workout.name.safeValue),
       ),
-      body: BlocBuilder<WorkoutRunningBloc, WorkoutRunningState>(
+      body: BlocConsumer<WorkoutRunningBloc, WorkoutRunningState>(
+        listener: (_, state) {
+          if (state.isCompleted) {
+            Navigator.pop(context);
+          }
+        },
         builder: (context, state) {
           return state.currentIndex.fold(
               () => buildNoExercise(),
@@ -79,7 +84,7 @@ class WorkoutRunningScreen extends StatelessWidget {
           if (state.isResting || !state.hasNextExercise)
             CircleAvatar(
               child: IconButton(
-                onPressed: () {},
+                onPressed: () => _onStop(context),
                 icon: Icon(Icons.stop),
               ),
             ),
@@ -101,6 +106,11 @@ class WorkoutRunningScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onStop(BuildContext context) {
+    BlocProvider.of<WorkoutRunningBloc>(context)
+        .add(WorkoutRunningEvent.complete());
   }
 
   void _onNext(BuildContext context) {
