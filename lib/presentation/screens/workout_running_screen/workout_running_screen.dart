@@ -76,7 +76,7 @@ class WorkoutRunningScreen extends StatelessWidget {
               onPressed:
                   state.hasPreviousExercise ? () => _onPrevious(context) : null,
               iconSize: 40),
-          if (state.isResting)
+          if (state.isResting || !state.hasNextExercise)
             CircleAvatar(
               child: IconButton(
                 onPressed: () {},
