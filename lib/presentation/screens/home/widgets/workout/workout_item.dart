@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/application/workout/workout_actor/workout_actor_bloc.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:fitnick/presentation/screens/workout_form/workout_form_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class WorkoutItem extends StatelessWidget {
@@ -35,10 +37,15 @@ class WorkoutItem extends StatelessWidget {
           caption: "Delete",
           color: Colors.red,
           icon: Icons.delete,
-          onTap: () {},
+          onTap: () => _onWorkoutDelete(context),
         ),
       ],
     );
+  }
+
+  void _onWorkoutDelete(BuildContext context) {
+    BlocProvider.of<WorkoutActorBloc>(context)
+        .add(WorkoutActorEvent.deleted(workout: workout));
   }
 
   void _onWorkoutEdit(BuildContext context) async {
