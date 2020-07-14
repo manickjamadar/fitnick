@@ -14,6 +14,7 @@ import 'package:fitnick/infrastructure/workout/facade/local_workout_facade.dart'
 import 'package:get_it/get_it.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'application/workout/workout_actor/workout_actor_bloc.dart';
 import 'domain/workout/facade/i_workout_facade.dart';
 
 final locator = GetIt.instance;
@@ -57,4 +58,7 @@ void initBloc() {
       () => WorkoutHubBloc(workoutFacade: locator<IWorkoutFacade>()));
   locator.registerFactory<WorkoutFormBloc>(
       () => WorkoutFormBloc(workoutFacade: locator<IWorkoutFacade>()));
+  locator.registerFactory<WorkoutActorBloc>(() => WorkoutActorBloc(
+        workoutFacade: locator<IWorkoutFacade>(),
+      ));
 }
