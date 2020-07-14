@@ -84,7 +84,7 @@ class WorkoutRunningScreen extends StatelessWidget {
             ),
           IconButton(
               iconSize: 100,
-              onPressed: () {},
+              onPressed: () => onPlayOrPause(context),
               icon: Icon(
                   state.isResting
                       ? Icons.play_circle_filled
@@ -100,6 +100,11 @@ class WorkoutRunningScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void onPlayOrPause(BuildContext context) {
+    BlocProvider.of<WorkoutRunningBloc>(context)
+        .add(WorkoutRunningEvent.restToogle());
   }
 
   String _printRest(Duration duration) {

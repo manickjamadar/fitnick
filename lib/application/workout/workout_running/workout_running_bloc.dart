@@ -22,8 +22,7 @@ class WorkoutRunningBloc
         start: _mapStartToState,
         next: _mapNextToState,
         previous: _mapPreviousToState,
-        restOn: _mapRestOnToState,
-        restOff: _mapRestOffToState,
+        restToogle: _mapRestToggleToState,
         complete: _mapCompleteToState);
   }
 
@@ -44,7 +43,9 @@ class WorkoutRunningBloc
 
   Stream<WorkoutRunningState> _mapNextToState() async* {}
   Stream<WorkoutRunningState> _mapPreviousToState() async* {}
-  Stream<WorkoutRunningState> _mapRestOnToState() async* {}
-  Stream<WorkoutRunningState> _mapRestOffToState() async* {}
+  Stream<WorkoutRunningState> _mapRestToggleToState() async* {
+    yield state.copyWith(isResting: !state.isResting);
+  }
+
   Stream<WorkoutRunningState> _mapCompleteToState() async* {}
 }

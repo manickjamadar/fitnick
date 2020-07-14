@@ -26,12 +26,8 @@ class _$WorkoutRunningEventTearOff {
     return const _Previous();
   }
 
-  _RestOn restOn() {
-    return const _RestOn();
-  }
-
-  _RestOff restOff() {
-    return const _RestOff();
+  _RestToggle restToogle() {
+    return const _RestToggle();
   }
 
   _Complete complete() {
@@ -48,8 +44,7 @@ mixin _$WorkoutRunningEvent {
     @required Result start(Workout workout),
     @required Result next(),
     @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
+    @required Result restToogle(),
     @required Result complete(),
   });
   @optionalTypeArgs
@@ -57,8 +52,7 @@ mixin _$WorkoutRunningEvent {
     Result start(Workout workout),
     Result next(),
     Result previous(),
-    Result restOn(),
-    Result restOff(),
+    Result restToogle(),
     Result complete(),
     @required Result orElse(),
   });
@@ -67,8 +61,7 @@ mixin _$WorkoutRunningEvent {
     @required Result start(_Start value),
     @required Result next(_Next value),
     @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
+    @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
   });
   @optionalTypeArgs
@@ -76,8 +69,7 @@ mixin _$WorkoutRunningEvent {
     Result start(_Start value),
     Result next(_Next value),
     Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
+    Result restToogle(_RestToggle value),
     Result complete(_Complete value),
     @required Result orElse(),
   });
@@ -167,15 +159,13 @@ class _$_Start implements _Start {
     @required Result start(Workout workout),
     @required Result next(),
     @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
+    @required Result restToogle(),
     @required Result complete(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return start(workout);
   }
@@ -186,8 +176,7 @@ class _$_Start implements _Start {
     Result start(Workout workout),
     Result next(),
     Result previous(),
-    Result restOn(),
-    Result restOff(),
+    Result restToogle(),
     Result complete(),
     @required Result orElse(),
   }) {
@@ -204,15 +193,13 @@ class _$_Start implements _Start {
     @required Result start(_Start value),
     @required Result next(_Next value),
     @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
+    @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return start(this);
   }
@@ -223,8 +210,7 @@ class _$_Start implements _Start {
     Result start(_Start value),
     Result next(_Next value),
     Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
+    Result restToogle(_RestToggle value),
     Result complete(_Complete value),
     @required Result orElse(),
   }) {
@@ -279,15 +265,13 @@ class _$_Next implements _Next {
     @required Result start(Workout workout),
     @required Result next(),
     @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
+    @required Result restToogle(),
     @required Result complete(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return next();
   }
@@ -298,8 +282,7 @@ class _$_Next implements _Next {
     Result start(Workout workout),
     Result next(),
     Result previous(),
-    Result restOn(),
-    Result restOff(),
+    Result restToogle(),
     Result complete(),
     @required Result orElse(),
   }) {
@@ -316,15 +299,13 @@ class _$_Next implements _Next {
     @required Result start(_Start value),
     @required Result next(_Next value),
     @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
+    @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return next(this);
   }
@@ -335,8 +316,7 @@ class _$_Next implements _Next {
     Result start(_Start value),
     Result next(_Next value),
     Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
+    Result restToogle(_RestToggle value),
     Result complete(_Complete value),
     @required Result orElse(),
   }) {
@@ -389,15 +369,13 @@ class _$_Previous implements _Previous {
     @required Result start(Workout workout),
     @required Result next(),
     @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
+    @required Result restToogle(),
     @required Result complete(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return previous();
   }
@@ -408,8 +386,7 @@ class _$_Previous implements _Previous {
     Result start(Workout workout),
     Result next(),
     Result previous(),
-    Result restOn(),
-    Result restOff(),
+    Result restToogle(),
     Result complete(),
     @required Result orElse(),
   }) {
@@ -426,15 +403,13 @@ class _$_Previous implements _Previous {
     @required Result start(_Start value),
     @required Result next(_Next value),
     @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
+    @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return previous(this);
   }
@@ -445,8 +420,7 @@ class _$_Previous implements _Previous {
     Result start(_Start value),
     Result next(_Next value),
     Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
+    Result restToogle(_RestToggle value),
     Result complete(_Complete value),
     @required Result orElse(),
   }) {
@@ -462,32 +436,34 @@ abstract class _Previous implements WorkoutRunningEvent {
   const factory _Previous() = _$_Previous;
 }
 
-abstract class _$RestOnCopyWith<$Res> {
-  factory _$RestOnCopyWith(_RestOn value, $Res Function(_RestOn) then) =
-      __$RestOnCopyWithImpl<$Res>;
+abstract class _$RestToggleCopyWith<$Res> {
+  factory _$RestToggleCopyWith(
+          _RestToggle value, $Res Function(_RestToggle) then) =
+      __$RestToggleCopyWithImpl<$Res>;
 }
 
-class __$RestOnCopyWithImpl<$Res>
+class __$RestToggleCopyWithImpl<$Res>
     extends _$WorkoutRunningEventCopyWithImpl<$Res>
-    implements _$RestOnCopyWith<$Res> {
-  __$RestOnCopyWithImpl(_RestOn _value, $Res Function(_RestOn) _then)
-      : super(_value, (v) => _then(v as _RestOn));
+    implements _$RestToggleCopyWith<$Res> {
+  __$RestToggleCopyWithImpl(
+      _RestToggle _value, $Res Function(_RestToggle) _then)
+      : super(_value, (v) => _then(v as _RestToggle));
 
   @override
-  _RestOn get _value => super._value as _RestOn;
+  _RestToggle get _value => super._value as _RestToggle;
 }
 
-class _$_RestOn implements _RestOn {
-  const _$_RestOn();
+class _$_RestToggle implements _RestToggle {
+  const _$_RestToggle();
 
   @override
   String toString() {
-    return 'WorkoutRunningEvent.restOn()';
+    return 'WorkoutRunningEvent.restToogle()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _RestOn);
+    return identical(this, other) || (other is _RestToggle);
   }
 
   @override
@@ -499,17 +475,15 @@ class _$_RestOn implements _RestOn {
     @required Result start(Workout workout),
     @required Result next(),
     @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
+    @required Result restToogle(),
     @required Result complete(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
-    return restOn();
+    return restToogle();
   }
 
   @override
@@ -518,14 +492,13 @@ class _$_RestOn implements _RestOn {
     Result start(Workout workout),
     Result next(),
     Result previous(),
-    Result restOn(),
-    Result restOff(),
+    Result restToogle(),
     Result complete(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (restOn != null) {
-      return restOn();
+    if (restToogle != null) {
+      return restToogle();
     }
     return orElse();
   }
@@ -536,17 +509,15 @@ class _$_RestOn implements _RestOn {
     @required Result start(_Start value),
     @required Result next(_Next value),
     @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
+    @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
-    return restOn(this);
+    return restToogle(this);
   }
 
   @override
@@ -555,131 +526,20 @@ class _$_RestOn implements _RestOn {
     Result start(_Start value),
     Result next(_Next value),
     Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
+    Result restToogle(_RestToggle value),
     Result complete(_Complete value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (restOn != null) {
-      return restOn(this);
+    if (restToogle != null) {
+      return restToogle(this);
     }
     return orElse();
   }
 }
 
-abstract class _RestOn implements WorkoutRunningEvent {
-  const factory _RestOn() = _$_RestOn;
-}
-
-abstract class _$RestOffCopyWith<$Res> {
-  factory _$RestOffCopyWith(_RestOff value, $Res Function(_RestOff) then) =
-      __$RestOffCopyWithImpl<$Res>;
-}
-
-class __$RestOffCopyWithImpl<$Res>
-    extends _$WorkoutRunningEventCopyWithImpl<$Res>
-    implements _$RestOffCopyWith<$Res> {
-  __$RestOffCopyWithImpl(_RestOff _value, $Res Function(_RestOff) _then)
-      : super(_value, (v) => _then(v as _RestOff));
-
-  @override
-  _RestOff get _value => super._value as _RestOff;
-}
-
-class _$_RestOff implements _RestOff {
-  const _$_RestOff();
-
-  @override
-  String toString() {
-    return 'WorkoutRunningEvent.restOff()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _RestOff);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result start(Workout workout),
-    @required Result next(),
-    @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
-    @required Result complete(),
-  }) {
-    assert(start != null);
-    assert(next != null);
-    assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
-    assert(complete != null);
-    return restOff();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result start(Workout workout),
-    Result next(),
-    Result previous(),
-    Result restOn(),
-    Result restOff(),
-    Result complete(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (restOff != null) {
-      return restOff();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result start(_Start value),
-    @required Result next(_Next value),
-    @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
-    @required Result complete(_Complete value),
-  }) {
-    assert(start != null);
-    assert(next != null);
-    assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
-    assert(complete != null);
-    return restOff(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result start(_Start value),
-    Result next(_Next value),
-    Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
-    Result complete(_Complete value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (restOff != null) {
-      return restOff(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RestOff implements WorkoutRunningEvent {
-  const factory _RestOff() = _$_RestOff;
+abstract class _RestToggle implements WorkoutRunningEvent {
+  const factory _RestToggle() = _$_RestToggle;
 }
 
 abstract class _$CompleteCopyWith<$Res> {
@@ -719,15 +579,13 @@ class _$_Complete implements _Complete {
     @required Result start(Workout workout),
     @required Result next(),
     @required Result previous(),
-    @required Result restOn(),
-    @required Result restOff(),
+    @required Result restToogle(),
     @required Result complete(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return complete();
   }
@@ -738,8 +596,7 @@ class _$_Complete implements _Complete {
     Result start(Workout workout),
     Result next(),
     Result previous(),
-    Result restOn(),
-    Result restOff(),
+    Result restToogle(),
     Result complete(),
     @required Result orElse(),
   }) {
@@ -756,15 +613,13 @@ class _$_Complete implements _Complete {
     @required Result start(_Start value),
     @required Result next(_Next value),
     @required Result previous(_Previous value),
-    @required Result restOn(_RestOn value),
-    @required Result restOff(_RestOff value),
+    @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
-    assert(restOn != null);
-    assert(restOff != null);
+    assert(restToogle != null);
     assert(complete != null);
     return complete(this);
   }
@@ -775,8 +630,7 @@ class _$_Complete implements _Complete {
     Result start(_Start value),
     Result next(_Next value),
     Result previous(_Previous value),
-    Result restOn(_RestOn value),
-    Result restOff(_RestOff value),
+    Result restToogle(_RestToggle value),
     Result complete(_Complete value),
     @required Result orElse(),
   }) {
