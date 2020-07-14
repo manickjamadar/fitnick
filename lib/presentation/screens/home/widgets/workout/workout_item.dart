@@ -4,6 +4,7 @@ import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
+import 'package:fitnick/presentation/screens/preview_workout_screen/preview_workout_screen.dart';
 import 'package:fitnick/presentation/screens/workout_form/workout_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,7 @@ class WorkoutItem extends StatelessWidget {
       key: ValueKey(workout.id.value),
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
-      child: buildWorkoutCard(),
+      child: buildWorkoutCard(context),
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: "Edit",
@@ -58,10 +59,11 @@ class WorkoutItem extends StatelessWidget {
     }
   }
 
-  Widget buildWorkoutCard() {
+  Widget buildWorkoutCard(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(0),
       child: ListTile(
+        onTap: () => _onWorkoutTap(context),
         leading: CircleAvatar(
           child: Icon(MyIcons.workout),
         ),
@@ -79,5 +81,12 @@ class WorkoutItem extends StatelessWidget {
 
   int _getExerciseCount(Workout workout) {
     return workout.exercises.length;
+  }
+
+  void _onWorkoutTap(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => PreviewWorkoutScreen.generateRoute(workout)));
   }
 }
