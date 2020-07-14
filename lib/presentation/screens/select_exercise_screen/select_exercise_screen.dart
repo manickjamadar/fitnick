@@ -9,8 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectExerciseScreen extends StatelessWidget {
   static const String routeName = "/select_exercise";
-  static Widget generateRoute() {
-    return SelectExerciseScreen();
+  static Widget generateRoute({@required WorkoutFormBloc bloc}) {
+    return BlocProvider<WorkoutFormBloc>.value(
+        value: bloc, child: SelectExerciseScreen());
   }
 
   @override

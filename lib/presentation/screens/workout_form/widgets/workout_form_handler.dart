@@ -63,9 +63,8 @@ class WorkoutFormHandler extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => BlocProvider<WorkoutFormBloc>.value(
-                        value: BlocProvider.of<WorkoutFormBloc>(context),
-                        child: SelectExerciseScreen.generateRoute()),
+                    builder: (_) => SelectExerciseScreen.generateRoute(
+                        bloc: BlocProvider.of<WorkoutFormBloc>(context)),
                   ));
             },
           )
