@@ -29,6 +29,7 @@ void showMessage(BuildContext context,
   final scaffold = Scaffold.of(context);
   scaffold.hideCurrentSnackBar();
   scaffold.showSnackBar(SnackBar(
+      duration: Duration(seconds: 2),
       content: Text(message, style: TextStyle(color: Colors.white)),
       backgroundColor: type.color));
 }
