@@ -7,4 +7,6 @@ abstract class WorkoutRunningEvent with _$WorkoutRunningEvent {
   const factory WorkoutRunningEvent.previous() = _Previous;
   const factory WorkoutRunningEvent.restToogle() = _RestToggle;
   const factory WorkoutRunningEvent.complete() = _Complete;
+  const factory WorkoutRunningEvent.restChanged() = _RestChanged;
+  const factory WorkoutRunningEvent.resetRest() = _ResetRest;
 }

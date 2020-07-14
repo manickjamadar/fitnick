@@ -33,6 +33,14 @@ class _$WorkoutRunningEventTearOff {
   _Complete complete() {
     return const _Complete();
   }
+
+  _RestChanged restChanged() {
+    return const _RestChanged();
+  }
+
+  _ResetRest resetRest() {
+    return const _ResetRest();
+  }
 }
 
 // ignore: unused_element
@@ -46,6 +54,8 @@ mixin _$WorkoutRunningEvent {
     @required Result previous(),
     @required Result restToogle(),
     @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -54,6 +64,8 @@ mixin _$WorkoutRunningEvent {
     Result previous(),
     Result restToogle(),
     Result complete(),
+    Result restChanged(),
+    Result resetRest(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -63,6 +75,8 @@ mixin _$WorkoutRunningEvent {
     @required Result previous(_Previous value),
     @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -71,6 +85,8 @@ mixin _$WorkoutRunningEvent {
     Result previous(_Previous value),
     Result restToogle(_RestToggle value),
     Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
     @required Result orElse(),
   });
 }
@@ -161,12 +177,16 @@ class _$_Start implements _Start {
     @required Result previous(),
     @required Result restToogle(),
     @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return start(workout);
   }
 
@@ -178,6 +198,8 @@ class _$_Start implements _Start {
     Result previous(),
     Result restToogle(),
     Result complete(),
+    Result restChanged(),
+    Result resetRest(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -195,12 +217,16 @@ class _$_Start implements _Start {
     @required Result previous(_Previous value),
     @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return start(this);
   }
 
@@ -212,6 +238,8 @@ class _$_Start implements _Start {
     Result previous(_Previous value),
     Result restToogle(_RestToggle value),
     Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -267,12 +295,16 @@ class _$_Next implements _Next {
     @required Result previous(),
     @required Result restToogle(),
     @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return next();
   }
 
@@ -284,6 +316,8 @@ class _$_Next implements _Next {
     Result previous(),
     Result restToogle(),
     Result complete(),
+    Result restChanged(),
+    Result resetRest(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -301,12 +335,16 @@ class _$_Next implements _Next {
     @required Result previous(_Previous value),
     @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return next(this);
   }
 
@@ -318,6 +356,8 @@ class _$_Next implements _Next {
     Result previous(_Previous value),
     Result restToogle(_RestToggle value),
     Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -371,12 +411,16 @@ class _$_Previous implements _Previous {
     @required Result previous(),
     @required Result restToogle(),
     @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return previous();
   }
 
@@ -388,6 +432,8 @@ class _$_Previous implements _Previous {
     Result previous(),
     Result restToogle(),
     Result complete(),
+    Result restChanged(),
+    Result resetRest(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -405,12 +451,16 @@ class _$_Previous implements _Previous {
     @required Result previous(_Previous value),
     @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return previous(this);
   }
 
@@ -422,6 +472,8 @@ class _$_Previous implements _Previous {
     Result previous(_Previous value),
     Result restToogle(_RestToggle value),
     Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -477,12 +529,16 @@ class _$_RestToggle implements _RestToggle {
     @required Result previous(),
     @required Result restToogle(),
     @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return restToogle();
   }
 
@@ -494,6 +550,8 @@ class _$_RestToggle implements _RestToggle {
     Result previous(),
     Result restToogle(),
     Result complete(),
+    Result restChanged(),
+    Result resetRest(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -511,12 +569,16 @@ class _$_RestToggle implements _RestToggle {
     @required Result previous(_Previous value),
     @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return restToogle(this);
   }
 
@@ -528,6 +590,8 @@ class _$_RestToggle implements _RestToggle {
     Result previous(_Previous value),
     Result restToogle(_RestToggle value),
     Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -581,12 +645,16 @@ class _$_Complete implements _Complete {
     @required Result previous(),
     @required Result restToogle(),
     @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return complete();
   }
 
@@ -598,6 +666,8 @@ class _$_Complete implements _Complete {
     Result previous(),
     Result restToogle(),
     Result complete(),
+    Result restChanged(),
+    Result resetRest(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -615,12 +685,16 @@ class _$_Complete implements _Complete {
     @required Result previous(_Previous value),
     @required Result restToogle(_RestToggle value),
     @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
   }) {
     assert(start != null);
     assert(next != null);
     assert(previous != null);
     assert(restToogle != null);
     assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
     return complete(this);
   }
 
@@ -632,6 +706,8 @@ class _$_Complete implements _Complete {
     Result previous(_Previous value),
     Result restToogle(_RestToggle value),
     Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -644,6 +720,241 @@ class _$_Complete implements _Complete {
 
 abstract class _Complete implements WorkoutRunningEvent {
   const factory _Complete() = _$_Complete;
+}
+
+abstract class _$RestChangedCopyWith<$Res> {
+  factory _$RestChangedCopyWith(
+          _RestChanged value, $Res Function(_RestChanged) then) =
+      __$RestChangedCopyWithImpl<$Res>;
+}
+
+class __$RestChangedCopyWithImpl<$Res>
+    extends _$WorkoutRunningEventCopyWithImpl<$Res>
+    implements _$RestChangedCopyWith<$Res> {
+  __$RestChangedCopyWithImpl(
+      _RestChanged _value, $Res Function(_RestChanged) _then)
+      : super(_value, (v) => _then(v as _RestChanged));
+
+  @override
+  _RestChanged get _value => super._value as _RestChanged;
+}
+
+class _$_RestChanged implements _RestChanged {
+  const _$_RestChanged();
+
+  @override
+  String toString() {
+    return 'WorkoutRunningEvent.restChanged()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _RestChanged);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result start(Workout workout),
+    @required Result next(),
+    @required Result previous(),
+    @required Result restToogle(),
+    @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
+  }) {
+    assert(start != null);
+    assert(next != null);
+    assert(previous != null);
+    assert(restToogle != null);
+    assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
+    return restChanged();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result start(Workout workout),
+    Result next(),
+    Result previous(),
+    Result restToogle(),
+    Result complete(),
+    Result restChanged(),
+    Result resetRest(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (restChanged != null) {
+      return restChanged();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result start(_Start value),
+    @required Result next(_Next value),
+    @required Result previous(_Previous value),
+    @required Result restToogle(_RestToggle value),
+    @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
+  }) {
+    assert(start != null);
+    assert(next != null);
+    assert(previous != null);
+    assert(restToogle != null);
+    assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
+    return restChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result start(_Start value),
+    Result next(_Next value),
+    Result previous(_Previous value),
+    Result restToogle(_RestToggle value),
+    Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (restChanged != null) {
+      return restChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RestChanged implements WorkoutRunningEvent {
+  const factory _RestChanged() = _$_RestChanged;
+}
+
+abstract class _$ResetRestCopyWith<$Res> {
+  factory _$ResetRestCopyWith(
+          _ResetRest value, $Res Function(_ResetRest) then) =
+      __$ResetRestCopyWithImpl<$Res>;
+}
+
+class __$ResetRestCopyWithImpl<$Res>
+    extends _$WorkoutRunningEventCopyWithImpl<$Res>
+    implements _$ResetRestCopyWith<$Res> {
+  __$ResetRestCopyWithImpl(_ResetRest _value, $Res Function(_ResetRest) _then)
+      : super(_value, (v) => _then(v as _ResetRest));
+
+  @override
+  _ResetRest get _value => super._value as _ResetRest;
+}
+
+class _$_ResetRest implements _ResetRest {
+  const _$_ResetRest();
+
+  @override
+  String toString() {
+    return 'WorkoutRunningEvent.resetRest()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ResetRest);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result start(Workout workout),
+    @required Result next(),
+    @required Result previous(),
+    @required Result restToogle(),
+    @required Result complete(),
+    @required Result restChanged(),
+    @required Result resetRest(),
+  }) {
+    assert(start != null);
+    assert(next != null);
+    assert(previous != null);
+    assert(restToogle != null);
+    assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
+    return resetRest();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result start(Workout workout),
+    Result next(),
+    Result previous(),
+    Result restToogle(),
+    Result complete(),
+    Result restChanged(),
+    Result resetRest(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resetRest != null) {
+      return resetRest();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result start(_Start value),
+    @required Result next(_Next value),
+    @required Result previous(_Previous value),
+    @required Result restToogle(_RestToggle value),
+    @required Result complete(_Complete value),
+    @required Result restChanged(_RestChanged value),
+    @required Result resetRest(_ResetRest value),
+  }) {
+    assert(start != null);
+    assert(next != null);
+    assert(previous != null);
+    assert(restToogle != null);
+    assert(complete != null);
+    assert(restChanged != null);
+    assert(resetRest != null);
+    return resetRest(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result start(_Start value),
+    Result next(_Next value),
+    Result previous(_Previous value),
+    Result restToogle(_RestToggle value),
+    Result complete(_Complete value),
+    Result restChanged(_RestChanged value),
+    Result resetRest(_ResetRest value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resetRest != null) {
+      return resetRest(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetRest implements WorkoutRunningEvent {
+  const factory _ResetRest() = _$_ResetRest;
 }
 
 class _$WorkoutRunningStateTearOff {

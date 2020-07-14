@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,6 +12,7 @@ part 'workout_running_bloc.freezed.dart';
 class WorkoutRunningBloc
     extends Bloc<WorkoutRunningEvent, WorkoutRunningState> {
   WorkoutRunningBloc() : super(WorkoutRunningState.initial());
+  StreamSubscription<int> streamSubscription;
 
   @override
   Stream<WorkoutRunningState> mapEventToState(
@@ -23,7 +23,9 @@ class WorkoutRunningBloc
         next: _mapNextToState,
         previous: _mapPreviousToState,
         restToogle: _mapRestToggleToState,
-        complete: _mapCompleteToState);
+        complete: _mapCompleteToState,
+        restChanged: _mapRestChangedToState,
+        resetRest: _mapResetRestToState);
   }
 
   Stream<WorkoutRunningState> _mapStartToState(Workout workout) async* {
@@ -44,8 +46,42 @@ class WorkoutRunningBloc
   Stream<WorkoutRunningState> _mapNextToState() async* {}
   Stream<WorkoutRunningState> _mapPreviousToState() async* {}
   Stream<WorkoutRunningState> _mapRestToggleToState() async* {
-    yield state.copyWith(isResting: !state.isResting);
+    if (state.isResting) {
+      _resetRestTimer();
+    } else {
+      yield state.copyWith(isResting: true);
+      _startRestTimer();
+    }
   }
 
   Stream<WorkoutRunningState> _mapCompleteToState() async* {}
+  Stream<WorkoutRunningState> _mapResetRestToState() async* {
+    yield state.copyWith(isResting: false, rest: Duration(seconds: 0));
+  }
+
+  Stream<WorkoutRunningState> _mapRestChangedToState() async* {
+    final newTotalRest = Duration(seconds: state.totalRest.inSeconds + 1);
+    final newRest = Duration(seconds: state.rest.inSeconds + 1);
+    yield state.copyWith(
+        isResting: true, totalRest: newTotalRest, rest: newRest);
+  }
+
+  void _startRestTimer() {
+    streamSubscription?.cancel();
+    streamSubscription =
+        Stream.periodic(Duration(seconds: 1), (i) => i).listen((_) {
+      add(WorkoutRunningEvent.restChanged());
+    });
+  }
+
+  void _resetRestTimer() {
+    streamSubscription?.cancel();
+    add(WorkoutRunningEvent.resetRest());
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
+  }
 }
