@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 
 class ExerciseListView extends StatelessWidget {
   final List<Exercise> exercises;
+  final bool slidable;
 
-  const ExerciseListView({Key key, @required this.exercises}) : super(key: key);
+  const ExerciseListView(
+      {Key key, this.slidable = false, @required this.exercises})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return exercises.isEmpty ? buildEmptyExercise() : buildExerciseList();
@@ -18,6 +21,7 @@ class ExerciseListView extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
           child: ExerciseItem(
+            slidable: slidable,
             exercise: exercise,
           ),
         );

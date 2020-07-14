@@ -38,8 +38,10 @@ class ExerciseTab extends StatelessWidget {
         child: Text("Exercise loading failed"),
       );
 
-  Widget buildExercises(List<Exercise> exercises) =>
-      ExerciseListView(exercises: exercises);
+  Widget buildExercises(List<Exercise> exercises) => ExerciseListView(
+        exercises: exercises,
+        slidable: true,
+      );
 
   Widget buildLoading() => Center(
         child: CircularProgressIndicator(),

@@ -13,15 +13,19 @@ import '../../../../core/helpers/string_extension.dart';
 class ExerciseItem extends StatelessWidget {
   final Exercise exercise;
   final ExerciseItemType exerciseItemType;
+  final bool slidable;
   const ExerciseItem(
       {Key key,
       @required this.exercise,
+      this.slidable = false,
       this.exerciseItemType = const ExerciseItemType.normal()})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return exercise.failureOption().fold(
-        () => buildExerciseItem(context), (a) => buildExerciseErrorCard());
+        () =>
+            slidable ? buildExerciseItem(context) : buildExerciseCard(context),
+        (a) => buildExerciseErrorCard());
   }
 
   Widget buildExerciseErrorCard() {
