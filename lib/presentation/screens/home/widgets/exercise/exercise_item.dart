@@ -25,12 +25,15 @@ class ExerciseItem extends StatelessWidget {
     return exercise.failureOption().fold(
         () =>
             slidable ? buildExerciseItem(context) : buildExerciseCard(context),
-        (a) => buildExerciseErrorCard());
+        (a) => buildExerciseErrorCard(context));
   }
 
-  Widget buildExerciseErrorCard() {
-    return ErrorCard(
-      title: "Exercise Item Error",
+  Widget buildExerciseErrorCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _onExerciseDelete(context, exercise),
+      child: ErrorCard(
+        title: "Exercise Item Error",
+      ),
     );
   }
 
