@@ -27,10 +27,13 @@ class LocalDatabaseProvider {
           CREATE TABLE IF NOT EXISTS ${ExerciseEntity.collectionName}(
             ${ExerciseEntity.KEY_ID} TEXT PRIMARY KEY,
             ${ExerciseEntity.KEY_NAME} TEXT NOT NULL,
-            ${ExerciseEntity.KEY_LEVEL} TEXT NOT NULL,
-            ${ExerciseEntity.KEY_TOOL} TEXT NOT NULL,
-            ${ExerciseEntity.KEY_TYPE} TEXT NOT NULL,
-            ${ExerciseEntity.KEY_TARGET} TEXT NOT NULL
+            ${ExerciseEntity.KEY_VIDEO_PATH} TEXT,
+            ${ExerciseEntity.KEY_THUMBNAIL_PATH} TEXT,
+            ${ExerciseEntity.KEY_LEVELS} TEXT NOT NULL,
+            ${ExerciseEntity.KEY_TOOLS} TEXT NOT NULL,
+            ${ExerciseEntity.KEY_TYPES} TEXT NOT NULL,
+            ${ExerciseEntity.KEY_PRIMARY_TARGETS} TEXT NOT NULL
+            ${ExerciseEntity.KEY_SECONDARY_TARGETS} TEXT NOT NULL
           );
         ''');
       await db.execute('''
