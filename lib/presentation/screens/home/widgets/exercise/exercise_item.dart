@@ -134,7 +134,6 @@ class ExerciseItem extends StatelessWidget {
     if (message != null) {
       showMessage(context, message: message, type: SuccessMessage());
     }
-    BlocProvider.of<WorkoutHubBloc>(context).add(WorkoutHubEvent.refreshed());
   }
 
   void _onExerciseDelete(BuildContext context, Exercise exercise) {
