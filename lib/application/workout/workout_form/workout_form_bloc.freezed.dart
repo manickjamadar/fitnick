@@ -39,6 +39,14 @@ class _$WorkoutFormEventTearOff {
   _WorkoutSaved saved() {
     return const _WorkoutSaved();
   }
+
+  _ExerciseReordered exerciseReordered(
+      {@required int oldIndex, @required int newIndex}) {
+    return _ExerciseReordered(
+      oldIndex: oldIndex,
+      newIndex: newIndex,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -52,6 +60,7 @@ mixin _$WorkoutFormEvent {
     @required Result exerciseAdded(Exercise exercise),
     @required Result exerciseRemoved(UniqueId exerciseId),
     @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -60,6 +69,7 @@ mixin _$WorkoutFormEvent {
     Result exerciseAdded(Exercise exercise),
     Result exerciseRemoved(UniqueId exerciseId),
     Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -69,6 +79,7 @@ mixin _$WorkoutFormEvent {
     @required Result exerciseAdded(_WorkoutExerciseAdded value),
     @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
     @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -77,6 +88,7 @@ mixin _$WorkoutFormEvent {
     Result exerciseAdded(_WorkoutExerciseAdded value),
     Result exerciseRemoved(_WorkoutExerciseRemoved value),
     Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
     @required Result orElse(),
   });
 }
@@ -161,12 +173,14 @@ class _$_WorkoutFormInit implements _WorkoutFormInit {
     @required Result exerciseAdded(Exercise exercise),
     @required Result exerciseRemoved(UniqueId exerciseId),
     @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return init(workoutOption);
   }
 
@@ -178,6 +192,7 @@ class _$_WorkoutFormInit implements _WorkoutFormInit {
     Result exerciseAdded(Exercise exercise),
     Result exerciseRemoved(UniqueId exerciseId),
     Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -195,12 +210,14 @@ class _$_WorkoutFormInit implements _WorkoutFormInit {
     @required Result exerciseAdded(_WorkoutExerciseAdded value),
     @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
     @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return init(this);
   }
 
@@ -212,6 +229,7 @@ class _$_WorkoutFormInit implements _WorkoutFormInit {
     Result exerciseAdded(_WorkoutExerciseAdded value),
     Result exerciseRemoved(_WorkoutExerciseRemoved value),
     Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -292,12 +310,14 @@ class _$_WorkoutNameChanged implements _WorkoutNameChanged {
     @required Result exerciseAdded(Exercise exercise),
     @required Result exerciseRemoved(UniqueId exerciseId),
     @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return nameChanged(name);
   }
 
@@ -309,6 +329,7 @@ class _$_WorkoutNameChanged implements _WorkoutNameChanged {
     Result exerciseAdded(Exercise exercise),
     Result exerciseRemoved(UniqueId exerciseId),
     Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -326,12 +347,14 @@ class _$_WorkoutNameChanged implements _WorkoutNameChanged {
     @required Result exerciseAdded(_WorkoutExerciseAdded value),
     @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
     @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return nameChanged(this);
   }
 
@@ -343,6 +366,7 @@ class _$_WorkoutNameChanged implements _WorkoutNameChanged {
     Result exerciseAdded(_WorkoutExerciseAdded value),
     Result exerciseRemoved(_WorkoutExerciseRemoved value),
     Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -438,12 +462,14 @@ class _$_WorkoutExerciseAdded implements _WorkoutExerciseAdded {
     @required Result exerciseAdded(Exercise exercise),
     @required Result exerciseRemoved(UniqueId exerciseId),
     @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return exerciseAdded(exercise);
   }
 
@@ -455,6 +481,7 @@ class _$_WorkoutExerciseAdded implements _WorkoutExerciseAdded {
     Result exerciseAdded(Exercise exercise),
     Result exerciseRemoved(UniqueId exerciseId),
     Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -472,12 +499,14 @@ class _$_WorkoutExerciseAdded implements _WorkoutExerciseAdded {
     @required Result exerciseAdded(_WorkoutExerciseAdded value),
     @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
     @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return exerciseAdded(this);
   }
 
@@ -489,6 +518,7 @@ class _$_WorkoutExerciseAdded implements _WorkoutExerciseAdded {
     Result exerciseAdded(_WorkoutExerciseAdded value),
     Result exerciseRemoved(_WorkoutExerciseRemoved value),
     Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -573,12 +603,14 @@ class _$_WorkoutExerciseRemoved implements _WorkoutExerciseRemoved {
     @required Result exerciseAdded(Exercise exercise),
     @required Result exerciseRemoved(UniqueId exerciseId),
     @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return exerciseRemoved(exerciseId);
   }
 
@@ -590,6 +622,7 @@ class _$_WorkoutExerciseRemoved implements _WorkoutExerciseRemoved {
     Result exerciseAdded(Exercise exercise),
     Result exerciseRemoved(UniqueId exerciseId),
     Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -607,12 +640,14 @@ class _$_WorkoutExerciseRemoved implements _WorkoutExerciseRemoved {
     @required Result exerciseAdded(_WorkoutExerciseAdded value),
     @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
     @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return exerciseRemoved(this);
   }
 
@@ -624,6 +659,7 @@ class _$_WorkoutExerciseRemoved implements _WorkoutExerciseRemoved {
     Result exerciseAdded(_WorkoutExerciseAdded value),
     Result exerciseRemoved(_WorkoutExerciseRemoved value),
     Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -683,12 +719,14 @@ class _$_WorkoutSaved implements _WorkoutSaved {
     @required Result exerciseAdded(Exercise exercise),
     @required Result exerciseRemoved(UniqueId exerciseId),
     @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return saved();
   }
 
@@ -700,6 +738,7 @@ class _$_WorkoutSaved implements _WorkoutSaved {
     Result exerciseAdded(Exercise exercise),
     Result exerciseRemoved(UniqueId exerciseId),
     Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -717,12 +756,14 @@ class _$_WorkoutSaved implements _WorkoutSaved {
     @required Result exerciseAdded(_WorkoutExerciseAdded value),
     @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
     @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
   }) {
     assert(init != null);
     assert(nameChanged != null);
     assert(exerciseAdded != null);
     assert(exerciseRemoved != null);
     assert(saved != null);
+    assert(exerciseReordered != null);
     return saved(this);
   }
 
@@ -734,6 +775,7 @@ class _$_WorkoutSaved implements _WorkoutSaved {
     Result exerciseAdded(_WorkoutExerciseAdded value),
     Result exerciseRemoved(_WorkoutExerciseRemoved value),
     Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -746,6 +788,156 @@ class _$_WorkoutSaved implements _WorkoutSaved {
 
 abstract class _WorkoutSaved implements WorkoutFormEvent {
   const factory _WorkoutSaved() = _$_WorkoutSaved;
+}
+
+abstract class _$ExerciseReorderedCopyWith<$Res> {
+  factory _$ExerciseReorderedCopyWith(
+          _ExerciseReordered value, $Res Function(_ExerciseReordered) then) =
+      __$ExerciseReorderedCopyWithImpl<$Res>;
+  $Res call({int oldIndex, int newIndex});
+}
+
+class __$ExerciseReorderedCopyWithImpl<$Res>
+    extends _$WorkoutFormEventCopyWithImpl<$Res>
+    implements _$ExerciseReorderedCopyWith<$Res> {
+  __$ExerciseReorderedCopyWithImpl(
+      _ExerciseReordered _value, $Res Function(_ExerciseReordered) _then)
+      : super(_value, (v) => _then(v as _ExerciseReordered));
+
+  @override
+  _ExerciseReordered get _value => super._value as _ExerciseReordered;
+
+  @override
+  $Res call({
+    Object oldIndex = freezed,
+    Object newIndex = freezed,
+  }) {
+    return _then(_ExerciseReordered(
+      oldIndex: oldIndex == freezed ? _value.oldIndex : oldIndex as int,
+      newIndex: newIndex == freezed ? _value.newIndex : newIndex as int,
+    ));
+  }
+}
+
+class _$_ExerciseReordered implements _ExerciseReordered {
+  const _$_ExerciseReordered({@required this.oldIndex, @required this.newIndex})
+      : assert(oldIndex != null),
+        assert(newIndex != null);
+
+  @override
+  final int oldIndex;
+  @override
+  final int newIndex;
+
+  @override
+  String toString() {
+    return 'WorkoutFormEvent.exerciseReordered(oldIndex: $oldIndex, newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ExerciseReordered &&
+            (identical(other.oldIndex, oldIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.oldIndex, oldIndex)) &&
+            (identical(other.newIndex, newIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.newIndex, newIndex)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(oldIndex) ^
+      const DeepCollectionEquality().hash(newIndex);
+
+  @override
+  _$ExerciseReorderedCopyWith<_ExerciseReordered> get copyWith =>
+      __$ExerciseReorderedCopyWithImpl<_ExerciseReordered>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result init(Option<Workout> workoutOption),
+    @required Result nameChanged(String name),
+    @required Result exerciseAdded(Exercise exercise),
+    @required Result exerciseRemoved(UniqueId exerciseId),
+    @required Result saved(),
+    @required Result exerciseReordered(int oldIndex, int newIndex),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(exerciseAdded != null);
+    assert(exerciseRemoved != null);
+    assert(saved != null);
+    assert(exerciseReordered != null);
+    return exerciseReordered(oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result init(Option<Workout> workoutOption),
+    Result nameChanged(String name),
+    Result exerciseAdded(Exercise exercise),
+    Result exerciseRemoved(UniqueId exerciseId),
+    Result saved(),
+    Result exerciseReordered(int oldIndex, int newIndex),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (exerciseReordered != null) {
+      return exerciseReordered(oldIndex, newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result init(_WorkoutFormInit value),
+    @required Result nameChanged(_WorkoutNameChanged value),
+    @required Result exerciseAdded(_WorkoutExerciseAdded value),
+    @required Result exerciseRemoved(_WorkoutExerciseRemoved value),
+    @required Result saved(_WorkoutSaved value),
+    @required Result exerciseReordered(_ExerciseReordered value),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(exerciseAdded != null);
+    assert(exerciseRemoved != null);
+    assert(saved != null);
+    assert(exerciseReordered != null);
+    return exerciseReordered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result init(_WorkoutFormInit value),
+    Result nameChanged(_WorkoutNameChanged value),
+    Result exerciseAdded(_WorkoutExerciseAdded value),
+    Result exerciseRemoved(_WorkoutExerciseRemoved value),
+    Result saved(_WorkoutSaved value),
+    Result exerciseReordered(_ExerciseReordered value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (exerciseReordered != null) {
+      return exerciseReordered(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ExerciseReordered implements WorkoutFormEvent {
+  const factory _ExerciseReordered(
+      {@required int oldIndex, @required int newIndex}) = _$_ExerciseReordered;
+
+  int get oldIndex;
+  int get newIndex;
+  _$ExerciseReorderedCopyWith<_ExerciseReordered> get copyWith;
 }
 
 class _$WorkoutFormStateTearOff {

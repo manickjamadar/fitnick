@@ -9,7 +9,7 @@ import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:fitnick/domain/workout/value_object/workout_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import "../../core/helpers/list_extension.dart";
 part 'workout_form_event.dart';
 part 'workout_form_state.dart';
 part 'workout_form_bloc.freezed.dart';
@@ -24,11 +24,13 @@ class WorkoutFormBloc extends Bloc<WorkoutFormEvent, WorkoutFormState> {
     WorkoutFormEvent event,
   ) async* {
     yield* event.when(
-        init: _mapInitToState,
-        nameChanged: _mapNameChangedToState,
-        exerciseAdded: _mapExerciseAddedToState,
-        exerciseRemoved: _mapExerciseRemovedToState,
-        saved: _mapSavedToState);
+      init: _mapInitToState,
+      nameChanged: _mapNameChangedToState,
+      exerciseAdded: _mapExerciseAddedToState,
+      exerciseRemoved: _mapExerciseRemovedToState,
+      saved: _mapSavedToState,
+      exerciseReordered: _mapExerciseReorderedToState,
+    );
   }
 
   Stream<WorkoutFormState> _mapInitToState(
@@ -75,5 +77,13 @@ class WorkoutFormBloc extends Bloc<WorkoutFormEvent, WorkoutFormState> {
         shouldShowErrorMessages: true,
         isAdding: false,
         addStatus: optionOf(failureOrSuccess));
+  }
+
+  Stream<WorkoutFormState> _mapExerciseReorderedToState(
+      int oldIndex, int newIndex) async* {
+    yield state.copyWith(
+        workout: state.workout.copyWith(
+            exercises: state.workout.exercises.reorder(oldIndex, newIndex)),
+        addStatus: none());
   }
 }
