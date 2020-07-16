@@ -10,4 +10,8 @@ class ExerciseName extends ValueObject<String> {
   factory ExerciseName(String input) {
     return ExerciseName._(ValueValidator.validateEmptyString(input));
   }
+  @override
+  String toString() {
+    return "EXercise Name : $dangerValue";
+  }
 }
