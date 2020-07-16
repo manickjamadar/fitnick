@@ -16,8 +16,14 @@ class ExerciseTarget extends Name {
       name: "Biceps", category: ExerciseTargetCategory.upperBody);
   static const triceps = ExerciseTarget(
       name: "Triceps", category: ExerciseTargetCategory.upperBody);
-  static const shoulder = ExerciseTarget(
-      name: "Shoulder", category: ExerciseTargetCategory.upperBody);
+  static const fullShoulder = ExerciseTarget(
+      name: "Full Shoulder", category: ExerciseTargetCategory.upperBody);
+  static const rearShoulder = ExerciseTarget(
+      name: "Rear Shoulder", category: ExerciseTargetCategory.upperBody);
+  static const middleShoulder = ExerciseTarget(
+      name: "Middle Shoulder", category: ExerciseTargetCategory.upperBody);
+  static const frontShoulder = ExerciseTarget(
+      name: "Front Shoulder", category: ExerciseTargetCategory.upperBody);
   static const fullChest = ExerciseTarget(
       name: "Full Chest", category: ExerciseTargetCategory.upperBody);
   static const upperChest = ExerciseTarget(
@@ -30,6 +36,8 @@ class ExerciseTarget extends Name {
       ExerciseTarget(name: "Lats", category: ExerciseTargetCategory.upperBody);
   static const forearm = ExerciseTarget(
       name: "Forearm", category: ExerciseTargetCategory.upperBody);
+  static const back =
+      ExerciseTarget(name: "Back", category: ExerciseTargetCategory.upperBody);
   static const traps =
       ExerciseTarget(name: "Traps", category: ExerciseTargetCategory.upperBody);
   static const neck =
@@ -52,19 +60,21 @@ class ExerciseTarget extends Name {
       ExerciseTarget(name: "Upper Abs", category: ExerciseTargetCategory.core);
   static const fullAbs =
       ExerciseTarget(name: "Full Abs", category: ExerciseTargetCategory.core);
-  static const back =
-      ExerciseTarget(name: "Back", category: ExerciseTargetCategory.core);
   static const obliques =
       ExerciseTarget(name: "Obliques", category: ExerciseTargetCategory.core);
   static const all = [
     biceps,
     triceps,
-    shoulder,
+    fullShoulder,
+    rearShoulder,
+    middleShoulder,
+    frontShoulder,
     fullChest,
     upperChest,
     middleChest,
     lowerChest,
     lats,
+    back,
     forearm,
     traps,
     neck,
@@ -77,7 +87,6 @@ class ExerciseTarget extends Name {
     lowerAbs,
     upperAbs,
     obliques,
-    back
   ];
   factory ExerciseTarget.fromJson(Map<String, dynamic> json) =>
       _$ExerciseTargetFromJson(json);
