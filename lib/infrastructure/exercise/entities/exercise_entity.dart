@@ -32,8 +32,8 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
   const factory ExerciseEntity({
     @JsonKey(name: "id") @required UniqueId id,
     @JsonKey(name: "name") @required String name,
-    @JsonKey(name: "video_path") @required String videoPath,
-    @JsonKey(name: "thumbnail_path") @required String thumbnailPath,
+    @JsonKey(name: "video_path") String videoPath,
+    @JsonKey(name: "thumbnail_path") String thumbnailPath,
     @JsonKey(name: "levels") @required List<ExerciseLevel> levels,
     @JsonKey(name: "tools") @required List<ExerciseTool> tools,
     @JsonKey(name: "types") @required List<ExerciseType> types,

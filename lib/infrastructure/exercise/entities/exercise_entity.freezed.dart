@@ -22,10 +22,8 @@ class _$ExerciseEntityTearOff {
       @required
       @JsonKey(name: 'name')
           String name,
-      @required
       @JsonKey(name: 'video_path')
           String videoPath,
-      @required
       @JsonKey(name: 'thumbnail_path')
           String thumbnailPath,
       @required
@@ -223,8 +221,8 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
   const _$_ExerciseEntity(
       {@required @JsonKey(name: 'id') this.id,
       @required @JsonKey(name: 'name') this.name,
-      @required @JsonKey(name: 'video_path') this.videoPath,
-      @required @JsonKey(name: 'thumbnail_path') this.thumbnailPath,
+      @JsonKey(name: 'video_path') this.videoPath,
+      @JsonKey(name: 'thumbnail_path') this.thumbnailPath,
       @required @JsonKey(name: 'levels') this.levels,
       @required @JsonKey(name: 'tools') this.tools,
       @required @JsonKey(name: 'types') this.types,
@@ -232,8 +230,6 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
       @required @JsonKey(name: 'secondary_targets') this.secondaryTargets})
       : assert(id != null),
         assert(name != null),
-        assert(videoPath != null),
-        assert(thumbnailPath != null),
         assert(levels != null),
         assert(tools != null),
         assert(types != null),
@@ -353,10 +349,8 @@ abstract class _ExerciseEntity extends ExerciseEntity {
       @required
       @JsonKey(name: 'name')
           String name,
-      @required
       @JsonKey(name: 'video_path')
           String videoPath,
-      @required
       @JsonKey(name: 'thumbnail_path')
           String thumbnailPath,
       @required
