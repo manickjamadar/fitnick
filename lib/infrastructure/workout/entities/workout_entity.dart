@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import "../../../application/core/helpers/list_extension.dart";
 import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
@@ -51,9 +52,7 @@ abstract class WorkoutEntity implements _$WorkoutEntity {
     return Workout(
         id: id,
         name: WorkoutName(name),
-        exercises: exercises
-            .where(
-                (Exercise exercise) => exerciseIds.indexOf(exercise.id) != -1)
-            .toList());
+        exercises: exerciseIds.filter(
+            exercises, (UniqueId id, Exercise exercise) => exercise.id == id));
   }
 }
