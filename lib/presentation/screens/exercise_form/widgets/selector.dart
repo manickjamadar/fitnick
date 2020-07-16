@@ -1,41 +1,82 @@
+import 'package:fitnick/presentation/screens/exercise_form/widgets/selector_chip.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/exercise/models/sub_models/name.dart';
-
-class Selector<T extends Name> extends StatelessWidget {
-  final String label;
+class Selector<T> extends StatefulWidget {
+  final String title;
   final List<T> options;
-  final void Function(T) onChanged;
-  final T value;
+  final String Function(T option) optionLabel;
+  final List<T> initialValues;
+  final bool selectMultiple;
+  final void Function(List<T> selectedOptions) onSelect;
   const Selector(
       {Key key,
-      @required this.label,
+      @required this.title,
       @required this.options,
-      @required this.value,
-      this.onChanged})
+      this.initialValues = const [],
+      this.onSelect,
+      this.selectMultiple = false,
+      @required this.optionLabel})
       : super(key: key);
+
+  @override
+  _SelectorState<T> createState() => _SelectorState<T>();
+}
+
+class _SelectorState<T> extends State<Selector<T>> {
+  List<T> selectedValues = [];
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(label,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        DropdownButton<T>(
-          value: value,
-          onChanged: (nextValue) {
-            if (onChanged != null) {
-              onChanged(nextValue);
-            }
-          },
-          items: options
-              .map((option) => DropdownMenuItem<T>(
-                    child: Text(option.name),
-                    value: option,
-                  ))
-              .toList(),
+        Text(
+          widget.title,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          child: Wrap(
+            runSpacing: 10,
+            spacing: 10,
+            children: widget.options
+                .map((option) => SelectorChip(
+                      color: Theme.of(context).primaryColor,
+                      title: widget.optionLabel(option),
+                      selected: selectedValues.indexOf(option) != -1,
+                      onTap: () => onChipTap(option),
+                    ))
+                .toList(),
+          ),
         )
       ],
     );
+  }
+
+  void onChipTap(T option) {
+    if (widget.selectMultiple) {
+      setState(() {
+        final optionIndex = selectedValues.indexOf(option);
+        if (optionIndex != -1) {
+          selectedValues.removeAt(optionIndex);
+        } else {
+          selectedValues.add(option);
+        }
+      });
+    } else {
+      setState(() {
+        selectedValues = [option];
+      });
+    }
+    if (widget.onSelect != null) {
+      widget.onSelect([...selectedValues]);
+    }
+  }
+
+  @override
+  void initState() {
+    selectedValues = [...widget.initialValues];
+    super.initState();
   }
 }
