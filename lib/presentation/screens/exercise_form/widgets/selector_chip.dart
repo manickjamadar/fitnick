@@ -21,7 +21,7 @@ class SelectorChip extends StatelessWidget {
           decoration: BoxDecoration(
               color: selected ? color : Colors.transparent,
               borderRadius: BorderRadius.circular(50),
-              border: Border.all()),
+              border: Border.all(color: color)),
           child: Text(title,
               style: TextStyle(color: selected ? Colors.white : color))),
     );
