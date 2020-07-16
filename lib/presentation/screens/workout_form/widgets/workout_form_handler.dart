@@ -76,18 +76,27 @@ class WorkoutFormHandler extends StatelessWidget {
   Widget buildWorkoutExeriseList(BuildContext context) {
     return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
       builder: (_, state) {
-        return Column(
-            children: state.workout.exercises
-                .map((exercise) => ExerciseItem(
-                      exercise: exercise,
-                      exerciseItemType:
-                          ExerciseItemType.removable(onRemove: (_) {
-                        BlocProvider.of<WorkoutFormBloc>(context).add(
-                            WorkoutFormEvent.exerciseRemoved(
-                                exerciseId: exercise.id));
-                      }),
-                    ))
-                .toList());
+        return Container(
+          height: 90 * (state.workout.exercises.length.toDouble()),
+          child: ReorderableListView(
+              onReorder: (oldIndex, newIndex) {
+                BlocProvider.of<WorkoutFormBloc>(context).add(
+                    WorkoutFormEvent.exerciseReordered(
+                        oldIndex: oldIndex, newIndex: newIndex));
+              },
+              children: state.workout.exercises
+                  .map((exercise) => ExerciseItem(
+                        key: ValueKey(exercise.id.value),
+                        exercise: exercise,
+                        exerciseItemType:
+                            ExerciseItemType.removable(onRemove: (_) {
+                          BlocProvider.of<WorkoutFormBloc>(context).add(
+                              WorkoutFormEvent.exerciseRemoved(
+                                  exerciseId: exercise.id));
+                        }),
+                      ))
+                  .toList()),
+        );
       },
     );
   }
