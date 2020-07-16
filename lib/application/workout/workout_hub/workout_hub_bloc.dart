@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/facade/i_workout_facade.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
@@ -11,9 +13,18 @@ part 'workout_hub_state.dart';
 part "workout_hub_bloc.freezed.dart";
 
 class WorkoutHubBloc extends Bloc<WorkoutHubEvent, WorkoutHubState> {
+  final ExerciseHubBloc exerciseHubBloc;
   final IWorkoutFacade workoutFacade;
-  WorkoutHubBloc({@required this.workoutFacade})
-      : super(WorkoutHubState.loading());
+  WorkoutHubBloc({@required this.workoutFacade, @required this.exerciseHubBloc})
+      : super(WorkoutHubState.loading()) {
+    exerciseHubBloc.listen((ExerciseHubState state) {
+      state.maybeWhen(
+          orElse: () {},
+          loaded: (List<Exercise> exercise) {
+            this.add(WorkoutHubEvent.refreshed());
+          });
+    });
+  }
 
   @override
   Stream<WorkoutHubState> mapEventToState(
