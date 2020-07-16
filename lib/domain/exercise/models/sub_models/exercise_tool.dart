@@ -9,7 +9,7 @@ part 'exercise_tool.g.dart';
 class ExerciseTool extends Name {
   const ExerciseTool({@required String name}) : super(name);
 
-  static const bodyWeight = ExerciseTool(name: "No Equipment");
+  static const noEquipment = ExerciseTool(name: "No Equipment");
   static const parallettes = ExerciseTool(name: "Parallettes");
   static const miniBand = ExerciseTool(name: "Mini Band");
   static const dumbbell = ExerciseTool(name: "Dumbbell");
@@ -22,7 +22,7 @@ class ExerciseTool extends Name {
   static const medicineBall = ExerciseTool(name: "Medicine Ball");
 
   static const all = [
-    bodyWeight,
+    noEquipment,
     parallettes,
     miniBand,
     dumbbell,
