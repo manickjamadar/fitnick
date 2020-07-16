@@ -13,6 +13,7 @@ class ExerciseType extends Name {
   static const cardio = ExerciseType(name: "Cardio");
   static const strength = ExerciseType(name: "Strength");
   static const stretching = ExerciseType(name: "Stretching");
+  static const yoga = ExerciseType(name: "Yoga");
 
   static const all = [warmUp, cardio, strength, stretching];
   factory ExerciseType.fromJson(Map<String, dynamic> json) =>
