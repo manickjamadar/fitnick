@@ -113,7 +113,7 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
       KEY_VIDEO_PATH: this.videoPath,
       KEY_THUMBNAIL_PATH: this.thumbnailPath,
       KEY_LEVELS: jsonEncode(this.levels?.map((e) => e?.toJson())?.toList()),
-      KEY_TOOLS: this.tools?.map((e) => e?.toJson())?.toList(),
+      KEY_TOOLS: jsonEncode(this.tools?.map((e) => e?.toJson())?.toList()),
       KEY_TYPES: jsonEncode(this.types?.map((e) => e?.toJson())?.toList()),
       KEY_PRIMARY_TARGETS:
           jsonEncode(this.primaryTargets?.map((e) => e?.toJson())?.toList()),
