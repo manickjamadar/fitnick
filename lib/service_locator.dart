@@ -55,8 +55,6 @@ void initBloc() {
   locator.registerFactory<ExerciseActorBloc>(() => ExerciseActorBloc(
         exerciseFacade: locator<IExerciseFacade>(),
       ));
-  locator.registerFactory<WorkoutHubBloc>(
-      () => WorkoutHubBloc(workoutFacade: locator<IWorkoutFacade>()));
   locator.registerFactory<WorkoutFormBloc>(
       () => WorkoutFormBloc(workoutFacade: locator<IWorkoutFacade>()));
   locator.registerFactory<WorkoutActorBloc>(() => WorkoutActorBloc(
