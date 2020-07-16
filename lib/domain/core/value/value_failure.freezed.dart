@@ -17,6 +17,12 @@ class _$ValueFailureTearOff {
       invalidValue: invalidValue,
     );
   }
+
+  _OptionNotSelected<T> optionNotSelected<T>({@required T invalidValue}) {
+    return _OptionNotSelected<T>(
+      invalidValue: invalidValue,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -28,19 +34,23 @@ mixin _$ValueFailure<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result empty(T invalidValue),
+    @required Result optionNotSelected(T invalidValue),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result empty(T invalidValue),
+    Result optionNotSelected(T invalidValue),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty<T> value),
+    @required Result optionNotSelected(_OptionNotSelected<T> value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty<T> value),
+    Result optionNotSelected(_OptionNotSelected<T> value),
     @required Result orElse(),
   });
 
@@ -132,8 +142,10 @@ class _$_Empty<T> implements _Empty<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result empty(T invalidValue),
+    @required Result optionNotSelected(T invalidValue),
   }) {
     assert(empty != null);
+    assert(optionNotSelected != null);
     return empty(invalidValue);
   }
 
@@ -141,6 +153,7 @@ class _$_Empty<T> implements _Empty<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result empty(T invalidValue),
+    Result optionNotSelected(T invalidValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -154,8 +167,10 @@ class _$_Empty<T> implements _Empty<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty<T> value),
+    @required Result optionNotSelected(_OptionNotSelected<T> value),
   }) {
     assert(empty != null);
+    assert(optionNotSelected != null);
     return empty(this);
   }
 
@@ -163,6 +178,7 @@ class _$_Empty<T> implements _Empty<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty<T> value),
+    Result optionNotSelected(_OptionNotSelected<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -180,4 +196,125 @@ abstract class _Empty<T> implements ValueFailure<T> {
   T get invalidValue;
   @override
   _$EmptyCopyWith<T, _Empty<T>> get copyWith;
+}
+
+abstract class _$OptionNotSelectedCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory _$OptionNotSelectedCopyWith(_OptionNotSelected<T> value,
+          $Res Function(_OptionNotSelected<T>) then) =
+      __$OptionNotSelectedCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T invalidValue});
+}
+
+class __$OptionNotSelectedCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements _$OptionNotSelectedCopyWith<T, $Res> {
+  __$OptionNotSelectedCopyWithImpl(
+      _OptionNotSelected<T> _value, $Res Function(_OptionNotSelected<T>) _then)
+      : super(_value, (v) => _then(v as _OptionNotSelected<T>));
+
+  @override
+  _OptionNotSelected<T> get _value => super._value as _OptionNotSelected<T>;
+
+  @override
+  $Res call({
+    Object invalidValue = freezed,
+  }) {
+    return _then(_OptionNotSelected<T>(
+      invalidValue:
+          invalidValue == freezed ? _value.invalidValue : invalidValue as T,
+    ));
+  }
+}
+
+class _$_OptionNotSelected<T> implements _OptionNotSelected<T> {
+  const _$_OptionNotSelected({@required this.invalidValue})
+      : assert(invalidValue != null);
+
+  @override
+  final T invalidValue;
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.optionNotSelected(invalidValue: $invalidValue)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _OptionNotSelected<T> &&
+            (identical(other.invalidValue, invalidValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.invalidValue, invalidValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(invalidValue);
+
+  @override
+  _$OptionNotSelectedCopyWith<T, _OptionNotSelected<T>> get copyWith =>
+      __$OptionNotSelectedCopyWithImpl<T, _OptionNotSelected<T>>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result empty(T invalidValue),
+    @required Result optionNotSelected(T invalidValue),
+  }) {
+    assert(empty != null);
+    assert(optionNotSelected != null);
+    return optionNotSelected(invalidValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result empty(T invalidValue),
+    Result optionNotSelected(T invalidValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (optionNotSelected != null) {
+      return optionNotSelected(invalidValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result empty(_Empty<T> value),
+    @required Result optionNotSelected(_OptionNotSelected<T> value),
+  }) {
+    assert(empty != null);
+    assert(optionNotSelected != null);
+    return optionNotSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result empty(_Empty<T> value),
+    Result optionNotSelected(_OptionNotSelected<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (optionNotSelected != null) {
+      return optionNotSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OptionNotSelected<T> implements ValueFailure<T> {
+  const factory _OptionNotSelected({@required T invalidValue}) =
+      _$_OptionNotSelected<T>;
+
+  @override
+  T get invalidValue;
+  @override
+  _$OptionNotSelectedCopyWith<T, _OptionNotSelected<T>> get copyWith;
 }
