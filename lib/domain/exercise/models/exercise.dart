@@ -38,6 +38,12 @@ abstract class Exercise implements _$Exercise {
         secondaryTargets: []);
   }
   Option<ValueFailure> failureOption() {
+    if (levels.isEmpty ||
+        tools.isEmpty ||
+        types.isEmpty ||
+        primaryTargets.isEmpty) {
+      return Some(ValueFailure.optionNotSelected(invalidValue: []));
+    }
     return name.value.fold((l) => Some(l), (r) => none());
   }
 
