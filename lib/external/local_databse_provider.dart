@@ -32,7 +32,7 @@ class LocalDatabaseProvider {
             ${ExerciseEntity.KEY_LEVELS} TEXT NOT NULL,
             ${ExerciseEntity.KEY_TOOLS} TEXT NOT NULL,
             ${ExerciseEntity.KEY_TYPES} TEXT NOT NULL,
-            ${ExerciseEntity.KEY_PRIMARY_TARGETS} TEXT NOT NULL
+            ${ExerciseEntity.KEY_PRIMARY_TARGETS} TEXT NOT NULL,
             ${ExerciseEntity.KEY_SECONDARY_TARGETS} TEXT NOT NULL
           );
         ''');
