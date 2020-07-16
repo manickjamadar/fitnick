@@ -14,6 +14,9 @@ class ExerciseTarget extends Name {
 //upper body
   static const biceps = ExerciseTarget(
       name: "Biceps", category: ExerciseTargetCategory.upperBody);
+//upper body
+  static const fullBody = ExerciseTarget(
+      name: "Full Body", category: ExerciseTargetCategory.fullBody);
   static const triceps = ExerciseTarget(
       name: "Triceps", category: ExerciseTargetCategory.upperBody);
   static const fullShoulder = ExerciseTarget(
@@ -63,6 +66,7 @@ class ExerciseTarget extends Name {
   static const obliques =
       ExerciseTarget(name: "Obliques", category: ExerciseTargetCategory.core);
   static const all = [
+    fullBody,
     biceps,
     triceps,
     fullShoulder,

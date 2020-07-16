@@ -10,10 +10,11 @@ class ExerciseTargetCategory extends Name {
   const ExerciseTargetCategory({@required String name}) : super(name);
 
   static const upperBody = ExerciseTargetCategory(name: "Upper Body");
+  static const fullBody = ExerciseTargetCategory(name: "Full Body");
   static const lowerBody = ExerciseTargetCategory(name: "Lower Body");
   static const core = ExerciseTargetCategory(name: "Core");
 
-  static const all = [upperBody, lowerBody, core];
+  static const all = [fullBody, upperBody, lowerBody, core];
   factory ExerciseTargetCategory.fromJson(Map<String, dynamic> json) =>
       _$ExerciseTargetCategoryFromJson(json);
   Map<String, dynamic> toJson() => _$ExerciseTargetCategoryToJson(this);
