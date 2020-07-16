@@ -1,4 +1,3 @@
-import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
@@ -9,12 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/exercise/exercise_form/exercise_form_bloc.dart';
 import '../../../../domain/exercise/failure/exercise_failure.dart';
-import '../../../../domain/exercise/models/exercise.dart';
-import '../../../../domain/exercise/models/sub_models/exercise_level.dart';
-import '../../../../domain/exercise/models/sub_models/exercise_target.dart';
-import '../../../../domain/exercise/models/sub_models/exercise_tool.dart';
-import '../../../../domain/exercise/models/sub_models/exercise_type.dart';
-import 'selector.dart';
 
 class ExerciseFormHandler extends StatelessWidget {
   @override
@@ -50,43 +43,6 @@ class ExerciseFormHandler extends StatelessWidget {
                     children: <Widget>[
                       buildNameInput(context),
                       buildSpace(),
-                      Selector<ExerciseLevel>(
-                        value: state.exercise.level,
-                        label: "Level",
-                        options: ExerciseLevel.all,
-                        onChanged: (newValue) {
-                          exerciseformBloc.add(
-                              ExerciseFormEvent.exerciseLevelChanged(newValue));
-                        },
-                      ),
-                      Selector<ExerciseTool>(
-                        value: state.exercise.tool,
-                        label: "Tool",
-                        options: ExerciseTool.all,
-                        onChanged: (newValue) {
-                          exerciseformBloc.add(
-                              ExerciseFormEvent.exerciseToolChanged(newValue));
-                        },
-                      ),
-                      Selector<ExerciseType>(
-                        value: state.exercise.type,
-                        label: "Type",
-                        options: ExerciseType.all,
-                        onChanged: (newValue) {
-                          exerciseformBloc.add(
-                              ExerciseFormEvent.exerciseTypeChanged(newValue));
-                        },
-                      ),
-                      Selector<ExerciseTarget>(
-                        value: state.exercise.target,
-                        label: "Muscle Target",
-                        options: ExerciseTarget.all,
-                        onChanged: (newValue) {
-                          exerciseformBloc.add(
-                              ExerciseFormEvent.exerciseTargetChanged(
-                                  newValue));
-                        },
-                      ),
                       // Spacer(),
                     ],
                   ),
@@ -127,7 +83,7 @@ class ExerciseFormHandler extends StatelessWidget {
       initialValue: exerciseName,
       autofocus: !state.isEditing,
       onChanged: (value) {
-        exerciseFormBloc.add(ExerciseFormEvent.exerciseNameChanged(value));
+        exerciseFormBloc.add(ExerciseFormEvent.nameChanged(value));
       },
       decoration: InputDecoration(
           errorText: state.shouldShowErrorMessages
