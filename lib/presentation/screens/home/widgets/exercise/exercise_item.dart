@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
-import 'package:fitnick/application/workout/workout_hub/workout_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
@@ -86,7 +85,6 @@ class ExerciseItem extends StatelessWidget {
             title: Text(
               exercise.name.safeValue.capitalize(),
             ),
-            subtitle: Text(exercise.target.name),
             trailing: buildCardTrailing(context),
           ),
         ),
