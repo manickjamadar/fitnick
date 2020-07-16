@@ -31,10 +31,10 @@ abstract class Exercise implements _$Exercise {
         name: ExerciseName(""),
         videoPath: none(),
         thumbnailPath: none(),
-        levels: [],
-        tools: [],
-        types: [],
-        primaryTargets: [],
+        levels: [ExerciseLevel.anyLevel],
+        tools: [ExerciseTool.noEquipment],
+        types: [ExerciseType.warmUp],
+        primaryTargets: [ExerciseTarget.fullBody],
         secondaryTargets: []);
   }
   Option<ValueFailure> failureOption() {
