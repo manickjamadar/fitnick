@@ -15,17 +15,23 @@ class _$ExerciseTearOff {
   _Exercise call(
       {@required UniqueId id,
       @required ExerciseName name,
-      @required ExerciseLevel level,
-      @required ExerciseTool tool,
-      @required ExerciseType type,
-      @required ExerciseTarget target}) {
+      @required Option<String> videoPath,
+      @required Option<String> thumbnailPath,
+      @required List<ExerciseLevel> levels,
+      @required List<ExerciseType> types,
+      @required List<ExerciseTool> tools,
+      @required List<ExerciseTarget> primaryTargets,
+      @required List<ExerciseTarget> secondaryTargets}) {
     return _Exercise(
       id: id,
       name: name,
-      level: level,
-      tool: tool,
-      type: type,
-      target: target,
+      videoPath: videoPath,
+      thumbnailPath: thumbnailPath,
+      levels: levels,
+      types: types,
+      tools: tools,
+      primaryTargets: primaryTargets,
+      secondaryTargets: secondaryTargets,
     );
   }
 }
@@ -36,10 +42,13 @@ const $Exercise = _$ExerciseTearOff();
 mixin _$Exercise {
   UniqueId get id;
   ExerciseName get name;
-  ExerciseLevel get level;
-  ExerciseTool get tool;
-  ExerciseType get type;
-  ExerciseTarget get target;
+  Option<String> get videoPath;
+  Option<String> get thumbnailPath;
+  List<ExerciseLevel> get levels;
+  List<ExerciseType> get types;
+  List<ExerciseTool> get tools;
+  List<ExerciseTarget> get primaryTargets;
+  List<ExerciseTarget> get secondaryTargets;
 
   $ExerciseCopyWith<Exercise> get copyWith;
 }
@@ -50,10 +59,13 @@ abstract class $ExerciseCopyWith<$Res> {
   $Res call(
       {UniqueId id,
       ExerciseName name,
-      ExerciseLevel level,
-      ExerciseTool tool,
-      ExerciseType type,
-      ExerciseTarget target});
+      Option<String> videoPath,
+      Option<String> thumbnailPath,
+      List<ExerciseLevel> levels,
+      List<ExerciseType> types,
+      List<ExerciseTool> tools,
+      List<ExerciseTarget> primaryTargets,
+      List<ExerciseTarget> secondaryTargets});
 }
 
 class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
@@ -67,18 +79,31 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object level = freezed,
-    Object tool = freezed,
-    Object type = freezed,
-    Object target = freezed,
+    Object videoPath = freezed,
+    Object thumbnailPath = freezed,
+    Object levels = freezed,
+    Object types = freezed,
+    Object tools = freezed,
+    Object primaryTargets = freezed,
+    Object secondaryTargets = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as UniqueId,
       name: name == freezed ? _value.name : name as ExerciseName,
-      level: level == freezed ? _value.level : level as ExerciseLevel,
-      tool: tool == freezed ? _value.tool : tool as ExerciseTool,
-      type: type == freezed ? _value.type : type as ExerciseType,
-      target: target == freezed ? _value.target : target as ExerciseTarget,
+      videoPath:
+          videoPath == freezed ? _value.videoPath : videoPath as Option<String>,
+      thumbnailPath: thumbnailPath == freezed
+          ? _value.thumbnailPath
+          : thumbnailPath as Option<String>,
+      levels: levels == freezed ? _value.levels : levels as List<ExerciseLevel>,
+      types: types == freezed ? _value.types : types as List<ExerciseType>,
+      tools: tools == freezed ? _value.tools : tools as List<ExerciseTool>,
+      primaryTargets: primaryTargets == freezed
+          ? _value.primaryTargets
+          : primaryTargets as List<ExerciseTarget>,
+      secondaryTargets: secondaryTargets == freezed
+          ? _value.secondaryTargets
+          : secondaryTargets as List<ExerciseTarget>,
     ));
   }
 }
@@ -90,10 +115,13 @@ abstract class _$ExerciseCopyWith<$Res> implements $ExerciseCopyWith<$Res> {
   $Res call(
       {UniqueId id,
       ExerciseName name,
-      ExerciseLevel level,
-      ExerciseTool tool,
-      ExerciseType type,
-      ExerciseTarget target});
+      Option<String> videoPath,
+      Option<String> thumbnailPath,
+      List<ExerciseLevel> levels,
+      List<ExerciseType> types,
+      List<ExerciseTool> tools,
+      List<ExerciseTarget> primaryTargets,
+      List<ExerciseTarget> secondaryTargets});
 }
 
 class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
@@ -108,18 +136,31 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object level = freezed,
-    Object tool = freezed,
-    Object type = freezed,
-    Object target = freezed,
+    Object videoPath = freezed,
+    Object thumbnailPath = freezed,
+    Object levels = freezed,
+    Object types = freezed,
+    Object tools = freezed,
+    Object primaryTargets = freezed,
+    Object secondaryTargets = freezed,
   }) {
     return _then(_Exercise(
       id: id == freezed ? _value.id : id as UniqueId,
       name: name == freezed ? _value.name : name as ExerciseName,
-      level: level == freezed ? _value.level : level as ExerciseLevel,
-      tool: tool == freezed ? _value.tool : tool as ExerciseTool,
-      type: type == freezed ? _value.type : type as ExerciseType,
-      target: target == freezed ? _value.target : target as ExerciseTarget,
+      videoPath:
+          videoPath == freezed ? _value.videoPath : videoPath as Option<String>,
+      thumbnailPath: thumbnailPath == freezed
+          ? _value.thumbnailPath
+          : thumbnailPath as Option<String>,
+      levels: levels == freezed ? _value.levels : levels as List<ExerciseLevel>,
+      types: types == freezed ? _value.types : types as List<ExerciseType>,
+      tools: tools == freezed ? _value.tools : tools as List<ExerciseTool>,
+      primaryTargets: primaryTargets == freezed
+          ? _value.primaryTargets
+          : primaryTargets as List<ExerciseTarget>,
+      secondaryTargets: secondaryTargets == freezed
+          ? _value.secondaryTargets
+          : secondaryTargets as List<ExerciseTarget>,
     ));
   }
 }
@@ -128,16 +169,22 @@ class _$_Exercise extends _Exercise {
   const _$_Exercise(
       {@required this.id,
       @required this.name,
-      @required this.level,
-      @required this.tool,
-      @required this.type,
-      @required this.target})
+      @required this.videoPath,
+      @required this.thumbnailPath,
+      @required this.levels,
+      @required this.types,
+      @required this.tools,
+      @required this.primaryTargets,
+      @required this.secondaryTargets})
       : assert(id != null),
         assert(name != null),
-        assert(level != null),
-        assert(tool != null),
-        assert(type != null),
-        assert(target != null),
+        assert(videoPath != null),
+        assert(thumbnailPath != null),
+        assert(levels != null),
+        assert(types != null),
+        assert(tools != null),
+        assert(primaryTargets != null),
+        assert(secondaryTargets != null),
         super._();
 
   @override
@@ -145,17 +192,23 @@ class _$_Exercise extends _Exercise {
   @override
   final ExerciseName name;
   @override
-  final ExerciseLevel level;
+  final Option<String> videoPath;
   @override
-  final ExerciseTool tool;
+  final Option<String> thumbnailPath;
   @override
-  final ExerciseType type;
+  final List<ExerciseLevel> levels;
   @override
-  final ExerciseTarget target;
+  final List<ExerciseType> types;
+  @override
+  final List<ExerciseTool> tools;
+  @override
+  final List<ExerciseTarget> primaryTargets;
+  @override
+  final List<ExerciseTarget> secondaryTargets;
 
   @override
   String toString() {
-    return 'Exercise(id: $id, name: $name, level: $level, tool: $tool, type: $type, target: $target)';
+    return 'Exercise(id: $id, name: $name, videoPath: $videoPath, thumbnailPath: $thumbnailPath, levels: $levels, types: $types, tools: $tools, primaryTargets: $primaryTargets, secondaryTargets: $secondaryTargets)';
   }
 
   @override
@@ -166,14 +219,24 @@ class _$_Exercise extends _Exercise {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)) &&
-            (identical(other.tool, tool) ||
-                const DeepCollectionEquality().equals(other.tool, tool)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.target, target) ||
-                const DeepCollectionEquality().equals(other.target, target)));
+            (identical(other.videoPath, videoPath) ||
+                const DeepCollectionEquality()
+                    .equals(other.videoPath, videoPath)) &&
+            (identical(other.thumbnailPath, thumbnailPath) ||
+                const DeepCollectionEquality()
+                    .equals(other.thumbnailPath, thumbnailPath)) &&
+            (identical(other.levels, levels) ||
+                const DeepCollectionEquality().equals(other.levels, levels)) &&
+            (identical(other.types, types) ||
+                const DeepCollectionEquality().equals(other.types, types)) &&
+            (identical(other.tools, tools) ||
+                const DeepCollectionEquality().equals(other.tools, tools)) &&
+            (identical(other.primaryTargets, primaryTargets) ||
+                const DeepCollectionEquality()
+                    .equals(other.primaryTargets, primaryTargets)) &&
+            (identical(other.secondaryTargets, secondaryTargets) ||
+                const DeepCollectionEquality()
+                    .equals(other.secondaryTargets, secondaryTargets)));
   }
 
   @override
@@ -181,10 +244,13 @@ class _$_Exercise extends _Exercise {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(tool) ^
-      const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(target);
+      const DeepCollectionEquality().hash(videoPath) ^
+      const DeepCollectionEquality().hash(thumbnailPath) ^
+      const DeepCollectionEquality().hash(levels) ^
+      const DeepCollectionEquality().hash(types) ^
+      const DeepCollectionEquality().hash(tools) ^
+      const DeepCollectionEquality().hash(primaryTargets) ^
+      const DeepCollectionEquality().hash(secondaryTargets);
 
   @override
   _$ExerciseCopyWith<_Exercise> get copyWith =>
@@ -196,23 +262,32 @@ abstract class _Exercise extends Exercise {
   const factory _Exercise(
       {@required UniqueId id,
       @required ExerciseName name,
-      @required ExerciseLevel level,
-      @required ExerciseTool tool,
-      @required ExerciseType type,
-      @required ExerciseTarget target}) = _$_Exercise;
+      @required Option<String> videoPath,
+      @required Option<String> thumbnailPath,
+      @required List<ExerciseLevel> levels,
+      @required List<ExerciseType> types,
+      @required List<ExerciseTool> tools,
+      @required List<ExerciseTarget> primaryTargets,
+      @required List<ExerciseTarget> secondaryTargets}) = _$_Exercise;
 
   @override
   UniqueId get id;
   @override
   ExerciseName get name;
   @override
-  ExerciseLevel get level;
+  Option<String> get videoPath;
   @override
-  ExerciseTool get tool;
+  Option<String> get thumbnailPath;
   @override
-  ExerciseType get type;
+  List<ExerciseLevel> get levels;
   @override
-  ExerciseTarget get target;
+  List<ExerciseType> get types;
+  @override
+  List<ExerciseTool> get tools;
+  @override
+  List<ExerciseTarget> get primaryTargets;
+  @override
+  List<ExerciseTarget> get secondaryTargets;
   @override
   _$ExerciseCopyWith<_Exercise> get copyWith;
 }

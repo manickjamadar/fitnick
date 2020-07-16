@@ -17,19 +17,25 @@ abstract class Exercise implements _$Exercise {
   const factory Exercise({
     @required UniqueId id,
     @required ExerciseName name,
-    @required ExerciseLevel level,
-    @required ExerciseTool tool,
-    @required ExerciseType type,
-    @required ExerciseTarget target,
+    @required Option<String> videoPath,
+    @required Option<String> thumbnailPath,
+    @required List<ExerciseLevel> levels,
+    @required List<ExerciseType> types,
+    @required List<ExerciseTool> tools,
+    @required List<ExerciseTarget> primaryTargets,
+    @required List<ExerciseTarget> secondaryTargets,
   }) = _Exercise;
   factory Exercise.initial() {
     return Exercise(
         id: UniqueId(),
         name: ExerciseName(""),
-        level: ExerciseLevel.beginner,
-        tool: ExerciseTool.bodyWeight,
-        type: ExerciseType.warmUp,
-        target: ExerciseTarget.biceps);
+        videoPath: none(),
+        thumbnailPath: none(),
+        levels: [],
+        tools: [],
+        types: [],
+        primaryTargets: [],
+        secondaryTargets: []);
   }
   Option<ValueFailure> failureOption() {
     return name.value.fold((l) => Some(l), (r) => none());
