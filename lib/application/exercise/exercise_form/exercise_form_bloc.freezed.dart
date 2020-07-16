@@ -18,33 +18,41 @@ class _$ExerciseFormEventTearOff {
     );
   }
 
-  _ExerciseNamedChanged exerciseNameChanged(String name) {
+  _ExerciseNamedChanged nameChanged(String name) {
     return _ExerciseNamedChanged(
       name,
     );
   }
 
-  _ExerciseLevelChanged exerciseLevelChanged(ExerciseLevel level) {
+  _ExerciseLevelChanged levelsChanged(List<ExerciseLevel> levels) {
     return _ExerciseLevelChanged(
-      level,
+      levels,
     );
   }
 
-  _ExerciseToolChanged exerciseToolChanged(ExerciseTool tool) {
+  _ExerciseToolChanged toolsChanged(List<ExerciseTool> tools) {
     return _ExerciseToolChanged(
-      tool,
+      tools,
     );
   }
 
-  _ExerciseTypeChanged exerciseTypeChanged(ExerciseType type) {
+  _ExerciseTypeChanged typesChanged(List<ExerciseType> types) {
     return _ExerciseTypeChanged(
-      type,
+      types,
     );
   }
 
-  _ExerciseTargetChanged exerciseTargetChanged(ExerciseTarget target) {
-    return _ExerciseTargetChanged(
-      target,
+  _ExercisePrimaryTargetChanged primaryTargetsChanged(
+      List<ExerciseTarget> primaryTargets) {
+    return _ExercisePrimaryTargetChanged(
+      primaryTargets,
+    );
+  }
+
+  _ExerciseSecondaryTargetChanged secondaryTargetsChanged(
+      List<ExerciseTarget> secondaryTargets) {
+    return _ExerciseSecondaryTargetChanged(
+      secondaryTargets,
     );
   }
 
@@ -60,42 +68,48 @@ mixin _$ExerciseFormEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   });
@@ -179,19 +193,22 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
     return init(exerciseOption);
   }
@@ -200,11 +217,12 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
@@ -219,19 +237,22 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
     return init(this);
   }
@@ -240,11 +261,12 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {
@@ -299,7 +321,7 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
 
   @override
   String toString() {
-    return 'ExerciseFormEvent.exerciseNameChanged(name: $name)';
+    return 'ExerciseFormEvent.nameChanged(name: $name)';
   }
 
   @override
@@ -323,38 +345,42 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseNameChanged(name);
+    return nameChanged(name);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseNameChanged != null) {
-      return exerciseNameChanged(name);
+    if (nameChanged != null) {
+      return nameChanged(name);
     }
     return orElse();
   }
@@ -363,38 +389,42 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseNameChanged(this);
+    return nameChanged(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseNameChanged != null) {
-      return exerciseNameChanged(this);
+    if (nameChanged != null) {
+      return nameChanged(this);
     }
     return orElse();
   }
@@ -411,7 +441,7 @@ abstract class _$ExerciseLevelChangedCopyWith<$Res> {
   factory _$ExerciseLevelChangedCopyWith(_ExerciseLevelChanged value,
           $Res Function(_ExerciseLevelChanged) then) =
       __$ExerciseLevelChangedCopyWithImpl<$Res>;
-  $Res call({ExerciseLevel level});
+  $Res call({List<ExerciseLevel> levels});
 }
 
 class __$ExerciseLevelChangedCopyWithImpl<$Res>
@@ -426,36 +456,36 @@ class __$ExerciseLevelChangedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object level = freezed,
+    Object levels = freezed,
   }) {
     return _then(_ExerciseLevelChanged(
-      level == freezed ? _value.level : level as ExerciseLevel,
+      levels == freezed ? _value.levels : levels as List<ExerciseLevel>,
     ));
   }
 }
 
 class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
-  const _$_ExerciseLevelChanged(this.level) : assert(level != null);
+  const _$_ExerciseLevelChanged(this.levels) : assert(levels != null);
 
   @override
-  final ExerciseLevel level;
+  final List<ExerciseLevel> levels;
 
   @override
   String toString() {
-    return 'ExerciseFormEvent.exerciseLevelChanged(level: $level)';
+    return 'ExerciseFormEvent.levelsChanged(levels: $levels)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ExerciseLevelChanged &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)));
+            (identical(other.levels, levels) ||
+                const DeepCollectionEquality().equals(other.levels, levels)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(level);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(levels);
 
   @override
   _$ExerciseLevelChangedCopyWith<_ExerciseLevelChanged> get copyWith =>
@@ -466,38 +496,42 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseLevelChanged(level);
+    return levelsChanged(levels);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseLevelChanged != null) {
-      return exerciseLevelChanged(level);
+    if (levelsChanged != null) {
+      return levelsChanged(levels);
     }
     return orElse();
   }
@@ -506,48 +540,52 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseLevelChanged(this);
+    return levelsChanged(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseLevelChanged != null) {
-      return exerciseLevelChanged(this);
+    if (levelsChanged != null) {
+      return levelsChanged(this);
     }
     return orElse();
   }
 }
 
 abstract class _ExerciseLevelChanged implements ExerciseFormEvent {
-  const factory _ExerciseLevelChanged(ExerciseLevel level) =
+  const factory _ExerciseLevelChanged(List<ExerciseLevel> levels) =
       _$_ExerciseLevelChanged;
 
-  ExerciseLevel get level;
+  List<ExerciseLevel> get levels;
   _$ExerciseLevelChangedCopyWith<_ExerciseLevelChanged> get copyWith;
 }
 
@@ -555,7 +593,7 @@ abstract class _$ExerciseToolChangedCopyWith<$Res> {
   factory _$ExerciseToolChangedCopyWith(_ExerciseToolChanged value,
           $Res Function(_ExerciseToolChanged) then) =
       __$ExerciseToolChangedCopyWithImpl<$Res>;
-  $Res call({ExerciseTool tool});
+  $Res call({List<ExerciseTool> tools});
 }
 
 class __$ExerciseToolChangedCopyWithImpl<$Res>
@@ -570,36 +608,36 @@ class __$ExerciseToolChangedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object tool = freezed,
+    Object tools = freezed,
   }) {
     return _then(_ExerciseToolChanged(
-      tool == freezed ? _value.tool : tool as ExerciseTool,
+      tools == freezed ? _value.tools : tools as List<ExerciseTool>,
     ));
   }
 }
 
 class _$_ExerciseToolChanged implements _ExerciseToolChanged {
-  const _$_ExerciseToolChanged(this.tool) : assert(tool != null);
+  const _$_ExerciseToolChanged(this.tools) : assert(tools != null);
 
   @override
-  final ExerciseTool tool;
+  final List<ExerciseTool> tools;
 
   @override
   String toString() {
-    return 'ExerciseFormEvent.exerciseToolChanged(tool: $tool)';
+    return 'ExerciseFormEvent.toolsChanged(tools: $tools)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ExerciseToolChanged &&
-            (identical(other.tool, tool) ||
-                const DeepCollectionEquality().equals(other.tool, tool)));
+            (identical(other.tools, tools) ||
+                const DeepCollectionEquality().equals(other.tools, tools)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tool);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tools);
 
   @override
   _$ExerciseToolChangedCopyWith<_ExerciseToolChanged> get copyWith =>
@@ -610,38 +648,42 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseToolChanged(tool);
+    return toolsChanged(tools);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseToolChanged != null) {
-      return exerciseToolChanged(tool);
+    if (toolsChanged != null) {
+      return toolsChanged(tools);
     }
     return orElse();
   }
@@ -650,48 +692,52 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseToolChanged(this);
+    return toolsChanged(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseToolChanged != null) {
-      return exerciseToolChanged(this);
+    if (toolsChanged != null) {
+      return toolsChanged(this);
     }
     return orElse();
   }
 }
 
 abstract class _ExerciseToolChanged implements ExerciseFormEvent {
-  const factory _ExerciseToolChanged(ExerciseTool tool) =
+  const factory _ExerciseToolChanged(List<ExerciseTool> tools) =
       _$_ExerciseToolChanged;
 
-  ExerciseTool get tool;
+  List<ExerciseTool> get tools;
   _$ExerciseToolChangedCopyWith<_ExerciseToolChanged> get copyWith;
 }
 
@@ -699,7 +745,7 @@ abstract class _$ExerciseTypeChangedCopyWith<$Res> {
   factory _$ExerciseTypeChangedCopyWith(_ExerciseTypeChanged value,
           $Res Function(_ExerciseTypeChanged) then) =
       __$ExerciseTypeChangedCopyWithImpl<$Res>;
-  $Res call({ExerciseType type});
+  $Res call({List<ExerciseType> types});
 }
 
 class __$ExerciseTypeChangedCopyWithImpl<$Res>
@@ -714,36 +760,36 @@ class __$ExerciseTypeChangedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object type = freezed,
+    Object types = freezed,
   }) {
     return _then(_ExerciseTypeChanged(
-      type == freezed ? _value.type : type as ExerciseType,
+      types == freezed ? _value.types : types as List<ExerciseType>,
     ));
   }
 }
 
 class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
-  const _$_ExerciseTypeChanged(this.type) : assert(type != null);
+  const _$_ExerciseTypeChanged(this.types) : assert(types != null);
 
   @override
-  final ExerciseType type;
+  final List<ExerciseType> types;
 
   @override
   String toString() {
-    return 'ExerciseFormEvent.exerciseTypeChanged(type: $type)';
+    return 'ExerciseFormEvent.typesChanged(types: $types)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ExerciseTypeChanged &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)));
+            (identical(other.types, types) ||
+                const DeepCollectionEquality().equals(other.types, types)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(type);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(types);
 
   @override
   _$ExerciseTypeChangedCopyWith<_ExerciseTypeChanged> get copyWith =>
@@ -754,38 +800,42 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseTypeChanged(type);
+    return typesChanged(types);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseTypeChanged != null) {
-      return exerciseTypeChanged(type);
+    if (typesChanged != null) {
+      return typesChanged(types);
     }
     return orElse();
   }
@@ -794,142 +844,158 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseTypeChanged(this);
+    return typesChanged(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseTypeChanged != null) {
-      return exerciseTypeChanged(this);
+    if (typesChanged != null) {
+      return typesChanged(this);
     }
     return orElse();
   }
 }
 
 abstract class _ExerciseTypeChanged implements ExerciseFormEvent {
-  const factory _ExerciseTypeChanged(ExerciseType type) =
+  const factory _ExerciseTypeChanged(List<ExerciseType> types) =
       _$_ExerciseTypeChanged;
 
-  ExerciseType get type;
+  List<ExerciseType> get types;
   _$ExerciseTypeChangedCopyWith<_ExerciseTypeChanged> get copyWith;
 }
 
-abstract class _$ExerciseTargetChangedCopyWith<$Res> {
-  factory _$ExerciseTargetChangedCopyWith(_ExerciseTargetChanged value,
-          $Res Function(_ExerciseTargetChanged) then) =
-      __$ExerciseTargetChangedCopyWithImpl<$Res>;
-  $Res call({ExerciseTarget target});
+abstract class _$ExercisePrimaryTargetChangedCopyWith<$Res> {
+  factory _$ExercisePrimaryTargetChangedCopyWith(
+          _ExercisePrimaryTargetChanged value,
+          $Res Function(_ExercisePrimaryTargetChanged) then) =
+      __$ExercisePrimaryTargetChangedCopyWithImpl<$Res>;
+  $Res call({List<ExerciseTarget> primaryTargets});
 }
 
-class __$ExerciseTargetChangedCopyWithImpl<$Res>
+class __$ExercisePrimaryTargetChangedCopyWithImpl<$Res>
     extends _$ExerciseFormEventCopyWithImpl<$Res>
-    implements _$ExerciseTargetChangedCopyWith<$Res> {
-  __$ExerciseTargetChangedCopyWithImpl(_ExerciseTargetChanged _value,
-      $Res Function(_ExerciseTargetChanged) _then)
-      : super(_value, (v) => _then(v as _ExerciseTargetChanged));
+    implements _$ExercisePrimaryTargetChangedCopyWith<$Res> {
+  __$ExercisePrimaryTargetChangedCopyWithImpl(
+      _ExercisePrimaryTargetChanged _value,
+      $Res Function(_ExercisePrimaryTargetChanged) _then)
+      : super(_value, (v) => _then(v as _ExercisePrimaryTargetChanged));
 
   @override
-  _ExerciseTargetChanged get _value => super._value as _ExerciseTargetChanged;
+  _ExercisePrimaryTargetChanged get _value =>
+      super._value as _ExercisePrimaryTargetChanged;
 
   @override
   $Res call({
-    Object target = freezed,
+    Object primaryTargets = freezed,
   }) {
-    return _then(_ExerciseTargetChanged(
-      target == freezed ? _value.target : target as ExerciseTarget,
+    return _then(_ExercisePrimaryTargetChanged(
+      primaryTargets == freezed
+          ? _value.primaryTargets
+          : primaryTargets as List<ExerciseTarget>,
     ));
   }
 }
 
-class _$_ExerciseTargetChanged implements _ExerciseTargetChanged {
-  const _$_ExerciseTargetChanged(this.target) : assert(target != null);
+class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
+  const _$_ExercisePrimaryTargetChanged(this.primaryTargets)
+      : assert(primaryTargets != null);
 
   @override
-  final ExerciseTarget target;
+  final List<ExerciseTarget> primaryTargets;
 
   @override
   String toString() {
-    return 'ExerciseFormEvent.exerciseTargetChanged(target: $target)';
+    return 'ExerciseFormEvent.primaryTargetsChanged(primaryTargets: $primaryTargets)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ExerciseTargetChanged &&
-            (identical(other.target, target) ||
-                const DeepCollectionEquality().equals(other.target, target)));
+        (other is _ExercisePrimaryTargetChanged &&
+            (identical(other.primaryTargets, primaryTargets) ||
+                const DeepCollectionEquality()
+                    .equals(other.primaryTargets, primaryTargets)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(target);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(primaryTargets);
 
   @override
-  _$ExerciseTargetChangedCopyWith<_ExerciseTargetChanged> get copyWith =>
-      __$ExerciseTargetChangedCopyWithImpl<_ExerciseTargetChanged>(
-          this, _$identity);
+  _$ExercisePrimaryTargetChangedCopyWith<_ExercisePrimaryTargetChanged>
+      get copyWith => __$ExercisePrimaryTargetChangedCopyWithImpl<
+          _ExercisePrimaryTargetChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseTargetChanged(target);
+    return primaryTargetsChanged(primaryTargets);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseTargetChanged != null) {
-      return exerciseTargetChanged(target);
+    if (primaryTargetsChanged != null) {
+      return primaryTargetsChanged(primaryTargets);
     }
     return orElse();
   }
@@ -938,49 +1004,217 @@ class _$_ExerciseTargetChanged implements _ExerciseTargetChanged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
-    return exerciseTargetChanged(this);
+    return primaryTargetsChanged(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (exerciseTargetChanged != null) {
-      return exerciseTargetChanged(this);
+    if (primaryTargetsChanged != null) {
+      return primaryTargetsChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class _ExerciseTargetChanged implements ExerciseFormEvent {
-  const factory _ExerciseTargetChanged(ExerciseTarget target) =
-      _$_ExerciseTargetChanged;
+abstract class _ExercisePrimaryTargetChanged implements ExerciseFormEvent {
+  const factory _ExercisePrimaryTargetChanged(
+      List<ExerciseTarget> primaryTargets) = _$_ExercisePrimaryTargetChanged;
 
-  ExerciseTarget get target;
-  _$ExerciseTargetChangedCopyWith<_ExerciseTargetChanged> get copyWith;
+  List<ExerciseTarget> get primaryTargets;
+  _$ExercisePrimaryTargetChangedCopyWith<_ExercisePrimaryTargetChanged>
+      get copyWith;
+}
+
+abstract class _$ExerciseSecondaryTargetChangedCopyWith<$Res> {
+  factory _$ExerciseSecondaryTargetChangedCopyWith(
+          _ExerciseSecondaryTargetChanged value,
+          $Res Function(_ExerciseSecondaryTargetChanged) then) =
+      __$ExerciseSecondaryTargetChangedCopyWithImpl<$Res>;
+  $Res call({List<ExerciseTarget> secondaryTargets});
+}
+
+class __$ExerciseSecondaryTargetChangedCopyWithImpl<$Res>
+    extends _$ExerciseFormEventCopyWithImpl<$Res>
+    implements _$ExerciseSecondaryTargetChangedCopyWith<$Res> {
+  __$ExerciseSecondaryTargetChangedCopyWithImpl(
+      _ExerciseSecondaryTargetChanged _value,
+      $Res Function(_ExerciseSecondaryTargetChanged) _then)
+      : super(_value, (v) => _then(v as _ExerciseSecondaryTargetChanged));
+
+  @override
+  _ExerciseSecondaryTargetChanged get _value =>
+      super._value as _ExerciseSecondaryTargetChanged;
+
+  @override
+  $Res call({
+    Object secondaryTargets = freezed,
+  }) {
+    return _then(_ExerciseSecondaryTargetChanged(
+      secondaryTargets == freezed
+          ? _value.secondaryTargets
+          : secondaryTargets as List<ExerciseTarget>,
+    ));
+  }
+}
+
+class _$_ExerciseSecondaryTargetChanged
+    implements _ExerciseSecondaryTargetChanged {
+  const _$_ExerciseSecondaryTargetChanged(this.secondaryTargets)
+      : assert(secondaryTargets != null);
+
+  @override
+  final List<ExerciseTarget> secondaryTargets;
+
+  @override
+  String toString() {
+    return 'ExerciseFormEvent.secondaryTargetsChanged(secondaryTargets: $secondaryTargets)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ExerciseSecondaryTargetChanged &&
+            (identical(other.secondaryTargets, secondaryTargets) ||
+                const DeepCollectionEquality()
+                    .equals(other.secondaryTargets, secondaryTargets)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(secondaryTargets);
+
+  @override
+  _$ExerciseSecondaryTargetChangedCopyWith<_ExerciseSecondaryTargetChanged>
+      get copyWith => __$ExerciseSecondaryTargetChangedCopyWithImpl<
+          _ExerciseSecondaryTargetChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result init(Option<Exercise> exerciseOption),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
+    @required Result added(),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
+    assert(added != null);
+    return secondaryTargetsChanged(secondaryTargets);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result init(Option<Exercise> exerciseOption),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
+    Result added(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (secondaryTargetsChanged != null) {
+      return secondaryTargetsChanged(secondaryTargets);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result init(_ExerciseFormInit value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
+    @required Result added(_ExerciseAdded value),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
+    assert(added != null);
+    return secondaryTargetsChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result init(_ExerciseFormInit value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
+    Result added(_ExerciseAdded value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (secondaryTargetsChanged != null) {
+      return secondaryTargetsChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ExerciseSecondaryTargetChanged implements ExerciseFormEvent {
+  const factory _ExerciseSecondaryTargetChanged(
+          List<ExerciseTarget> secondaryTargets) =
+      _$_ExerciseSecondaryTargetChanged;
+
+  List<ExerciseTarget> get secondaryTargets;
+  _$ExerciseSecondaryTargetChangedCopyWith<_ExerciseSecondaryTargetChanged>
+      get copyWith;
 }
 
 abstract class _$ExerciseAddedCopyWith<$Res> {
@@ -1020,19 +1254,22 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
-    @required Result exerciseNameChanged(String name),
-    @required Result exerciseLevelChanged(ExerciseLevel level),
-    @required Result exerciseToolChanged(ExerciseTool tool),
-    @required Result exerciseTypeChanged(ExerciseType type),
-    @required Result exerciseTargetChanged(ExerciseTarget target),
+    @required Result nameChanged(String name),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     @required Result added(),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
     return added();
   }
@@ -1041,11 +1278,12 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
-    Result exerciseNameChanged(String name),
-    Result exerciseLevelChanged(ExerciseLevel level),
-    Result exerciseToolChanged(ExerciseTool tool),
-    Result exerciseTypeChanged(ExerciseType type),
-    Result exerciseTargetChanged(ExerciseTarget target),
+    Result nameChanged(String name),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
     Result added(),
     @required Result orElse(),
   }) {
@@ -1060,19 +1298,22 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
-    @required Result exerciseNameChanged(_ExerciseNamedChanged value),
-    @required Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    @required Result exerciseToolChanged(_ExerciseToolChanged value),
-    @required Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    @required Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     @required Result added(_ExerciseAdded value),
   }) {
     assert(init != null);
-    assert(exerciseNameChanged != null);
-    assert(exerciseLevelChanged != null);
-    assert(exerciseToolChanged != null);
-    assert(exerciseTypeChanged != null);
-    assert(exerciseTargetChanged != null);
+    assert(nameChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
     assert(added != null);
     return added(this);
   }
@@ -1081,11 +1322,12 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
-    Result exerciseNameChanged(_ExerciseNamedChanged value),
-    Result exerciseLevelChanged(_ExerciseLevelChanged value),
-    Result exerciseToolChanged(_ExerciseToolChanged value),
-    Result exerciseTypeChanged(_ExerciseTypeChanged value),
-    Result exerciseTargetChanged(_ExerciseTargetChanged value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
     Result added(_ExerciseAdded value),
     @required Result orElse(),
   }) {

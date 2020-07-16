@@ -28,11 +28,12 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
   ) async* {
     yield* event.when(
         init: _bindInitToState,
-        exerciseNameChanged: _bindExerciseNameChangedToState,
-        exerciseLevelChanged: _bindExerciseLevelChangedToState,
-        exerciseToolChanged: _bindExerciseToolChangedToState,
-        exerciseTypeChanged: _bindExerciseTypeChangedToState,
-        exerciseTargetChanged: _bindExerciseTargetChangedToState,
+        nameChanged: _bindNameChangedToState,
+        levelsChanged: _bindLevelsChangedToState,
+        toolsChanged: _bindToolsChangedToState,
+        typesChanged: _bindTypesChangedToState,
+        primaryTargetsChanged: _bindPrimaryTargetsToState,
+        secondaryTargetsChanged: _bindSecondaryTargetsToState,
         added: _bindExerciseAddedToState);
   }
 
@@ -44,35 +45,42 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
             state.copyWith(exercise: exercise, isEditing: true));
   }
 
-  Stream<ExerciseFormState> _bindExerciseNameChangedToState(
-      String name) async* {
+  Stream<ExerciseFormState> _bindNameChangedToState(String name) async* {
     yield state.copyWith(
         exercise: state.exercise.copyWith(name: ExerciseName(name)),
         addStatus: none());
   }
 
-  Stream<ExerciseFormState> _bindExerciseLevelChangedToState(
-      ExerciseLevel level) async* {
+  Stream<ExerciseFormState> _bindLevelsChangedToState(
+      List<ExerciseLevel> levels) async* {
     yield state.copyWith(
-        exercise: state.exercise.copyWith(level: level), addStatus: none());
+        exercise: state.exercise.copyWith(levels: levels), addStatus: none());
   }
 
-  Stream<ExerciseFormState> _bindExerciseToolChangedToState(
-      ExerciseTool tool) async* {
+  Stream<ExerciseFormState> _bindToolsChangedToState(
+      List<ExerciseTool> tools) async* {
     yield state.copyWith(
-        exercise: state.exercise.copyWith(tool: tool), addStatus: none());
+        exercise: state.exercise.copyWith(tools: tools), addStatus: none());
   }
 
-  Stream<ExerciseFormState> _bindExerciseTypeChangedToState(
-      ExerciseType type) async* {
+  Stream<ExerciseFormState> _bindTypesChangedToState(
+      List<ExerciseType> types) async* {
     yield state.copyWith(
-        exercise: state.exercise.copyWith(type: type), addStatus: none());
+        exercise: state.exercise.copyWith(types: types), addStatus: none());
   }
 
-  Stream<ExerciseFormState> _bindExerciseTargetChangedToState(
-      ExerciseTarget target) async* {
+  Stream<ExerciseFormState> _bindPrimaryTargetsToState(
+      List<ExerciseTarget> primaryTargets) async* {
     yield state.copyWith(
-        exercise: state.exercise.copyWith(target: target), addStatus: none());
+        exercise: state.exercise.copyWith(primaryTargets: primaryTargets),
+        addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindSecondaryTargetsToState(
+      List<ExerciseTarget> secondaryTargets) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(secondaryTargets: secondaryTargets),
+        addStatus: none());
   }
 
   Stream<ExerciseFormState> _bindExerciseAddedToState() async* {
