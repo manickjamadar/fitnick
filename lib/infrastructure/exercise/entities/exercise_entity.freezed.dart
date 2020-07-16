@@ -16,19 +16,43 @@ class _$ExerciseEntityTearOff {
   const _$ExerciseEntityTearOff();
 
   _ExerciseEntity call(
-      {@required @JsonKey(name: 'id') UniqueId id,
-      @required @JsonKey(name: 'name') String name,
-      @required @JsonKey(name: 'level') ExerciseLevel level,
-      @required @JsonKey(name: 'tool') ExerciseTool tool,
-      @required @JsonKey(name: 'type') ExerciseType type,
-      @required @JsonKey(name: 'target') ExerciseTarget target}) {
+      {@required
+      @JsonKey(name: 'id')
+          UniqueId id,
+      @required
+      @JsonKey(name: 'name')
+          String name,
+      @required
+      @JsonKey(name: 'video_path')
+          String videoPath,
+      @required
+      @JsonKey(name: 'thumbnail_path')
+          String thumbnailPath,
+      @required
+      @JsonKey(name: 'levels')
+          List<ExerciseLevel> levels,
+      @required
+      @JsonKey(name: 'tools')
+          List<ExerciseTool> tools,
+      @required
+      @JsonKey(name: 'types')
+          List<ExerciseType> types,
+      @required
+      @JsonKey(name: 'primary_targets')
+          List<ExerciseTarget> primaryTargets,
+      @required
+      @JsonKey(name: 'secondary_targets')
+          List<ExerciseTarget> secondaryTargets}) {
     return _ExerciseEntity(
       id: id,
       name: name,
-      level: level,
-      tool: tool,
-      type: type,
-      target: target,
+      videoPath: videoPath,
+      thumbnailPath: thumbnailPath,
+      levels: levels,
+      tools: tools,
+      types: types,
+      primaryTargets: primaryTargets,
+      secondaryTargets: secondaryTargets,
     );
   }
 }
@@ -41,14 +65,20 @@ mixin _$ExerciseEntity {
   UniqueId get id;
   @JsonKey(name: 'name')
   String get name;
-  @JsonKey(name: 'level')
-  ExerciseLevel get level;
-  @JsonKey(name: 'tool')
-  ExerciseTool get tool;
-  @JsonKey(name: 'type')
-  ExerciseType get type;
-  @JsonKey(name: 'target')
-  ExerciseTarget get target;
+  @JsonKey(name: 'video_path')
+  String get videoPath;
+  @JsonKey(name: 'thumbnail_path')
+  String get thumbnailPath;
+  @JsonKey(name: 'levels')
+  List<ExerciseLevel> get levels;
+  @JsonKey(name: 'tools')
+  List<ExerciseTool> get tools;
+  @JsonKey(name: 'types')
+  List<ExerciseType> get types;
+  @JsonKey(name: 'primary_targets')
+  List<ExerciseTarget> get primaryTargets;
+  @JsonKey(name: 'secondary_targets')
+  List<ExerciseTarget> get secondaryTargets;
 
   Map<String, dynamic> toJson();
   $ExerciseEntityCopyWith<ExerciseEntity> get copyWith;
@@ -59,12 +89,24 @@ abstract class $ExerciseEntityCopyWith<$Res> {
           ExerciseEntity value, $Res Function(ExerciseEntity) then) =
       _$ExerciseEntityCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'id') UniqueId id,
-      @JsonKey(name: 'name') String name,
-      @JsonKey(name: 'level') ExerciseLevel level,
-      @JsonKey(name: 'tool') ExerciseTool tool,
-      @JsonKey(name: 'type') ExerciseType type,
-      @JsonKey(name: 'target') ExerciseTarget target});
+      {@JsonKey(name: 'id')
+          UniqueId id,
+      @JsonKey(name: 'name')
+          String name,
+      @JsonKey(name: 'video_path')
+          String videoPath,
+      @JsonKey(name: 'thumbnail_path')
+          String thumbnailPath,
+      @JsonKey(name: 'levels')
+          List<ExerciseLevel> levels,
+      @JsonKey(name: 'tools')
+          List<ExerciseTool> tools,
+      @JsonKey(name: 'types')
+          List<ExerciseType> types,
+      @JsonKey(name: 'primary_targets')
+          List<ExerciseTarget> primaryTargets,
+      @JsonKey(name: 'secondary_targets')
+          List<ExerciseTarget> secondaryTargets});
 }
 
 class _$ExerciseEntityCopyWithImpl<$Res>
@@ -79,18 +121,30 @@ class _$ExerciseEntityCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object level = freezed,
-    Object tool = freezed,
-    Object type = freezed,
-    Object target = freezed,
+    Object videoPath = freezed,
+    Object thumbnailPath = freezed,
+    Object levels = freezed,
+    Object tools = freezed,
+    Object types = freezed,
+    Object primaryTargets = freezed,
+    Object secondaryTargets = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as UniqueId,
       name: name == freezed ? _value.name : name as String,
-      level: level == freezed ? _value.level : level as ExerciseLevel,
-      tool: tool == freezed ? _value.tool : tool as ExerciseTool,
-      type: type == freezed ? _value.type : type as ExerciseType,
-      target: target == freezed ? _value.target : target as ExerciseTarget,
+      videoPath: videoPath == freezed ? _value.videoPath : videoPath as String,
+      thumbnailPath: thumbnailPath == freezed
+          ? _value.thumbnailPath
+          : thumbnailPath as String,
+      levels: levels == freezed ? _value.levels : levels as List<ExerciseLevel>,
+      tools: tools == freezed ? _value.tools : tools as List<ExerciseTool>,
+      types: types == freezed ? _value.types : types as List<ExerciseType>,
+      primaryTargets: primaryTargets == freezed
+          ? _value.primaryTargets
+          : primaryTargets as List<ExerciseTarget>,
+      secondaryTargets: secondaryTargets == freezed
+          ? _value.secondaryTargets
+          : secondaryTargets as List<ExerciseTarget>,
     ));
   }
 }
@@ -102,12 +156,24 @@ abstract class _$ExerciseEntityCopyWith<$Res>
       __$ExerciseEntityCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'id') UniqueId id,
-      @JsonKey(name: 'name') String name,
-      @JsonKey(name: 'level') ExerciseLevel level,
-      @JsonKey(name: 'tool') ExerciseTool tool,
-      @JsonKey(name: 'type') ExerciseType type,
-      @JsonKey(name: 'target') ExerciseTarget target});
+      {@JsonKey(name: 'id')
+          UniqueId id,
+      @JsonKey(name: 'name')
+          String name,
+      @JsonKey(name: 'video_path')
+          String videoPath,
+      @JsonKey(name: 'thumbnail_path')
+          String thumbnailPath,
+      @JsonKey(name: 'levels')
+          List<ExerciseLevel> levels,
+      @JsonKey(name: 'tools')
+          List<ExerciseTool> tools,
+      @JsonKey(name: 'types')
+          List<ExerciseType> types,
+      @JsonKey(name: 'primary_targets')
+          List<ExerciseTarget> primaryTargets,
+      @JsonKey(name: 'secondary_targets')
+          List<ExerciseTarget> secondaryTargets});
 }
 
 class __$ExerciseEntityCopyWithImpl<$Res>
@@ -124,18 +190,30 @@ class __$ExerciseEntityCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object level = freezed,
-    Object tool = freezed,
-    Object type = freezed,
-    Object target = freezed,
+    Object videoPath = freezed,
+    Object thumbnailPath = freezed,
+    Object levels = freezed,
+    Object tools = freezed,
+    Object types = freezed,
+    Object primaryTargets = freezed,
+    Object secondaryTargets = freezed,
   }) {
     return _then(_ExerciseEntity(
       id: id == freezed ? _value.id : id as UniqueId,
       name: name == freezed ? _value.name : name as String,
-      level: level == freezed ? _value.level : level as ExerciseLevel,
-      tool: tool == freezed ? _value.tool : tool as ExerciseTool,
-      type: type == freezed ? _value.type : type as ExerciseType,
-      target: target == freezed ? _value.target : target as ExerciseTarget,
+      videoPath: videoPath == freezed ? _value.videoPath : videoPath as String,
+      thumbnailPath: thumbnailPath == freezed
+          ? _value.thumbnailPath
+          : thumbnailPath as String,
+      levels: levels == freezed ? _value.levels : levels as List<ExerciseLevel>,
+      tools: tools == freezed ? _value.tools : tools as List<ExerciseTool>,
+      types: types == freezed ? _value.types : types as List<ExerciseType>,
+      primaryTargets: primaryTargets == freezed
+          ? _value.primaryTargets
+          : primaryTargets as List<ExerciseTarget>,
+      secondaryTargets: secondaryTargets == freezed
+          ? _value.secondaryTargets
+          : secondaryTargets as List<ExerciseTarget>,
     ));
   }
 }
@@ -145,16 +223,22 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
   const _$_ExerciseEntity(
       {@required @JsonKey(name: 'id') this.id,
       @required @JsonKey(name: 'name') this.name,
-      @required @JsonKey(name: 'level') this.level,
-      @required @JsonKey(name: 'tool') this.tool,
-      @required @JsonKey(name: 'type') this.type,
-      @required @JsonKey(name: 'target') this.target})
+      @required @JsonKey(name: 'video_path') this.videoPath,
+      @required @JsonKey(name: 'thumbnail_path') this.thumbnailPath,
+      @required @JsonKey(name: 'levels') this.levels,
+      @required @JsonKey(name: 'tools') this.tools,
+      @required @JsonKey(name: 'types') this.types,
+      @required @JsonKey(name: 'primary_targets') this.primaryTargets,
+      @required @JsonKey(name: 'secondary_targets') this.secondaryTargets})
       : assert(id != null),
         assert(name != null),
-        assert(level != null),
-        assert(tool != null),
-        assert(type != null),
-        assert(target != null),
+        assert(videoPath != null),
+        assert(thumbnailPath != null),
+        assert(levels != null),
+        assert(tools != null),
+        assert(types != null),
+        assert(primaryTargets != null),
+        assert(secondaryTargets != null),
         super._();
 
   factory _$_ExerciseEntity.fromJson(Map<String, dynamic> json) =>
@@ -167,21 +251,30 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
   @JsonKey(name: 'name')
   final String name;
   @override
-  @JsonKey(name: 'level')
-  final ExerciseLevel level;
+  @JsonKey(name: 'video_path')
+  final String videoPath;
   @override
-  @JsonKey(name: 'tool')
-  final ExerciseTool tool;
+  @JsonKey(name: 'thumbnail_path')
+  final String thumbnailPath;
   @override
-  @JsonKey(name: 'type')
-  final ExerciseType type;
+  @JsonKey(name: 'levels')
+  final List<ExerciseLevel> levels;
   @override
-  @JsonKey(name: 'target')
-  final ExerciseTarget target;
+  @JsonKey(name: 'tools')
+  final List<ExerciseTool> tools;
+  @override
+  @JsonKey(name: 'types')
+  final List<ExerciseType> types;
+  @override
+  @JsonKey(name: 'primary_targets')
+  final List<ExerciseTarget> primaryTargets;
+  @override
+  @JsonKey(name: 'secondary_targets')
+  final List<ExerciseTarget> secondaryTargets;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ExerciseEntity(id: $id, name: $name, level: $level, tool: $tool, type: $type, target: $target)';
+    return 'ExerciseEntity(id: $id, name: $name, videoPath: $videoPath, thumbnailPath: $thumbnailPath, levels: $levels, tools: $tools, types: $types, primaryTargets: $primaryTargets, secondaryTargets: $secondaryTargets)';
   }
 
   @override
@@ -191,10 +284,13 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'ExerciseEntity'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('level', level))
-      ..add(DiagnosticsProperty('tool', tool))
-      ..add(DiagnosticsProperty('type', type))
-      ..add(DiagnosticsProperty('target', target));
+      ..add(DiagnosticsProperty('videoPath', videoPath))
+      ..add(DiagnosticsProperty('thumbnailPath', thumbnailPath))
+      ..add(DiagnosticsProperty('levels', levels))
+      ..add(DiagnosticsProperty('tools', tools))
+      ..add(DiagnosticsProperty('types', types))
+      ..add(DiagnosticsProperty('primaryTargets', primaryTargets))
+      ..add(DiagnosticsProperty('secondaryTargets', secondaryTargets));
   }
 
   @override
@@ -205,14 +301,24 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.level, level) ||
-                const DeepCollectionEquality().equals(other.level, level)) &&
-            (identical(other.tool, tool) ||
-                const DeepCollectionEquality().equals(other.tool, tool)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.target, target) ||
-                const DeepCollectionEquality().equals(other.target, target)));
+            (identical(other.videoPath, videoPath) ||
+                const DeepCollectionEquality()
+                    .equals(other.videoPath, videoPath)) &&
+            (identical(other.thumbnailPath, thumbnailPath) ||
+                const DeepCollectionEquality()
+                    .equals(other.thumbnailPath, thumbnailPath)) &&
+            (identical(other.levels, levels) ||
+                const DeepCollectionEquality().equals(other.levels, levels)) &&
+            (identical(other.tools, tools) ||
+                const DeepCollectionEquality().equals(other.tools, tools)) &&
+            (identical(other.types, types) ||
+                const DeepCollectionEquality().equals(other.types, types)) &&
+            (identical(other.primaryTargets, primaryTargets) ||
+                const DeepCollectionEquality()
+                    .equals(other.primaryTargets, primaryTargets)) &&
+            (identical(other.secondaryTargets, secondaryTargets) ||
+                const DeepCollectionEquality()
+                    .equals(other.secondaryTargets, secondaryTargets)));
   }
 
   @override
@@ -220,10 +326,13 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(level) ^
-      const DeepCollectionEquality().hash(tool) ^
-      const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(target);
+      const DeepCollectionEquality().hash(videoPath) ^
+      const DeepCollectionEquality().hash(thumbnailPath) ^
+      const DeepCollectionEquality().hash(levels) ^
+      const DeepCollectionEquality().hash(tools) ^
+      const DeepCollectionEquality().hash(types) ^
+      const DeepCollectionEquality().hash(primaryTargets) ^
+      const DeepCollectionEquality().hash(secondaryTargets);
 
   @override
   _$ExerciseEntityCopyWith<_ExerciseEntity> get copyWith =>
@@ -238,13 +347,33 @@ class _$_ExerciseEntity extends _ExerciseEntity with DiagnosticableTreeMixin {
 abstract class _ExerciseEntity extends ExerciseEntity {
   const _ExerciseEntity._() : super._();
   const factory _ExerciseEntity(
-          {@required @JsonKey(name: 'id') UniqueId id,
-          @required @JsonKey(name: 'name') String name,
-          @required @JsonKey(name: 'level') ExerciseLevel level,
-          @required @JsonKey(name: 'tool') ExerciseTool tool,
-          @required @JsonKey(name: 'type') ExerciseType type,
-          @required @JsonKey(name: 'target') ExerciseTarget target}) =
-      _$_ExerciseEntity;
+      {@required
+      @JsonKey(name: 'id')
+          UniqueId id,
+      @required
+      @JsonKey(name: 'name')
+          String name,
+      @required
+      @JsonKey(name: 'video_path')
+          String videoPath,
+      @required
+      @JsonKey(name: 'thumbnail_path')
+          String thumbnailPath,
+      @required
+      @JsonKey(name: 'levels')
+          List<ExerciseLevel> levels,
+      @required
+      @JsonKey(name: 'tools')
+          List<ExerciseTool> tools,
+      @required
+      @JsonKey(name: 'types')
+          List<ExerciseType> types,
+      @required
+      @JsonKey(name: 'primary_targets')
+          List<ExerciseTarget> primaryTargets,
+      @required
+      @JsonKey(name: 'secondary_targets')
+          List<ExerciseTarget> secondaryTargets}) = _$_ExerciseEntity;
 
   factory _ExerciseEntity.fromJson(Map<String, dynamic> json) =
       _$_ExerciseEntity.fromJson;
@@ -256,17 +385,26 @@ abstract class _ExerciseEntity extends ExerciseEntity {
   @JsonKey(name: 'name')
   String get name;
   @override
-  @JsonKey(name: 'level')
-  ExerciseLevel get level;
+  @JsonKey(name: 'video_path')
+  String get videoPath;
   @override
-  @JsonKey(name: 'tool')
-  ExerciseTool get tool;
+  @JsonKey(name: 'thumbnail_path')
+  String get thumbnailPath;
   @override
-  @JsonKey(name: 'type')
-  ExerciseType get type;
+  @JsonKey(name: 'levels')
+  List<ExerciseLevel> get levels;
   @override
-  @JsonKey(name: 'target')
-  ExerciseTarget get target;
+  @JsonKey(name: 'tools')
+  List<ExerciseTool> get tools;
+  @override
+  @JsonKey(name: 'types')
+  List<ExerciseType> get types;
+  @override
+  @JsonKey(name: 'primary_targets')
+  List<ExerciseTarget> get primaryTargets;
+  @override
+  @JsonKey(name: 'secondary_targets')
+  List<ExerciseTarget> get secondaryTargets;
   @override
   _$ExerciseEntityCopyWith<_ExerciseEntity> get copyWith;
 }

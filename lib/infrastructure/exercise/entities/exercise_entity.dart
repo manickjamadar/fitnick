@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -19,64 +20,105 @@ abstract class ExerciseEntity implements _$ExerciseEntity {
   static const String collectionName = "exercise";
   static const String KEY_ID = "id";
   static const String KEY_NAME = "name";
-  static const String KEY_LEVEL = "level";
-  static const String KEY_TOOL = "tool";
-  static const String KEY_TYPE = "type";
-  static const String KEY_TARGET = "target";
+  static const String KEY_VIDEO_PATH = "video_path";
+  static const String KEY_THUMBNAIL_PATH = "thumbnail_path";
+  static const String KEY_LEVELS = "levels";
+  static const String KEY_TOOLS = "tools";
+  static const String KEY_TYPES = "types";
+  static const String KEY_PRIMARY_TARGETS = "primary_targets";
+  static const String KEY_SECONDARY_TARGETS = "secondary_targets";
   const ExerciseEntity._();
   @JsonSerializable(explicitToJson: true)
   const factory ExerciseEntity({
     @JsonKey(name: "id") @required UniqueId id,
     @JsonKey(name: "name") @required String name,
-    @JsonKey(name: "level") @required ExerciseLevel level,
-    @JsonKey(name: "tool") @required ExerciseTool tool,
-    @JsonKey(name: "type") @required ExerciseType type,
-    @JsonKey(name: "target") @required ExerciseTarget target,
+    @JsonKey(name: "video_path") @required String videoPath,
+    @JsonKey(name: "thumbnail_path") @required String thumbnailPath,
+    @JsonKey(name: "levels") @required List<ExerciseLevel> levels,
+    @JsonKey(name: "tools") @required List<ExerciseTool> tools,
+    @JsonKey(name: "types") @required List<ExerciseType> types,
+    @JsonKey(name: "primary_targets")
+    @required
+        List<ExerciseTarget> primaryTargets,
+    @JsonKey(name: "secondary_targets")
+    @required
+        List<ExerciseTarget> secondaryTargets,
   }) = _ExerciseEntity;
   factory ExerciseEntity.fromJson(Map<String, dynamic> json) =>
       _$ExerciseEntityFromJson(json);
-
-  factory ExerciseEntity.fromLocalJson(Map<String, dynamic> json) {
-    return ExerciseEntity(
-      id: UniqueId.fromString(json[KEY_ID] as String),
-      name: json[KEY_NAME] as String,
-      level: ExerciseLevel.fromJson(
-          jsonDecode(json[KEY_LEVEL] as String) as Map<String, dynamic>),
-      tool: ExerciseTool.fromJson(
-          jsonDecode(json[KEY_TOOL] as String) as Map<String, dynamic>),
-      type: ExerciseType.fromJson(
-          jsonDecode(json[KEY_TYPE] as String) as Map<String, dynamic>),
-      target: ExerciseTarget.fromJson(
-          jsonDecode(json[KEY_TARGET] as String) as Map<String, dynamic>),
-    );
-  }
-  Map<String, String> toLocalJson() {
-    return {
-      KEY_ID: id.value,
-      KEY_NAME: name,
-      KEY_LEVEL: jsonEncode(level.toJson()),
-      KEY_TOOL: jsonEncode(tool.toJson()),
-      KEY_TYPE: jsonEncode(type.toJson()),
-      KEY_TARGET: jsonEncode(target.toJson())
-    };
-  }
 
   factory ExerciseEntity.fromModel(Exercise exercise) {
     return ExerciseEntity(
         id: exercise.id,
         name: exercise.name.safeValue,
-        level: exercise.level,
-        tool: exercise.tool,
-        type: exercise.type,
-        target: exercise.target);
+        videoPath: exercise.videoPath.fold(() => null, (a) => a),
+        thumbnailPath: exercise.thumbnailPath.fold(() => null, (a) => a),
+        levels: exercise.levels,
+        tools: exercise.tools,
+        types: exercise.types,
+        primaryTargets: exercise.primaryTargets,
+        secondaryTargets: exercise.secondaryTargets);
   }
   Exercise toModel() {
     return Exercise(
         id: this.id,
-        name: ExerciseName(this.name),
-        level: this.level,
-        tool: this.tool,
-        type: this.type,
-        target: this.target);
+        name: ExerciseName(name),
+        videoPath: optionOf(videoPath),
+        thumbnailPath: optionOf(thumbnailPath),
+        levels: levels,
+        types: types,
+        tools: tools,
+        primaryTargets: primaryTargets,
+        secondaryTargets: secondaryTargets);
+  }
+
+  factory ExerciseEntity.fromLocalJson(Map<String, dynamic> json) {
+    return ExerciseEntity(
+      id: UniqueId.fromString(json['id'] as String),
+      name: json['name'] as String,
+      videoPath: json['video_path'] as String,
+      thumbnailPath: json['thumbnail_path'] as String,
+      levels: (jsonDecode(json['levels'] as String) as List)
+          ?.map((e) => e == null
+              ? null
+              : ExerciseLevel.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      tools: (jsonDecode(json['tools'] as String) as List)
+          ?.map((e) => e == null
+              ? null
+              : ExerciseTool.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      types: (jsonDecode(json['types'] as String) as List)
+          ?.map((e) => e == null
+              ? null
+              : ExerciseType.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      primaryTargets: (jsonDecode(json['primary_targets'] as String) as List)
+          ?.map((e) => e == null
+              ? null
+              : ExerciseTarget.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      secondaryTargets:
+          (jsonDecode(json['secondary_targets'] as String) as List)
+              ?.map((e) => e == null
+                  ? null
+                  : ExerciseTarget.fromJson(e as Map<String, dynamic>))
+              ?.toList(),
+    );
+  }
+  Map<String, dynamic> toLocalJson() {
+    return {
+      KEY_ID: this.id.value,
+      KEY_NAME: this.name,
+      KEY_VIDEO_PATH: this.videoPath,
+      KEY_THUMBNAIL_PATH: this.thumbnailPath,
+      KEY_LEVELS: jsonEncode(this.levels?.map((e) => e?.toJson())?.toList()),
+      KEY_TOOLS: this.tools?.map((e) => e?.toJson())?.toList(),
+      KEY_TYPES: jsonEncode(this.types?.map((e) => e?.toJson())?.toList()),
+      KEY_PRIMARY_TARGETS:
+          jsonEncode(this.primaryTargets?.map((e) => e?.toJson())?.toList()),
+      KEY_SECONDARY_TARGETS:
+          jsonEncode(this.secondaryTargets?.map((e) => e?.toJson())?.toList()),
+    };
   }
 }
