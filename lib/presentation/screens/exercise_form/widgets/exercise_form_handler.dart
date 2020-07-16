@@ -1,8 +1,14 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/save_button.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +49,7 @@ class ExerciseFormHandler extends StatelessWidget {
                     children: <Widget>[
                       buildNameInput(context),
                       buildSpace(),
-                      // Spacer(),
+                      buildOptions(context, state.exercise),
                     ],
                   ),
                 ),
@@ -57,6 +63,69 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
+  Widget buildOptions(BuildContext context, Exercise exercise) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Selector<ExerciseLevel>(
+          title: "Level",
+          options: ExerciseLevel.all,
+          optionLabel: (option) => option.name,
+          initialValues: exercise.levels,
+          onSelect: (options) => _onOptionSelected(
+              context, ExerciseFormEvent.levelsChanged(options)),
+        ),
+        buildSpace(),
+        Selector<ExerciseTool>(
+          title: "Tool",
+          options: ExerciseTool.all,
+          optionLabel: (option) => option.name,
+          initialValues: exercise.tools,
+          selectMultiple: true,
+          onSelect: (options) => _onOptionSelected(
+              context, ExerciseFormEvent.toolsChanged(options)),
+        ),
+        buildSpace(),
+        Selector<ExerciseType>(
+          title: "Type",
+          options: ExerciseType.all,
+          optionLabel: (option) => option.name,
+          initialValues: exercise.types,
+          selectMultiple: true,
+          onSelect: (options) => _onOptionSelected(
+              context, ExerciseFormEvent.typesChanged(options)),
+        ),
+        buildSpace(),
+        Selector<ExerciseTarget>(
+          title: "Primary Muscle",
+          options: ExerciseTarget.all,
+          optionLabel: (option) => option.name,
+          initialValues: exercise.primaryTargets,
+          selectMultiple: true,
+          onSelect: (options) => _onOptionSelected(
+              context, ExerciseFormEvent.primaryTargetsChanged(options)),
+        ),
+        buildSpace(),
+        Selector<ExerciseTarget>(
+          title: "Secondary Muscle",
+          options: ExerciseTarget.all,
+          optionLabel: (option) => option.name,
+          initialValues: exercise.secondaryTargets,
+          selectMultiple: true,
+          onSelect: (options) => _onOptionSelected(
+              context, ExerciseFormEvent.secondaryTargetsChanged(options)),
+        ),
+        buildSpace(),
+        buildSpace(),
+        buildSpace(),
+      ],
+    );
+  }
+
+  void _onOptionSelected(BuildContext context, ExerciseFormEvent event) {
+    BlocProvider.of<ExerciseFormBloc>(context).add(event);
+  }
+
   Widget buildSaveButton(
       ExerciseFormState state, ExerciseFormBloc exerciseformBloc) {
     return Align(
@@ -64,7 +133,7 @@ class ExerciseFormHandler extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(20),
         child: SaveButton(
-          onPressed: state.isAdding
+          onPressed: state.isAdding || !state.exercise.isValid
               ? null
               : () {
                   exerciseformBloc.add(ExerciseFormEvent.added());
