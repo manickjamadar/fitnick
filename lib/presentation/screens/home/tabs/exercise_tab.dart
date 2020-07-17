@@ -1,5 +1,6 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exerise_list_view.dart';
@@ -22,12 +23,12 @@ class ExerciseTab extends StatelessWidget {
               showMessage(context, message: message, type: ErrorMessage());
             });
       },
-      child: BlocBuilder<ExerciseHubBloc, ExerciseHubState>(
+      child: BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
         builder: (context, state) {
           return state.when(
             loading: () => buildLoading(),
             loaded: (List<Exercise> exercises) => buildExercises(exercises),
-            loadedError: (_) => buildLoadedFailed(),
+            // loadedError: (_) => buildLoadedFailed(),
           );
         },
       ),
