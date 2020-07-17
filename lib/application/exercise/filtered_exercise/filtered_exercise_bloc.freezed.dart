@@ -23,6 +23,16 @@ class _$FilteredExerciseEventTearOff {
       exercises: exercises,
     );
   }
+
+  _EventLoading loading() {
+    return const _EventLoading();
+  }
+
+  _EventLoadedError loadedError({@required ExerciseFailure failure}) {
+    return _EventLoadedError(
+      failure: failure,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -33,22 +43,30 @@ mixin _$FilteredExerciseEvent {
   Result when<Result extends Object>({
     @required Result searched(String term),
     @required Result refreshed(List<Exercise> exercises),
+    @required Result loading(),
+    @required Result loadedError(ExerciseFailure failure),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result searched(String term),
     Result refreshed(List<Exercise> exercises),
+    Result loading(),
+    Result loadedError(ExerciseFailure failure),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result searched(_Searched value),
     @required Result refreshed(_Refreshed value),
+    @required Result loading(_EventLoading value),
+    @required Result loadedError(_EventLoadedError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result searched(_Searched value),
     Result refreshed(_Refreshed value),
+    Result loading(_EventLoading value),
+    Result loadedError(_EventLoadedError value),
     @required Result orElse(),
   });
 }
@@ -125,9 +143,13 @@ class _$_Searched implements _Searched {
   Result when<Result extends Object>({
     @required Result searched(String term),
     @required Result refreshed(List<Exercise> exercises),
+    @required Result loading(),
+    @required Result loadedError(ExerciseFailure failure),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
     return searched(term);
   }
 
@@ -136,6 +158,8 @@ class _$_Searched implements _Searched {
   Result maybeWhen<Result extends Object>({
     Result searched(String term),
     Result refreshed(List<Exercise> exercises),
+    Result loading(),
+    Result loadedError(ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -150,9 +174,13 @@ class _$_Searched implements _Searched {
   Result map<Result extends Object>({
     @required Result searched(_Searched value),
     @required Result refreshed(_Refreshed value),
+    @required Result loading(_EventLoading value),
+    @required Result loadedError(_EventLoadedError value),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
     return searched(this);
   }
 
@@ -161,6 +189,8 @@ class _$_Searched implements _Searched {
   Result maybeMap<Result extends Object>({
     Result searched(_Searched value),
     Result refreshed(_Refreshed value),
+    Result loading(_EventLoading value),
+    Result loadedError(_EventLoadedError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -238,9 +268,13 @@ class _$_Refreshed implements _Refreshed {
   Result when<Result extends Object>({
     @required Result searched(String term),
     @required Result refreshed(List<Exercise> exercises),
+    @required Result loading(),
+    @required Result loadedError(ExerciseFailure failure),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
     return refreshed(exercises);
   }
 
@@ -249,6 +283,8 @@ class _$_Refreshed implements _Refreshed {
   Result maybeWhen<Result extends Object>({
     Result searched(String term),
     Result refreshed(List<Exercise> exercises),
+    Result loading(),
+    Result loadedError(ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -263,9 +299,13 @@ class _$_Refreshed implements _Refreshed {
   Result map<Result extends Object>({
     @required Result searched(_Searched value),
     @required Result refreshed(_Refreshed value),
+    @required Result loading(_EventLoading value),
+    @required Result loadedError(_EventLoadedError value),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
     return refreshed(this);
   }
 
@@ -274,6 +314,8 @@ class _$_Refreshed implements _Refreshed {
   Result maybeMap<Result extends Object>({
     Result searched(_Searched value),
     Result refreshed(_Refreshed value),
+    Result loading(_EventLoading value),
+    Result loadedError(_EventLoadedError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -291,6 +333,243 @@ abstract class _Refreshed implements FilteredExerciseEvent {
   _$RefreshedCopyWith<_Refreshed> get copyWith;
 }
 
+abstract class _$EventLoadingCopyWith<$Res> {
+  factory _$EventLoadingCopyWith(
+          _EventLoading value, $Res Function(_EventLoading) then) =
+      __$EventLoadingCopyWithImpl<$Res>;
+}
+
+class __$EventLoadingCopyWithImpl<$Res>
+    extends _$FilteredExerciseEventCopyWithImpl<$Res>
+    implements _$EventLoadingCopyWith<$Res> {
+  __$EventLoadingCopyWithImpl(
+      _EventLoading _value, $Res Function(_EventLoading) _then)
+      : super(_value, (v) => _then(v as _EventLoading));
+
+  @override
+  _EventLoading get _value => super._value as _EventLoading;
+}
+
+class _$_EventLoading implements _EventLoading {
+  const _$_EventLoading();
+
+  @override
+  String toString() {
+    return 'FilteredExerciseEvent.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _EventLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result searched(String term),
+    @required Result refreshed(List<Exercise> exercises),
+    @required Result loading(),
+    @required Result loadedError(ExerciseFailure failure),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result searched(String term),
+    Result refreshed(List<Exercise> exercises),
+    Result loading(),
+    Result loadedError(ExerciseFailure failure),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result searched(_Searched value),
+    @required Result refreshed(_Refreshed value),
+    @required Result loading(_EventLoading value),
+    @required Result loadedError(_EventLoadedError value),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result searched(_Searched value),
+    Result refreshed(_Refreshed value),
+    Result loading(_EventLoading value),
+    Result loadedError(_EventLoadedError value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EventLoading implements FilteredExerciseEvent {
+  const factory _EventLoading() = _$_EventLoading;
+}
+
+abstract class _$EventLoadedErrorCopyWith<$Res> {
+  factory _$EventLoadedErrorCopyWith(
+          _EventLoadedError value, $Res Function(_EventLoadedError) then) =
+      __$EventLoadedErrorCopyWithImpl<$Res>;
+  $Res call({ExerciseFailure failure});
+
+  $ExerciseFailureCopyWith<$Res> get failure;
+}
+
+class __$EventLoadedErrorCopyWithImpl<$Res>
+    extends _$FilteredExerciseEventCopyWithImpl<$Res>
+    implements _$EventLoadedErrorCopyWith<$Res> {
+  __$EventLoadedErrorCopyWithImpl(
+      _EventLoadedError _value, $Res Function(_EventLoadedError) _then)
+      : super(_value, (v) => _then(v as _EventLoadedError));
+
+  @override
+  _EventLoadedError get _value => super._value as _EventLoadedError;
+
+  @override
+  $Res call({
+    Object failure = freezed,
+  }) {
+    return _then(_EventLoadedError(
+      failure: failure == freezed ? _value.failure : failure as ExerciseFailure,
+    ));
+  }
+
+  @override
+  $ExerciseFailureCopyWith<$Res> get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+    return $ExerciseFailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
+  }
+}
+
+class _$_EventLoadedError implements _EventLoadedError {
+  const _$_EventLoadedError({@required this.failure}) : assert(failure != null);
+
+  @override
+  final ExerciseFailure failure;
+
+  @override
+  String toString() {
+    return 'FilteredExerciseEvent.loadedError(failure: $failure)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _EventLoadedError &&
+            (identical(other.failure, failure) ||
+                const DeepCollectionEquality().equals(other.failure, failure)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failure);
+
+  @override
+  _$EventLoadedErrorCopyWith<_EventLoadedError> get copyWith =>
+      __$EventLoadedErrorCopyWithImpl<_EventLoadedError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result searched(String term),
+    @required Result refreshed(List<Exercise> exercises),
+    @required Result loading(),
+    @required Result loadedError(ExerciseFailure failure),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
+    return loadedError(failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result searched(String term),
+    Result refreshed(List<Exercise> exercises),
+    Result loading(),
+    Result loadedError(ExerciseFailure failure),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadedError != null) {
+      return loadedError(failure);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result searched(_Searched value),
+    @required Result refreshed(_Refreshed value),
+    @required Result loading(_EventLoading value),
+    @required Result loadedError(_EventLoadedError value),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(loading != null);
+    assert(loadedError != null);
+    return loadedError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result searched(_Searched value),
+    Result refreshed(_Refreshed value),
+    Result loading(_EventLoading value),
+    Result loadedError(_EventLoadedError value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadedError != null) {
+      return loadedError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EventLoadedError implements FilteredExerciseEvent {
+  const factory _EventLoadedError({@required ExerciseFailure failure}) =
+      _$_EventLoadedError;
+
+  ExerciseFailure get failure;
+  _$EventLoadedErrorCopyWith<_EventLoadedError> get copyWith;
+}
+
 class _$FilteredExerciseStateTearOff {
   const _$FilteredExerciseStateTearOff();
 
@@ -303,6 +582,12 @@ class _$FilteredExerciseStateTearOff {
       exercises: exercises,
     );
   }
+
+  _LoadedErrorExercise loadedError({@required ExerciseFailure failure}) {
+    return _LoadedErrorExercise(
+      failure: failure,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -313,22 +598,26 @@ mixin _$FilteredExerciseState {
   Result when<Result extends Object>({
     @required Result loading(),
     @required Result loaded(List<Exercise> exercises),
+    @required Result loadedError(ExerciseFailure failure),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
     Result loaded(List<Exercise> exercises),
+    Result loadedError(ExerciseFailure failure),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result loading(_Loading value),
     @required Result loaded(_LoadedExercise value),
+    @required Result loadedError(_LoadedErrorExercise value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result loading(_Loading value),
     Result loaded(_LoadedExercise value),
+    Result loadedError(_LoadedErrorExercise value),
     @required Result orElse(),
   });
 }
@@ -384,9 +673,11 @@ class _$_Loading implements _Loading {
   Result when<Result extends Object>({
     @required Result loading(),
     @required Result loaded(List<Exercise> exercises),
+    @required Result loadedError(ExerciseFailure failure),
   }) {
     assert(loading != null);
     assert(loaded != null);
+    assert(loadedError != null);
     return loading();
   }
 
@@ -395,6 +686,7 @@ class _$_Loading implements _Loading {
   Result maybeWhen<Result extends Object>({
     Result loading(),
     Result loaded(List<Exercise> exercises),
+    Result loadedError(ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -409,9 +701,11 @@ class _$_Loading implements _Loading {
   Result map<Result extends Object>({
     @required Result loading(_Loading value),
     @required Result loaded(_LoadedExercise value),
+    @required Result loadedError(_LoadedErrorExercise value),
   }) {
     assert(loading != null);
     assert(loaded != null);
+    assert(loadedError != null);
     return loading(this);
   }
 
@@ -420,6 +714,7 @@ class _$_Loading implements _Loading {
   Result maybeMap<Result extends Object>({
     Result loading(_Loading value),
     Result loaded(_LoadedExercise value),
+    Result loadedError(_LoadedErrorExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -496,9 +791,11 @@ class _$_LoadedExercise implements _LoadedExercise {
   Result when<Result extends Object>({
     @required Result loading(),
     @required Result loaded(List<Exercise> exercises),
+    @required Result loadedError(ExerciseFailure failure),
   }) {
     assert(loading != null);
     assert(loaded != null);
+    assert(loadedError != null);
     return loaded(exercises);
   }
 
@@ -507,6 +804,7 @@ class _$_LoadedExercise implements _LoadedExercise {
   Result maybeWhen<Result extends Object>({
     Result loading(),
     Result loaded(List<Exercise> exercises),
+    Result loadedError(ExerciseFailure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -521,9 +819,11 @@ class _$_LoadedExercise implements _LoadedExercise {
   Result map<Result extends Object>({
     @required Result loading(_Loading value),
     @required Result loaded(_LoadedExercise value),
+    @required Result loadedError(_LoadedErrorExercise value),
   }) {
     assert(loading != null);
     assert(loaded != null);
+    assert(loadedError != null);
     return loaded(this);
   }
 
@@ -532,6 +832,7 @@ class _$_LoadedExercise implements _LoadedExercise {
   Result maybeMap<Result extends Object>({
     Result loading(_Loading value),
     Result loaded(_LoadedExercise value),
+    Result loadedError(_LoadedErrorExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -548,4 +849,137 @@ abstract class _LoadedExercise implements FilteredExerciseState {
 
   List<Exercise> get exercises;
   _$LoadedExerciseCopyWith<_LoadedExercise> get copyWith;
+}
+
+abstract class _$LoadedErrorExerciseCopyWith<$Res> {
+  factory _$LoadedErrorExerciseCopyWith(_LoadedErrorExercise value,
+          $Res Function(_LoadedErrorExercise) then) =
+      __$LoadedErrorExerciseCopyWithImpl<$Res>;
+  $Res call({ExerciseFailure failure});
+
+  $ExerciseFailureCopyWith<$Res> get failure;
+}
+
+class __$LoadedErrorExerciseCopyWithImpl<$Res>
+    extends _$FilteredExerciseStateCopyWithImpl<$Res>
+    implements _$LoadedErrorExerciseCopyWith<$Res> {
+  __$LoadedErrorExerciseCopyWithImpl(
+      _LoadedErrorExercise _value, $Res Function(_LoadedErrorExercise) _then)
+      : super(_value, (v) => _then(v as _LoadedErrorExercise));
+
+  @override
+  _LoadedErrorExercise get _value => super._value as _LoadedErrorExercise;
+
+  @override
+  $Res call({
+    Object failure = freezed,
+  }) {
+    return _then(_LoadedErrorExercise(
+      failure: failure == freezed ? _value.failure : failure as ExerciseFailure,
+    ));
+  }
+
+  @override
+  $ExerciseFailureCopyWith<$Res> get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+    return $ExerciseFailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
+  }
+}
+
+class _$_LoadedErrorExercise implements _LoadedErrorExercise {
+  const _$_LoadedErrorExercise({@required this.failure})
+      : assert(failure != null);
+
+  @override
+  final ExerciseFailure failure;
+
+  @override
+  String toString() {
+    return 'FilteredExerciseState.loadedError(failure: $failure)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _LoadedErrorExercise &&
+            (identical(other.failure, failure) ||
+                const DeepCollectionEquality().equals(other.failure, failure)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failure);
+
+  @override
+  _$LoadedErrorExerciseCopyWith<_LoadedErrorExercise> get copyWith =>
+      __$LoadedErrorExerciseCopyWithImpl<_LoadedErrorExercise>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result loading(),
+    @required Result loaded(List<Exercise> exercises),
+    @required Result loadedError(ExerciseFailure failure),
+  }) {
+    assert(loading != null);
+    assert(loaded != null);
+    assert(loadedError != null);
+    return loadedError(failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result loading(),
+    Result loaded(List<Exercise> exercises),
+    Result loadedError(ExerciseFailure failure),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadedError != null) {
+      return loadedError(failure);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result loading(_Loading value),
+    @required Result loaded(_LoadedExercise value),
+    @required Result loadedError(_LoadedErrorExercise value),
+  }) {
+    assert(loading != null);
+    assert(loaded != null);
+    assert(loadedError != null);
+    return loadedError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result loading(_Loading value),
+    Result loaded(_LoadedExercise value),
+    Result loadedError(_LoadedErrorExercise value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadedError != null) {
+      return loadedError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoadedErrorExercise implements FilteredExerciseState {
+  const factory _LoadedErrorExercise({@required ExerciseFailure failure}) =
+      _$_LoadedErrorExercise;
+
+  ExerciseFailure get failure;
+  _$LoadedErrorExerciseCopyWith<_LoadedErrorExercise> get copyWith;
 }

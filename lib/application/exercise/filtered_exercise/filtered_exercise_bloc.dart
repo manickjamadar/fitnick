@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,8 +18,12 @@ class FilteredExerciseBloc
   FilteredExerciseBloc({@required this.exerciseHubBloc})
       : super(FilteredExerciseState.loading()) {
     exerciseListener = exerciseHubBloc.listen((state) {
-      state.maybeWhen(
-          orElse: () {},
+      state.when(
+          loading: () {
+            add(FilteredExerciseEvent.loading());
+          },
+          loadedError: (failure) =>
+              add(FilteredExerciseEvent.loadedError(failure: failure)),
           loaded: (exercises) {
             mainExercises = [...exercises];
             add(FilteredExerciseEvent.refreshed(exercises: exercises));
@@ -31,11 +36,18 @@ class FilteredExerciseBloc
     FilteredExerciseEvent event,
   ) async* {
     yield* event.when(
-        searched: _mapSearchedToState, refreshed: _mapRefreshedToState);
+        loadedError: (failure) async* {
+          yield FilteredExerciseState.loadedError(failure: failure);
+        },
+        loading: () async* {
+          yield FilteredExerciseState.loading();
+        },
+        searched: _mapSearchedToState,
+        refreshed: _mapRefreshedToState);
   }
 
   Stream<FilteredExerciseState> _mapSearchedToState(String searchTerm) async* {
-    if (searchTerm.isEmpty){
+    if (searchTerm.isEmpty) {
       yield FilteredExerciseState.loaded(exercises: [...mainExercises]);
     }
     final List<Exercise> filteredExercises = mainExercises
