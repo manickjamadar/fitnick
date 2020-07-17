@@ -13,13 +13,16 @@ class FilteredExerciseBloc
     extends Bloc<FilteredExerciseEvent, FilteredExerciseState> {
   final ExerciseHubBloc exerciseHubBloc;
   StreamSubscription exerciseListener;
+  List<Exercise> mainExercises = [];
   FilteredExerciseBloc({@required this.exerciseHubBloc})
       : super(FilteredExerciseState.loading()) {
     exerciseListener = exerciseHubBloc.listen((state) {
       state.maybeWhen(
           orElse: () {},
-          loaded: (exercises) =>
-              add(FilteredExerciseEvent.refreshed(exercises: exercises)));
+          loaded: (exercises) {
+            mainExercises = [...exercises];
+            add(FilteredExerciseEvent.refreshed(exercises: exercises));
+          });
     });
   }
 
@@ -31,7 +34,17 @@ class FilteredExerciseBloc
         searched: _mapSearchedToState, refreshed: _mapRefreshedToState);
   }
 
-  Stream<FilteredExerciseState> _mapSearchedToState(String searchTerm) async* {}
+  Stream<FilteredExerciseState> _mapSearchedToState(String searchTerm) async* {
+    if (searchTerm.isEmpty){
+      yield FilteredExerciseState.loaded(exercises: [...mainExercises]);
+    }
+    final List<Exercise> filteredExercises = mainExercises
+        .where((exercise) => exercise.name.safeValue
+            .contains(RegExp(searchTerm, caseSensitive: false)))
+        .toList();
+    yield FilteredExerciseState.loaded(exercises: filteredExercises);
+  }
+
   Stream<FilteredExerciseState> _mapRefreshedToState(
       List<Exercise> exercises) async* {
     yield FilteredExerciseState.loaded(exercises: exercises);
