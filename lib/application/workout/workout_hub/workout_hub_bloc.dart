@@ -15,9 +15,10 @@ part "workout_hub_bloc.freezed.dart";
 class WorkoutHubBloc extends Bloc<WorkoutHubEvent, WorkoutHubState> {
   final ExerciseHubBloc exerciseHubBloc;
   final IWorkoutFacade workoutFacade;
+  StreamSubscription exerciseListener;
   WorkoutHubBloc({@required this.workoutFacade, @required this.exerciseHubBloc})
       : super(WorkoutHubState.loading()) {
-    exerciseHubBloc.listen((ExerciseHubState state) {
+    exerciseListener = exerciseHubBloc.listen((ExerciseHubState state) {
       state.maybeWhen(
           orElse: () {},
           loaded: (List<Exercise> exercise) {
@@ -43,5 +44,11 @@ class WorkoutHubBloc extends Bloc<WorkoutHubEvent, WorkoutHubState> {
     yield failureOrSuccess.fold(
         (failure) => WorkoutHubState.loadedError(failure: failure),
         (List<Workout> workouts) => WorkoutHubState.loaded(workouts: workouts));
+  }
+
+  @override
+  Future<void> close() {
+    exerciseListener?.cancel();
+    return super.close();
   }
 }
