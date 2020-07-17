@@ -1,4 +1,5 @@
 import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
 import 'package:flutter/material.dart';
 
@@ -41,16 +42,11 @@ class ExerciseListView extends StatelessWidget {
   }
 
   Widget buildSearchBar(BuildContext context) {
-    return Container(
-        // color: Theme.of(context).primaryColor,
-        padding: EdgeInsets.all(20),
-        child: TextField(
-          decoration: InputDecoration(
-              labelText: "Search",
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              border: OutlineInputBorder()),
-        ));
+    return SearchBar(
+      onChanged: (value) {
+        print(value);
+      },
+    );
   }
 
   Center buildEmptyExercise() => Center(
