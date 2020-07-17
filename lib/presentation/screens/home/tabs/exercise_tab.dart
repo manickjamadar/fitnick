@@ -41,6 +41,7 @@ class ExerciseTab extends StatelessWidget {
   Widget buildExercises(List<Exercise> exercises) => ExerciseListView(
         exercises: exercises,
         slidable: true,
+        searchable: true,
       );
 
   Widget buildLoading() => Center(
