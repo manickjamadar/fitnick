@@ -30,10 +30,6 @@ void main() async {
       BlocProvider<WorkoutActorBloc>(
         create: (_) => locator<WorkoutActorBloc>(),
       ),
-      BlocProvider<FilteredExerciseBloc>(
-        create: (ctx2) => FilteredExerciseBloc(
-            exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(ctx2)),
-      )
     ],
     child: App(),
   ));
