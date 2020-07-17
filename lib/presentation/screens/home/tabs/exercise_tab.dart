@@ -24,10 +24,11 @@ class ExerciseTab extends StatelessWidget {
             });
       },
       child: BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
-        builder: (context, state) {
+        builder: (_, state) {
           return state.when(
             loading: () => buildLoading(),
-            loaded: (List<Exercise> exercises) => buildExercises(exercises),
+            loaded: (List<Exercise> exercises) =>
+                buildExercises(context, exercises),
             // loadedError: (_) => buildLoadedFailed(),
           );
         },
@@ -39,15 +40,23 @@ class ExerciseTab extends StatelessWidget {
         child: Text("Exercise loading failed"),
       );
 
-  Widget buildExercises(List<Exercise> exercises) => ExerciseListView(
+  Widget buildExercises(BuildContext context, List<Exercise> exercises) =>
+      ExerciseListView(
         exercises: exercises,
         slidable: true,
         searchable: true,
+        onSearch: (term) => _onExerciseSearch(context, term),
       );
 
   Widget buildLoading() => Center(
         child: CircularProgressIndicator(),
       );
+
+  void _onExerciseSearch(BuildContext context, String searchTerm) {
+    print(searchTerm);
+    BlocProvider.of<FilteredExerciseBloc>(context)
+        .add(FilteredExerciseEvent.searched(term: searchTerm));
+  }
 }
 
 class BlocListen {}
