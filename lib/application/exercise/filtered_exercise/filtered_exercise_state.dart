@@ -1,11 +1,15 @@
 part of 'filtered_exercise_bloc.dart';
 
 @freezed
-abstract class FilteredExerciseState with _$FilteredExerciseState {
-  const factory FilteredExerciseState.loading() = _Loading;
-  const factory FilteredExerciseState.loaded({
-    @required List<Exercise> exercises,
-  }) = _LoadedExercise;
-  const factory FilteredExerciseState.loadedError(
-      {@required ExerciseFailure failure}) = _LoadedErrorExercise;
+abstract class FilteredExerciseState implements _$FilteredExerciseState {
+  const factory FilteredExerciseState({
+    @required Option<List<Exercise>> exercises,
+    @required String searchTerm,
+    @required bool isLoading,
+  }) = _FilteredExerciseState;
+
+  factory FilteredExerciseState.initial() {
+    return FilteredExerciseState(
+        exercises: none(), searchTerm: "", isLoading: true);
+  }
 }
