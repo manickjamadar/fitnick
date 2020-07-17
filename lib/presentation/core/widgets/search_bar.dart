@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
   final void Function(String value) onChanged;
-
-  const SearchBar({Key key, this.onChanged}) : super(key: key);
+  final String value;
+  const SearchBar({Key key, @required this.value, this.onChanged})
+      : super(key: key);
   @override
   _SearchBarState createState() => _SearchBarState();
 }
@@ -16,7 +17,7 @@ class _SearchBarState extends State<SearchBar> {
     return Container(
         // color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(20),
-        child: TextField(
+        child: TextFormField(
           controller: controller,
           onChanged: (value) {
             setState(() {
@@ -55,7 +56,7 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   void initState() {
-    controller = TextEditingController();
+    controller = TextEditingController(text: widget.value);
     super.initState();
   }
 
