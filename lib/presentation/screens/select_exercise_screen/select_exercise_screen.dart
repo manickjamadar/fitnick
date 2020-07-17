@@ -1,7 +1,9 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/widgets/save_button.dart';
+import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:flutter/material.dart';
@@ -20,31 +22,50 @@ class SelectExerciseScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("Select Exercise"),
         ),
-        body: BlocBuilder<ExerciseHubBloc, ExerciseHubState>(
+        body: BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
           builder: (context, state) {
-            return state.when(
-                loading: buildLoading,
-                loaded: (exercises) => buildLoaded(context, exercises),
-                loadedError: buildLoadedError);
+            if (state.isLoading) {
+              return buildLoading();
+            }
+            return state.exercises.fold(
+                () => buildNoExercise(),
+                (List<Exercise> exercises) =>
+                    buildLoaded(context, exercises, state.searchTerm));
           },
         ));
   }
 
-  Widget buildLoaded(BuildContext context, List<Exercise> exercises) {
+  Widget buildNoExercise() {
+    return Center(child: Text("No Exercises Available"));
+  }
+
+  Widget buildLoaded(
+      BuildContext context, List<Exercise> exercises, String searchTerm) {
     return Stack(
       children: <Widget>[
-        buildExerciseList(context, exercises),
+        buildExerciseList(context, exercises, searchTerm),
         buildDoneButton(context)
       ],
     );
   }
 
-  Widget buildExerciseList(BuildContext context, List<Exercise> exercises) {
+  Widget buildExerciseList(
+      BuildContext context, List<Exercise> exercises, String searchTerm) {
     return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
       builder: (_, state) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final exercise = exercises[index];
+            if (index == 0) {
+              return SearchBar(
+                value: searchTerm,
+                onChanged: (value) {
+                  BlocProvider.of<FilteredExerciseBloc>(context)
+                      .add(FilteredExerciseEvent.searched(term: value));
+                },
+              );
+            }
+            final realIndex = index - 1;
+            final exercise = exercises[realIndex];
             final bool isSelected = state.workout.exercises
                 .any((wExercise) => wExercise.id == exercise.id);
             return ExerciseItem(
@@ -59,7 +80,7 @@ class SelectExerciseScreen extends StatelessWidget {
                   selected: isSelected),
             );
           },
-          itemCount: exercises.length,
+          itemCount: exercises.length + 1,
         );
       },
     );

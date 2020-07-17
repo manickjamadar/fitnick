@@ -1,3 +1,5 @@
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/application/workout/workout_hub/workout_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
@@ -60,11 +62,16 @@ class WorkoutFormHandler extends StatelessWidget {
           FlatButton(
             child: Text("+ Add Exercise"),
             onPressed: () {
+              final route = BlocProvider<FilteredExerciseBloc>(
+                create: (_) => FilteredExerciseBloc(
+                    exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
+                child: SelectExerciseScreen.generateRoute(
+                    bloc: BlocProvider.of<WorkoutFormBloc>(context)),
+              );
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => SelectExerciseScreen.generateRoute(
-                        bloc: BlocProvider.of<WorkoutFormBloc>(context)),
+                    builder: (_) => route,
                   ));
             },
           )
