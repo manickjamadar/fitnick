@@ -33,9 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(MyIcons.progression), title: Text("Progression")),
         ],
       ),
-      body: IndexedStack(
-        index: currentTab,
-        children: <Widget>[WorkoutTab(), ExerciseTab(), ProgressionTab()],
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: IndexedStack(
+          index: currentTab,
+          children: <Widget>[WorkoutTab(), ExerciseTab(), ProgressionTab()],
+        ),
       ),
     );
   }
