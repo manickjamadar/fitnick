@@ -7,12 +7,14 @@ class ExerciseListView extends StatelessWidget {
   final List<Exercise> exercises;
   final bool slidable;
   final bool searchable;
+  final String searchValue;
   final void Function(String term) onSearch;
 
   const ExerciseListView(
       {Key key,
       this.slidable = false,
       this.onSearch,
+      this.searchValue = "",
       @required this.exercises,
       this.searchable = false})
       : super(key: key);
@@ -45,6 +47,7 @@ class ExerciseListView extends StatelessWidget {
 
   Widget buildSearchBar(BuildContext context) {
     return SearchBar(
+      value: searchValue,
       onChanged: onSearch,
     );
   }
