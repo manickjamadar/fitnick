@@ -1,9 +1,12 @@
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/home/widgets/add_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -40,7 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: IndexedStack(
           index: currentTab,
-          children: <Widget>[WorkoutTab(), ExerciseTab(), ProgressionTab()],
+          children: <Widget>[
+            WorkoutTab(),
+            BlocProvider<FilteredExerciseBloc>(
+              create: (_) => FilteredExerciseBloc(
+                  exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
+              child: ExerciseTab(),
+            ),
+            ProgressionTab()
+          ],
         ),
       ),
     );

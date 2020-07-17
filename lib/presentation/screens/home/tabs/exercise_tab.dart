@@ -25,14 +25,21 @@ class ExerciseTab extends StatelessWidget {
       },
       child: BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
         builder: (_, state) {
-          return state.when(
-            loading: () => buildLoading(),
-            loaded: (List<Exercise> exercises) =>
-                buildExercises(context, exercises),
-            loadedError: (_) => buildLoadedFailed(),
-          );
+          if (state.isLoading) {
+            return buildLoading();
+          }
+          return state.exercises.fold(
+              () => buildNoExercise(),
+              (List<Exercise> exercises) =>
+                  buildExercises(context, exercises, state.searchTerm));
         },
       ),
+    );
+  }
+
+  Widget buildNoExercise() {
+    return Center(
+      child: Text("No Exercise Available"),
     );
   }
 
@@ -40,11 +47,13 @@ class ExerciseTab extends StatelessWidget {
         child: Text("Exercise loading failed"),
       );
 
-  Widget buildExercises(BuildContext context, List<Exercise> exercises) =>
+  Widget buildExercises(
+          BuildContext context, List<Exercise> exercises, String searchTerm) =>
       ExerciseListView(
         exercises: exercises,
         slidable: true,
         searchable: true,
+        searchValue: searchTerm,
         onSearch: (term) => _onExerciseSearch(context, term),
       );
 
@@ -53,7 +62,6 @@ class ExerciseTab extends StatelessWidget {
       );
 
   void _onExerciseSearch(BuildContext context, String searchTerm) {
-    print(searchTerm);
     BlocProvider.of<FilteredExerciseBloc>(context)
         .add(FilteredExerciseEvent.searched(term: searchTerm));
   }
