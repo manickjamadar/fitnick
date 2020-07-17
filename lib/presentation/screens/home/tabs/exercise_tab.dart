@@ -29,7 +29,7 @@ class ExerciseTab extends StatelessWidget {
             loading: () => buildLoading(),
             loaded: (List<Exercise> exercises) =>
                 buildExercises(context, exercises),
-            // loadedError: (_) => buildLoadedFailed(),
+            loadedError: (_) => buildLoadedFailed(),
           );
         },
       ),
