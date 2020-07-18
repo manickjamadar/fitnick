@@ -1,4 +1,3 @@
-import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
@@ -56,28 +55,34 @@ class SelectExerciseScreen extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             if (index == 0) {
-              return SearchBar(
-                value: searchTerm,
-                onChanged: (value) {
-                  BlocProvider.of<FilteredExerciseBloc>(context)
-                      .add(FilteredExerciseEvent.searched(term: value));
-                },
+              return Padding(
+                padding: EdgeInsets.all(10),
+                child: SearchBar(
+                  value: searchTerm,
+                  onChanged: (value) {
+                    BlocProvider.of<FilteredExerciseBloc>(context)
+                        .add(FilteredExerciseEvent.searched(term: value));
+                  },
+                ),
               );
             }
             final realIndex = index - 1;
             final exercise = exercises[realIndex];
             final bool isSelected = state.workout.exercises
                 .any((wExercise) => wExercise.id == exercise.id);
-            return ExerciseItem(
-              exercise: exercise,
-              exerciseItemType: ExerciseItemType.selectable(
-                  onSelect: (_) {
-                    BlocProvider.of<WorkoutFormBloc>(context).add(isSelected
-                        ? WorkoutFormEvent.exerciseRemoved(
-                            exerciseId: exercise.id)
-                        : WorkoutFormEvent.exerciseAdded(exercise: exercise));
-                  },
-                  selected: isSelected),
+            return Container(
+              margin: EdgeInsets.all(10),
+              child: ExerciseItem(
+                exercise: exercise,
+                exerciseItemType: ExerciseItemType.selectable(
+                    onSelect: (_) {
+                      BlocProvider.of<WorkoutFormBloc>(context).add(isSelected
+                          ? WorkoutFormEvent.exerciseRemoved(
+                              exerciseId: exercise.id)
+                          : WorkoutFormEvent.exerciseAdded(exercise: exercise));
+                    },
+                    selected: isSelected),
+              ),
             );
           },
           itemCount: exercises.length + 1,

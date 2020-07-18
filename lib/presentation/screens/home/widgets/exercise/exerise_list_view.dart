@@ -34,7 +34,7 @@ class ExerciseListView extends StatelessWidget {
         final realIndex = index - (searchable ? 1 : 0);
         final exercise = exercises[realIndex];
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
           child: ExerciseItem(
             slidable: slidable,
             exercise: exercise,
@@ -46,9 +46,12 @@ class ExerciseListView extends StatelessWidget {
   }
 
   Widget buildSearchBar(BuildContext context) {
-    return SearchBar(
-      value: searchValue,
-      onChanged: onSearch,
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: SearchBar(
+        value: searchValue,
+        onChanged: onSearch,
+      ),
     );
   }
 
