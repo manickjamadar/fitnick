@@ -79,35 +79,33 @@ class ExerciseItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
               color: Theme.of(context).primaryColor.withOpacity(0.5))),
-      child: Flexible(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Container(
-                      constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.55),
-                      child: Text(exercise.name.safeValue.capitalize(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
-                    ),
-                    LevelFlash(level: exercise.levels.first)
-                  ],
-                ),
-                buildTargetList(exercise.primaryTargets),
-                buildExtraOptionList(exercise.tools, exercise.types)
-              ],
-            ),
-            Flexible(child: buildCardTrailing(context))
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.55),
+                    child: Text(exercise.name.safeValue.capitalize(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18)),
+                  ),
+                  LevelFlash(level: exercise.levels.first)
+                ],
+              ),
+              buildTargetList(exercise.primaryTargets),
+              buildExtraOptionList(exercise.tools, exercise.types)
+            ],
+          ),
+          buildCardTrailing(context)
+        ],
       ),
     );
   }
