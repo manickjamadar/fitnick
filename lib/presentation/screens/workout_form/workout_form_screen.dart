@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
+import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:fitnick/presentation/screens/workout_form/widgets/workout_form_handler.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,25 @@ class WorkoutFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        actions: <Widget>[buildSaveButton(context)],
+      ),
       body: WorkoutFormHandler(),
     );
+  }
+
+  Widget buildSaveButton(BuildContext context) {
+    return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
+      builder: (_, state) => IconButton(
+        onPressed: state.workout.isValid ? () => onWorkoutSave(context) : null,
+        icon: Icon(Icons.check),
+      ),
+    );
+  }
+
+  void onWorkoutSave(BuildContext context) {
+    BlocProvider.of<WorkoutFormBloc>(context).add(WorkoutFormEvent.saved());
   }
 
   static Widget generateRoute(Option<Workout> workoutOption) {

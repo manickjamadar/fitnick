@@ -6,7 +6,6 @@ import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
-import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
@@ -36,7 +35,6 @@ class WorkoutFormHandler extends StatelessWidget {
         return Stack(
           children: <Widget>[
             SingleChildScrollView(child: buildForm(context)),
-            buildSaveButton(context),
             if (state.isAdding) ExecutingIndicator()
           ],
         );
@@ -55,6 +53,7 @@ class WorkoutFormHandler extends StatelessWidget {
             height: 20,
           ),
           Text("Exercises", style: Theme.of(context).textTheme.subtitle1),
+          SizedBox(height: 20),
           buildWorkoutExeriseList(context),
           SizedBox(
             height: 20,
@@ -127,18 +126,6 @@ class WorkoutFormHandler extends StatelessWidget {
     );
   }
 
-  Align buildSaveButton(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: SaveButton(
-          onPressed: () => onWorkoutSave(context),
-        ),
-      ),
-    );
-  }
-
   void onNameChanged(BuildContext context, String name) {
     BlocProvider.of<WorkoutFormBloc>(context)
         .add(WorkoutFormEvent.nameChanged(name: name));
@@ -149,10 +136,6 @@ class WorkoutFormHandler extends StatelessWidget {
         ? state.workout.name.value
             .fold((failure) => getValueFailureMessage(failure), (r) => null)
         : null;
-  }
-
-  void onWorkoutSave(BuildContext context) {
-    BlocProvider.of<WorkoutFormBloc>(context).add(WorkoutFormEvent.saved());
   }
 
   void onFormSuccess(BuildContext context) {
