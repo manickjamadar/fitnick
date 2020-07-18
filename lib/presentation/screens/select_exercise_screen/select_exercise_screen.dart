@@ -20,6 +20,7 @@ class SelectExerciseScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Select Exercise"),
+          actions: <Widget>[buildDoneButton(context)],
         ),
         body: BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
           builder: (context, state) {
@@ -43,7 +44,6 @@ class SelectExerciseScreen extends StatelessWidget {
     return Stack(
       children: <Widget>[
         buildExerciseList(context, exercises, searchTerm),
-        buildDoneButton(context)
       ],
     );
   }
@@ -91,18 +91,10 @@ class SelectExerciseScreen extends StatelessWidget {
     );
   }
 
-  Align buildDoneButton(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: SaveButton(
-          title: "Done",
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+  Widget buildDoneButton(BuildContext context) {
+    return IconButton(
+      onPressed: () => Navigator.pop(context),
+      icon: Icon(Icons.check),
     );
   }
 
