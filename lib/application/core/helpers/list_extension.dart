@@ -1,6 +1,3 @@
-import 'package:fitnick/domain/core/unique_id.dart';
-import 'package:fitnick/domain/exercise/models/exercise.dart';
-
 extension ListX<T> on List<T> {
   List<T> reorder(int oldIndex, int newIndex) {
     final newList = [...this];
@@ -12,9 +9,8 @@ extension ListX<T> on List<T> {
     } else {
       //card moved upward
       final oldElement = newList[oldIndex];
-      final newElement = newList[newIndex];
-      newList[newIndex] = oldElement;
-      newList[oldIndex] = newElement;
+      newList.removeAt(oldIndex);
+      newList.insert(newIndex, oldElement);
     }
     return newList;
   }
