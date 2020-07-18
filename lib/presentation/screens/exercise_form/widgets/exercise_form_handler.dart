@@ -6,7 +6,6 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
-import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +52,6 @@ class ExerciseFormHandler extends StatelessWidget {
                   ),
                 ),
               ),
-              buildSaveButton(state, exerciseformBloc),
               if (state.isAdding) buildLoading()
             ],
           ),
@@ -129,23 +127,6 @@ class ExerciseFormHandler extends StatelessWidget {
 
   void _onOptionSelected(BuildContext context, ExerciseFormEvent event) {
     BlocProvider.of<ExerciseFormBloc>(context).add(event);
-  }
-
-  Widget buildSaveButton(
-      ExerciseFormState state, ExerciseFormBloc exerciseformBloc) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: SaveButton(
-          onPressed: state.isAdding || !state.exercise.isValid
-              ? null
-              : () {
-                  exerciseformBloc.add(ExerciseFormEvent.added());
-                },
-        ),
-      ),
-    );
   }
 
   Widget buildNameInput(BuildContext context) {
