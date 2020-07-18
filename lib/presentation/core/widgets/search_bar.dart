@@ -16,32 +16,31 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Container(
         // color: Theme.of(context).primaryColor,
-        padding: EdgeInsets.all(20),
+        // padding: EdgeInsets.all(20),
         child: TextFormField(
-          controller: controller,
-          onChanged: (value) {
-            setState(() {
-              shouldShowClear = value.isNotEmpty;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged(value);
-            }
-          },
-          decoration: InputDecoration(
-              suffixIcon: shouldShowClear
-                  ? IconButton(
-                      icon: Icon(
-                        Icons.clear,
-                        color: Colors.red,
-                      ),
-                      onPressed: _onClear,
-                    )
-                  : null,
-              labelText: "Search",
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              border: OutlineInputBorder()),
-        ));
+      controller: controller,
+      onChanged: (value) {
+        setState(() {
+          shouldShowClear = value.isNotEmpty;
+        });
+        if (widget.onChanged != null) {
+          widget.onChanged(value);
+        }
+      },
+      decoration: InputDecoration(
+          suffixIcon: shouldShowClear
+              ? IconButton(
+                  icon: Icon(
+                    Icons.clear,
+                    color: Colors.red,
+                  ),
+                  onPressed: _onClear,
+                )
+              : null,
+          labelText: "Search",
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+          border: OutlineInputBorder()),
+    ));
   }
 
   void _onClear() {
