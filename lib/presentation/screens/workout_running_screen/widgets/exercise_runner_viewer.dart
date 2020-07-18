@@ -15,7 +15,7 @@ class ExerciseRunnerViewer extends StatelessWidget {
       children: <Widget>[
         Text(exercise.name.safeValue.capitalize(),
             style: TextStyle(
-                color: Colors.indigo,
+                color: Colors.green,
                 fontSize: 30,
                 fontWeight: FontWeight.bold)),
         buildSpace(),

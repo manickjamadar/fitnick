@@ -5,6 +5,7 @@ import 'package:fitnick/presentation/screens/workout_running_screen/widgets/exer
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "../../core/helpers/string_extension.dart";
 
 class WorkoutRunningScreen extends StatelessWidget {
   final Workout workout;
@@ -16,7 +17,7 @@ class WorkoutRunningScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(workout.name.safeValue),
+        title: Text(workout.name.safeValue.capitalize()),
       ),
       body: BlocConsumer<WorkoutRunningBloc, WorkoutRunningState>(
         listener: (_, state) {
@@ -91,11 +92,8 @@ class WorkoutRunningScreen extends StatelessWidget {
           IconButton(
               iconSize: 100,
               onPressed: () => onPlayOrPause(context),
-              icon: Icon(
-                  state.isResting
-                      ? Icons.play_circle_filled
-                      : Icons.pause_circle_filled,
-                  size: 100)),
+              icon: Icon(state.isResting ? Icons.play_arrow : Icons.pause,
+                  size: 50)),
           IconButton(
               icon: Icon(
                 Icons.arrow_forward_ios,
