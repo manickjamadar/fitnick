@@ -8,7 +8,8 @@ class LevelFlash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<bool> activeColors;
-    final Color activeColor = Colors.yellow[800];
+    final Color activeColor =
+        ExerciseLevel.anyLevel == level ? Colors.blue : Colors.yellow[800];
     if (level == ExerciseLevel.anyLevel || level == ExerciseLevel.advanced) {
       activeColors = [true, true, true];
     } else if (level == ExerciseLevel.intermediate) {
