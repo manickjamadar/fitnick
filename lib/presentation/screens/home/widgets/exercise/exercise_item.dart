@@ -1,17 +1,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
+import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/small_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../../../core/helpers/string_extension.dart';
 
 class ExerciseItem extends StatelessWidget {
-  static const double height = 90;
+  static const double height = 100;
   final Exercise exercise;
   final ExerciseItemType exerciseItemType;
   final bool slidable;
@@ -67,39 +72,88 @@ class ExerciseItem extends StatelessWidget {
 
   Widget buildExerciseCard(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       height: height,
       decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor.withOpacity(0.02),
+          borderRadius: BorderRadius.circular(6),
           border: Border.all(
-              color: exerciseItemType.maybeWhen(
-                orElse: () => Colors.transparent,
-                selectable: (onSelect, selected) {
-                  return selected
-                      ? Theme.of(context).primaryColor
-                      : Colors.transparent;
-                },
+              color: Theme.of(context).primaryColor.withOpacity(0.5))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(exercise.name.safeValue.capitalize(),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  LevelFlash(level: exercise.levels.first)
+                ],
               ),
-              width: 3),
-          borderRadius: BorderRadius.circular(6)),
-      child: Card(
-        margin: EdgeInsets.all(0),
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-          // decoration: BoxDecoration(border: Border.all()),
-          child: ListTile(
-            leading: CircleAvatar(child: Icon(Icons.fitness_center)),
-            title: Text(
-              exercise.name.safeValue.capitalize(),
-            ),
-            trailing: buildCardTrailing(context),
+              buildTargetList(exercise.primaryTargets),
+              buildExtraOptionList(exercise.tools, exercise.types)
+            ],
           ),
-        ),
+          buildCardTrailing(context)
+        ],
       ),
+    );
+  }
+
+  Widget buildExtraOptionList(
+      List<ExerciseTool> tools, List<ExerciseType> types) {
+    final newTools = [...tools];
+    final newTypes = [...types];
+    if (newTools.length > 1) {
+      newTools.length = 1;
+    }
+    if (newTypes.length > 1) {
+      newTypes.length = 1;
+    }
+    final typeList = newTypes.map((type) => Text(type.name)).toList();
+    final toolList = newTools.map((tool) => Text(tool.name)).toList();
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 6,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [...typeList, buildDot(), ...toolList],
+    );
+  }
+
+  Widget buildTargetList(List<ExerciseTarget> targets) {
+    final newTargets = [...targets];
+    if (newTargets.length > 1) {
+      newTargets.length = 1;
+    }
+    return FittedBox(
+      child: Wrap(
+          spacing: 10,
+          children: newTargets
+              .map((target) => SmallChip(
+                    color: Colors.green[400],
+                    title: target.name.capitalize(),
+                  ))
+              .toList()),
+    );
+  }
+
+  Widget buildDot({Color color = Colors.grey}) {
+    return Container(
+      width: 6,
+      height: 6,
+      margin: EdgeInsets.symmetric(horizontal: 2),
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
     );
   }
 
   Widget buildCardTrailing(BuildContext context) {
     return exerciseItemType.when(
-        normal: () => null,
+        normal: () => Container(),
         removable: (onRemove) {
           return IconButton(
             onPressed: () {
