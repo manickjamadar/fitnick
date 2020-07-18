@@ -1,6 +1,5 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
-import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
@@ -49,7 +48,7 @@ class ExerciseFormHandler extends StatelessWidget {
                     children: <Widget>[
                       buildNameInput(context),
                       buildSpace(),
-                      buildOptions(context, state.exercise),
+                      buildOptions(context, state),
                     ],
                   ),
                 ),
@@ -63,11 +62,13 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  Widget buildOptions(BuildContext context, Exercise exercise) {
+  Widget buildOptions(BuildContext context, ExerciseFormState state) {
+    final exercise = state.exercise;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Selector<ExerciseLevel>(
+          key: ValueKey(state.isEditing.toString() + "level"),
           title: "Level",
           options: ExerciseLevel.all,
           optionLabel: (option) => option.name,
@@ -77,6 +78,7 @@ class ExerciseFormHandler extends StatelessWidget {
         ),
         buildSpace(),
         Selector<ExerciseTool>(
+          key: ValueKey(state.isEditing.toString() + "tool"),
           title: "Tool",
           options: ExerciseTool.all,
           optionLabel: (option) => option.name,
@@ -87,6 +89,7 @@ class ExerciseFormHandler extends StatelessWidget {
         ),
         buildSpace(),
         Selector<ExerciseType>(
+          key: ValueKey(state.isEditing.toString() + "type"),
           title: "Type",
           options: ExerciseType.all,
           optionLabel: (option) => option.name,
@@ -97,6 +100,7 @@ class ExerciseFormHandler extends StatelessWidget {
         ),
         buildSpace(),
         Selector<ExerciseTarget>(
+          key: ValueKey(state.isEditing.toString() + "primary"),
           title: "Primary Muscle",
           options: ExerciseTarget.all,
           optionLabel: (option) => option.name,
@@ -107,6 +111,7 @@ class ExerciseFormHandler extends StatelessWidget {
         ),
         buildSpace(),
         Selector<ExerciseTarget>(
+          key: ValueKey(state.isEditing.toString() + "secondary"),
           title: "Secondary Muscle",
           options: ExerciseTarget.all,
           optionLabel: (option) => option.name,
