@@ -84,7 +84,8 @@ class WorkoutFormHandler extends StatelessWidget {
     return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
       builder: (_, state) {
         return Container(
-          height: 90 * (state.workout.exercises.length.toDouble()),
+          height:
+              ExerciseItem.height * (state.workout.exercises.length.toDouble()),
           child: ReorderableListView(
               onReorder: (oldIndex, newIndex) {
                 BlocProvider.of<WorkoutFormBloc>(context).add(

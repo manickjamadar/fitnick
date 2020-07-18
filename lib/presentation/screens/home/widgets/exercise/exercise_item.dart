@@ -11,6 +11,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../../../core/helpers/string_extension.dart';
 
 class ExerciseItem extends StatelessWidget {
+  static const double height = 90;
   final Exercise exercise;
   final ExerciseItemType exerciseItemType;
   final bool slidable;
@@ -66,6 +67,7 @@ class ExerciseItem extends StatelessWidget {
 
   Widget buildExerciseCard(BuildContext context) {
     return Container(
+      height: height,
       decoration: BoxDecoration(
           border: Border.all(
               color: exerciseItemType.maybeWhen(
