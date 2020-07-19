@@ -7,6 +7,7 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/boundary.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/small_chip.dart';
@@ -30,7 +31,7 @@ class ExerciseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return exercise.failureOption().fold(
         () =>
-            slidable ? buildExerciseItem(context) : buildExerciseCard(context),
+            slidable ? buildExerciseItem(context) : buildExerciseCard2(context),
         (a) => buildExerciseErrorCard(context));
   }
 
@@ -48,7 +49,7 @@ class ExerciseItem extends StatelessWidget {
       key: ValueKey(exercise.id.value),
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
-      child: buildExerciseCard(context),
+      child: buildExerciseCard2(context),
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: 'Edit',
@@ -70,6 +71,49 @@ class ExerciseItem extends StatelessWidget {
     );
   }
 
+  Widget buildExerciseCard2(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+        height: height,
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.02),
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(
+                color: Theme.of(context).primaryColor.withOpacity(0.5))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buildTitle(),
+                  buildTargetList(exercise.primaryTargets),
+                  buildExtraOptionList(exercise.tools, exercise.types)
+                ],
+              ),
+            ),
+            buildCardTrailing(context)
+          ],
+        ));
+  }
+
+  Flexible buildTitle() {
+    return Flexible(
+      child: Row(
+        children: <Widget>[
+          Flexible(
+              child: Text(exercise.name.safeValue.capitalize(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+          LevelFlash(level: exercise.levels.first),
+        ],
+      ),
+    );
+  }
+
   Widget buildExerciseCard(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -82,29 +126,34 @@ class ExerciseItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * 0.55),
-                    child: Text(exercise.name.safeValue.capitalize(),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
-                  ),
-                  LevelFlash(level: exercise.levels.first)
-                ],
-              ),
-              buildTargetList(exercise.primaryTargets),
-              buildExtraOptionList(exercise.tools, exercise.types)
-            ],
+          Container(
+            width: MediaQuery.of(context).size.width * 0.55,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      // constraints: BoxConstraints(
+                      //     maxWidth: MediaQuery.of(context).size.width * 0.55),
+                      child: Text(exercise.name.safeValue.capitalize(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18)),
+                    ),
+                    LevelFlash(level: exercise.levels.first)
+                  ],
+                ),
+                buildTargetList(exercise.primaryTargets),
+                buildExtraOptionList(exercise.tools, exercise.types)
+              ],
+            ),
           ),
-          buildCardTrailing(context)
+          Container(
+              width: MediaQuery.of(context).size.width * (1 - 0.55),
+              child: buildCardTrailing(context))
         ],
       ),
     );
@@ -120,8 +169,23 @@ class ExerciseItem extends StatelessWidget {
     if (newTypes.length > 1) {
       newTypes.length = 1;
     }
-    final typeList = newTypes.map((type) => Text(type.name)).toList();
-    final toolList = newTools.map((tool) => Text(tool.name)).toList();
+    final TextStyle style = TextStyle(
+        fontSize: 13,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.bold,
+        color: Colors.grey[600]);
+    final typeList = newTypes
+        .map((type) => Text(
+              type.name,
+              style: style,
+            ))
+        .toList();
+    final toolList = newTools
+        .map((tool) => Text(
+              tool.name,
+              style: style,
+            ))
+        .toList();
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 6,
