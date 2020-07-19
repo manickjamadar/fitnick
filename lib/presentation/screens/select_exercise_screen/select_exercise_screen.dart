@@ -1,7 +1,6 @@
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
