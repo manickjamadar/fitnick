@@ -8,6 +8,7 @@ import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/boundary.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/checker.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/small_chip.dart';
@@ -238,18 +239,10 @@ class ExerciseItem extends StatelessWidget {
           );
         },
         selectable: (onSelect, selected) {
-          return IconButton(
-              onPressed: () {
-                if (onSelect != null) {
-                  onSelect(selected);
-                }
-              },
-              icon: Icon(
-                Icons.check_box,
-                color: selected
-                    ? Theme.of(context).primaryColor
-                    : Colors.grey[400],
-              ));
+          return Checker(
+            onSelect: onSelect,
+            initialValue: selected,
+          );
         });
   }
 
