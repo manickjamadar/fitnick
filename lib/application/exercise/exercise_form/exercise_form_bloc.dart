@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/application/core/helpers/remove_file.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/exercise/facade/i_exercise_facade.dart';
@@ -97,6 +98,13 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
   }
 
   Stream<ExerciseFormState> _bindVideoPathChangedToState(String path) async* {
+    await state.exercise.videoPath.fold(() => null, (oldPath) async {
+      try {
+        await removeFile(oldPath);
+      } catch (error) {
+        print("removing video error");
+      }
+    });
     yield state.copyWith(
         exercise: state.exercise.copyWith(videoPath: Some(path)),
         addStatus: none());
