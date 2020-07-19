@@ -67,20 +67,16 @@ class SelectExerciseScreen extends StatelessWidget {
             }
             final realIndex = index - 1;
             final exercise = exercises[realIndex];
-            final bool isSelected = state.workout.exercises
-                .any((wExercise) => wExercise.id == exercise.id);
             return Container(
               margin: EdgeInsets.all(10),
               child: ExerciseItem(
                 exercise: exercise,
                 exerciseItemType: ExerciseItemType.selectable(
                     onSelect: (_) {
-                      BlocProvider.of<WorkoutFormBloc>(context).add(isSelected
-                          ? WorkoutFormEvent.exerciseRemoved(
-                              exerciseId: exercise.id)
-                          : WorkoutFormEvent.exerciseAdded(exercise: exercise));
+                      BlocProvider.of<WorkoutFormBloc>(context).add(
+                          WorkoutFormEvent.exerciseAdded(exercise: exercise));
                     },
-                    selected: isSelected),
+                    selected: false),
               ),
             );
           },
