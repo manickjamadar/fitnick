@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
+import 'package:fitnick/presentation/core/helpers/get_video.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,6 +51,15 @@ class ExerciseFormHandler extends StatelessWidget {
                     children: <Widget>[
                       buildNameInput(context),
                       buildSpace(),
+                      Text(
+                        "Video",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      buildSpace(),
+                      VideoPreview(path: state.exercise.videoPath),
+                      buildSpace(),
+                      buildVideoUploadButton(context),
+                      buildSpace(),
                       buildOptions(context, state),
                     ],
                   ),
@@ -57,6 +70,16 @@ class ExerciseFormHandler extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget buildVideoUploadButton(BuildContext context) {
+    return Center(
+      child: OutlineButton(
+        textColor: Colors.blue,
+        child: Text("Upload Video"),
+        onPressed: () => onVideoUpload(context),
+      ),
     );
   }
 
@@ -171,5 +194,15 @@ class ExerciseFormHandler extends StatelessWidget {
     return SizedBox(
       height: 20,
     );
+  }
+
+  void onVideoUpload(BuildContext context) async {
+    try {
+      final videoFile = await pickNewVideo();
+      BlocProvider.of<ExerciseFormBloc>(context)
+          .add(ExerciseFormEvent.videoPathChanged(videoFile.path));
+    } catch (error) {
+      print("picking image failed");
+    }
   }
 }
