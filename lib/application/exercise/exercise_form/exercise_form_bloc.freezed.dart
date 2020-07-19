@@ -24,6 +24,18 @@ class _$ExerciseFormEventTearOff {
     );
   }
 
+  _ExerciseThumbnailPathChanged thumbnailPathChanged(String path) {
+    return _ExerciseThumbnailPathChanged(
+      path,
+    );
+  }
+
+  _ExerciseVideoPathChanged videoPathChanged(String path) {
+    return _ExerciseVideoPathChanged(
+      path,
+    );
+  }
+
   _ExerciseLevelChanged levelsChanged(List<ExerciseLevel> levels) {
     return _ExerciseLevelChanged(
       levels,
@@ -69,6 +81,8 @@ mixin _$ExerciseFormEvent {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -81,6 +95,8 @@ mixin _$ExerciseFormEvent {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -93,6 +109,8 @@ mixin _$ExerciseFormEvent {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -105,6 +123,8 @@ mixin _$ExerciseFormEvent {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -194,6 +214,8 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -204,6 +226,8 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -218,6 +242,8 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -238,6 +264,8 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -248,6 +276,8 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -262,6 +292,8 @@ class _$_ExerciseFormInit implements _ExerciseFormInit {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -346,6 +378,8 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -356,6 +390,8 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -370,6 +406,8 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -390,6 +428,8 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -400,6 +440,8 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -414,6 +456,8 @@ class _$_ExerciseNamedChanged implements _ExerciseNamedChanged {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -435,6 +479,339 @@ abstract class _ExerciseNamedChanged implements ExerciseFormEvent {
 
   String get name;
   _$ExerciseNamedChangedCopyWith<_ExerciseNamedChanged> get copyWith;
+}
+
+abstract class _$ExerciseThumbnailPathChangedCopyWith<$Res> {
+  factory _$ExerciseThumbnailPathChangedCopyWith(
+          _ExerciseThumbnailPathChanged value,
+          $Res Function(_ExerciseThumbnailPathChanged) then) =
+      __$ExerciseThumbnailPathChangedCopyWithImpl<$Res>;
+  $Res call({String path});
+}
+
+class __$ExerciseThumbnailPathChangedCopyWithImpl<$Res>
+    extends _$ExerciseFormEventCopyWithImpl<$Res>
+    implements _$ExerciseThumbnailPathChangedCopyWith<$Res> {
+  __$ExerciseThumbnailPathChangedCopyWithImpl(
+      _ExerciseThumbnailPathChanged _value,
+      $Res Function(_ExerciseThumbnailPathChanged) _then)
+      : super(_value, (v) => _then(v as _ExerciseThumbnailPathChanged));
+
+  @override
+  _ExerciseThumbnailPathChanged get _value =>
+      super._value as _ExerciseThumbnailPathChanged;
+
+  @override
+  $Res call({
+    Object path = freezed,
+  }) {
+    return _then(_ExerciseThumbnailPathChanged(
+      path == freezed ? _value.path : path as String,
+    ));
+  }
+}
+
+class _$_ExerciseThumbnailPathChanged implements _ExerciseThumbnailPathChanged {
+  const _$_ExerciseThumbnailPathChanged(this.path) : assert(path != null);
+
+  @override
+  final String path;
+
+  @override
+  String toString() {
+    return 'ExerciseFormEvent.thumbnailPathChanged(path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ExerciseThumbnailPathChanged &&
+            (identical(other.path, path) ||
+                const DeepCollectionEquality().equals(other.path, path)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(path);
+
+  @override
+  _$ExerciseThumbnailPathChangedCopyWith<_ExerciseThumbnailPathChanged>
+      get copyWith => __$ExerciseThumbnailPathChangedCopyWithImpl<
+          _ExerciseThumbnailPathChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result init(Option<Exercise> exerciseOption),
+    @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
+    @required Result added(),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
+    assert(added != null);
+    return thumbnailPathChanged(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result init(Option<Exercise> exerciseOption),
+    Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
+    Result added(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (thumbnailPathChanged != null) {
+      return thumbnailPathChanged(path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result init(_ExerciseFormInit value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
+    @required Result added(_ExerciseAdded value),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
+    assert(added != null);
+    return thumbnailPathChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result init(_ExerciseFormInit value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
+    Result added(_ExerciseAdded value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (thumbnailPathChanged != null) {
+      return thumbnailPathChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ExerciseThumbnailPathChanged implements ExerciseFormEvent {
+  const factory _ExerciseThumbnailPathChanged(String path) =
+      _$_ExerciseThumbnailPathChanged;
+
+  String get path;
+  _$ExerciseThumbnailPathChangedCopyWith<_ExerciseThumbnailPathChanged>
+      get copyWith;
+}
+
+abstract class _$ExerciseVideoPathChangedCopyWith<$Res> {
+  factory _$ExerciseVideoPathChangedCopyWith(_ExerciseVideoPathChanged value,
+          $Res Function(_ExerciseVideoPathChanged) then) =
+      __$ExerciseVideoPathChangedCopyWithImpl<$Res>;
+  $Res call({String path});
+}
+
+class __$ExerciseVideoPathChangedCopyWithImpl<$Res>
+    extends _$ExerciseFormEventCopyWithImpl<$Res>
+    implements _$ExerciseVideoPathChangedCopyWith<$Res> {
+  __$ExerciseVideoPathChangedCopyWithImpl(_ExerciseVideoPathChanged _value,
+      $Res Function(_ExerciseVideoPathChanged) _then)
+      : super(_value, (v) => _then(v as _ExerciseVideoPathChanged));
+
+  @override
+  _ExerciseVideoPathChanged get _value =>
+      super._value as _ExerciseVideoPathChanged;
+
+  @override
+  $Res call({
+    Object path = freezed,
+  }) {
+    return _then(_ExerciseVideoPathChanged(
+      path == freezed ? _value.path : path as String,
+    ));
+  }
+}
+
+class _$_ExerciseVideoPathChanged implements _ExerciseVideoPathChanged {
+  const _$_ExerciseVideoPathChanged(this.path) : assert(path != null);
+
+  @override
+  final String path;
+
+  @override
+  String toString() {
+    return 'ExerciseFormEvent.videoPathChanged(path: $path)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ExerciseVideoPathChanged &&
+            (identical(other.path, path) ||
+                const DeepCollectionEquality().equals(other.path, path)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(path);
+
+  @override
+  _$ExerciseVideoPathChangedCopyWith<_ExerciseVideoPathChanged> get copyWith =>
+      __$ExerciseVideoPathChangedCopyWithImpl<_ExerciseVideoPathChanged>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result init(Option<Exercise> exerciseOption),
+    @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
+    @required Result levelsChanged(List<ExerciseLevel> levels),
+    @required Result toolsChanged(List<ExerciseTool> tools),
+    @required Result typesChanged(List<ExerciseType> types),
+    @required Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    @required
+        Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
+    @required Result added(),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
+    assert(added != null);
+    return videoPathChanged(path);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result init(Option<Exercise> exerciseOption),
+    Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
+    Result levelsChanged(List<ExerciseLevel> levels),
+    Result toolsChanged(List<ExerciseTool> tools),
+    Result typesChanged(List<ExerciseType> types),
+    Result primaryTargetsChanged(List<ExerciseTarget> primaryTargets),
+    Result secondaryTargetsChanged(List<ExerciseTarget> secondaryTargets),
+    Result added(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (videoPathChanged != null) {
+      return videoPathChanged(path);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result init(_ExerciseFormInit value),
+    @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
+    @required Result levelsChanged(_ExerciseLevelChanged value),
+    @required Result toolsChanged(_ExerciseToolChanged value),
+    @required Result typesChanged(_ExerciseTypeChanged value),
+    @required Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    @required
+        Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
+    @required Result added(_ExerciseAdded value),
+  }) {
+    assert(init != null);
+    assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
+    assert(levelsChanged != null);
+    assert(toolsChanged != null);
+    assert(typesChanged != null);
+    assert(primaryTargetsChanged != null);
+    assert(secondaryTargetsChanged != null);
+    assert(added != null);
+    return videoPathChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result init(_ExerciseFormInit value),
+    Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
+    Result levelsChanged(_ExerciseLevelChanged value),
+    Result toolsChanged(_ExerciseToolChanged value),
+    Result typesChanged(_ExerciseTypeChanged value),
+    Result primaryTargetsChanged(_ExercisePrimaryTargetChanged value),
+    Result secondaryTargetsChanged(_ExerciseSecondaryTargetChanged value),
+    Result added(_ExerciseAdded value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (videoPathChanged != null) {
+      return videoPathChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ExerciseVideoPathChanged implements ExerciseFormEvent {
+  const factory _ExerciseVideoPathChanged(String path) =
+      _$_ExerciseVideoPathChanged;
+
+  String get path;
+  _$ExerciseVideoPathChangedCopyWith<_ExerciseVideoPathChanged> get copyWith;
 }
 
 abstract class _$ExerciseLevelChangedCopyWith<$Res> {
@@ -497,6 +874,8 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -507,6 +886,8 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -521,6 +902,8 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -541,6 +924,8 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -551,6 +936,8 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -565,6 +952,8 @@ class _$_ExerciseLevelChanged implements _ExerciseLevelChanged {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -649,6 +1038,8 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -659,6 +1050,8 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -673,6 +1066,8 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -693,6 +1088,8 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -703,6 +1100,8 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -717,6 +1116,8 @@ class _$_ExerciseToolChanged implements _ExerciseToolChanged {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -801,6 +1202,8 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -811,6 +1214,8 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -825,6 +1230,8 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -845,6 +1252,8 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -855,6 +1264,8 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -869,6 +1280,8 @@ class _$_ExerciseTypeChanged implements _ExerciseTypeChanged {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -961,6 +1374,8 @@ class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -971,6 +1386,8 @@ class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -985,6 +1402,8 @@ class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -1005,6 +1424,8 @@ class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -1015,6 +1436,8 @@ class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -1029,6 +1452,8 @@ class _$_ExercisePrimaryTargetChanged implements _ExercisePrimaryTargetChanged {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -1123,6 +1548,8 @@ class _$_ExerciseSecondaryTargetChanged
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -1133,6 +1560,8 @@ class _$_ExerciseSecondaryTargetChanged
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -1147,6 +1576,8 @@ class _$_ExerciseSecondaryTargetChanged
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -1167,6 +1598,8 @@ class _$_ExerciseSecondaryTargetChanged
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -1177,6 +1610,8 @@ class _$_ExerciseSecondaryTargetChanged
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -1191,6 +1626,8 @@ class _$_ExerciseSecondaryTargetChanged
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),
@@ -1255,6 +1692,8 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   Result when<Result extends Object>({
     @required Result init(Option<Exercise> exerciseOption),
     @required Result nameChanged(String name),
+    @required Result thumbnailPathChanged(String path),
+    @required Result videoPathChanged(String path),
     @required Result levelsChanged(List<ExerciseLevel> levels),
     @required Result toolsChanged(List<ExerciseTool> tools),
     @required Result typesChanged(List<ExerciseType> types),
@@ -1265,6 +1704,8 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -1279,6 +1720,8 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   Result maybeWhen<Result extends Object>({
     Result init(Option<Exercise> exerciseOption),
     Result nameChanged(String name),
+    Result thumbnailPathChanged(String path),
+    Result videoPathChanged(String path),
     Result levelsChanged(List<ExerciseLevel> levels),
     Result toolsChanged(List<ExerciseTool> tools),
     Result typesChanged(List<ExerciseType> types),
@@ -1299,6 +1742,8 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   Result map<Result extends Object>({
     @required Result init(_ExerciseFormInit value),
     @required Result nameChanged(_ExerciseNamedChanged value),
+    @required Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    @required Result videoPathChanged(_ExerciseVideoPathChanged value),
     @required Result levelsChanged(_ExerciseLevelChanged value),
     @required Result toolsChanged(_ExerciseToolChanged value),
     @required Result typesChanged(_ExerciseTypeChanged value),
@@ -1309,6 +1754,8 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   }) {
     assert(init != null);
     assert(nameChanged != null);
+    assert(thumbnailPathChanged != null);
+    assert(videoPathChanged != null);
     assert(levelsChanged != null);
     assert(toolsChanged != null);
     assert(typesChanged != null);
@@ -1323,6 +1770,8 @@ class _$_ExerciseAdded implements _ExerciseAdded {
   Result maybeMap<Result extends Object>({
     Result init(_ExerciseFormInit value),
     Result nameChanged(_ExerciseNamedChanged value),
+    Result thumbnailPathChanged(_ExerciseThumbnailPathChanged value),
+    Result videoPathChanged(_ExerciseVideoPathChanged value),
     Result levelsChanged(_ExerciseLevelChanged value),
     Result toolsChanged(_ExerciseToolChanged value),
     Result typesChanged(_ExerciseTypeChanged value),

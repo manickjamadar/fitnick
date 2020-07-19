@@ -6,6 +6,10 @@ abstract class ExerciseFormEvent with _$ExerciseFormEvent {
       _ExerciseFormInit;
   const factory ExerciseFormEvent.nameChanged(String name) =
       _ExerciseNamedChanged;
+  const factory ExerciseFormEvent.thumbnailPathChanged(String path) =
+      _ExerciseThumbnailPathChanged;
+  const factory ExerciseFormEvent.videoPathChanged(String path) =
+      _ExerciseVideoPathChanged;
   const factory ExerciseFormEvent.levelsChanged(List<ExerciseLevel> levels) =
       _ExerciseLevelChanged;
   const factory ExerciseFormEvent.toolsChanged(List<ExerciseTool> tools) =

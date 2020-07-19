@@ -34,6 +34,8 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
         typesChanged: _bindTypesChangedToState,
         primaryTargetsChanged: _bindPrimaryTargetsToState,
         secondaryTargetsChanged: _bindSecondaryTargetsToState,
+        thumbnailPathChanged: _bindThumbnailPathChangedToState,
+        videoPathChanged: _bindVideoPathChangedToState,
         added: _bindExerciseAddedToState);
   }
 
@@ -84,6 +86,19 @@ class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
     yield state.copyWith(
         exercise:
             state.exercise.copyWith(secondaryTargets: [...secondaryTargets]),
+        addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindThumbnailPathChangedToState(
+      String path) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(thumbnailPath: Some(path)),
+        addStatus: none());
+  }
+
+  Stream<ExerciseFormState> _bindVideoPathChangedToState(String path) async* {
+    yield state.copyWith(
+        exercise: state.exercise.copyWith(videoPath: Some(path)),
         addStatus: none());
   }
 
