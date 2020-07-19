@@ -42,7 +42,9 @@ class FilteredExerciseBloc
     }
     if (searchTerm.isEmpty) {
       yield state.copyWith(
-          isLoading: false, exercises: Some([...mainExercises]));
+          searchTerm: "",
+          isLoading: false,
+          exercises: Some([...mainExercises]));
       return;
     }
     final filteredExercises = mainExercises
