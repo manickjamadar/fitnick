@@ -13,10 +13,6 @@ class VideoPreview extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            // border: Border.all(color: Colors.grey)
-          ),
           child: videoPath == null
               ? buildNoVideoPreview()
               : VideoViewer(
@@ -29,8 +25,11 @@ class VideoPreview extends StatelessWidget {
   }
 
   Widget buildNoVideoPreview() {
-    return Center(
-      child: Text("No Video available"),
+    return Container(
+      color: Colors.grey[300],
+      child: Center(
+        child: Text("No Video available"),
+      ),
     );
   }
 }
