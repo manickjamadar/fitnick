@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class LevelFlash extends StatelessWidget {
   final ExerciseLevel level;
-
-  const LevelFlash({Key key, @required this.level}) : super(key: key);
+  final double size;
+  const LevelFlash({Key key, @required this.level, this.size = 16})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     List<bool> activeColors;
@@ -20,9 +21,10 @@ class LevelFlash extends StatelessWidget {
       activeColors = [false, false, false];
     }
     return Row(
+        mainAxisSize: MainAxisSize.min,
         children: activeColors
             .map((isActivecolor) => Icon(Icons.flash_on,
-                size: 16, color: isActivecolor ? activeColor : Colors.grey))
+                size: size, color: isActivecolor ? activeColor : Colors.grey))
             .toList());
   }
 }
