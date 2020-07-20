@@ -1,7 +1,8 @@
 import 'package:fitnick/application/workout/workout_running/workout_running_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
-import 'package:fitnick/presentation/screens/workout_running_screen/widgets/exercise_runner_viewer.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,23 +15,79 @@ class WorkoutRunningScreen extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(workout.name.safeValue.capitalize()),
-      ),
-      body: BlocConsumer<WorkoutRunningBloc, WorkoutRunningState>(
+    return BlocConsumer<WorkoutRunningBloc, WorkoutRunningState>(
         listener: (_, state) {
-          if (state.isCompleted) {
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) {
-          return state.currentIndex.fold(
-              () => buildNoExercise(),
-              (int index) =>
-                  buildExerciseRunner(context, _currentExercise(index), state));
-        },
+      if (state.isCompleted) {
+        Navigator.pop(context);
+      }
+    }, builder: (context, state) {
+      return Stack(
+        children: <Widget>[
+          buildBody(state, context),
+          if (state.isResting) buildRestPreview(state, context)
+        ],
+      );
+    });
+  }
+
+  Scaffold buildBody(WorkoutRunningState state, BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Text(workout.name.safeValue.capitalize(),
+              style: TextStyle(color: Colors.black)),
+        ),
+        body: state.currentIndex.fold(
+            () => buildNoExercise(),
+            (int index) =>
+                buildExerciseRunner(context, _currentExercise(index), state)));
+  }
+
+  Scaffold buildRestPreview(WorkoutRunningState state, BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        color: Colors.black.withOpacity(0.8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("Rest", style: TextStyle(color: Colors.white, fontSize: 40)),
+            buildSpace(),
+            Text("${_printRest(state.rest)}",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                )),
+            buildSpace(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    color: Colors.green,
+                    child: Text("Again", style: TextStyle(color: Colors.white)),
+                    onPressed: () => onPlayOrPause(context),
+                  ),
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    color: Colors.orange[800],
+                    child: Text(state.hasNextExercise ? "Next" : "Complete",
+                        style: TextStyle(color: Colors.white)),
+                    onPressed: () => _onNextButtonTap(context, state),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -47,63 +104,90 @@ class WorkoutRunningScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: <Widget>[
-          Text("Total Rest: ${_printRest(state.totalRest)}"),
-          SizedBox(
-            height: 10,
-          ),
-          ExerciseRunnerViewer(
-            exercise: exercise,
-          ),
+          VideoPreview(path: exercise.videoPath),
+          buildSpace(),
+          Text(exercise.name.safeValue.capitalize(),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          buildSpace(),
+          LevelFlash(level: exercise.levels.first, size: 22),
           Spacer(),
-          if (state.isResting)
-            Text(
-              "Rest : ${_printRest(state.rest)}",
-              style: TextStyle(color: Colors.red, fontSize: 28),
-            ),
-          buildRunnerController(context, state),
+          buildController2(context, state)
         ],
       ),
     );
   }
 
-  Widget buildRunnerController(
-      BuildContext context, WorkoutRunningState state) {
-    return Container(
-      // color: Colors.red,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                size: 40,
-              ),
+  Widget buildSpace() {
+    return SizedBox(
+      height: 10,
+    );
+  }
+
+  Widget buildController2(BuildContext context, WorkoutRunningState state) {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          width: 160,
+          height: 40,
+          child: buildPlayButton(context, state),
+        ),
+        buildSpace(),
+        Text(
+          "Total Rest : ${_printRest(state.totalRest)}",
+          style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontSize: 12,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.bold),
+        ),
+        buildSpace(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            FlatButton(
+              child: Text("Previous", style: TextStyle(color: Colors.grey)),
               onPressed:
                   state.hasPreviousExercise ? () => _onPrevious(context) : null,
-              iconSize: 40),
-          if (state.isResting || !state.hasNextExercise)
-            CircleAvatar(
-              child: IconButton(
-                onPressed: () => _onStop(context),
-                icon: Icon(Icons.stop),
-              ),
             ),
-          IconButton(
-              iconSize: 100,
-              onPressed: () => onPlayOrPause(context),
-              icon: Icon(state.isResting ? Icons.play_arrow : Icons.pause,
-                  size: 50)),
-          IconButton(
-              icon: Icon(
-                Icons.arrow_forward_ios,
-                size: 40,
+            FlatButton(
+              child: Text(
+                state.hasNextExercise ? "Next" : "Complete",
               ),
-              onPressed: state.hasNextExercise ? () => _onNext(context) : null,
-              iconSize: 40),
+              onPressed: () => _onNextButtonTap(context, state),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  RaisedButton buildPlayButton(
+      BuildContext context, WorkoutRunningState state) {
+    return RaisedButton(
+      color: Colors.orange,
+      textColor: Colors.white,
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          (state.isResting) ? Icon(Icons.play_arrow) : Icon(Icons.pause),
+          SizedBox(
+            width: 8,
+          ),
+          state.isResting ? Text("Resting") : Text("Running")
         ],
       ),
+      onPressed: () => onPlayOrPause(context),
     );
+  }
+
+  void _onNextButtonTap(BuildContext context, WorkoutRunningState state) {
+    if (state.hasNextExercise) {
+      _onNext(context);
+    } else {
+      _onStop(context);
+    }
   }
 
   void _onStop(BuildContext context) {
