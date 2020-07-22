@@ -6,4 +6,6 @@ abstract class FilteredExerciseEvent with _$FilteredExerciseEvent {
       _Searched;
   const factory FilteredExerciseEvent.refreshed(
       {@required List<Exercise> exercises}) = _Refreshed;
+  const factory FilteredExerciseEvent.filtered(Exercise exercise) = _Filtered;
+  const factory FilteredExerciseEvent.resetFiltered() = _ResetFiltered;
 }

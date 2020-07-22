@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/domain/exercise/value_object/exercise_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'filtered_exercise_event.dart';
@@ -32,7 +34,10 @@ class FilteredExerciseBloc
     FilteredExerciseEvent event,
   ) async* {
     yield* event.when(
-        searched: _mapSearchedToState, refreshed: _mapRefreshedToState);
+        searched: _mapSearchedToState,
+        refreshed: _mapRefreshedToState,
+        filtered: _mapFilteredToState,
+        resetFiltered: _mapResetFilteredToState);
   }
 
   Stream<FilteredExerciseState> _mapSearchedToState(String searchTerm) async* {
@@ -62,6 +67,14 @@ class FilteredExerciseBloc
     yield state.copyWith(
         isLoading: false,
         exercises: exercises.isEmpty ? none() : Some(exercises));
+  }
+
+  Stream<FilteredExerciseState> _mapFilteredToState(Exercise exercise) async* {
+    yield state.copyWith(filteredExercise: exercise);
+  }
+
+  Stream<FilteredExerciseState> _mapResetFilteredToState() async* {
+    yield state.copyWith(filteredExercise: Exercise.empty());
   }
 
   @override

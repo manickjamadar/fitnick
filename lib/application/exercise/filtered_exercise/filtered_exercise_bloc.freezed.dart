@@ -23,6 +23,16 @@ class _$FilteredExerciseEventTearOff {
       exercises: exercises,
     );
   }
+
+  _Filtered filtered(Exercise exercise) {
+    return _Filtered(
+      exercise,
+    );
+  }
+
+  _ResetFiltered resetFiltered() {
+    return const _ResetFiltered();
+  }
 }
 
 // ignore: unused_element
@@ -33,22 +43,30 @@ mixin _$FilteredExerciseEvent {
   Result when<Result extends Object>({
     @required Result searched(String term),
     @required Result refreshed(List<Exercise> exercises),
+    @required Result filtered(Exercise exercise),
+    @required Result resetFiltered(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result searched(String term),
     Result refreshed(List<Exercise> exercises),
+    Result filtered(Exercise exercise),
+    Result resetFiltered(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result searched(_Searched value),
     @required Result refreshed(_Refreshed value),
+    @required Result filtered(_Filtered value),
+    @required Result resetFiltered(_ResetFiltered value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result searched(_Searched value),
     Result refreshed(_Refreshed value),
+    Result filtered(_Filtered value),
+    Result resetFiltered(_ResetFiltered value),
     @required Result orElse(),
   });
 }
@@ -125,9 +143,13 @@ class _$_Searched implements _Searched {
   Result when<Result extends Object>({
     @required Result searched(String term),
     @required Result refreshed(List<Exercise> exercises),
+    @required Result filtered(Exercise exercise),
+    @required Result resetFiltered(),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
     return searched(term);
   }
 
@@ -136,6 +158,8 @@ class _$_Searched implements _Searched {
   Result maybeWhen<Result extends Object>({
     Result searched(String term),
     Result refreshed(List<Exercise> exercises),
+    Result filtered(Exercise exercise),
+    Result resetFiltered(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -150,9 +174,13 @@ class _$_Searched implements _Searched {
   Result map<Result extends Object>({
     @required Result searched(_Searched value),
     @required Result refreshed(_Refreshed value),
+    @required Result filtered(_Filtered value),
+    @required Result resetFiltered(_ResetFiltered value),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
     return searched(this);
   }
 
@@ -161,6 +189,8 @@ class _$_Searched implements _Searched {
   Result maybeMap<Result extends Object>({
     Result searched(_Searched value),
     Result refreshed(_Refreshed value),
+    Result filtered(_Filtered value),
+    Result resetFiltered(_ResetFiltered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -238,9 +268,13 @@ class _$_Refreshed implements _Refreshed {
   Result when<Result extends Object>({
     @required Result searched(String term),
     @required Result refreshed(List<Exercise> exercises),
+    @required Result filtered(Exercise exercise),
+    @required Result resetFiltered(),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
     return refreshed(exercises);
   }
 
@@ -249,6 +283,8 @@ class _$_Refreshed implements _Refreshed {
   Result maybeWhen<Result extends Object>({
     Result searched(String term),
     Result refreshed(List<Exercise> exercises),
+    Result filtered(Exercise exercise),
+    Result resetFiltered(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -263,9 +299,13 @@ class _$_Refreshed implements _Refreshed {
   Result map<Result extends Object>({
     @required Result searched(_Searched value),
     @required Result refreshed(_Refreshed value),
+    @required Result filtered(_Filtered value),
+    @required Result resetFiltered(_ResetFiltered value),
   }) {
     assert(searched != null);
     assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
     return refreshed(this);
   }
 
@@ -274,6 +314,8 @@ class _$_Refreshed implements _Refreshed {
   Result maybeMap<Result extends Object>({
     Result searched(_Searched value),
     Result refreshed(_Refreshed value),
+    Result filtered(_Filtered value),
+    Result resetFiltered(_ResetFiltered value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -291,17 +333,254 @@ abstract class _Refreshed implements FilteredExerciseEvent {
   _$RefreshedCopyWith<_Refreshed> get copyWith;
 }
 
+abstract class _$FilteredCopyWith<$Res> {
+  factory _$FilteredCopyWith(_Filtered value, $Res Function(_Filtered) then) =
+      __$FilteredCopyWithImpl<$Res>;
+  $Res call({Exercise exercise});
+
+  $ExerciseCopyWith<$Res> get exercise;
+}
+
+class __$FilteredCopyWithImpl<$Res>
+    extends _$FilteredExerciseEventCopyWithImpl<$Res>
+    implements _$FilteredCopyWith<$Res> {
+  __$FilteredCopyWithImpl(_Filtered _value, $Res Function(_Filtered) _then)
+      : super(_value, (v) => _then(v as _Filtered));
+
+  @override
+  _Filtered get _value => super._value as _Filtered;
+
+  @override
+  $Res call({
+    Object exercise = freezed,
+  }) {
+    return _then(_Filtered(
+      exercise == freezed ? _value.exercise : exercise as Exercise,
+    ));
+  }
+
+  @override
+  $ExerciseCopyWith<$Res> get exercise {
+    if (_value.exercise == null) {
+      return null;
+    }
+    return $ExerciseCopyWith<$Res>(_value.exercise, (value) {
+      return _then(_value.copyWith(exercise: value));
+    });
+  }
+}
+
+class _$_Filtered implements _Filtered {
+  const _$_Filtered(this.exercise) : assert(exercise != null);
+
+  @override
+  final Exercise exercise;
+
+  @override
+  String toString() {
+    return 'FilteredExerciseEvent.filtered(exercise: $exercise)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Filtered &&
+            (identical(other.exercise, exercise) ||
+                const DeepCollectionEquality()
+                    .equals(other.exercise, exercise)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exercise);
+
+  @override
+  _$FilteredCopyWith<_Filtered> get copyWith =>
+      __$FilteredCopyWithImpl<_Filtered>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result searched(String term),
+    @required Result refreshed(List<Exercise> exercises),
+    @required Result filtered(Exercise exercise),
+    @required Result resetFiltered(),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
+    return filtered(exercise);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result searched(String term),
+    Result refreshed(List<Exercise> exercises),
+    Result filtered(Exercise exercise),
+    Result resetFiltered(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (filtered != null) {
+      return filtered(exercise);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result searched(_Searched value),
+    @required Result refreshed(_Refreshed value),
+    @required Result filtered(_Filtered value),
+    @required Result resetFiltered(_ResetFiltered value),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
+    return filtered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result searched(_Searched value),
+    Result refreshed(_Refreshed value),
+    Result filtered(_Filtered value),
+    Result resetFiltered(_ResetFiltered value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (filtered != null) {
+      return filtered(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Filtered implements FilteredExerciseEvent {
+  const factory _Filtered(Exercise exercise) = _$_Filtered;
+
+  Exercise get exercise;
+  _$FilteredCopyWith<_Filtered> get copyWith;
+}
+
+abstract class _$ResetFilteredCopyWith<$Res> {
+  factory _$ResetFilteredCopyWith(
+          _ResetFiltered value, $Res Function(_ResetFiltered) then) =
+      __$ResetFilteredCopyWithImpl<$Res>;
+}
+
+class __$ResetFilteredCopyWithImpl<$Res>
+    extends _$FilteredExerciseEventCopyWithImpl<$Res>
+    implements _$ResetFilteredCopyWith<$Res> {
+  __$ResetFilteredCopyWithImpl(
+      _ResetFiltered _value, $Res Function(_ResetFiltered) _then)
+      : super(_value, (v) => _then(v as _ResetFiltered));
+
+  @override
+  _ResetFiltered get _value => super._value as _ResetFiltered;
+}
+
+class _$_ResetFiltered implements _ResetFiltered {
+  const _$_ResetFiltered();
+
+  @override
+  String toString() {
+    return 'FilteredExerciseEvent.resetFiltered()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ResetFiltered);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result searched(String term),
+    @required Result refreshed(List<Exercise> exercises),
+    @required Result filtered(Exercise exercise),
+    @required Result resetFiltered(),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
+    return resetFiltered();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result searched(String term),
+    Result refreshed(List<Exercise> exercises),
+    Result filtered(Exercise exercise),
+    Result resetFiltered(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resetFiltered != null) {
+      return resetFiltered();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result searched(_Searched value),
+    @required Result refreshed(_Refreshed value),
+    @required Result filtered(_Filtered value),
+    @required Result resetFiltered(_ResetFiltered value),
+  }) {
+    assert(searched != null);
+    assert(refreshed != null);
+    assert(filtered != null);
+    assert(resetFiltered != null);
+    return resetFiltered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result searched(_Searched value),
+    Result refreshed(_Refreshed value),
+    Result filtered(_Filtered value),
+    Result resetFiltered(_ResetFiltered value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resetFiltered != null) {
+      return resetFiltered(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetFiltered implements FilteredExerciseEvent {
+  const factory _ResetFiltered() = _$_ResetFiltered;
+}
+
 class _$FilteredExerciseStateTearOff {
   const _$FilteredExerciseStateTearOff();
 
   _FilteredExerciseState call(
       {@required Option<List<Exercise>> exercises,
       @required String searchTerm,
-      @required bool isLoading}) {
+      @required bool isLoading,
+      @required Exercise filteredExercise}) {
     return _FilteredExerciseState(
       exercises: exercises,
       searchTerm: searchTerm,
       isLoading: isLoading,
+      filteredExercise: filteredExercise,
     );
   }
 }
@@ -313,6 +592,7 @@ mixin _$FilteredExerciseState {
   Option<List<Exercise>> get exercises;
   String get searchTerm;
   bool get isLoading;
+  Exercise get filteredExercise;
 
   $FilteredExerciseStateCopyWith<FilteredExerciseState> get copyWith;
 }
@@ -322,7 +602,12 @@ abstract class $FilteredExerciseStateCopyWith<$Res> {
           $Res Function(FilteredExerciseState) then) =
       _$FilteredExerciseStateCopyWithImpl<$Res>;
   $Res call(
-      {Option<List<Exercise>> exercises, String searchTerm, bool isLoading});
+      {Option<List<Exercise>> exercises,
+      String searchTerm,
+      bool isLoading,
+      Exercise filteredExercise});
+
+  $ExerciseCopyWith<$Res> get filteredExercise;
 }
 
 class _$FilteredExerciseStateCopyWithImpl<$Res>
@@ -338,6 +623,7 @@ class _$FilteredExerciseStateCopyWithImpl<$Res>
     Object exercises = freezed,
     Object searchTerm = freezed,
     Object isLoading = freezed,
+    Object filteredExercise = freezed,
   }) {
     return _then(_value.copyWith(
       exercises: exercises == freezed
@@ -346,7 +632,20 @@ class _$FilteredExerciseStateCopyWithImpl<$Res>
       searchTerm:
           searchTerm == freezed ? _value.searchTerm : searchTerm as String,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
+      filteredExercise: filteredExercise == freezed
+          ? _value.filteredExercise
+          : filteredExercise as Exercise,
     ));
+  }
+
+  @override
+  $ExerciseCopyWith<$Res> get filteredExercise {
+    if (_value.filteredExercise == null) {
+      return null;
+    }
+    return $ExerciseCopyWith<$Res>(_value.filteredExercise, (value) {
+      return _then(_value.copyWith(filteredExercise: value));
+    });
   }
 }
 
@@ -357,7 +656,13 @@ abstract class _$FilteredExerciseStateCopyWith<$Res>
       __$FilteredExerciseStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Option<List<Exercise>> exercises, String searchTerm, bool isLoading});
+      {Option<List<Exercise>> exercises,
+      String searchTerm,
+      bool isLoading,
+      Exercise filteredExercise});
+
+  @override
+  $ExerciseCopyWith<$Res> get filteredExercise;
 }
 
 class __$FilteredExerciseStateCopyWithImpl<$Res>
@@ -375,6 +680,7 @@ class __$FilteredExerciseStateCopyWithImpl<$Res>
     Object exercises = freezed,
     Object searchTerm = freezed,
     Object isLoading = freezed,
+    Object filteredExercise = freezed,
   }) {
     return _then(_FilteredExerciseState(
       exercises: exercises == freezed
@@ -383,18 +689,24 @@ class __$FilteredExerciseStateCopyWithImpl<$Res>
       searchTerm:
           searchTerm == freezed ? _value.searchTerm : searchTerm as String,
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
+      filteredExercise: filteredExercise == freezed
+          ? _value.filteredExercise
+          : filteredExercise as Exercise,
     ));
   }
 }
 
-class _$_FilteredExerciseState implements _FilteredExerciseState {
+class _$_FilteredExerciseState extends _FilteredExerciseState {
   const _$_FilteredExerciseState(
       {@required this.exercises,
       @required this.searchTerm,
-      @required this.isLoading})
+      @required this.isLoading,
+      @required this.filteredExercise})
       : assert(exercises != null),
         assert(searchTerm != null),
-        assert(isLoading != null);
+        assert(isLoading != null),
+        assert(filteredExercise != null),
+        super._();
 
   @override
   final Option<List<Exercise>> exercises;
@@ -402,10 +714,12 @@ class _$_FilteredExerciseState implements _FilteredExerciseState {
   final String searchTerm;
   @override
   final bool isLoading;
+  @override
+  final Exercise filteredExercise;
 
   @override
   String toString() {
-    return 'FilteredExerciseState(exercises: $exercises, searchTerm: $searchTerm, isLoading: $isLoading)';
+    return 'FilteredExerciseState(exercises: $exercises, searchTerm: $searchTerm, isLoading: $isLoading, filteredExercise: $filteredExercise)';
   }
 
   @override
@@ -420,7 +734,10 @@ class _$_FilteredExerciseState implements _FilteredExerciseState {
                     .equals(other.searchTerm, searchTerm)) &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.filteredExercise, filteredExercise) ||
+                const DeepCollectionEquality()
+                    .equals(other.filteredExercise, filteredExercise)));
   }
 
   @override
@@ -428,7 +745,8 @@ class _$_FilteredExerciseState implements _FilteredExerciseState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(exercises) ^
       const DeepCollectionEquality().hash(searchTerm) ^
-      const DeepCollectionEquality().hash(isLoading);
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(filteredExercise);
 
   @override
   _$FilteredExerciseStateCopyWith<_FilteredExerciseState> get copyWith =>
@@ -436,11 +754,13 @@ class _$_FilteredExerciseState implements _FilteredExerciseState {
           this, _$identity);
 }
 
-abstract class _FilteredExerciseState implements FilteredExerciseState {
+abstract class _FilteredExerciseState extends FilteredExerciseState {
+  const _FilteredExerciseState._() : super._();
   const factory _FilteredExerciseState(
       {@required Option<List<Exercise>> exercises,
       @required String searchTerm,
-      @required bool isLoading}) = _$_FilteredExerciseState;
+      @required bool isLoading,
+      @required Exercise filteredExercise}) = _$_FilteredExerciseState;
 
   @override
   Option<List<Exercise>> get exercises;
@@ -448,6 +768,8 @@ abstract class _FilteredExerciseState implements FilteredExerciseState {
   String get searchTerm;
   @override
   bool get isLoading;
+  @override
+  Exercise get filteredExercise;
   @override
   _$FilteredExerciseStateCopyWith<_FilteredExerciseState> get copyWith;
 }
