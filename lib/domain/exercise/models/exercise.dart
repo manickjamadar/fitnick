@@ -37,6 +37,18 @@ abstract class Exercise implements _$Exercise {
         primaryTargets: [ExerciseTarget.fullBody],
         secondaryTargets: []);
   }
+  factory Exercise.empty() {
+    return Exercise(
+        id: UniqueId(),
+        name: ExerciseName(""),
+        videoPath: none(),
+        thumbnailPath: none(),
+        levels: [],
+        primaryTargets: [],
+        secondaryTargets: [],
+        tools: [],
+        types: []);
+  }
   Option<ValueFailure> failureOption() {
     if (levels.isEmpty ||
         tools.isEmpty ||
