@@ -6,5 +6,19 @@ List<Exercise> filterExerciseList(
   final levelFiltered = list
       .where((exercise) => exercise.levels.containsAll(filterExercise.levels))
       .toList();
-  return levelFiltered;
+  final toolFiltered = levelFiltered
+      .where((exercise) => exercise.tools.containsAll(filterExercise.tools))
+      .toList();
+  final typeFiltered = toolFiltered
+      .where((exercise) => exercise.types.containsAll(filterExercise.types))
+      .toList();
+  final primaryTargetFiltered = typeFiltered
+      .where((exercise) =>
+          exercise.primaryTargets.containsAll(filterExercise.primaryTargets))
+      .toList();
+  final secondaryTargetFiltered = primaryTargetFiltered
+      .where((exercise) => exercise.secondaryTargets
+          .containsAll(filterExercise.secondaryTargets))
+      .toList();
+  return secondaryTargetFiltered;
 }
