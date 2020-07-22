@@ -56,14 +56,16 @@ class FilteredExerciseBloc
         isLoading: false, exercises: exercisesOptionOf(mainExercises));
   }
 
-  Stream<FilteredExerciseState> _mapFilteredToState(Exercise exercise) async* {
+  Stream<FilteredExerciseState> _mapFilteredToState(
+      Exercise filteredExercise) async* {
     final searchedExercises =
         searchExerciseList(mainExercises, state.searchTerm);
+    final filteredExerciseList =
+        filterExerciseList(searchedExercises, filteredExercise);
     yield state.copyWith(
         isLoading: false,
-        filteredExercise: exercise,
-        exercises: exercisesOptionOf(
-            filterExerciseList(searchedExercises, state.filteredExercise)));
+        filteredExercise: filteredExercise,
+        exercises: exercisesOptionOf(filteredExerciseList));
   }
 
   Stream<FilteredExerciseState> _mapResetFilteredToState() async* {
