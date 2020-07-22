@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
-import 'package:fitnick/domain/core/unique_id.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/helpers/search_exercise_list.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/domain/exercise/value_object/exercise_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'filtered_exercise_event.dart';
@@ -41,24 +40,9 @@ class FilteredExerciseBloc
   }
 
   Stream<FilteredExerciseState> _mapSearchedToState(String searchTerm) async* {
-    if (mainExercises.isEmpty) {
-      yield state.copyWith(isLoading: false, exercises: none());
-      return;
-    }
-    if (searchTerm.isEmpty) {
-      yield state.copyWith(
-          searchTerm: "",
-          isLoading: false,
-          exercises: Some([...mainExercises]));
-      return;
-    }
-    final filteredExercises = mainExercises
-        .where((exercise) => exercise.name.safeValue
-            .contains(RegExp(searchTerm, caseSensitive: false)))
-        .toList();
     yield state.copyWith(
         isLoading: false,
-        exercises: Some(filteredExercises),
+        exercises: searchExerciseList(mainExercises, searchTerm),
         searchTerm: searchTerm);
   }
 
