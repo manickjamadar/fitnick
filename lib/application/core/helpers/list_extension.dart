@@ -21,4 +21,8 @@ extension ListX<T> on List<T> {
         cleanedList.map((t) => list.firstWhere((p) => test(t, p))).toList();
     return filteredList;
   }
+
+  bool containsAll(List<T> list) {
+    return list.every((element) => this.contains(element));
+  }
 }
