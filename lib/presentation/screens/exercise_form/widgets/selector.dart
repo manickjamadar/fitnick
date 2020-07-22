@@ -1,7 +1,7 @@
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector_chip.dart';
 import 'package:flutter/material.dart';
 
-class Selector<T> extends StatefulWidget {
+class Selector<T> extends StatelessWidget {
   final String title;
   final List<T> options;
   final String Function(T option) optionLabel;
@@ -19,18 +19,12 @@ class Selector<T> extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SelectorState<T> createState() => _SelectorState<T>();
-}
-
-class _SelectorState<T> extends State<Selector<T>> {
-  List<T> selectedValues = [];
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          widget.title,
+          title,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -40,11 +34,11 @@ class _SelectorState<T> extends State<Selector<T>> {
           child: Wrap(
             runSpacing: 10,
             spacing: 10,
-            children: widget.options
+            children: options
                 .map((option) => SelectorChip(
                       color: Theme.of(context).primaryColor,
-                      title: widget.optionLabel(option),
-                      selected: selectedValues.indexOf(option) != -1,
+                      title: optionLabel(option),
+                      selected: initialValues.indexOf(option) != -1,
                       onTap: () => onChipTap(option),
                     ))
                 .toList(),
@@ -55,28 +49,19 @@ class _SelectorState<T> extends State<Selector<T>> {
   }
 
   void onChipTap(T option) {
-    if (widget.selectMultiple) {
-      setState(() {
-        final optionIndex = selectedValues.indexOf(option);
-        if (optionIndex != -1) {
-          selectedValues.removeAt(optionIndex);
-        } else {
-          selectedValues.add(option);
-        }
-      });
+    List<T> selectedValues = [...initialValues];
+    if (selectMultiple) {
+      final optionIndex = selectedValues.indexOf(option);
+      if (optionIndex != -1) {
+        selectedValues.removeAt(optionIndex);
+      } else {
+        selectedValues.add(option);
+      }
     } else {
-      setState(() {
-        selectedValues = [option];
-      });
+      selectedValues = [option];
     }
-    if (widget.onSelect != null) {
-      widget.onSelect([...selectedValues]);
+    if (onSelect != null) {
+      onSelect([...selectedValues]);
     }
-  }
-
-  @override
-  void initState() {
-    selectedValues = [...widget.initialValues];
-    super.initState();
   }
 }
