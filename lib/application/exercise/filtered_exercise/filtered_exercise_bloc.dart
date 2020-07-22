@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/helpers/filter_exercise_list.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/helpers/search_exercise_list.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,7 +23,6 @@ class FilteredExerciseBloc
       state.maybeWhen(
           orElse: () {},
           loaded: (List<Exercise> exercises) {
-            mainExercises = [...exercises];
             add(FilteredExerciseEvent.refreshed(exercises: exercises));
           });
     });
@@ -40,30 +40,46 @@ class FilteredExerciseBloc
   }
 
   Stream<FilteredExerciseState> _mapSearchedToState(String searchTerm) async* {
+    final filteredExercise =
+        filterExerciseList(mainExercises, state.filteredExercise);
     yield state.copyWith(
         isLoading: false,
-        exercises: searchExerciseList(mainExercises, searchTerm),
+        exercises:
+            exercisesOptionOf(searchExerciseList(filteredExercise, searchTerm)),
         searchTerm: searchTerm);
   }
 
   Stream<FilteredExerciseState> _mapRefreshedToState(
       List<Exercise> exercises) async* {
+    mainExercises = [...exercises];
     yield state.copyWith(
-        isLoading: false,
-        exercises: exercises.isEmpty ? none() : Some(exercises));
+        isLoading: false, exercises: exercisesOptionOf(mainExercises));
   }
 
   Stream<FilteredExerciseState> _mapFilteredToState(Exercise exercise) async* {
-    yield state.copyWith(filteredExercise: exercise);
+    final searchedExercises =
+        searchExerciseList(mainExercises, state.searchTerm);
+    yield state.copyWith(
+        isLoading: false,
+        filteredExercise: exercise,
+        exercises: exercisesOptionOf(
+            filterExerciseList(searchedExercises, state.filteredExercise)));
   }
 
   Stream<FilteredExerciseState> _mapResetFilteredToState() async* {
-    yield state.copyWith(filteredExercise: Exercise.empty());
+    yield state.copyWith(
+        filteredExercise: Exercise.empty(),
+        exercises: exercisesOptionOf(
+            searchExerciseList(mainExercises, state.searchTerm)));
   }
 
   @override
   Future<void> close() {
     exerciseListener?.cancel();
     return super.close();
+  }
+
+  Option<List<Exercise>> exercisesOptionOf(List<Exercise> list) {
+    return mainExercises.isEmpty ? none() : Some(list);
   }
 }
