@@ -27,7 +27,7 @@ dependencies:
   equatable: ^1.2.0
   dartz: ^0.9.1
   uuid: ^2.2.0
-  flutter_bloc: ^5.0.1
+  flutter_bloc: ^6.0.0
   get_it: ^4.0.2
   flutter_speed_dial: ^1.2.5
   json_annotation: ^3.0.1
