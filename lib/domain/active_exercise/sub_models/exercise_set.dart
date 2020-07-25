@@ -5,15 +5,17 @@ import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part "exercise_set.freezed.dart";
+part "exercise_set.g.dart";
 
 @freezed
 abstract class ExerciseSet implements _$ExerciseSet {
   const ExerciseSet._();
+  @JsonSerializable(explicitToJson: true)
   const factory ExerciseSet(
-      {@required UniqueId id,
-      @required ExercisePerformType performType,
+      {@JsonKey(name: "id") @required UniqueId id,
+      @JsonKey(name: "performType") @required ExercisePerformType performType,
       @required int performCount,
-      @required WeightUnit weightUnit,
+      @JsonKey(name: "weightUnit") @required WeightUnit weightUnit,
       @required int weightCount,
       @required int rest}) = _ExerciseSet;
   factory ExerciseSet.initial() {
@@ -25,4 +27,6 @@ abstract class ExerciseSet implements _$ExerciseSet {
         weightCount: 0,
         rest: 60);
   }
+  factory ExerciseSet.fromJson(Map<String, dynamic> json) =>
+      _$ExerciseSetFromJson(json);
 }

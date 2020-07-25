@@ -8,15 +8,18 @@ part of 'exercise_set.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+ExerciseSet _$ExerciseSetFromJson(Map<String, dynamic> json) {
+  return _ExerciseSet.fromJson(json);
+}
 
 class _$ExerciseSetTearOff {
   const _$ExerciseSetTearOff();
 
   _ExerciseSet call(
-      {@required UniqueId id,
-      @required ExercisePerformType performType,
+      {@required @JsonKey(name: 'id') UniqueId id,
+      @required @JsonKey(name: 'performType') ExercisePerformType performType,
       @required int performCount,
-      @required WeightUnit weightUnit,
+      @required @JsonKey(name: 'weightUnit') WeightUnit weightUnit,
       @required int weightCount,
       @required int rest}) {
     return _ExerciseSet(
@@ -34,13 +37,17 @@ class _$ExerciseSetTearOff {
 const $ExerciseSet = _$ExerciseSetTearOff();
 
 mixin _$ExerciseSet {
+  @JsonKey(name: 'id')
   UniqueId get id;
+  @JsonKey(name: 'performType')
   ExercisePerformType get performType;
   int get performCount;
+  @JsonKey(name: 'weightUnit')
   WeightUnit get weightUnit;
   int get weightCount;
   int get rest;
 
+  Map<String, dynamic> toJson();
   $ExerciseSetCopyWith<ExerciseSet> get copyWith;
 }
 
@@ -49,10 +56,10 @@ abstract class $ExerciseSetCopyWith<$Res> {
           ExerciseSet value, $Res Function(ExerciseSet) then) =
       _$ExerciseSetCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id,
-      ExercisePerformType performType,
+      {@JsonKey(name: 'id') UniqueId id,
+      @JsonKey(name: 'performType') ExercisePerformType performType,
       int performCount,
-      WeightUnit weightUnit,
+      @JsonKey(name: 'weightUnit') WeightUnit weightUnit,
       int weightCount,
       int rest});
 
@@ -119,10 +126,10 @@ abstract class _$ExerciseSetCopyWith<$Res>
       __$ExerciseSetCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id,
-      ExercisePerformType performType,
+      {@JsonKey(name: 'id') UniqueId id,
+      @JsonKey(name: 'performType') ExercisePerformType performType,
       int performCount,
-      WeightUnit weightUnit,
+      @JsonKey(name: 'weightUnit') WeightUnit weightUnit,
       int weightCount,
       int rest});
 
@@ -166,12 +173,13 @@ class __$ExerciseSetCopyWithImpl<$Res> extends _$ExerciseSetCopyWithImpl<$Res>
   }
 }
 
+@JsonSerializable(explicitToJson: true)
 class _$_ExerciseSet extends _ExerciseSet {
   const _$_ExerciseSet(
-      {@required this.id,
-      @required this.performType,
+      {@required @JsonKey(name: 'id') this.id,
+      @required @JsonKey(name: 'performType') this.performType,
       @required this.performCount,
-      @required this.weightUnit,
+      @required @JsonKey(name: 'weightUnit') this.weightUnit,
       @required this.weightCount,
       @required this.rest})
       : assert(id != null),
@@ -182,13 +190,19 @@ class _$_ExerciseSet extends _ExerciseSet {
         assert(rest != null),
         super._();
 
+  factory _$_ExerciseSet.fromJson(Map<String, dynamic> json) =>
+      _$_$_ExerciseSetFromJson(json);
+
   @override
+  @JsonKey(name: 'id')
   final UniqueId id;
   @override
+  @JsonKey(name: 'performType')
   final ExercisePerformType performType;
   @override
   final int performCount;
   @override
+  @JsonKey(name: 'weightUnit')
   final WeightUnit weightUnit;
   @override
   final int weightCount;
@@ -235,25 +249,36 @@ class _$_ExerciseSet extends _ExerciseSet {
   @override
   _$ExerciseSetCopyWith<_ExerciseSet> get copyWith =>
       __$ExerciseSetCopyWithImpl<_ExerciseSet>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ExerciseSetToJson(this);
+  }
 }
 
 abstract class _ExerciseSet extends ExerciseSet {
   const _ExerciseSet._() : super._();
   const factory _ExerciseSet(
-      {@required UniqueId id,
-      @required ExercisePerformType performType,
+      {@required @JsonKey(name: 'id') UniqueId id,
+      @required @JsonKey(name: 'performType') ExercisePerformType performType,
       @required int performCount,
-      @required WeightUnit weightUnit,
+      @required @JsonKey(name: 'weightUnit') WeightUnit weightUnit,
       @required int weightCount,
       @required int rest}) = _$_ExerciseSet;
 
+  factory _ExerciseSet.fromJson(Map<String, dynamic> json) =
+      _$_ExerciseSet.fromJson;
+
   @override
+  @JsonKey(name: 'id')
   UniqueId get id;
   @override
+  @JsonKey(name: 'performType')
   ExercisePerformType get performType;
   @override
   int get performCount;
   @override
+  @JsonKey(name: 'weightUnit')
   WeightUnit get weightUnit;
   @override
   int get weightCount;

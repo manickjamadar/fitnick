@@ -8,6 +8,17 @@ part of 'weight_unit.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+WeightUnit _$WeightUnitFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType'] as String) {
+    case 'kg':
+      return _Kg.fromJson(json);
+    case 'lbs':
+      return _Lbs.fromJson(json);
+
+    default:
+      throw FallThroughError();
+  }
+}
 
 class _$WeightUnitTearOff {
   const _$WeightUnitTearOff();
@@ -47,6 +58,7 @@ mixin _$WeightUnit {
     Result lbs(_Lbs value),
     @required Result orElse(),
   });
+  Map<String, dynamic> toJson();
 }
 
 abstract class $WeightUnitCopyWith<$Res> {
@@ -77,8 +89,11 @@ class __$KgCopyWithImpl<$Res> extends _$WeightUnitCopyWithImpl<$Res>
   _Kg get _value => super._value as _Kg;
 }
 
+@JsonSerializable()
 class _$_Kg implements _Kg {
   const _$_Kg();
+
+  factory _$_Kg.fromJson(Map<String, dynamic> json) => _$_$_KgFromJson(json);
 
   @override
   String toString() {
@@ -142,10 +157,17 @@ class _$_Kg implements _Kg {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_KgToJson(this)..['runtimeType'] = 'kg';
+  }
 }
 
 abstract class _Kg implements WeightUnit {
   const factory _Kg() = _$_Kg;
+
+  factory _Kg.fromJson(Map<String, dynamic> json) = _$_Kg.fromJson;
 }
 
 abstract class _$LbsCopyWith<$Res> {
@@ -162,8 +184,11 @@ class __$LbsCopyWithImpl<$Res> extends _$WeightUnitCopyWithImpl<$Res>
   _Lbs get _value => super._value as _Lbs;
 }
 
+@JsonSerializable()
 class _$_Lbs implements _Lbs {
   const _$_Lbs();
+
+  factory _$_Lbs.fromJson(Map<String, dynamic> json) => _$_$_LbsFromJson(json);
 
   @override
   String toString() {
@@ -227,8 +252,15 @@ class _$_Lbs implements _Lbs {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_LbsToJson(this)..['runtimeType'] = 'lbs';
+  }
 }
 
 abstract class _Lbs implements WeightUnit {
   const factory _Lbs() = _$_Lbs;
+
+  factory _Lbs.fromJson(Map<String, dynamic> json) = _$_Lbs.fromJson;
 }

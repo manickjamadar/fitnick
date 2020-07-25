@@ -8,6 +8,17 @@ part of 'exercise_perform_type.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+ExercisePerformType _$ExercisePerformTypeFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType'] as String) {
+    case 'reps':
+      return _Reps.fromJson(json);
+    case 'secs':
+      return _Secs.fromJson(json);
+
+    default:
+      throw FallThroughError();
+  }
+}
 
 class _$ExercisePerformTypeTearOff {
   const _$ExercisePerformTypeTearOff();
@@ -47,6 +58,7 @@ mixin _$ExercisePerformType {
     Result secs(_Secs value),
     @required Result orElse(),
   });
+  Map<String, dynamic> toJson();
 }
 
 abstract class $ExercisePerformTypeCopyWith<$Res> {
@@ -78,8 +90,12 @@ class __$RepsCopyWithImpl<$Res> extends _$ExercisePerformTypeCopyWithImpl<$Res>
   _Reps get _value => super._value as _Reps;
 }
 
+@JsonSerializable()
 class _$_Reps implements _Reps {
   const _$_Reps();
+
+  factory _$_Reps.fromJson(Map<String, dynamic> json) =>
+      _$_$_RepsFromJson(json);
 
   @override
   String toString() {
@@ -143,10 +159,17 @@ class _$_Reps implements _Reps {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RepsToJson(this)..['runtimeType'] = 'reps';
+  }
 }
 
 abstract class _Reps implements ExercisePerformType {
   const factory _Reps() = _$_Reps;
+
+  factory _Reps.fromJson(Map<String, dynamic> json) = _$_Reps.fromJson;
 }
 
 abstract class _$SecsCopyWith<$Res> {
@@ -163,8 +186,12 @@ class __$SecsCopyWithImpl<$Res> extends _$ExercisePerformTypeCopyWithImpl<$Res>
   _Secs get _value => super._value as _Secs;
 }
 
+@JsonSerializable()
 class _$_Secs implements _Secs {
   const _$_Secs();
+
+  factory _$_Secs.fromJson(Map<String, dynamic> json) =>
+      _$_$_SecsFromJson(json);
 
   @override
   String toString() {
@@ -228,8 +255,15 @@ class _$_Secs implements _Secs {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_SecsToJson(this)..['runtimeType'] = 'secs';
+  }
 }
 
 abstract class _Secs implements ExercisePerformType {
   const factory _Secs() = _$_Secs;
+
+  factory _Secs.fromJson(Map<String, dynamic> json) = _$_Secs.fromJson;
 }
