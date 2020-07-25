@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:dartz/dartz.dart';
-import 'package:fitnick/domain/active_exercise/active_exercise.dart';
+import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
