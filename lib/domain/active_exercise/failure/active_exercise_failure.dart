@@ -9,6 +9,7 @@ abstract class ActiveExerciseFailure with _$ActiveExerciseFailure {
   const factory ActiveExerciseFailure.find() = _Find;
   const factory ActiveExerciseFailure.update() = _Update;
   const factory ActiveExerciseFailure.delete() = _Delete;
+  const factory ActiveExerciseFailure.findExercise() = _Delete;
 }
 
 String getActiveExerciseFailureMessage(ActiveExerciseFailure failure) {
@@ -17,5 +18,6 @@ String getActiveExerciseFailureMessage(ActiveExerciseFailure failure) {
       create: () => "Active Exercise creation failed",
       find: () => "Active Exercise loading failed",
       update: () => "Active Exercise updating failed",
-      delete: () => "Active Exercise deleting failed");
+      delete: () => "Active Exercise deleting failed",
+      findExercise: () => "Exercise loading failed");
 }
