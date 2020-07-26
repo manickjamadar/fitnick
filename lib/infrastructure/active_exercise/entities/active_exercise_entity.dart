@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
@@ -36,4 +38,27 @@ abstract class ActiveExerciseEntity implements _$ActiveExerciseEntity {
     return ActiveExercise(
         id: id, sets: [...sets], repsTempo: repsTempo, exercise: exercise);
   }
+
+  factory ActiveExerciseEntity.fromLocalJson(Map<String, dynamic> json) {
+    return ActiveExerciseEntity(
+      id: json[KEY_ID] == null
+          ? UniqueId()
+          : UniqueId.fromString(json[KEY_ID] as String),
+      sets: (jsonDecode(json[KEY_SETS] as String) as List)
+          ?.map((e) => e == null
+              ? null
+              : ExerciseSet.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      repsTempo: json[KEY_REPS_TEMPO] as int,
+      exerciseId: json[KEY_EXERCISE_ID] == null
+          ? UniqueId()
+          : UniqueId.fromString(json[KEY_EXERCISE_ID] as String),
+    );
+  }
+  Map<String, dynamic> toLocalJson() => {
+        KEY_ID: id.value,
+        KEY_SETS: jsonEncode(sets?.map((e) => e?.toJson())?.toList()),
+        KEY_REPS_TEMPO: repsTempo,
+        KEY_EXERCISE_ID: exerciseId.value,
+      };
 }
