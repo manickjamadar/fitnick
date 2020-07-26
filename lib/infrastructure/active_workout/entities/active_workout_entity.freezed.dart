@@ -8,16 +8,29 @@ part of 'active_workout_entity.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+ActiveWorkoutEntity _$ActiveWorkoutEntityFromJson(Map<String, dynamic> json) {
+  return _ActiveWorkoutEntity.fromJson(json);
+}
 
 class _$ActiveWorkoutEntityTearOff {
   const _$ActiveWorkoutEntityTearOff();
 
   _ActiveWorkoutEntity call(
-      {@required UniqueId id,
-      @required String name,
-      @required int color,
-      @required String imagePath,
-      @required List<UniqueId> activeExerciseIds}) {
+      {@required
+      @JsonKey(name: 'id')
+          UniqueId id,
+      @required
+      @JsonKey(name: 'name')
+          String name,
+      @required
+      @JsonKey(name: 'color')
+          int color,
+      @required
+      @JsonKey(name: 'image_path')
+          String imagePath,
+      @required
+      @JsonKey(name: 'active_exercise_ids')
+          List<UniqueId> activeExerciseIds}) {
     return _ActiveWorkoutEntity(
       id: id,
       name: name,
@@ -32,12 +45,18 @@ class _$ActiveWorkoutEntityTearOff {
 const $ActiveWorkoutEntity = _$ActiveWorkoutEntityTearOff();
 
 mixin _$ActiveWorkoutEntity {
+  @JsonKey(name: 'id')
   UniqueId get id;
+  @JsonKey(name: 'name')
   String get name;
+  @JsonKey(name: 'color')
   int get color;
+  @JsonKey(name: 'image_path')
   String get imagePath;
+  @JsonKey(name: 'active_exercise_ids')
   List<UniqueId> get activeExerciseIds;
 
+  Map<String, dynamic> toJson();
   $ActiveWorkoutEntityCopyWith<ActiveWorkoutEntity> get copyWith;
 }
 
@@ -46,11 +65,11 @@ abstract class $ActiveWorkoutEntityCopyWith<$Res> {
           ActiveWorkoutEntity value, $Res Function(ActiveWorkoutEntity) then) =
       _$ActiveWorkoutEntityCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id,
-      String name,
-      int color,
-      String imagePath,
-      List<UniqueId> activeExerciseIds});
+      {@JsonKey(name: 'id') UniqueId id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'color') int color,
+      @JsonKey(name: 'image_path') String imagePath,
+      @JsonKey(name: 'active_exercise_ids') List<UniqueId> activeExerciseIds});
 }
 
 class _$ActiveWorkoutEntityCopyWithImpl<$Res>
@@ -88,11 +107,11 @@ abstract class _$ActiveWorkoutEntityCopyWith<$Res>
       __$ActiveWorkoutEntityCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id,
-      String name,
-      int color,
-      String imagePath,
-      List<UniqueId> activeExerciseIds});
+      {@JsonKey(name: 'id') UniqueId id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'color') int color,
+      @JsonKey(name: 'image_path') String imagePath,
+      @JsonKey(name: 'active_exercise_ids') List<UniqueId> activeExerciseIds});
 }
 
 class __$ActiveWorkoutEntityCopyWithImpl<$Res>
@@ -125,30 +144,39 @@ class __$ActiveWorkoutEntityCopyWithImpl<$Res>
   }
 }
 
-class _$_ActiveWorkoutEntity
-    with DiagnosticableTreeMixin
-    implements _ActiveWorkoutEntity {
+@JsonSerializable(explicitToJson: true)
+class _$_ActiveWorkoutEntity extends _ActiveWorkoutEntity
+    with DiagnosticableTreeMixin {
   const _$_ActiveWorkoutEntity(
-      {@required this.id,
-      @required this.name,
-      @required this.color,
-      @required this.imagePath,
-      @required this.activeExerciseIds})
+      {@required @JsonKey(name: 'id') this.id,
+      @required @JsonKey(name: 'name') this.name,
+      @required @JsonKey(name: 'color') this.color,
+      @required @JsonKey(name: 'image_path') this.imagePath,
+      @required @JsonKey(name: 'active_exercise_ids') this.activeExerciseIds})
       : assert(id != null),
         assert(name != null),
         assert(color != null),
         assert(imagePath != null),
-        assert(activeExerciseIds != null);
+        assert(activeExerciseIds != null),
+        super._();
+
+  factory _$_ActiveWorkoutEntity.fromJson(Map<String, dynamic> json) =>
+      _$_$_ActiveWorkoutEntityFromJson(json);
 
   @override
+  @JsonKey(name: 'id')
   final UniqueId id;
   @override
+  @JsonKey(name: 'name')
   final String name;
   @override
+  @JsonKey(name: 'color')
   final int color;
   @override
+  @JsonKey(name: 'image_path')
   final String imagePath;
   @override
+  @JsonKey(name: 'active_exercise_ids')
   final List<UniqueId> activeExerciseIds;
 
   @override
@@ -199,25 +227,49 @@ class _$_ActiveWorkoutEntity
   _$ActiveWorkoutEntityCopyWith<_ActiveWorkoutEntity> get copyWith =>
       __$ActiveWorkoutEntityCopyWithImpl<_ActiveWorkoutEntity>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ActiveWorkoutEntityToJson(this);
+  }
 }
 
-abstract class _ActiveWorkoutEntity implements ActiveWorkoutEntity {
+abstract class _ActiveWorkoutEntity extends ActiveWorkoutEntity {
+  const _ActiveWorkoutEntity._() : super._();
   const factory _ActiveWorkoutEntity(
-      {@required UniqueId id,
-      @required String name,
-      @required int color,
-      @required String imagePath,
-      @required List<UniqueId> activeExerciseIds}) = _$_ActiveWorkoutEntity;
+      {@required
+      @JsonKey(name: 'id')
+          UniqueId id,
+      @required
+      @JsonKey(name: 'name')
+          String name,
+      @required
+      @JsonKey(name: 'color')
+          int color,
+      @required
+      @JsonKey(name: 'image_path')
+          String imagePath,
+      @required
+      @JsonKey(name: 'active_exercise_ids')
+          List<UniqueId> activeExerciseIds}) = _$_ActiveWorkoutEntity;
+
+  factory _ActiveWorkoutEntity.fromJson(Map<String, dynamic> json) =
+      _$_ActiveWorkoutEntity.fromJson;
 
   @override
+  @JsonKey(name: 'id')
   UniqueId get id;
   @override
+  @JsonKey(name: 'name')
   String get name;
   @override
+  @JsonKey(name: 'color')
   int get color;
   @override
+  @JsonKey(name: 'image_path')
   String get imagePath;
   @override
+  @JsonKey(name: 'active_exercise_ids')
   List<UniqueId> get activeExerciseIds;
   @override
   _$ActiveWorkoutEntityCopyWith<_ActiveWorkoutEntity> get copyWith;
