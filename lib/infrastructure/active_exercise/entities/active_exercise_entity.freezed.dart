@@ -16,10 +16,18 @@ class _$ActiveExerciseEntityTearOff {
   const _$ActiveExerciseEntityTearOff();
 
   _ActiveExerciseEntity call(
-      {@required @JsonKey(name: 'id') UniqueId id,
-      @required @JsonKey(name: 'sets') List<ExerciseSet> sets,
-      @required @JsonKey(name: 'reps_tempo') int repsTempo,
-      @required @JsonKey(name: 'exercise_id') UniqueId exerciseId}) {
+      {@required
+      @JsonKey(name: ActiveExerciseEntity.KEY_ID)
+          UniqueId id,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
+          List<ExerciseSet> sets,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
+          int repsTempo,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
+          UniqueId exerciseId}) {
     return _ActiveExerciseEntity(
       id: id,
       sets: sets,
@@ -33,13 +41,13 @@ class _$ActiveExerciseEntityTearOff {
 const $ActiveExerciseEntity = _$ActiveExerciseEntityTearOff();
 
 mixin _$ActiveExerciseEntity {
-  @JsonKey(name: 'id')
+  @JsonKey(name: ActiveExerciseEntity.KEY_ID)
   UniqueId get id;
-  @JsonKey(name: 'sets')
+  @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
   List<ExerciseSet> get sets;
-  @JsonKey(name: 'reps_tempo')
+  @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
   int get repsTempo;
-  @JsonKey(name: 'exercise_id')
+  @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
   UniqueId get exerciseId;
 
   Map<String, dynamic> toJson();
@@ -51,10 +59,14 @@ abstract class $ActiveExerciseEntityCopyWith<$Res> {
           $Res Function(ActiveExerciseEntity) then) =
       _$ActiveExerciseEntityCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'id') UniqueId id,
-      @JsonKey(name: 'sets') List<ExerciseSet> sets,
-      @JsonKey(name: 'reps_tempo') int repsTempo,
-      @JsonKey(name: 'exercise_id') UniqueId exerciseId});
+      {@JsonKey(name: ActiveExerciseEntity.KEY_ID)
+          UniqueId id,
+      @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
+          List<ExerciseSet> sets,
+      @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
+          int repsTempo,
+      @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
+          UniqueId exerciseId});
 }
 
 class _$ActiveExerciseEntityCopyWithImpl<$Res>
@@ -89,10 +101,14 @@ abstract class _$ActiveExerciseEntityCopyWith<$Res>
       __$ActiveExerciseEntityCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'id') UniqueId id,
-      @JsonKey(name: 'sets') List<ExerciseSet> sets,
-      @JsonKey(name: 'reps_tempo') int repsTempo,
-      @JsonKey(name: 'exercise_id') UniqueId exerciseId});
+      {@JsonKey(name: ActiveExerciseEntity.KEY_ID)
+          UniqueId id,
+      @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
+          List<ExerciseSet> sets,
+      @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
+          int repsTempo,
+      @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
+          UniqueId exerciseId});
 }
 
 class __$ActiveExerciseEntityCopyWithImpl<$Res>
@@ -125,10 +141,18 @@ class __$ActiveExerciseEntityCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_ActiveExerciseEntity extends _ActiveExerciseEntity {
   const _$_ActiveExerciseEntity(
-      {@required @JsonKey(name: 'id') this.id,
-      @required @JsonKey(name: 'sets') this.sets,
-      @required @JsonKey(name: 'reps_tempo') this.repsTempo,
-      @required @JsonKey(name: 'exercise_id') this.exerciseId})
+      {@required
+      @JsonKey(name: ActiveExerciseEntity.KEY_ID)
+          this.id,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
+          this.sets,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
+          this.repsTempo,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
+          this.exerciseId})
       : assert(id != null),
         assert(sets != null),
         assert(repsTempo != null),
@@ -139,16 +163,16 @@ class _$_ActiveExerciseEntity extends _ActiveExerciseEntity {
       _$_$_ActiveExerciseEntityFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: ActiveExerciseEntity.KEY_ID)
   final UniqueId id;
   @override
-  @JsonKey(name: 'sets')
+  @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
   final List<ExerciseSet> sets;
   @override
-  @JsonKey(name: 'reps_tempo')
+  @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
   final int repsTempo;
   @override
-  @JsonKey(name: 'exercise_id')
+  @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
   final UniqueId exerciseId;
 
   @override
@@ -194,26 +218,33 @@ class _$_ActiveExerciseEntity extends _ActiveExerciseEntity {
 abstract class _ActiveExerciseEntity extends ActiveExerciseEntity {
   const _ActiveExerciseEntity._() : super._();
   const factory _ActiveExerciseEntity(
-          {@required @JsonKey(name: 'id') UniqueId id,
-          @required @JsonKey(name: 'sets') List<ExerciseSet> sets,
-          @required @JsonKey(name: 'reps_tempo') int repsTempo,
-          @required @JsonKey(name: 'exercise_id') UniqueId exerciseId}) =
-      _$_ActiveExerciseEntity;
+      {@required
+      @JsonKey(name: ActiveExerciseEntity.KEY_ID)
+          UniqueId id,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
+          List<ExerciseSet> sets,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
+          int repsTempo,
+      @required
+      @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
+          UniqueId exerciseId}) = _$_ActiveExerciseEntity;
 
   factory _ActiveExerciseEntity.fromJson(Map<String, dynamic> json) =
       _$_ActiveExerciseEntity.fromJson;
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: ActiveExerciseEntity.KEY_ID)
   UniqueId get id;
   @override
-  @JsonKey(name: 'sets')
+  @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
   List<ExerciseSet> get sets;
   @override
-  @JsonKey(name: 'reps_tempo')
+  @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
   int get repsTempo;
   @override
-  @JsonKey(name: 'exercise_id')
+  @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
   UniqueId get exerciseId;
   @override
   _$ActiveExerciseEntityCopyWith<_ActiveExerciseEntity> get copyWith;

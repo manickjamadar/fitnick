@@ -19,11 +19,18 @@ abstract class ActiveExerciseEntity implements _$ActiveExerciseEntity {
   const ActiveExerciseEntity._();
   @JsonSerializable(explicitToJson: true)
   const factory ActiveExerciseEntity(
-          {@JsonKey(name: "id") @required UniqueId id,
-          @JsonKey(name: "sets") @required List<ExerciseSet> sets,
-          @JsonKey(name: "reps_tempo") @required int repsTempo,
-          @JsonKey(name: "exercise_id") @required UniqueId exerciseId}) =
-      _ActiveExerciseEntity;
+      {@JsonKey(name: ActiveExerciseEntity.KEY_ID)
+      @required
+          UniqueId id,
+      @JsonKey(name: ActiveExerciseEntity.KEY_SETS)
+      @required
+          List<ExerciseSet> sets,
+      @JsonKey(name: ActiveExerciseEntity.KEY_REPS_TEMPO)
+      @required
+          int repsTempo,
+      @JsonKey(name: ActiveExerciseEntity.KEY_EXERCISE_ID)
+      @required
+          UniqueId exerciseId}) = _ActiveExerciseEntity;
   factory ActiveExerciseEntity.fromJson(Map<String, dynamic> json) =>
       _$ActiveExerciseEntityFromJson(json);
 
