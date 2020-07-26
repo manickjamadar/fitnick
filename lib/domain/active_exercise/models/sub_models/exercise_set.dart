@@ -1,8 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:fitnick/domain/active_exercise/sub_models/exercise_perform_type.dart';
-import 'package:fitnick/domain/active_exercise/sub_models/weight_unit.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'exercise_perform_type.dart';
+import 'weight_unit.dart';
 
 part "exercise_set.freezed.dart";
 part "exercise_set.g.dart";

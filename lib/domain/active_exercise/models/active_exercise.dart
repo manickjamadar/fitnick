@@ -1,4 +1,4 @@
-import 'package:fitnick/domain/active_exercise/sub_models/exercise_set.dart';
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
