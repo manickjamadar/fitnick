@@ -1,5 +1,7 @@
+import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'active_exercise_entity.freezed.dart';
@@ -22,4 +24,16 @@ abstract class ActiveExerciseEntity implements _$ActiveExerciseEntity {
       _ActiveExerciseEntity;
   factory ActiveExerciseEntity.fromJson(Map<String, dynamic> json) =>
       _$ActiveExerciseEntityFromJson(json);
+
+  factory ActiveExerciseEntity.fromModel(ActiveExercise activeExercise) {
+    return ActiveExerciseEntity(
+        id: activeExercise.id,
+        sets: [...activeExercise.sets],
+        repsTempo: activeExercise.repsTempo,
+        exerciseId: activeExercise.exercise.id);
+  }
+  ActiveExercise toModel(Exercise exercise) {
+    return ActiveExercise(
+        id: id, sets: [...sets], repsTempo: repsTempo, exercise: exercise);
+  }
 }
