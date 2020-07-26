@@ -46,6 +46,12 @@ abstract class ActiveExerciseEntity implements _$ActiveExerciseEntity {
         id: id, sets: [...sets], repsTempo: repsTempo, exercise: exercise);
   }
 
+  ActiveExercise toModelFromExercises(List<Exercise> exercises) {
+    final Exercise exercise = exercises.firstWhere((e) => e.id == exerciseId,
+        orElse: () => Exercise.initial());
+    return toModel(exercise);
+  }
+
   factory ActiveExerciseEntity.fromLocalJson(Map<String, dynamic> json) {
     return ActiveExerciseEntity(
       id: json[KEY_ID] == null
