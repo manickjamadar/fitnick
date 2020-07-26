@@ -23,19 +23,19 @@ abstract class ActiveWorkoutEntity implements _$ActiveWorkoutEntity {
   const ActiveWorkoutEntity._();
   @JsonSerializable(explicitToJson: true)
   const factory ActiveWorkoutEntity(
-      {@JsonKey(name: "id")
+      {@JsonKey(name: ActiveWorkoutEntity.KEY_ID)
       @required
           UniqueId id,
-      @JsonKey(name: "name")
+      @JsonKey(name: ActiveWorkoutEntity.KEY_NAME)
       @required
           String name,
-      @JsonKey(name: "color")
+      @JsonKey(name: ActiveWorkoutEntity.KEY_COLOR)
       @required
           int color,
-      @JsonKey(name: "image_path")
+      @JsonKey(name: ActiveWorkoutEntity.KEY_IMAGE_PATH)
       @required
           String imagePath,
-      @JsonKey(name: "active_exercise_ids")
+      @JsonKey(name: ActiveWorkoutEntity.KEY_ACTIVE_EXERCISE_IDS)
       @required
           List<UniqueId> activeExerciseIds}) = _ActiveWorkoutEntity;
   factory ActiveWorkoutEntity.fromJson(Map<String, dynamic> json) =>
