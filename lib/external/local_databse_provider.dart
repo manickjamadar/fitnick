@@ -1,3 +1,4 @@
+import 'package:fitnick/infrastructure/active_exercise/entities/active_exercise_entity.dart';
 import 'package:fitnick/infrastructure/exercise/entities/exercise_entity.dart';
 import 'package:fitnick/infrastructure/workout/entities/workout_entity.dart';
 import 'package:path/path.dart';
@@ -22,8 +23,12 @@ class LocalDatabaseProvider {
   }
 
   static void _onCreate(Database db, _) async {
-    {
-      await db.execute('''
+    await _createExerciseTable(db);
+    await _createWorkoutTable(db);
+  }
+
+  static Future<void> _createExerciseTable(Database db) async {
+    await db.execute('''
           CREATE TABLE IF NOT EXISTS ${ExerciseEntity.collectionName}(
             ${ExerciseEntity.KEY_ID} TEXT PRIMARY KEY,
             ${ExerciseEntity.KEY_NAME} TEXT NOT NULL,
@@ -36,13 +41,15 @@ class LocalDatabaseProvider {
             ${ExerciseEntity.KEY_SECONDARY_TARGETS} TEXT NOT NULL
           );
         ''');
-      await db.execute('''
+  }
+
+  static Future<void> _createWorkoutTable(Database db) async {
+    await db.execute('''
         CREATE TABLE IF NOT EXISTS ${WorkoutEntity.collectionName}(
             ${WorkoutEntity.KEY_ID} TEXT PRIMARY KEY,
             ${WorkoutEntity.KEY_NAME} TEXT NOT NULL,
             ${WorkoutEntity.KEY_EXERCISE_IDS} TEXT NOT NULL
           );
       ''');
-    }
   }
 }
