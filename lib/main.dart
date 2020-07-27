@@ -1,7 +1,5 @@
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
-import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
-import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
