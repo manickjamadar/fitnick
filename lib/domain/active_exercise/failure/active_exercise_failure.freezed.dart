@@ -32,8 +32,8 @@ class _$ActiveExerciseFailureTearOff {
     return const _Delete();
   }
 
-  _Delete findExercise() {
-    return const _Delete();
+  _FindExercise findExercise() {
+    return const _FindExercise();
   }
 }
 
@@ -67,7 +67,7 @@ mixin _$ActiveExerciseFailure {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -76,7 +76,7 @@ mixin _$ActiveExerciseFailure {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   });
 }
@@ -174,7 +174,7 @@ class _$_Unexpected implements _Unexpected {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   }) {
     assert(unexpected != null);
     assert(create != null);
@@ -193,7 +193,7 @@ class _$_Unexpected implements _Unexpected {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -284,7 +284,7 @@ class _$_Create implements _Create {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   }) {
     assert(unexpected != null);
     assert(create != null);
@@ -303,7 +303,7 @@ class _$_Create implements _Create {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -394,7 +394,7 @@ class _$_Find implements _Find {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   }) {
     assert(unexpected != null);
     assert(create != null);
@@ -413,7 +413,7 @@ class _$_Find implements _Find {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -504,7 +504,7 @@ class _$_Update implements _Update {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   }) {
     assert(unexpected != null);
     assert(create != null);
@@ -523,7 +523,7 @@ class _$_Update implements _Update {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -614,7 +614,7 @@ class _$_Delete implements _Delete {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   }) {
     assert(unexpected != null);
     assert(create != null);
@@ -633,7 +633,7 @@ class _$_Delete implements _Delete {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -648,23 +648,25 @@ abstract class _Delete implements ActiveExerciseFailure {
   const factory _Delete() = _$_Delete;
 }
 
-abstract class _$DeleteCopyWith<$Res> {
-  factory _$DeleteCopyWith(_Delete value, $Res Function(_Delete) then) =
-      __$DeleteCopyWithImpl<$Res>;
+abstract class _$FindExerciseCopyWith<$Res> {
+  factory _$FindExerciseCopyWith(
+          _FindExercise value, $Res Function(_FindExercise) then) =
+      __$FindExerciseCopyWithImpl<$Res>;
 }
 
-class __$DeleteCopyWithImpl<$Res>
+class __$FindExerciseCopyWithImpl<$Res>
     extends _$ActiveExerciseFailureCopyWithImpl<$Res>
-    implements _$DeleteCopyWith<$Res> {
-  __$DeleteCopyWithImpl(_Delete _value, $Res Function(_Delete) _then)
-      : super(_value, (v) => _then(v as _Delete));
+    implements _$FindExerciseCopyWith<$Res> {
+  __$FindExerciseCopyWithImpl(
+      _FindExercise _value, $Res Function(_FindExercise) _then)
+      : super(_value, (v) => _then(v as _FindExercise));
 
   @override
-  _Delete get _value => super._value as _Delete;
+  _FindExercise get _value => super._value as _FindExercise;
 }
 
-class _$_Delete implements _Delete {
-  const _$_Delete();
+class _$_FindExercise implements _FindExercise {
+  const _$_FindExercise();
 
   @override
   String toString() {
@@ -673,7 +675,7 @@ class _$_Delete implements _Delete {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Delete);
+    return identical(this, other) || (other is _FindExercise);
   }
 
   @override
@@ -724,7 +726,7 @@ class _$_Delete implements _Delete {
     @required Result find(_Find value),
     @required Result update(_Update value),
     @required Result delete(_Delete value),
-    @required Result findExercise(_Delete value),
+    @required Result findExercise(_FindExercise value),
   }) {
     assert(unexpected != null);
     assert(create != null);
@@ -743,7 +745,7 @@ class _$_Delete implements _Delete {
     Result find(_Find value),
     Result update(_Update value),
     Result delete(_Delete value),
-    Result findExercise(_Delete value),
+    Result findExercise(_FindExercise value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -754,6 +756,6 @@ class _$_Delete implements _Delete {
   }
 }
 
-abstract class _Delete implements ActiveExerciseFailure {
-  const factory _Delete() = _$_Delete;
+abstract class _FindExercise implements ActiveExerciseFailure {
+  const factory _FindExercise() = _$_FindExercise;
 }

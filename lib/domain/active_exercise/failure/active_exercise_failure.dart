@@ -9,7 +9,7 @@ abstract class ActiveExerciseFailure with _$ActiveExerciseFailure {
   const factory ActiveExerciseFailure.find() = _Find;
   const factory ActiveExerciseFailure.update() = _Update;
   const factory ActiveExerciseFailure.delete() = _Delete;
-  const factory ActiveExerciseFailure.findExercise() = _Delete;
+  const factory ActiveExerciseFailure.findExercise() = _FindExercise;
 }
 
 String getActiveExerciseFailureMessage(ActiveExerciseFailure failure) {
