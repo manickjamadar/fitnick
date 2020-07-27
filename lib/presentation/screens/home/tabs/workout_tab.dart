@@ -1,10 +1,11 @@
 import 'package:fitnick/application/workout/workout_actor/workout_actor_bloc.dart';
 import 'package:fitnick/application/workout/workout_hub/workout_hub_bloc.dart';
-import 'package:fitnick/domain/workout/models/workout.dart';
+import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
-import 'package:fitnick/presentation/screens/home/widgets/workout/workout_list_view.dart';
+import 'package:fitnick/presentation/screens/home/widgets/workout/active_workout_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "../../../../application/active_workout/active_workout_hub/cubit/active_workout_hub_cubit.dart";
 
 class WorkoutTab extends StatelessWidget {
   @override
@@ -21,13 +22,14 @@ class WorkoutTab extends StatelessWidget {
             error: (message) =>
                 showMessage(context, message: message, type: ErrorMessage()));
       },
-      child: BlocBuilder<WorkoutHubBloc, WorkoutHubState>(
-          builder: (context, state) {
-        return state.when(
-            loading: buildWorkoutLoading,
-            loaded: buildWorkoutLoaded,
-            loadedError: buildWorkoutLoadedError);
-      }),
+      child: BlocBuilder<ActiveWorkoutHubCubit, ActiveWorkoutHubState>(
+        builder: (_, state) {
+          return state.when(
+              loading: buildWorkoutLoading,
+              loaded: buildWorkoutLoaded,
+              loadedError: buildWorkoutLoadedError);
+        },
+      ),
     );
   }
 
@@ -37,9 +39,9 @@ class WorkoutTab extends StatelessWidget {
     );
   }
 
-  Widget buildWorkoutLoaded(List<Workout> workouts) {
-    return WorkoutListView(
-      workouts: workouts,
+  Widget buildWorkoutLoaded(List<ActiveWorkout> activeWorkouts) {
+    return ActiveWorkoutListView(
+      activeWorkouts: activeWorkouts,
     );
   }
 
