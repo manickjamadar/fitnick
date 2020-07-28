@@ -25,7 +25,6 @@ class _$ActiveWorkoutEntityTearOff {
       @required
       @JsonKey(name: ActiveWorkoutEntity.KEY_COLOR)
           int color,
-      @required
       @JsonKey(name: ActiveWorkoutEntity.KEY_IMAGE_PATH)
           String imagePath,
       @required
@@ -167,7 +166,6 @@ class _$_ActiveWorkoutEntity extends _ActiveWorkoutEntity
       @required
       @JsonKey(name: ActiveWorkoutEntity.KEY_COLOR)
           this.color,
-      @required
       @JsonKey(name: ActiveWorkoutEntity.KEY_IMAGE_PATH)
           this.imagePath,
       @required
@@ -176,7 +174,6 @@ class _$_ActiveWorkoutEntity extends _ActiveWorkoutEntity
       : assert(id != null),
         assert(name != null),
         assert(color != null),
-        assert(imagePath != null),
         assert(activeExerciseIds != null),
         super._();
 
@@ -266,7 +263,6 @@ abstract class _ActiveWorkoutEntity extends ActiveWorkoutEntity {
       @required
       @JsonKey(name: ActiveWorkoutEntity.KEY_COLOR)
           int color,
-      @required
       @JsonKey(name: ActiveWorkoutEntity.KEY_IMAGE_PATH)
           String imagePath,
       @required

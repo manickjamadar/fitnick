@@ -33,7 +33,6 @@ abstract class ActiveWorkoutEntity implements _$ActiveWorkoutEntity {
       @required
           int color,
       @JsonKey(name: ActiveWorkoutEntity.KEY_IMAGE_PATH)
-      @required
           String imagePath,
       @JsonKey(name: ActiveWorkoutEntity.KEY_ACTIVE_EXERCISE_IDS)
       @required
