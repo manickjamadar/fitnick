@@ -23,7 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: AddButtons(),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         currentIndex: currentTab,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         onTap: (i) => setState(() {
           currentTab = i;
         }),
