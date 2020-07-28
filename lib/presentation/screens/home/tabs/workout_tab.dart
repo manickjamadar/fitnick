@@ -5,7 +5,7 @@ import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/home/widgets/workout/active_workout_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import "../../../../application/active_workout/active_workout_hub/cubit/active_workout_hub_cubit.dart";
+import "../../../../application/active_workout/active_workout_hub/active_workout_hub_cubit.dart";
 
 class WorkoutTab extends StatelessWidget {
   @override
