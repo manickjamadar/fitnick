@@ -1,3 +1,4 @@
+import 'package:fitnick/application/active_workout/active_workout_actor/active_workout_actor_cubit.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/service_locator.dart';
@@ -30,6 +31,9 @@ void main() async {
           create: (_) => locator<ActiveWorkoutHubCubit>()),
       BlocProvider<WorkoutActorBloc>(
         create: (_) => locator<WorkoutActorBloc>(),
+      ),
+      BlocProvider<ActiveWorkoutActorCubit>(
+        create: (_) => locator<ActiveWorkoutActorCubit>(),
       ),
     ],
     child: App(),
