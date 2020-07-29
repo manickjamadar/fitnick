@@ -42,6 +42,7 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
       _addCreatableActiveExercise(exercise)
     ];
     emit(state.copyWith(
+        addStatus: none(),
         activeWorkout:
             state.activeWorkout.copyWith(activeExercises: newActiveExercises)));
   }
