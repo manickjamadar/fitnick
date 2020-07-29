@@ -1,5 +1,5 @@
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
-import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
@@ -15,10 +15,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectExerciseScreen extends StatelessWidget {
   static const String routeName = "/select_exercise";
-  static Widget generateRoute({@required WorkoutFormBloc bloc}) {
-    return BlocProvider<WorkoutFormBloc>.value(
-        value: bloc, child: SelectExerciseScreen());
+
+  const SelectExerciseScreen({Key key, this.onExerciseSelect})
+      : super(key: key);
+  static Widget generateRoute(BuildContext context,
+      {void Function(Exercise exercise, bool selected) onExerciseSelect}) {
+    return BlocProvider<FilteredExerciseBloc>(
+      create: (_) => FilteredExerciseBloc(
+          exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
+      child: SelectExerciseScreen(
+        onExerciseSelect: onExerciseSelect,
+      ),
+    );
   }
+
+  final void Function(Exercise exercise, bool selected) onExerciseSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -72,147 +83,144 @@ class SelectExerciseScreen extends StatelessWidget {
 
   Widget buildExerciseList(
       BuildContext context, List<Exercise> exercises, String searchTerm) {
-    return BlocBuilder<WorkoutFormBloc, WorkoutFormState>(
-      builder: (_, state) {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return buildListHeader(searchTerm, context);
-            }
-            final realIndex = index - 1;
-            final exercise = exercises[realIndex];
-            return Container(
-              margin: EdgeInsets.all(10),
-              child: ExerciseItem(
-                exercise: exercise,
-                exerciseItemType: ExerciseItemType.selectable(
-                    onSelect: (_) {
-                      BlocProvider.of<WorkoutFormBloc>(context).add(
-                          WorkoutFormEvent.exerciseAdded(exercise: exercise));
-                    },
-                    selected: false),
-              ),
-            );
-          },
-          itemCount: exercises.length + 1,
-        );
-      },
-    );
-  }
-
-  Widget buildListHeader(String searchTerm, BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: SearchBar(
-            value: searchTerm,
-            onChanged: (value) {
-              BlocProvider.of<FilteredExerciseBloc>(context)
-                  .add(FilteredExerciseEvent.searched(term: value));
-            },
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return buildListHeader(searchTerm, context);
+        }
+        final realIndex = index - 1;
+        final exercise = exercises[realIndex];
+        return Container(
+          margin: EdgeInsets.all(10),
+          child: ExerciseItem(
+            exercise: exercise,
+            exerciseItemType: ExerciseItemType.selectable(
+                onSelect: (selected) {
+                  if (onExerciseSelect != null) {
+                    onExerciseSelect(exercise, selected);
+                  }
+                },
+                selected: false),
           ),
-        ),
-        buildFilterChips(context)
-      ],
-    );
-  }
-
-  Widget buildFilterChips(BuildContext context) {
-    return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
-      builder: (_, state) {
-        print(state.filteredExercise.levels);
-        return Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: <Widget>[
-            ...state.filteredExercise.levels.map((level) => RemovableChip(
-                  title: level.name,
-                  color: Colors.orange,
-                  onRemove: () {
-                    onLevelRemoved(state, level, context);
-                  },
-                )),
-            ...state.filteredExercise.tools.map((e) => RemovableChip(
-                  title: e.name,
-                  color: Colors.green,
-                  onRemove: () => onToolRemoved(state, e, context),
-                )),
-            ...state.filteredExercise.types.map((e) => RemovableChip(
-                  title: e.name,
-                  color: Colors.purple,
-                  onRemove: () => onTypeRemoved(state, e, context),
-                )),
-            ...state.filteredExercise.primaryTargets.map((e) => RemovableChip(
-                  title: e.name,
-                  color: Colors.teal,
-                  onRemove: () => onPrimaryTargetRemoved(state, e, context),
-                )),
-            ...state.filteredExercise.secondaryTargets.map((e) => RemovableChip(
-                  title: e.name,
-                  color: Colors.brown,
-                  onRemove: () => onSecondaryTargetRemoved(state, e, context),
-                )),
-          ],
         );
       },
+      itemCount: exercises.length + 1,
     );
   }
+}
 
-  void onLevelRemoved(
-      FilteredExerciseState state, ExerciseLevel level, BuildContext context) {
-    final newLevels = [...state.filteredExercise.levels];
-    newLevels.remove(level);
-    _onChipRemoved(context, state.filteredExercise.copyWith(levels: newLevels));
-  }
+Widget buildListHeader(String searchTerm, BuildContext context) {
+  return Column(
+    children: <Widget>[
+      Padding(
+        padding: EdgeInsets.all(10),
+        child: SearchBar(
+          value: searchTerm,
+          onChanged: (value) {
+            BlocProvider.of<FilteredExerciseBloc>(context)
+                .add(FilteredExerciseEvent.searched(term: value));
+          },
+        ),
+      ),
+      buildFilterChips(context)
+    ],
+  );
+}
 
-  void onToolRemoved(
-      FilteredExerciseState state, ExerciseTool tool, BuildContext context) {
-    final newList = [...state.filteredExercise.tools];
-    newList.remove(tool);
-    _onChipRemoved(context, state.filteredExercise.copyWith(tools: newList));
-  }
+Widget buildFilterChips(BuildContext context) {
+  return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
+    builder: (_, state) {
+      print(state.filteredExercise.levels);
+      return Wrap(
+        spacing: 10,
+        runSpacing: 10,
+        children: <Widget>[
+          ...state.filteredExercise.levels.map((level) => RemovableChip(
+                title: level.name,
+                color: Colors.orange,
+                onRemove: () {
+                  onLevelRemoved(state, level, context);
+                },
+              )),
+          ...state.filteredExercise.tools.map((e) => RemovableChip(
+                title: e.name,
+                color: Colors.green,
+                onRemove: () => onToolRemoved(state, e, context),
+              )),
+          ...state.filteredExercise.types.map((e) => RemovableChip(
+                title: e.name,
+                color: Colors.purple,
+                onRemove: () => onTypeRemoved(state, e, context),
+              )),
+          ...state.filteredExercise.primaryTargets.map((e) => RemovableChip(
+                title: e.name,
+                color: Colors.teal,
+                onRemove: () => onPrimaryTargetRemoved(state, e, context),
+              )),
+          ...state.filteredExercise.secondaryTargets.map((e) => RemovableChip(
+                title: e.name,
+                color: Colors.brown,
+                onRemove: () => onSecondaryTargetRemoved(state, e, context),
+              )),
+        ],
+      );
+    },
+  );
+}
 
-  void onTypeRemoved(
-      FilteredExerciseState state, ExerciseType type, BuildContext context) {
-    final newList = [...state.filteredExercise.types];
-    newList.remove(type);
-    _onChipRemoved(context, state.filteredExercise.copyWith(types: newList));
-  }
+void onLevelRemoved(
+    FilteredExerciseState state, ExerciseLevel level, BuildContext context) {
+  final newLevels = [...state.filteredExercise.levels];
+  newLevels.remove(level);
+  _onChipRemoved(context, state.filteredExercise.copyWith(levels: newLevels));
+}
 
-  void onPrimaryTargetRemoved(FilteredExerciseState state,
-      ExerciseTarget target, BuildContext context) {
-    final newList = [...state.filteredExercise.primaryTargets];
-    newList.remove(target);
-    _onChipRemoved(
-        context, state.filteredExercise.copyWith(primaryTargets: newList));
-  }
+void onToolRemoved(
+    FilteredExerciseState state, ExerciseTool tool, BuildContext context) {
+  final newList = [...state.filteredExercise.tools];
+  newList.remove(tool);
+  _onChipRemoved(context, state.filteredExercise.copyWith(tools: newList));
+}
 
-  void onSecondaryTargetRemoved(FilteredExerciseState state,
-      ExerciseTarget target, BuildContext context) {
-    final newList = [...state.filteredExercise.secondaryTargets];
-    newList.remove(target);
-    _onChipRemoved(
-        context, state.filteredExercise.copyWith(secondaryTargets: newList));
-  }
+void onTypeRemoved(
+    FilteredExerciseState state, ExerciseType type, BuildContext context) {
+  final newList = [...state.filteredExercise.types];
+  newList.remove(type);
+  _onChipRemoved(context, state.filteredExercise.copyWith(types: newList));
+}
 
-  void _onChipRemoved(BuildContext context, Exercise exercise) {
-    BlocProvider.of<FilteredExerciseBloc>(context)
-        .add(FilteredExerciseEvent.filtered(exercise));
-  }
+void onPrimaryTargetRemoved(
+    FilteredExerciseState state, ExerciseTarget target, BuildContext context) {
+  final newList = [...state.filteredExercise.primaryTargets];
+  newList.remove(target);
+  _onChipRemoved(
+      context, state.filteredExercise.copyWith(primaryTargets: newList));
+}
 
-  Widget buildDoneButton(BuildContext context) {
-    return IconButton(
-      onPressed: () => Navigator.pop(context),
-      icon: Icon(Icons.check),
-    );
-  }
+void onSecondaryTargetRemoved(
+    FilteredExerciseState state, ExerciseTarget target, BuildContext context) {
+  final newList = [...state.filteredExercise.secondaryTargets];
+  newList.remove(target);
+  _onChipRemoved(
+      context, state.filteredExercise.copyWith(secondaryTargets: newList));
+}
 
-  Widget buildLoading() {
-    return Center(child: CircularProgressIndicator());
-  }
+void _onChipRemoved(BuildContext context, Exercise exercise) {
+  BlocProvider.of<FilteredExerciseBloc>(context)
+      .add(FilteredExerciseEvent.filtered(exercise));
+}
 
-  Widget buildLoadedError(_) {
-    return Text("Exercise Loaded Error , Try again ");
-  }
+Widget buildDoneButton(BuildContext context) {
+  return IconButton(
+    onPressed: () => Navigator.pop(context),
+    icon: Icon(Icons.check),
+  );
+}
+
+Widget buildLoading() {
+  return Center(child: CircularProgressIndicator());
+}
+
+Widget buildLoadedError(_) {
+  return Text("Exercise Loaded Error , Try again ");
 }
