@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/application/active_workout/active_workout_actor/active_workout_actor_cubit.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActiveWorkoutItem extends StatelessWidget {
   final ActiveWorkout activeWorkout;
@@ -20,7 +22,7 @@ class ActiveWorkoutItem extends StatelessWidget {
             if (value == 0) {
               _onEdit(context);
             } else if (value == 1) {
-              _onDelete();
+              _onDelete(context);
             }
           },
           itemBuilder: (BuildContext context) {
@@ -50,5 +52,7 @@ class ActiveWorkoutItem extends StatelessWidget {
     }
   }
 
-  void _onDelete() {}
+  void _onDelete(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutActorCubit>(context).delete(activeWorkout);
+  }
 }
