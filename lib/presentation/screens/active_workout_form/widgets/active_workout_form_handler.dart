@@ -5,6 +5,7 @@ import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_exercise_edit_item.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,9 +48,12 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                   ),
                   onReorder: (oldIndex, newIndex) {},
                   children: state.activeWorkout.activeExercises
-                      .map((ActiveExercise activeExercise) => ListTile(
+                      .map((ActiveExercise activeExercise) =>
+                          ActiveExerciseEditItem(
                             key: ValueKey(activeExercise.id),
-                            title: Text(activeExercise.exercise.name.safeValue),
+                            activeExercise: activeExercise,
+                            onRemove: () => _onActiveExerciseRemove(
+                                context, activeExercise),
                           ))
                       .toList()),
             ),
@@ -103,9 +107,18 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
     BlocProvider.of<ActiveWorkoutFormCubit>(context).nameChanged(name: name);
   }
 
-  void onAddExercise(BuildContext context, Exercise exercise) {}
+  void onAddExercise(BuildContext context, Exercise exercise) {
+    BlocProvider.of<ActiveWorkoutFormCubit>(context)
+        .exerciseAdded(exercise: exercise);
+  }
 
-  void onRemoveExercise(BuildContext context, Exercise exercise) {}
+  void onRemoveExercise(BuildContext context, Exercise exercise) {
+    BlocProvider.of<ActiveWorkoutFormCubit>(context)
+        .exerciseRemoved(exercise: exercise);
+  }
+
+  void _onActiveExerciseRemove(
+      BuildContext context, ActiveExercise activeExercise) {}
 
   String _getErrorInputText(ActiveWorkoutFormState state) {
     return state.shouldShowErrorMessages
