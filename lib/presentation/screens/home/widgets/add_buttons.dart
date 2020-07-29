@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
+import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
-import 'package:fitnick/presentation/screens/workout_form/workout_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -71,7 +71,7 @@ class AddButtons extends StatelessWidget {
     String message = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (_) => WorkoutFormScreen.generateRoute(none())));
+            builder: (_) => ActiveWorkoutFormScreen.generateRoute(none())));
     if (message != null) {
       showMessage(context, message: message, type: SuccessMessage());
     }
