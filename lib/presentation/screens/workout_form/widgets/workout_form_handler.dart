@@ -76,17 +76,17 @@ class WorkoutFormHandler extends StatelessWidget {
     return FlatButton(
       child: Text("+ Add Exercise"),
       onPressed: () {
-        final route = BlocProvider<FilteredExerciseBloc>(
-          create: (_) => FilteredExerciseBloc(
-              exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
-          child: SelectExerciseScreen.generateRoute(
-              bloc: BlocProvider.of<WorkoutFormBloc>(context)),
-        );
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => route,
-            ));
+        // final route = BlocProvider<FilteredExerciseBloc>(
+        //   create: (_) => FilteredExerciseBloc(
+        //       exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
+        //   child: SelectExerciseScreen.generateRoute(
+        //       bloc: BlocProvider.of<WorkoutFormBloc>(context)),
+        // );
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (_) => route,
+        //     ));
       },
     );
   }
