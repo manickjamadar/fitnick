@@ -85,8 +85,10 @@ void initBloc() {
   locator.registerFactory<ActiveWorkoutHubCubit>(() => ActiveWorkoutHubCubit(
       activeWorkoutFacade: locator<IActiveWorkoutFacade>()));
   locator.registerFactory<ActiveWorkoutFormCubit>(() => ActiveWorkoutFormCubit(
+      activeExerciseFacade: locator<IActiveExerciseFacade>(),
       activeWorkoutFacade: locator<IActiveWorkoutFacade>()));
   locator.registerFactory<ActiveWorkoutActorCubit>(() =>
       ActiveWorkoutActorCubit(
+          activeExerciseFacade: locator<IActiveExerciseFacade>(),
           activeWorkoutFacade: locator<IActiveWorkoutFacade>()));
 }
