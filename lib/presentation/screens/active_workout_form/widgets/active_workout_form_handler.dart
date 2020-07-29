@@ -1,8 +1,11 @@
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
+import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "../../../../application/active_workout/active_workout_hub/active_workout_hub_cubit.dart";
@@ -26,71 +29,56 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
           });
         });
       },
-      builder: (context, state) {
+      builder: (_, state) {
         return Stack(
           children: <Widget>[
-            buildNameInput(context),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: ReorderableListView(
+                  header: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      buildNameInput(context),
+                      buildAddExerciseButton(context)
+                    ],
+                  ),
+                  onReorder: (oldIndex, newIndex) {},
+                  children: state.activeWorkout.activeExercises
+                      .map((ActiveExercise activeExercise) => ListTile(
+                            key: ValueKey(activeExercise.id),
+                            title: Text(activeExercise.exercise.name.safeValue),
+                          ))
+                      .toList()),
+            ),
             if (state.isAdding) ExecutingIndicator(),
           ],
         );
-        // return Stack(
-        //   children: <Widget>[
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        //       child: ReorderableListView(
-        //           header: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: <Widget>[
-        //               SizedBox(
-        //                 height: 20,
-        //               ),
-        //               buildNameInput(context),
-        //               buildAddExerciseButton(context)
-        //             ],
-        //           ),
-        //           onReorder: (oldIndex, newIndex) {
-        //             BlocProvider.of<WorkoutFormBloc>(context).add(
-        //                 WorkoutFormEvent.exerciseReordered(
-        //                     oldIndex: oldIndex, newIndex: newIndex));
-        //           },
-        //           children: state.workout.exercises
-        //               .map((exercise) => ExerciseItem(
-        //                     key: ValueKey(exercise.id.value),
-        //                     exercise: exercise,
-        //                     exerciseItemType:
-        //                         ExerciseItemType.removable(onRemove: (_) {
-        //                       BlocProvider.of<WorkoutFormBloc>(context).add(
-        //                           WorkoutFormEvent.exerciseRemoved(
-        //                               exerciseId: exercise.id));
-        //                     }),
-        //                   ))
-        //               .toList()),
-        //     ),
-        //     if (state.isAdding) ExecutingIndicator(),
-        //   ],
-        // );
       },
     );
   }
 
-  // FlatButton buildAddExerciseButton(BuildContext context) {
-  //   return FlatButton(
-  //     child: Text("+ Add Exercise"),
-  //     onPressed: () {
-  //       final route = BlocProvider<FilteredExerciseBloc>(
-  //         create: (_) => FilteredExerciseBloc(
-  //             exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
-  //         child: SelectExerciseScreen.generateRoute(
-  //             bloc: BlocProvider.of<WorkoutFormBloc>(context)),
-  //       );
-  //       Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (_) => route,
-  //           ));
-  //     },
-  //   );
-  // }
+  FlatButton buildAddExerciseButton(BuildContext context) {
+    return FlatButton(
+      child: Text("+ Add Exercise"),
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => SelectExerciseScreen.generateRoute(context,
+                  onExerciseSelect: (Exercise exercise, selected) {
+                if (selected) {
+                  onAddExercise(context, exercise);
+                } else {
+                  onRemoveExercise(context, exercise);
+                }
+              }),
+            ));
+      },
+    );
+  }
 
   Widget buildNameInput(BuildContext context) {
     final activeWorkoutFormCubit =
@@ -114,6 +102,10 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   void onNameChanged(BuildContext context, String name) {
     BlocProvider.of<ActiveWorkoutFormCubit>(context).nameChanged(name: name);
   }
+
+  void onAddExercise(BuildContext context, Exercise exercise) {}
+
+  void onRemoveExercise(BuildContext context, Exercise exercise) {}
 
   String _getErrorInputText(ActiveWorkoutFormState state) {
     return state.shouldShowErrorMessages
