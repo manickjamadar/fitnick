@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
@@ -106,11 +107,12 @@ class LocalDatabaseProvider {
     final workoutFacade = LocalWorkoutFacade(
         exerciseFacade: exerciseFacade,
         workoutDataSource: LocalWorkoutDataSource(database: db));
+    final activeExerciseFacade = ActiveExerciseFacade(
+        exerciseFacade: exerciseFacade,
+        dataSource: LocalActiveExerciseDataSource(database: db));
     final activeWorkoutFacade = ActiveWorkoutFacade(
         dataSource: LocalActiveWorkoutDataSource(database: db),
-        activeExerciseFacade: ActiveExerciseFacade(
-            exerciseFacade: exerciseFacade,
-            dataSource: LocalActiveExerciseDataSource(database: db)));
+        activeExerciseFacade: activeExerciseFacade);
     final Either<WorkoutFailure, List<Workout>> workoutsFailureOrSuccess =
         await workoutFacade.findAll();
     await workoutsFailureOrSuccess.fold((_) async {},
@@ -119,6 +121,10 @@ class LocalDatabaseProvider {
           .map((workout) => ActiveWorkout.fromWorkout(workout))
           .toList();
       activeWorkouts.forEach((activeWorkout) async {
+        activeWorkout.activeExercises
+            .forEach((ActiveExercise activeExercise) async {
+          await activeExerciseFacade.create(activeExercise);
+        });
         await activeWorkoutFacade.create(activeWorkout);
       });
     });
