@@ -1,5 +1,5 @@
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
-import 'package:fitnick/presentation/screens/home/widgets/workout/active_workout_item.dart';
+import 'package:fitnick/presentation/screens/home/widgets/active_workout/active_workout_item.dart';
 import 'package:flutter/material.dart';
 
 class ActiveWorkoutListView extends StatelessWidget {

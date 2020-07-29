@@ -2,7 +2,7 @@ import 'package:fitnick/application/workout/workout_actor/workout_actor_bloc.dar
 import 'package:fitnick/application/workout/workout_hub/workout_hub_bloc.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
-import 'package:fitnick/presentation/screens/home/widgets/workout/active_workout_list_view.dart';
+import 'package:fitnick/presentation/screens/home/widgets/active_workout/active_workout_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "../../../../application/active_workout/active_workout_hub/active_workout_hub_cubit.dart";
