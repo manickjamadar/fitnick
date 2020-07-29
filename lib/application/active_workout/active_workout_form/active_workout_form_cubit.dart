@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_workout/facade/i_active_workout_facade.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
@@ -11,8 +12,10 @@ part 'active_workout_form_state.dart';
 part 'active_workout_form_cubit.freezed.dart';
 
 class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
+  final IActiveExerciseFacade activeExerciseFacade;
   final IActiveWorkoutFacade activeWorkoutFacade;
-  ActiveWorkoutFormCubit({@required this.activeWorkoutFacade})
+  ActiveWorkoutFormCubit(
+      {@required this.activeWorkoutFacade, @required this.activeExerciseFacade})
       : super(ActiveWorkoutFormState.initial());
 
   //events
