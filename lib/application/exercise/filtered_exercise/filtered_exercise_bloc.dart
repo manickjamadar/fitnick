@@ -19,13 +19,16 @@ class FilteredExerciseBloc
   List<Exercise> mainExercises = [];
   FilteredExerciseBloc({@required this.exerciseHubBloc})
       : super(FilteredExerciseState.initial()) {
-    exerciseListener = exerciseHubBloc.listen((state) {
-      state.maybeWhen(
-          orElse: () {},
-          loaded: (List<Exercise> exercises) {
-            add(FilteredExerciseEvent.refreshed(exercises: exercises));
-          });
-    });
+    _mapExerciseHubStateToState(exerciseHubBloc.state);
+    exerciseListener = exerciseHubBloc.listen(_mapExerciseHubStateToState);
+  }
+
+  void _mapExerciseHubStateToState(ExerciseHubState state) {
+    state.maybeWhen(
+        orElse: () {},
+        loaded: (List<Exercise> exercises) {
+          add(FilteredExerciseEvent.refreshed(exercises: exercises));
+        });
   }
 
   @override
