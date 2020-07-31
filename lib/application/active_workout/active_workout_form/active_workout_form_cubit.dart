@@ -47,10 +47,6 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
             state.activeWorkout.copyWith(activeExercises: newActiveExercises)));
   }
 
-  Future<void> exerciseRemoved({@required Exercise exercise}) async {
-    //TODO: implement logic
-  }
-
   Future<void> activeExerciseRemoved(
       {@required ActiveExercise activeExercise}) async {
     //TODO: implement logic
