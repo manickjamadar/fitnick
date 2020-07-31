@@ -9,7 +9,7 @@ import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/domain/workout/value_object/workout_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import "../../../application/core/helpers/list_extension.dart";
 part 'active_workout_form_state.dart';
 part 'active_workout_form_cubit.freezed.dart';
 
@@ -63,8 +63,11 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
 
   Future<void> activeExerciseReordered(
       {@required int oldIndex, @required int newIndex}) async {
-    //TODO: implement logic
-    throw UnimplementedError();
+    emit(state.copyWith(
+        activeWorkout: state.activeWorkout.copyWith(
+            activeExercises: state.activeWorkout.activeExercises
+                .reorder(oldIndex, newIndex)),
+        addStatus: none()));
   }
 
   Future<void> saved() async {
