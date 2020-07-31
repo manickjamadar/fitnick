@@ -67,19 +67,18 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   FlatButton buildAddExerciseButton(BuildContext context) {
     return FlatButton(
       child: Text("+ Add Exercise"),
-      onPressed: () {
-        Navigator.push(
+      onPressed: () async {
+        final List<Exercise> selectedExercises = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => SelectExerciseScreen.generateRoute(context,
-                  onExerciseSelect: (Exercise exercise, selected) {
-                if (selected) {
-                  onAddExercise(context, exercise);
-                } else {
-                  onRemoveExercise(context, exercise);
-                }
-              }),
+              builder: (_) => SelectExerciseScreen.generateRoute(context),
             ));
+        if (selectedExercises == null || selectedExercises.isEmpty) {
+          return;
+        }
+        selectedExercises.forEach((exercise) {
+          onAddExercise(context, exercise);
+        });
       },
     );
   }
@@ -110,11 +109,6 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   void onAddExercise(BuildContext context, Exercise exercise) {
     BlocProvider.of<ActiveWorkoutFormCubit>(context)
         .exerciseAdded(exercise: exercise);
-  }
-
-  void onRemoveExercise(BuildContext context, Exercise exercise) {
-    BlocProvider.of<ActiveWorkoutFormCubit>(context)
-        .exerciseRemoved(exercise: exercise);
   }
 
   void _onActiveExerciseRemove(
