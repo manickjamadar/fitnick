@@ -13,23 +13,43 @@ import 'package:fitnick/presentation/screens/select_exercise_screen/widgets/remo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SelectExerciseScreen extends StatelessWidget {
+class SelectExerciseScreen extends StatefulWidget {
   static const String routeName = "/select_exercise";
 
-  const SelectExerciseScreen({Key key, this.onExerciseSelect})
-      : super(key: key);
-  static Widget generateRoute(BuildContext context,
-      {void Function(Exercise exercise, bool selected) onExerciseSelect}) {
+  const SelectExerciseScreen({Key key}) : super(key: key);
+  static Widget generateRoute(
+    BuildContext context,
+  ) {
     return BlocProvider<FilteredExerciseBloc>(
       create: (_) => FilteredExerciseBloc(
           exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
-      child: SelectExerciseScreen(
-        onExerciseSelect: onExerciseSelect,
-      ),
+      child: SelectExerciseScreen(),
     );
   }
 
-  final void Function(Exercise exercise, bool selected) onExerciseSelect;
+  @override
+  _SelectExerciseScreenState createState() => _SelectExerciseScreenState();
+}
+
+class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
+  List<Exercise> _selectedExerciseList;
+  @override
+  void initState() {
+    super.initState();
+    _selectedExerciseList = [];
+  }
+
+  void _addSelectedExercise(Exercise exercise) {
+    setState(() {
+      _selectedExerciseList.add(exercise);
+    });
+  }
+
+  void _removeSelectedExercise(Exercise exercise) {
+    setState(() {
+      _selectedExerciseList.removeWhere((e) => e.id == exercise.id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +116,10 @@ class SelectExerciseScreen extends StatelessWidget {
             exercise: exercise,
             exerciseItemType: ExerciseItemType.selectable(
                 onSelect: (selected) {
-                  if (onExerciseSelect != null) {
-                    onExerciseSelect(exercise, selected);
+                  if (selected) {
+                    _addSelectedExercise(exercise);
+                  } else {
+                    _removeSelectedExercise(exercise);
                   }
                 },
                 selected: false),
@@ -107,120 +129,120 @@ class SelectExerciseScreen extends StatelessWidget {
       itemCount: exercises.length + 1,
     );
   }
-}
 
-Widget buildListHeader(String searchTerm, BuildContext context) {
-  return Column(
-    children: <Widget>[
-      Padding(
-        padding: EdgeInsets.all(10),
-        child: SearchBar(
-          value: searchTerm,
-          onChanged: (value) {
-            BlocProvider.of<FilteredExerciseBloc>(context)
-                .add(FilteredExerciseEvent.searched(term: value));
-          },
+  Widget buildListHeader(String searchTerm, BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: SearchBar(
+            value: searchTerm,
+            onChanged: (value) {
+              BlocProvider.of<FilteredExerciseBloc>(context)
+                  .add(FilteredExerciseEvent.searched(term: value));
+            },
+          ),
         ),
-      ),
-      buildFilterChips(context)
-    ],
-  );
-}
+        buildFilterChips(context)
+      ],
+    );
+  }
 
-Widget buildFilterChips(BuildContext context) {
-  return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
-    builder: (_, state) {
-      print(state.filteredExercise.levels);
-      return Wrap(
-        spacing: 10,
-        runSpacing: 10,
-        children: <Widget>[
-          ...state.filteredExercise.levels.map((level) => RemovableChip(
-                title: level.name,
-                color: Colors.orange,
-                onRemove: () {
-                  onLevelRemoved(state, level, context);
-                },
-              )),
-          ...state.filteredExercise.tools.map((e) => RemovableChip(
-                title: e.name,
-                color: Colors.green,
-                onRemove: () => onToolRemoved(state, e, context),
-              )),
-          ...state.filteredExercise.types.map((e) => RemovableChip(
-                title: e.name,
-                color: Colors.purple,
-                onRemove: () => onTypeRemoved(state, e, context),
-              )),
-          ...state.filteredExercise.primaryTargets.map((e) => RemovableChip(
-                title: e.name,
-                color: Colors.teal,
-                onRemove: () => onPrimaryTargetRemoved(state, e, context),
-              )),
-          ...state.filteredExercise.secondaryTargets.map((e) => RemovableChip(
-                title: e.name,
-                color: Colors.brown,
-                onRemove: () => onSecondaryTargetRemoved(state, e, context),
-              )),
-        ],
-      );
-    },
-  );
-}
+  Widget buildFilterChips(BuildContext context) {
+    return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
+      builder: (_, state) {
+        print(state.filteredExercise.levels);
+        return Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: <Widget>[
+            ...state.filteredExercise.levels.map((level) => RemovableChip(
+                  title: level.name,
+                  color: Colors.orange,
+                  onRemove: () {
+                    onLevelRemoved(state, level, context);
+                  },
+                )),
+            ...state.filteredExercise.tools.map((e) => RemovableChip(
+                  title: e.name,
+                  color: Colors.green,
+                  onRemove: () => onToolRemoved(state, e, context),
+                )),
+            ...state.filteredExercise.types.map((e) => RemovableChip(
+                  title: e.name,
+                  color: Colors.purple,
+                  onRemove: () => onTypeRemoved(state, e, context),
+                )),
+            ...state.filteredExercise.primaryTargets.map((e) => RemovableChip(
+                  title: e.name,
+                  color: Colors.teal,
+                  onRemove: () => onPrimaryTargetRemoved(state, e, context),
+                )),
+            ...state.filteredExercise.secondaryTargets.map((e) => RemovableChip(
+                  title: e.name,
+                  color: Colors.brown,
+                  onRemove: () => onSecondaryTargetRemoved(state, e, context),
+                )),
+          ],
+        );
+      },
+    );
+  }
 
-void onLevelRemoved(
-    FilteredExerciseState state, ExerciseLevel level, BuildContext context) {
-  final newLevels = [...state.filteredExercise.levels];
-  newLevels.remove(level);
-  _onChipRemoved(context, state.filteredExercise.copyWith(levels: newLevels));
-}
+  void onLevelRemoved(
+      FilteredExerciseState state, ExerciseLevel level, BuildContext context) {
+    final newLevels = [...state.filteredExercise.levels];
+    newLevels.remove(level);
+    _onChipRemoved(context, state.filteredExercise.copyWith(levels: newLevels));
+  }
 
-void onToolRemoved(
-    FilteredExerciseState state, ExerciseTool tool, BuildContext context) {
-  final newList = [...state.filteredExercise.tools];
-  newList.remove(tool);
-  _onChipRemoved(context, state.filteredExercise.copyWith(tools: newList));
-}
+  void onToolRemoved(
+      FilteredExerciseState state, ExerciseTool tool, BuildContext context) {
+    final newList = [...state.filteredExercise.tools];
+    newList.remove(tool);
+    _onChipRemoved(context, state.filteredExercise.copyWith(tools: newList));
+  }
 
-void onTypeRemoved(
-    FilteredExerciseState state, ExerciseType type, BuildContext context) {
-  final newList = [...state.filteredExercise.types];
-  newList.remove(type);
-  _onChipRemoved(context, state.filteredExercise.copyWith(types: newList));
-}
+  void onTypeRemoved(
+      FilteredExerciseState state, ExerciseType type, BuildContext context) {
+    final newList = [...state.filteredExercise.types];
+    newList.remove(type);
+    _onChipRemoved(context, state.filteredExercise.copyWith(types: newList));
+  }
 
-void onPrimaryTargetRemoved(
-    FilteredExerciseState state, ExerciseTarget target, BuildContext context) {
-  final newList = [...state.filteredExercise.primaryTargets];
-  newList.remove(target);
-  _onChipRemoved(
-      context, state.filteredExercise.copyWith(primaryTargets: newList));
-}
+  void onPrimaryTargetRemoved(FilteredExerciseState state,
+      ExerciseTarget target, BuildContext context) {
+    final newList = [...state.filteredExercise.primaryTargets];
+    newList.remove(target);
+    _onChipRemoved(
+        context, state.filteredExercise.copyWith(primaryTargets: newList));
+  }
 
-void onSecondaryTargetRemoved(
-    FilteredExerciseState state, ExerciseTarget target, BuildContext context) {
-  final newList = [...state.filteredExercise.secondaryTargets];
-  newList.remove(target);
-  _onChipRemoved(
-      context, state.filteredExercise.copyWith(secondaryTargets: newList));
-}
+  void onSecondaryTargetRemoved(FilteredExerciseState state,
+      ExerciseTarget target, BuildContext context) {
+    final newList = [...state.filteredExercise.secondaryTargets];
+    newList.remove(target);
+    _onChipRemoved(
+        context, state.filteredExercise.copyWith(secondaryTargets: newList));
+  }
 
-void _onChipRemoved(BuildContext context, Exercise exercise) {
-  BlocProvider.of<FilteredExerciseBloc>(context)
-      .add(FilteredExerciseEvent.filtered(exercise));
-}
+  void _onChipRemoved(BuildContext context, Exercise exercise) {
+    BlocProvider.of<FilteredExerciseBloc>(context)
+        .add(FilteredExerciseEvent.filtered(exercise));
+  }
 
-Widget buildDoneButton(BuildContext context) {
-  return IconButton(
-    onPressed: () => Navigator.pop(context),
-    icon: Icon(Icons.check),
-  );
-}
+  Widget buildDoneButton(BuildContext context) {
+    return IconButton(
+      onPressed: () => Navigator.pop(context, _selectedExerciseList),
+      icon: Icon(Icons.check),
+    );
+  }
 
-Widget buildLoading() {
-  return Center(child: CircularProgressIndicator());
-}
+  Widget buildLoading() {
+    return Center(child: CircularProgressIndicator());
+  }
 
-Widget buildLoadedError(_) {
-  return Text("Exercise Loaded Error , Try again ");
+  Widget buildLoadedError(_) {
+    return Text("Exercise Loaded Error , Try again ");
+  }
 }
