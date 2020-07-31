@@ -112,7 +112,10 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   }
 
   void _onActiveExerciseRemove(
-      BuildContext context, ActiveExercise activeExercise) {}
+      BuildContext context, ActiveExercise activeExercise) {
+    BlocProvider.of<ActiveWorkoutFormCubit>(context)
+        .activeExerciseRemoved(activeExercise: activeExercise);
+  }
 
   String _getErrorInputText(ActiveWorkoutFormState state) {
     return state.shouldShowErrorMessages
