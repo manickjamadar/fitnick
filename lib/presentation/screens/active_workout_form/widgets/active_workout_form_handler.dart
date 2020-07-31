@@ -46,7 +46,8 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                       buildAddExerciseButton(context)
                     ],
                   ),
-                  onReorder: (oldIndex, newIndex) {},
+                  onReorder: (oldIndex, newIndex) =>
+                      _onActiveExerciseReorder(context, oldIndex, newIndex),
                   children: state.activeWorkout.activeExercises
                       .map((ActiveExercise activeExercise) =>
                           ActiveExerciseEditItem(
@@ -115,6 +116,12 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
       BuildContext context, ActiveExercise activeExercise) {
     BlocProvider.of<ActiveWorkoutFormCubit>(context)
         .activeExerciseRemoved(activeExercise: activeExercise);
+  }
+
+  void _onActiveExerciseReorder(
+      BuildContext context, int oldIndex, int newIndex) {
+    BlocProvider.of<ActiveWorkoutFormCubit>(context)
+        .activeExerciseReordered(oldIndex: oldIndex, newIndex: newIndex);
   }
 
   String _getErrorInputText(ActiveWorkoutFormState state) {
