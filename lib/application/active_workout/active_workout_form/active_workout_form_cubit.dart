@@ -22,6 +22,7 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
 
   List<ActiveExercise> _creatableActiveExercises = [];
   List<ActiveExercise> _removableActiveExercises = [];
+  List<ActiveExercise> _updatableActiveExercises = [];
 
   //events
   Future<void> init(
@@ -61,6 +62,21 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
             state.activeWorkout.copyWith(activeExercises: newActiveExercises)));
   }
 
+  Future<void> activeExerciseUpdated(
+      {@required ActiveExercise activeExercise}) async {
+    _updateActiveExercise(activeExercise);
+    final newActiveExercises = state.activeWorkout.activeExercises.map((e) {
+      if (e.id == activeExercise.id) {
+        return activeExercise;
+      }
+      return e;
+    }).toList();
+    emit(state.copyWith(
+        addStatus: none(),
+        activeWorkout:
+            state.activeWorkout.copyWith(activeExercises: newActiveExercises)));
+  }
+
   Future<void> activeExerciseReordered(
       {@required int oldIndex, @required int newIndex}) async {
     emit(state.copyWith(
@@ -76,6 +92,7 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
     if (state.activeWorkout.isValid) {
       await _saveCreatableActiveExercises();
       await _removeRemovableActiveExercises();
+      await _updateUpdatableActiveExercises();
       failureOrSuccess = state.isEditing
           ? await activeWorkoutFacade.update(state.activeWorkout)
           : await activeWorkoutFacade.create(state.activeWorkout);
@@ -94,6 +111,14 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
     }
   }
 
+  void _updateActiveExercise(ActiveExercise activeExercise) {
+    if (state.isEditing && !_isPresentInCreatable(activeExercise)) {
+      _addUpdtableActiveExercise(activeExercise);
+    } else {
+      _replaceFromCreatableActiveExercises(activeExercise);
+    }
+  }
+
   bool _isPresentInCreatable(ActiveExercise activeExercise) {
     return _creatableActiveExercises.any((e) => e.id == activeExercise.id);
   }
@@ -108,14 +133,35 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
     _creatableActiveExercises.removeWhere((e) => e.id == activeExerciseId);
   }
 
+  void _replaceFromCreatableActiveExercises(ActiveExercise activeExercise) {
+    _creatableActiveExercises =
+        _creatableActiveExercises.map((oldActiveExercise) {
+      if (activeExercise.id == oldActiveExercise.id) {
+        return activeExercise;
+      }
+      return oldActiveExercise;
+    }).toList();
+  }
+
   ActiveExercise _addRemovableActiveExercise(ActiveExercise activeExercise) {
     _removableActiveExercises.add(activeExercise);
+    return activeExercise;
+  }
+
+  ActiveExercise _addUpdtableActiveExercise(ActiveExercise activeExercise) {
+    _updatableActiveExercises.add(activeExercise);
     return activeExercise;
   }
 
   Future<void> _removeRemovableActiveExercises() async {
     _removableActiveExercises.forEach((activeExercise) async {
       await activeExerciseFacade.delete(activeExercise.id);
+    });
+  }
+
+  Future<void> _updateUpdatableActiveExercises() async {
+    _updatableActiveExercises.forEach((activeExercise) async {
+      await activeExerciseFacade.update(activeExercise);
     });
   }
 
