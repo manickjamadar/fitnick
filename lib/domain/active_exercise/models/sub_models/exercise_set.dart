@@ -21,9 +21,9 @@ abstract class ExerciseSet implements _$ExerciseSet {
   factory ExerciseSet.initial() {
     return ExerciseSet(
         id: UniqueId(),
-        performType: ExercisePerformType.reps(),
+        performType: ExercisePerformType.reps,
         performCount: 10,
-        weightUnit: WeightUnit.kg(),
+        weightUnit: WeightUnit.kg,
         weightCount: 0,
         rest: 60);
   }

@@ -1,3 +1,4 @@
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
@@ -21,8 +22,8 @@ abstract class ActiveExercise implements _$ActiveExercise {
         exercise: exercise.copyWith());
   }
   bool get isRepsTempoRequired {
-    return sets.any((ExerciseSet s) =>
-        s.performType.maybeWhen<bool>(orElse: () => false, reps: () => true));
+    return sets
+        .any((ExerciseSet s) => s.performType == ExercisePerformType.reps);
   }
 
   int get performTempo => isRepsTempoRequired ? repsTempo : 1;

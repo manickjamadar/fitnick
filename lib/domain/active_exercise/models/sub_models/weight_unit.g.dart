@@ -6,14 +6,13 @@ part of 'weight_unit.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Kg _$_$_KgFromJson(Map<String, dynamic> json) {
-  return _$_Kg();
+_$_WeightUnit _$_$_WeightUnitFromJson(Map<String, dynamic> json) {
+  return _$_WeightUnit(
+    name: json['name'] as String,
+  );
 }
 
-Map<String, dynamic> _$_$_KgToJson(_$_Kg instance) => <String, dynamic>{};
-
-_$_Lbs _$_$_LbsFromJson(Map<String, dynamic> json) {
-  return _$_Lbs();
-}
-
-Map<String, dynamic> _$_$_LbsToJson(_$_Lbs instance) => <String, dynamic>{};
+Map<String, dynamic> _$_$_WeightUnitToJson(_$_WeightUnit instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };

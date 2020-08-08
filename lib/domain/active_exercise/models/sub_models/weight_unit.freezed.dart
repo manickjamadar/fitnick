@@ -9,26 +9,16 @@ part of 'weight_unit.dart';
 
 T _$identity<T>(T value) => value;
 WeightUnit _$WeightUnitFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
-    case 'kg':
-      return _Kg.fromJson(json);
-    case 'lbs':
-      return _Lbs.fromJson(json);
-
-    default:
-      throw FallThroughError();
-  }
+  return _WeightUnit.fromJson(json);
 }
 
 class _$WeightUnitTearOff {
   const _$WeightUnitTearOff();
 
-  _Kg kg() {
-    return const _Kg();
-  }
-
-  _Lbs lbs() {
-    return const _Lbs();
+  _WeightUnit call({@required String name}) {
+    return _WeightUnit(
+      name: name,
+    );
   }
 }
 
@@ -36,35 +26,17 @@ class _$WeightUnitTearOff {
 const $WeightUnit = _$WeightUnitTearOff();
 
 mixin _$WeightUnit {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result kg(),
-    @required Result lbs(),
-  });
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result kg(),
-    Result lbs(),
-    @required Result orElse(),
-  });
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result kg(_Kg value),
-    @required Result lbs(_Lbs value),
-  });
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result kg(_Kg value),
-    Result lbs(_Lbs value),
-    @required Result orElse(),
-  });
+  String get name;
+
   Map<String, dynamic> toJson();
+  $WeightUnitCopyWith<WeightUnit> get copyWith;
 }
 
 abstract class $WeightUnitCopyWith<$Res> {
   factory $WeightUnitCopyWith(
           WeightUnit value, $Res Function(WeightUnit) then) =
       _$WeightUnitCopyWithImpl<$Res>;
+  $Res call({String name});
 }
 
 class _$WeightUnitCopyWithImpl<$Res> implements $WeightUnitCopyWith<$Res> {
@@ -73,194 +45,89 @@ class _$WeightUnitCopyWithImpl<$Res> implements $WeightUnitCopyWith<$Res> {
   final WeightUnit _value;
   // ignore: unused_field
   final $Res Function(WeightUnit) _then;
-}
-
-abstract class _$KgCopyWith<$Res> {
-  factory _$KgCopyWith(_Kg value, $Res Function(_Kg) then) =
-      __$KgCopyWithImpl<$Res>;
-}
-
-class __$KgCopyWithImpl<$Res> extends _$WeightUnitCopyWithImpl<$Res>
-    implements _$KgCopyWith<$Res> {
-  __$KgCopyWithImpl(_Kg _value, $Res Function(_Kg) _then)
-      : super(_value, (v) => _then(v as _Kg));
 
   @override
-  _Kg get _value => super._value as _Kg;
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed ? _value.name : name as String,
+    ));
+  }
+}
+
+abstract class _$WeightUnitCopyWith<$Res> implements $WeightUnitCopyWith<$Res> {
+  factory _$WeightUnitCopyWith(
+          _WeightUnit value, $Res Function(_WeightUnit) then) =
+      __$WeightUnitCopyWithImpl<$Res>;
+  @override
+  $Res call({String name});
+}
+
+class __$WeightUnitCopyWithImpl<$Res> extends _$WeightUnitCopyWithImpl<$Res>
+    implements _$WeightUnitCopyWith<$Res> {
+  __$WeightUnitCopyWithImpl(
+      _WeightUnit _value, $Res Function(_WeightUnit) _then)
+      : super(_value, (v) => _then(v as _WeightUnit));
+
+  @override
+  _WeightUnit get _value => super._value as _WeightUnit;
+
+  @override
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(_WeightUnit(
+      name: name == freezed ? _value.name : name as String,
+    ));
+  }
 }
 
 @JsonSerializable()
-class _$_Kg implements _Kg {
-  const _$_Kg();
+class _$_WeightUnit implements _WeightUnit {
+  const _$_WeightUnit({@required this.name}) : assert(name != null);
 
-  factory _$_Kg.fromJson(Map<String, dynamic> json) => _$_$_KgFromJson(json);
+  factory _$_WeightUnit.fromJson(Map<String, dynamic> json) =>
+      _$_$_WeightUnitFromJson(json);
+
+  @override
+  final String name;
 
   @override
   String toString() {
-    return 'WeightUnit.kg()';
+    return 'WeightUnit(name: $name)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Kg);
+    return identical(this, other) ||
+        (other is _WeightUnit &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
 
   @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result kg(),
-    @required Result lbs(),
-  }) {
-    assert(kg != null);
-    assert(lbs != null);
-    return kg();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result kg(),
-    Result lbs(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (kg != null) {
-      return kg();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result kg(_Kg value),
-    @required Result lbs(_Lbs value),
-  }) {
-    assert(kg != null);
-    assert(lbs != null);
-    return kg(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result kg(_Kg value),
-    Result lbs(_Lbs value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (kg != null) {
-      return kg(this);
-    }
-    return orElse();
-  }
+  _$WeightUnitCopyWith<_WeightUnit> get copyWith =>
+      __$WeightUnitCopyWithImpl<_WeightUnit>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_KgToJson(this)..['runtimeType'] = 'kg';
+    return _$_$_WeightUnitToJson(this);
   }
 }
 
-abstract class _Kg implements WeightUnit {
-  const factory _Kg() = _$_Kg;
+abstract class _WeightUnit implements WeightUnit {
+  const factory _WeightUnit({@required String name}) = _$_WeightUnit;
 
-  factory _Kg.fromJson(Map<String, dynamic> json) = _$_Kg.fromJson;
-}
-
-abstract class _$LbsCopyWith<$Res> {
-  factory _$LbsCopyWith(_Lbs value, $Res Function(_Lbs) then) =
-      __$LbsCopyWithImpl<$Res>;
-}
-
-class __$LbsCopyWithImpl<$Res> extends _$WeightUnitCopyWithImpl<$Res>
-    implements _$LbsCopyWith<$Res> {
-  __$LbsCopyWithImpl(_Lbs _value, $Res Function(_Lbs) _then)
-      : super(_value, (v) => _then(v as _Lbs));
+  factory _WeightUnit.fromJson(Map<String, dynamic> json) =
+      _$_WeightUnit.fromJson;
 
   @override
-  _Lbs get _value => super._value as _Lbs;
-}
-
-@JsonSerializable()
-class _$_Lbs implements _Lbs {
-  const _$_Lbs();
-
-  factory _$_Lbs.fromJson(Map<String, dynamic> json) => _$_$_LbsFromJson(json);
-
+  String get name;
   @override
-  String toString() {
-    return 'WeightUnit.lbs()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Lbs);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result kg(),
-    @required Result lbs(),
-  }) {
-    assert(kg != null);
-    assert(lbs != null);
-    return lbs();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result kg(),
-    Result lbs(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (lbs != null) {
-      return lbs();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result kg(_Kg value),
-    @required Result lbs(_Lbs value),
-  }) {
-    assert(kg != null);
-    assert(lbs != null);
-    return lbs(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result kg(_Kg value),
-    Result lbs(_Lbs value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (lbs != null) {
-      return lbs(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_LbsToJson(this)..['runtimeType'] = 'lbs';
-  }
-}
-
-abstract class _Lbs implements WeightUnit {
-  const factory _Lbs() = _$_Lbs;
-
-  factory _Lbs.fromJson(Map<String, dynamic> json) = _$_Lbs.fromJson;
+  _$WeightUnitCopyWith<_WeightUnit> get copyWith;
 }

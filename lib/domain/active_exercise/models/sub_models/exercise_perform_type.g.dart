@@ -6,14 +6,13 @@ part of 'exercise_perform_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Reps _$_$_RepsFromJson(Map<String, dynamic> json) {
-  return _$_Reps();
+_$_PerformType _$_$_PerformTypeFromJson(Map<String, dynamic> json) {
+  return _$_PerformType(
+    name: json['name'] as String,
+  );
 }
 
-Map<String, dynamic> _$_$_RepsToJson(_$_Reps instance) => <String, dynamic>{};
-
-_$_Secs _$_$_SecsFromJson(Map<String, dynamic> json) {
-  return _$_Secs();
-}
-
-Map<String, dynamic> _$_$_SecsToJson(_$_Secs instance) => <String, dynamic>{};
+Map<String, dynamic> _$_$_PerformTypeToJson(_$_PerformType instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };

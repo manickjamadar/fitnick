@@ -9,26 +9,16 @@ part of 'exercise_perform_type.dart';
 
 T _$identity<T>(T value) => value;
 ExercisePerformType _$ExercisePerformTypeFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
-    case 'reps':
-      return _Reps.fromJson(json);
-    case 'secs':
-      return _Secs.fromJson(json);
-
-    default:
-      throw FallThroughError();
-  }
+  return _PerformType.fromJson(json);
 }
 
 class _$ExercisePerformTypeTearOff {
   const _$ExercisePerformTypeTearOff();
 
-  _Reps reps() {
-    return const _Reps();
-  }
-
-  _Secs secs() {
-    return const _Secs();
+  _PerformType call({@required String name}) {
+    return _PerformType(
+      name: name,
+    );
   }
 }
 
@@ -36,35 +26,17 @@ class _$ExercisePerformTypeTearOff {
 const $ExercisePerformType = _$ExercisePerformTypeTearOff();
 
 mixin _$ExercisePerformType {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reps(),
-    @required Result secs(),
-  });
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reps(),
-    Result secs(),
-    @required Result orElse(),
-  });
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reps(_Reps value),
-    @required Result secs(_Secs value),
-  });
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reps(_Reps value),
-    Result secs(_Secs value),
-    @required Result orElse(),
-  });
+  String get name;
+
   Map<String, dynamic> toJson();
+  $ExercisePerformTypeCopyWith<ExercisePerformType> get copyWith;
 }
 
 abstract class $ExercisePerformTypeCopyWith<$Res> {
   factory $ExercisePerformTypeCopyWith(
           ExercisePerformType value, $Res Function(ExercisePerformType) then) =
       _$ExercisePerformTypeCopyWithImpl<$Res>;
+  $Res call({String name});
 }
 
 class _$ExercisePerformTypeCopyWithImpl<$Res>
@@ -74,196 +46,91 @@ class _$ExercisePerformTypeCopyWithImpl<$Res>
   final ExercisePerformType _value;
   // ignore: unused_field
   final $Res Function(ExercisePerformType) _then;
-}
-
-abstract class _$RepsCopyWith<$Res> {
-  factory _$RepsCopyWith(_Reps value, $Res Function(_Reps) then) =
-      __$RepsCopyWithImpl<$Res>;
-}
-
-class __$RepsCopyWithImpl<$Res> extends _$ExercisePerformTypeCopyWithImpl<$Res>
-    implements _$RepsCopyWith<$Res> {
-  __$RepsCopyWithImpl(_Reps _value, $Res Function(_Reps) _then)
-      : super(_value, (v) => _then(v as _Reps));
 
   @override
-  _Reps get _value => super._value as _Reps;
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed ? _value.name : name as String,
+    ));
+  }
+}
+
+abstract class _$PerformTypeCopyWith<$Res>
+    implements $ExercisePerformTypeCopyWith<$Res> {
+  factory _$PerformTypeCopyWith(
+          _PerformType value, $Res Function(_PerformType) then) =
+      __$PerformTypeCopyWithImpl<$Res>;
+  @override
+  $Res call({String name});
+}
+
+class __$PerformTypeCopyWithImpl<$Res>
+    extends _$ExercisePerformTypeCopyWithImpl<$Res>
+    implements _$PerformTypeCopyWith<$Res> {
+  __$PerformTypeCopyWithImpl(
+      _PerformType _value, $Res Function(_PerformType) _then)
+      : super(_value, (v) => _then(v as _PerformType));
+
+  @override
+  _PerformType get _value => super._value as _PerformType;
+
+  @override
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(_PerformType(
+      name: name == freezed ? _value.name : name as String,
+    ));
+  }
 }
 
 @JsonSerializable()
-class _$_Reps implements _Reps {
-  const _$_Reps();
+class _$_PerformType implements _PerformType {
+  const _$_PerformType({@required this.name}) : assert(name != null);
 
-  factory _$_Reps.fromJson(Map<String, dynamic> json) =>
-      _$_$_RepsFromJson(json);
+  factory _$_PerformType.fromJson(Map<String, dynamic> json) =>
+      _$_$_PerformTypeFromJson(json);
+
+  @override
+  final String name;
 
   @override
   String toString() {
-    return 'ExercisePerformType.reps()';
+    return 'ExercisePerformType(name: $name)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Reps);
+    return identical(this, other) ||
+        (other is _PerformType &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
 
   @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reps(),
-    @required Result secs(),
-  }) {
-    assert(reps != null);
-    assert(secs != null);
-    return reps();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reps(),
-    Result secs(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (reps != null) {
-      return reps();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reps(_Reps value),
-    @required Result secs(_Secs value),
-  }) {
-    assert(reps != null);
-    assert(secs != null);
-    return reps(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reps(_Reps value),
-    Result secs(_Secs value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (reps != null) {
-      return reps(this);
-    }
-    return orElse();
-  }
+  _$PerformTypeCopyWith<_PerformType> get copyWith =>
+      __$PerformTypeCopyWithImpl<_PerformType>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_RepsToJson(this)..['runtimeType'] = 'reps';
+    return _$_$_PerformTypeToJson(this);
   }
 }
 
-abstract class _Reps implements ExercisePerformType {
-  const factory _Reps() = _$_Reps;
+abstract class _PerformType implements ExercisePerformType {
+  const factory _PerformType({@required String name}) = _$_PerformType;
 
-  factory _Reps.fromJson(Map<String, dynamic> json) = _$_Reps.fromJson;
-}
-
-abstract class _$SecsCopyWith<$Res> {
-  factory _$SecsCopyWith(_Secs value, $Res Function(_Secs) then) =
-      __$SecsCopyWithImpl<$Res>;
-}
-
-class __$SecsCopyWithImpl<$Res> extends _$ExercisePerformTypeCopyWithImpl<$Res>
-    implements _$SecsCopyWith<$Res> {
-  __$SecsCopyWithImpl(_Secs _value, $Res Function(_Secs) _then)
-      : super(_value, (v) => _then(v as _Secs));
+  factory _PerformType.fromJson(Map<String, dynamic> json) =
+      _$_PerformType.fromJson;
 
   @override
-  _Secs get _value => super._value as _Secs;
-}
-
-@JsonSerializable()
-class _$_Secs implements _Secs {
-  const _$_Secs();
-
-  factory _$_Secs.fromJson(Map<String, dynamic> json) =>
-      _$_$_SecsFromJson(json);
-
+  String get name;
   @override
-  String toString() {
-    return 'ExercisePerformType.secs()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Secs);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reps(),
-    @required Result secs(),
-  }) {
-    assert(reps != null);
-    assert(secs != null);
-    return secs();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reps(),
-    Result secs(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (secs != null) {
-      return secs();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reps(_Reps value),
-    @required Result secs(_Secs value),
-  }) {
-    assert(reps != null);
-    assert(secs != null);
-    return secs(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reps(_Reps value),
-    Result secs(_Secs value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (secs != null) {
-      return secs(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_SecsToJson(this)..['runtimeType'] = 'secs';
-  }
-}
-
-abstract class _Secs implements ExercisePerformType {
-  const factory _Secs() = _$_Secs;
-
-  factory _Secs.fromJson(Map<String, dynamic> json) = _$_Secs.fromJson;
+  _$PerformTypeCopyWith<_PerformType> get copyWith;
 }
