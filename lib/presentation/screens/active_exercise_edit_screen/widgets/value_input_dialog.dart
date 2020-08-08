@@ -35,13 +35,13 @@ class _ValueInputDialogState extends State<ValueInputDialog> {
         decoration: InputDecoration(border: OutlineInputBorder()),
       ),
       actions: [
-        RaisedButton(
+        FlatButton(
           child: Text("cancel"),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        RaisedButton(
+        FlatButton(
           child: Text("Ok"),
           onPressed: () {
             Navigator.pop(context, _value);
