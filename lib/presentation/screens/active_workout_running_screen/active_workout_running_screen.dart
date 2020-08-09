@@ -9,8 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../service_locator.dart';
 import "../../core/helpers/string_extension.dart";
+import "../../../application/core/helpers/list_extension.dart";
 
-class ActiveWorkoutRunningScreen extends StatelessWidget {
+class ActiveWorkoutRunningScreen extends StatefulWidget {
+  @override
+  _ActiveWorkoutRunningScreenState createState() =>
+      _ActiveWorkoutRunningScreenState();
+
+  static const String routeName = "/active-workout-running";
+  static Widget generateRoute({@required ActiveWorkout activeWorkout}) {
+    return BlocProvider(
+      create: (_) => locator<ActiveWorkoutRunnerCubit>()..init(activeWorkout),
+      child: ActiveWorkoutRunningScreen(),
+    );
+  }
+}
+
+class _ActiveWorkoutRunningScreenState
+    extends State<ActiveWorkoutRunningScreen> {
+  PageController _pageController;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
@@ -50,7 +67,7 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
           ),
           Expanded(
             child: PageView.builder(
-              controller: PageController(initialPage: 0),
+              controller: _pageController,
               onPageChanged: (pageIndex) {
                 if (pageIndex > state.currentActiveExerciseIndex) {
                   onSwipeRight(context);
@@ -66,6 +83,10 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
               },
             ),
           ),
+          RaisedButton(
+            child: Text("Next"),
+            onPressed: () => goNext(context, activeWorkout, state),
+          )
         ],
       ),
     );
@@ -73,7 +94,8 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
 
   Widget buildActiveExerciseView(
       ActiveExercise activeExercise, int currentSetIndex) {
-    final exerciseSet = activeExercise.sets[currentSetIndex];
+    final exerciseSet = activeExercise.sets[
+        currentSetIndex < activeExercise.sets.length ? currentSetIndex : 0];
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -105,6 +127,28 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
     );
   }
 
+  void goNext(BuildContext context, ActiveWorkout activeWorkout,
+      ActiveWorkoutRunnerState state) {
+    final cubit = BlocProvider.of<ActiveWorkoutRunnerCubit>(context);
+    final hasNextSet = activeWorkout
+        .activeExercises[state.currentActiveExerciseIndex].sets
+        .hasNext(state.currentSetIndex);
+    if (hasNextSet) {
+      cubit.goNextSet();
+    } else {
+      final hasNextExercise = activeWorkout.activeExercises
+          .hasNext(state.currentActiveExerciseIndex);
+      if (hasNextExercise) {
+        slideRight();
+      }
+    }
+  }
+
+  void slideRight() {
+    _pageController.nextPage(
+        duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+  }
+
   void onSwipeRight(BuildContext context) {
     BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipExercise();
   }
@@ -113,11 +157,15 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
     BlocProvider.of<ActiveWorkoutRunnerCubit>(context).goBack();
   }
 
-  static const String routeName = "/active-workout-running";
-  static Widget generateRoute({@required ActiveWorkout activeWorkout}) {
-    return BlocProvider(
-      create: (_) => locator<ActiveWorkoutRunnerCubit>()..init(activeWorkout),
-      child: ActiveWorkoutRunningScreen(),
-    );
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }
