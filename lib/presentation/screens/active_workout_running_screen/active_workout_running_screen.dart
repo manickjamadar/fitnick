@@ -61,7 +61,8 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
               itemCount: activeWorkout.activeExercises.length,
               itemBuilder: (_, index) {
                 final activeExercise = activeWorkout.activeExercises[index];
-                return buildActiveExerciseView(activeExercise);
+                return buildActiveExerciseView(
+                    activeExercise, state.currentSetIndex);
               },
             ),
           ),
@@ -70,7 +71,9 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
     );
   }
 
-  Widget buildActiveExerciseView(ActiveExercise activeExercise) {
+  Widget buildActiveExerciseView(
+      ActiveExercise activeExercise, int currentSetIndex) {
+    final exerciseSet = activeExercise.sets[currentSetIndex];
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -89,6 +92,14 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
             level: activeExercise.exercise.levels.first,
             size: 22,
           ),
+          Chip(
+            label: Text(
+                "${currentSetIndex + 1}/${activeExercise.sets.length} sets"),
+          ),
+          Chip(
+            label: Text(
+                "${exerciseSet.weightCount} ${exerciseSet.weightUnit.name}"),
+          )
         ],
       ),
     );
