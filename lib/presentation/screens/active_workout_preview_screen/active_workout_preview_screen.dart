@@ -1,5 +1,6 @@
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/active_exercise_item.dart';
+import 'package:fitnick/presentation/screens/active_workout_running_screen/active_workout_running_screen.dart';
 import 'package:flutter/material.dart';
 
 class ActiveWorkoutPreviewScreen extends StatelessWidget {
@@ -43,13 +44,23 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
                       elevation: 0,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       child: Text("Start Workout"),
-                      onPressed: () {},
+                      onPressed: () => _onStartWorkout(context),
                     ),
                   ),
                 )
               ],
             ),
     );
+  }
+
+  void _onStartWorkout(BuildContext context) {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ActiveWorkoutRunningScreen(
+            activeWorkout: activeWorkout,
+          ),
+        ));
   }
 
   Widget buildNoExercise() {
