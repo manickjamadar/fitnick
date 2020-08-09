@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/active_workout/active_workout_actor/active_workout_actor_cubit.dart';
+import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/active_workout_preview_screen/active_workout_preview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "../../../../core/helpers/string_extension.dart";
 
 class ActiveWorkoutItem extends StatelessWidget {
   final ActiveWorkout activeWorkout;
@@ -15,10 +17,12 @@ class ActiveWorkoutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.amber,
       child: ListTile(
         onTap: () => _onItemTap(context),
-        title: Text(activeWorkout.name.safeValue),
+        title: Text(activeWorkout.name.safeValue.capitalize(),
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(
+            "${activeWorkout.activeExercises.length} exercises - ${formatTime(activeWorkout.totalDuration)} "),
         trailing: PopupMenuButton(
           onSelected: (value) {
             if (value == 0) {
