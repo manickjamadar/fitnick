@@ -25,7 +25,9 @@ class ExerciseRunningBar extends StatelessWidget {
         LayoutBuilder(
           builder: (_, constraints) {
             final width = constraints.biggest.width;
-            return Container(
+            return AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
               width: width * progress,
               height: height,
               decoration: BoxDecoration(
