@@ -44,13 +44,20 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: ExerciseRunningBar(
-              totalExercise: 6,
-              currentExerciseIndex: 3,
+              totalExercise: activeWorkout.activeExercises.length,
+              currentExerciseIndex: state.currentActiveExerciseIndex,
             ),
           ),
           Expanded(
             child: PageView.builder(
               controller: PageController(initialPage: 0),
+              onPageChanged: (pageIndex) {
+                if (pageIndex > state.currentActiveExerciseIndex) {
+                  onSwipeRight(context);
+                } else {
+                  onSwipeLeft(context);
+                }
+              },
               itemCount: activeWorkout.activeExercises.length,
               itemBuilder: (_, index) {
                 final activeExercise = activeWorkout.activeExercises[index];
@@ -85,6 +92,14 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void onSwipeRight(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipExercise();
+  }
+
+  void onSwipeLeft(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).goBack();
   }
 
   static const String routeName = "/active-workout-running";
