@@ -3,6 +3,7 @@ import 'package:fitnick/application/active_workout/active_workout_actor/active_w
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
+import 'package:fitnick/presentation/screens/active_workout_preview_screen/active_workout_preview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,7 @@ class ActiveWorkoutItem extends StatelessWidget {
     return Card(
       color: Colors.amber,
       child: ListTile(
+        onTap: () => _onItemTap(context),
         title: Text(activeWorkout.name.safeValue),
         trailing: PopupMenuButton(
           onSelected: (value) {
@@ -40,6 +42,15 @@ class ActiveWorkoutItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onItemTap(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ActiveWorkoutPreviewScreen.generateRoute(
+              activeWorkout: activeWorkout),
+        ));
   }
 
   void _onEdit(BuildContext context) async {
