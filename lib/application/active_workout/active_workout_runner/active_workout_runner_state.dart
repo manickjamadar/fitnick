@@ -4,11 +4,11 @@ part of 'active_workout_runner_cubit.dart';
 abstract class ActiveWorkoutRunnerState implements _$ActiveWorkoutRunnerState {
   const ActiveWorkoutRunnerState._();
   const factory ActiveWorkoutRunnerState({
-    @required bool isCompleted,
     @required Option<ActiveWorkout> activeWorkoutOption,
     @required int currentActiveExerciseIndex,
     @required int currentSetIndex,
     @required Duration totalTimeSpent,
+    @required bool isCompleted,
   }) = _ActiveWorkoutRunnerState;
   factory ActiveWorkoutRunnerState.initial() {
     return ActiveWorkoutRunnerState(

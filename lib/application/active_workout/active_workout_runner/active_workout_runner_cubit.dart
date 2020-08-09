@@ -2,23 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import "../../core/helpers/list_extension.dart";
 part 'active_workout_runner_state.dart';
 part 'active_workout_runner_cubit.freezed.dart';
 
 class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
 
-  bool hasNextExercise(ActiveWorkout activeWorkout) =>
-      state.currentActiveExerciseIndex <
-      activeWorkout.activeExercises.length - 1;
-  bool hasNextSet(ActiveWorkout activeWorkout) =>
-      state.currentSetIndex <
-      activeWorkout
-              .activeExercises[state.currentActiveExerciseIndex].sets.length -
-          1;
-  bool hasPreviousExercise(ActiveWorkout activeWorkout) =>
-      state.currentActiveExerciseIndex > 0;
   //events
   void init(ActiveWorkout activeWorkout) {
     emit(state.copyWith(
@@ -26,23 +16,22 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
         isCompleted: activeWorkout.activeExercises.isEmpty));
   }
 
-  void goNext() {
+  void goNextSet() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
-      if (hasNextSet(activeWorkout)) {
+      final hasNextSet = activeWorkout
+          .activeExercises[state.currentActiveExerciseIndex].sets
+          .hasNext(state.currentSetIndex);
+      if (hasNextSet) {
         emit(state.copyWith(currentSetIndex: state.currentSetIndex + 1));
-      } else {
-        if (hasNextExercise(activeWorkout)) {
-          skipExercise();
-        } else {
-          stop();
-        }
       }
     });
   }
 
   void goBack() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
-      if (hasPreviousExercise(activeWorkout)) {
+      final hasPreviousExercise = activeWorkout.activeExercises
+          .hasPrevious(state.currentActiveExerciseIndex);
+      if (hasPreviousExercise) {
         emit(state.copyWith(
             currentSetIndex: 0,
             currentActiveExerciseIndex: state.currentActiveExerciseIndex - 1));
@@ -52,7 +41,9 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
 
   void skipExercise() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
-      if (hasNextExercise(activeWorkout)) {
+      final hasNextExercise = activeWorkout.activeExercises
+          .hasNext(state.currentActiveExerciseIndex);
+      if (hasNextExercise) {
         emit(state.copyWith(
             currentSetIndex: 0,
             currentActiveExerciseIndex: state.currentActiveExerciseIndex + 1));
