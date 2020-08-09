@@ -26,5 +26,6 @@ abstract class ActiveExercise implements _$ActiveExercise {
         .any((ExerciseSet s) => s.performType == ExercisePerformType.reps);
   }
 
-  int get performTempo => isRepsTempoRequired ? repsTempo : 1;
+  int performTempo(ExercisePerformType type) =>
+      type == ExercisePerformType.reps ? repsTempo : 1;
 }
