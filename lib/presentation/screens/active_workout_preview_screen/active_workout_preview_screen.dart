@@ -57,9 +57,8 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => ActiveWorkoutRunningScreen(
-            activeWorkout: activeWorkout,
-          ),
+          builder: (_) => ActiveWorkoutRunningScreen.generateRoute(
+              activeWorkout: activeWorkout),
         ));
   }
 

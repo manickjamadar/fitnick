@@ -1,3 +1,4 @@
+import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
@@ -5,15 +6,30 @@ import 'package:fitnick/presentation/screens/active_workout_running_screen/widge
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../service_locator.dart';
 import "../../core/helpers/string_extension.dart";
 
 class ActiveWorkoutRunningScreen extends StatelessWidget {
-  final ActiveWorkout activeWorkout;
-
-  const ActiveWorkoutRunningScreen({Key key, @required this.activeWorkout})
-      : super(key: key);
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
+      builder: (_, state) {
+        return state.activeWorkoutOption
+            .fold(() => buildLoading(), (a) => buildRunner(context, state, a));
+      },
+    );
+  }
+
+  Widget buildLoading() {
+    return Scaffold(
+        body: Center(
+      child: CircularProgressIndicator(),
+    ));
+  }
+
+  Widget buildRunner(BuildContext context, ActiveWorkoutRunnerState state,
+      ActiveWorkout activeWorkout) {
     return Scaffold(
       appBar: AppBar(
         title: Text(activeWorkout.name.safeValue.capitalize()),
@@ -73,8 +89,9 @@ class ActiveWorkoutRunningScreen extends StatelessWidget {
 
   static const String routeName = "/active-workout-running";
   static Widget generateRoute({@required ActiveWorkout activeWorkout}) {
-    return ActiveWorkoutRunningScreen(
-      activeWorkout: activeWorkout,
+    return BlocProvider(
+      create: (_) => locator<ActiveWorkoutRunnerCubit>()..init(activeWorkout),
+      child: ActiveWorkoutRunningScreen(),
     );
   }
 }

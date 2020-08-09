@@ -1,5 +1,6 @@
 import 'package:fitnick/application/active_workout/active_workout_actor/active_workout_actor_cubit.dart';
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
+import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
@@ -91,4 +92,6 @@ void initBloc() {
       ActiveWorkoutActorCubit(
           activeExerciseFacade: locator<IActiveExerciseFacade>(),
           activeWorkoutFacade: locator<IActiveWorkoutFacade>()));
+  locator.registerFactory<ActiveWorkoutRunnerCubit>(
+      () => ActiveWorkoutRunnerCubit());
 }
