@@ -6,6 +6,7 @@ import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/workout/models/workout.dart';
 import 'package:fitnick/domain/workout/value_object/workout_name.dart';
+import 'package:fitnick/presentation/core/helpers/calculate_exercise_duration.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -47,4 +48,5 @@ abstract class ActiveWorkout implements _$ActiveWorkout {
   }
 
   bool get isValid => failureOption().isNone();
+  Duration get totalDuration => calculateExerciseDuration(activeExercises);
 }
