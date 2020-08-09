@@ -25,4 +25,12 @@ extension ListX<T> on List<T> {
   bool containsAll(List<T> list) {
     return list.every((element) => this.contains(element));
   }
+
+  bool hasNext(int currentIndex) {
+    return currentIndex >= 0 && currentIndex < this.length - 1;
+  }
+
+  bool hasPrevious(int currentIndex) {
+    return currentIndex > 0 && currentIndex < this.length;
+  }
 }
