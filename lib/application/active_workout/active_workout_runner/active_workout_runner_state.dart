@@ -9,6 +9,9 @@ abstract class ActiveWorkoutRunnerState implements _$ActiveWorkoutRunnerState {
     @required int currentSetIndex,
     @required Duration totalTimeSpent,
     @required bool isCompleted,
+    @required int currentPerformedCount,
+    @required bool isPaused,
+    @required bool isResting,
   }) = _ActiveWorkoutRunnerState;
   factory ActiveWorkoutRunnerState.initial() {
     return ActiveWorkoutRunnerState(
@@ -17,6 +20,9 @@ abstract class ActiveWorkoutRunnerState implements _$ActiveWorkoutRunnerState {
       currentSetIndex: 0,
       isCompleted: false,
       totalTimeSpent: Duration(seconds: 0),
+      currentPerformedCount: 1,
+      isPaused: false,
+      isResting: false,
     );
   }
 }

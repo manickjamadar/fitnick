@@ -1,5 +1,6 @@
 import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/exercise_running_bar.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../service_locator.dart';
 import "../../core/helpers/string_extension.dart";
-import "../../../application/core/helpers/list_extension.dart";
 
 class ActiveWorkoutRunningScreen extends StatefulWidget {
   @override
@@ -30,7 +30,15 @@ class _ActiveWorkoutRunningScreenState
   PageController _pageController;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
+    return BlocConsumer<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
+      listener: (_, state) {
+        if (state.isCompleted) {
+          Navigator.pop(context);
+        } else {
+          _pageController.animateToPage(state.currentActiveExerciseIndex,
+              duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+        }
+      },
       builder: (_, state) {
         return state.activeWorkoutOption
             .fold(() => buildLoading(), (a) => buildRunner(context, state, a));
@@ -47,6 +55,38 @@ class _ActiveWorkoutRunningScreenState
 
   Widget buildRunner(BuildContext context, ActiveWorkoutRunnerState state,
       ActiveWorkout activeWorkout) {
+    return Stack(
+      children: [
+        buildMainRunner(activeWorkout, context, state),
+        if (state.isResting) buildRestRunner()
+      ],
+    );
+  }
+
+  Widget buildRestRunner() {
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Container(
+            width: double.infinity,
+            color: Colors.black.withOpacity(0.8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Rest",
+                    style: TextStyle(color: Colors.white, fontSize: 24)),
+                Text("1min 23 sec",
+                    style: TextStyle(color: Colors.white, fontSize: 22)),
+                ActionChip(label: Text("Next"), onPressed: () {})
+              ],
+            ),
+          )),
+    );
+  }
+
+  Scaffold buildMainRunner(ActiveWorkout activeWorkout, BuildContext context,
+      ActiveWorkoutRunnerState state) {
     return Scaffold(
       appBar: AppBar(
         title: Text(activeWorkout.name.safeValue.capitalize()),
@@ -56,38 +96,116 @@ class _ActiveWorkoutRunningScreenState
         textTheme: Theme.of(context).textTheme,
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: ExerciseRunningBar(
-              totalExercise: activeWorkout.activeExercises.length,
-              currentExerciseIndex: state.currentActiveExerciseIndex,
+      body: SafeArea(
+        child: Column(
+          children: [
+            buildBar(activeWorkout, state),
+            buildExercisePageView(state, context, activeWorkout),
+            buildExerciseController(context, state, activeWorkout),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (pageIndex) {
-                if (pageIndex > state.currentActiveExerciseIndex) {
-                  onSwipeRight(context);
-                } else {
-                  onSwipeLeft(context);
-                }
-              },
-              itemCount: activeWorkout.activeExercises.length,
-              itemBuilder: (_, index) {
-                final activeExercise = activeWorkout.activeExercises[index];
-                return buildActiveExerciseView(
-                    activeExercise, state.currentSetIndex);
-              },
+            Text("Total Time Spent : 1 min 34 sec",
+                style: TextStyle(fontSize: 12, color: Colors.grey)),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          RaisedButton(
-            child: Text("Next"),
-            onPressed: () => goNext(context, activeWorkout, state),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildExerciseController(BuildContext context,
+      ActiveWorkoutRunnerState state, ActiveWorkout activeWorkout) {
+    final ActiveExercise activeExercise =
+        activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+    final exerciseSet = activeExercise.sets[state.currentSetIndex];
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: Icon(state.isPaused ? Icons.stop : Icons.pause),
+              iconSize: 30,
+              onPressed: () =>
+                  state.isPaused ? onStop(context) : onPause(context),
+            ),
+            buildPerformController(state, exerciseSet),
+            IconButton(
+              icon: Icon(Icons.arrow_forward_ios),
+              iconSize: 30,
+              onPressed: () => onGoNext(context),
+            ),
+          ],
+        ));
+  }
+
+  Widget buildPerformController(
+      ActiveWorkoutRunnerState state, ExerciseSet exerciseSet) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Opacity(
+          opacity: state.isPaused ? 0.2 : 1,
+          child: Container(
+              child: Column(
+            children: [
+              Text("${state.currentPerformedCount}/${exerciseSet.performCount}",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+              Text(
+                "${exerciseSet.performType.name}",
+                style: TextStyle(fontSize: 18),
+              )
+            ],
+          )),
+        ),
+        if (state.isPaused)
+          GestureDetector(
+            onTap: () => onPlay(context),
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+              ),
+            ),
           )
-        ],
+      ],
+    );
+  }
+
+  Widget buildExercisePageView(ActiveWorkoutRunnerState state,
+      BuildContext context, ActiveWorkout activeWorkout) {
+    return Expanded(
+      child: PageView.builder(
+        controller: _pageController,
+        onPageChanged: (pageIndex) {
+          if (pageIndex > state.currentActiveExerciseIndex) {
+            onSwipeRight(context);
+            print("swipe");
+          } else if (pageIndex < state.currentActiveExerciseIndex) {
+            onSwipeLeft(context);
+            print("swipe");
+          }
+        },
+        itemCount: activeWorkout.activeExercises.length,
+        itemBuilder: (_, index) {
+          final activeExercise = activeWorkout.activeExercises[index];
+          return buildActiveExerciseView(activeExercise, state.currentSetIndex);
+        },
+      ),
+    );
+  }
+
+  Widget buildBar(ActiveWorkout activeWorkout, ActiveWorkoutRunnerState state) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ExerciseRunningBar(
+        totalExercise: activeWorkout.activeExercises.length,
+        currentExerciseIndex: state.currentActiveExerciseIndex,
       ),
     );
   }
@@ -127,26 +245,27 @@ class _ActiveWorkoutRunningScreenState
     );
   }
 
-  void goNext(BuildContext context, ActiveWorkout activeWorkout,
-      ActiveWorkoutRunnerState state) {
-    final cubit = BlocProvider.of<ActiveWorkoutRunnerCubit>(context);
-    final hasNextSet = activeWorkout
-        .activeExercises[state.currentActiveExerciseIndex].sets
-        .hasNext(state.currentSetIndex);
-    if (hasNextSet) {
-      cubit.goNextSet();
-    } else {
-      final hasNextExercise = activeWorkout.activeExercises
-          .hasNext(state.currentActiveExerciseIndex);
-      if (hasNextExercise) {
-        slideRight();
-      }
-    }
+  void onGoNext(
+    BuildContext context,
+  ) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).goNext();
   }
 
   void slideRight() {
     _pageController.nextPage(
         duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+  }
+
+  void onPlay(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).play();
+  }
+
+  void onPause(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).pause();
+  }
+
+  void onStop(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).stop();
   }
 
   void onSwipeRight(BuildContext context) {

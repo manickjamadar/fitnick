@@ -16,6 +16,25 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
         isCompleted: activeWorkout.activeExercises.isEmpty));
   }
 
+  void goNext() {
+    state.activeWorkoutOption.fold(() => null, (activeWorkout) {
+      final hasNextSet = activeWorkout
+          .activeExercises[state.currentActiveExerciseIndex].sets
+          .hasNext(state.currentSetIndex);
+      if (hasNextSet) {
+        goNextSet();
+      } else {
+        final hasNextExercise = activeWorkout.activeExercises
+            .hasNext(state.currentActiveExerciseIndex);
+        if (hasNextExercise) {
+          skipExercise();
+        } else {
+          stop();
+        }
+      }
+    });
+  }
+
   void goNextSet() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasNextSet = activeWorkout
@@ -51,8 +70,14 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void play() {}
-  void pause() {}
+  void play() {
+    emit(state.copyWith(isPaused: false));
+  }
+
+  void pause() {
+    emit(state.copyWith(isPaused: true));
+  }
+
   void stop() {
     emit(state.copyWith(isCompleted: true));
   }
