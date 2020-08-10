@@ -10,9 +10,49 @@ part 'active_workout_runner_cubit.freezed.dart';
 
 class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   StreamSubscription<int> _spentTimer;
+  StreamSubscription<int> _performTimer;
   ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
 
+  void _startPerformTimer() {
+    _cancelPerformTimer();
+    state.activeWorkoutOption.fold(() => null, (activeWorkout) {
+      final activeExercise =
+          activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+      final exerciseSet = activeExercise.sets[state.currentSetIndex];
+      final initialCount = state.currentPerformedCount;
+      _performTimer =
+          Stream.periodic(
+                  Duration(
+                      seconds:
+                          activeExercise.performTempo(exerciseSet.performType)),
+                  (i) => i + initialCount)
+              .take(exerciseSet.performCount - (initialCount - 1))
+              .listen((tick) {
+        _onPerformStart(tick + 1);
+      }, onDone: _onPerformComplete);
+    });
+  }
+
+  void _onPerformStart(int count) {
+    emit(state.copyWith(currentPerformedCount: count));
+  }
+
+  void _onPerformComplete() {
+    emit(state.copyWith(currentPerformedCount: 1));
+    goNext();
+  }
+
+  void _cancelPerformTimer() {
+    _performTimer?.cancel();
+  }
+
+  void _cancelAllTimer() {
+    _cancelPerformTimer();
+    _cancelSpentTimer();
+  }
+
   void _startSpentTimer() {
+    _cancelSpentTimer();
     _spentTimer = Stream.periodic(
         Duration(
           seconds: 1,
@@ -92,11 +132,13 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   void play() {
     emit(state.copyWith(isPaused: false));
     _startSpentTimer();
+    _startPerformTimer();
   }
 
   void pause() {
     emit(state.copyWith(isPaused: true));
     _cancelSpentTimer();
+    _cancelPerformTimer();
   }
 
   void stop() {
@@ -105,7 +147,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
 
   @override
   Future<void> close() {
-    _cancelSpentTimer();
+    _cancelAllTimer();
     return super.close();
   }
 }
