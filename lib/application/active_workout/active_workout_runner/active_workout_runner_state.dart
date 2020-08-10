@@ -21,7 +21,7 @@ abstract class ActiveWorkoutRunnerState implements _$ActiveWorkoutRunnerState {
         isCompleted: false,
         totalTimeSpent: Duration(seconds: 0),
         currentPerformedCount: 1,
-        isPaused: false,
+        isPaused: true,
         isResting: false,
         currentRest: Duration(seconds: 0));
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
@@ -7,7 +9,24 @@ part 'active_workout_runner_state.dart';
 part 'active_workout_runner_cubit.freezed.dart';
 
 class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
+  StreamSubscription<int> _spentTimer;
   ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
+
+  void _startSpentTimer() {
+    _spentTimer = Stream.periodic(
+        Duration(
+          seconds: 1,
+        ),
+        (i) => i + 1).listen((_) {
+      emit(state.copyWith(
+          totalTimeSpent:
+              Duration(seconds: state.totalTimeSpent.inSeconds + 1)));
+    });
+  }
+
+  void _cancelSpentTimer() {
+    _spentTimer?.cancel();
+  }
 
   //events
   void init(ActiveWorkout activeWorkout) {
@@ -72,13 +91,21 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
 
   void play() {
     emit(state.copyWith(isPaused: false));
+    _startSpentTimer();
   }
 
   void pause() {
     emit(state.copyWith(isPaused: true));
+    _cancelSpentTimer();
   }
 
   void stop() {
     emit(state.copyWith(isCompleted: true));
+  }
+
+  @override
+  Future<void> close() {
+    _cancelSpentTimer();
+    return super.close();
   }
 }

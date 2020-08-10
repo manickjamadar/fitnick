@@ -107,7 +107,7 @@ class _ActiveWorkoutRunningScreenState
             SizedBox(
               height: 10,
             ),
-            Text("Total Time Spent : 1 min 34 sec",
+            Text("Total Time Spent : ${formatTime(state.totalTimeSpent)}",
                 style: TextStyle(fontSize: 12, color: Colors.grey)),
             SizedBox(
               height: 10,
