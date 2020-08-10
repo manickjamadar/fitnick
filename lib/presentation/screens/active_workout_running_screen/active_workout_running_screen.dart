@@ -79,7 +79,8 @@ class _ActiveWorkoutRunningScreenState
                     style: TextStyle(color: Colors.white, fontSize: 24)),
                 Text(formatTime(state.currentRest),
                     style: TextStyle(color: Colors.white, fontSize: 22)),
-                ActionChip(label: Text("Next"), onPressed: () {})
+                ActionChip(
+                    label: Text("Next"), onPressed: () => onGoNext(context))
               ],
             ),
           )),
