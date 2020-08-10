@@ -13,8 +13,13 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   StreamSubscription<int> _performTimer;
   ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
 
+  //? Timers Here =========================================
+
   void _startPerformTimer() {
-    _cancelPerformTimer();
+    if (state.isCompleted || state.isPaused) {
+      return;
+    }
+    _resetPerformTimer();
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final activeExercise =
           activeWorkout.activeExercises[state.currentActiveExerciseIndex];
@@ -33,21 +38,17 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void _onPerformStart(int count) {
-    emit(state.copyWith(currentPerformedCount: count));
-  }
-
-  void _onPerformComplete() {
+  void _resetPerformTimer() {
     emit(state.copyWith(currentPerformedCount: 1));
-    goNext();
+    _performTimer?.cancel();
   }
 
-  void _cancelPerformTimer() {
+  void _pausePerformTimer() {
     _performTimer?.cancel();
   }
 
   void _cancelAllTimer() {
-    _cancelPerformTimer();
+    _resetPerformTimer();
     _cancelSpentTimer();
   }
 
@@ -64,29 +65,47 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
+  void _pauseSpentTimer() {
+    _spentTimer?.cancel();
+  }
+
   void _cancelSpentTimer() {
     _spentTimer?.cancel();
   }
 
-  //events
-  void init(ActiveWorkout activeWorkout) {
-    emit(state.copyWith(
-        activeWorkoutOption: Some(activeWorkout),
-        isCompleted: activeWorkout.activeExercises.isEmpty));
+  //? Timer Functions ends here =========================================
+
+  void _onPerformStart(int count) {
+    emit(state.copyWith(currentPerformedCount: count));
   }
 
-  void goNext() {
+  void _onPerformComplete() {
+    _autoNext();
+  }
+
+  void _autoNext() {
+    _resetPerformTimer();
+    _continueNextStep();
+    _startPerformTimer();
+  }
+
+  void _breakNatureFlow() {
+    pause();
+    _resetPerformTimer();
+  }
+
+  void _continueNextStep() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasNextSet = activeWorkout
           .activeExercises[state.currentActiveExerciseIndex].sets
           .hasNext(state.currentSetIndex);
       if (hasNextSet) {
-        goNextSet();
+        _goNextSet();
       } else {
         final hasNextExercise = activeWorkout.activeExercises
             .hasNext(state.currentActiveExerciseIndex);
         if (hasNextExercise) {
-          skipExercise();
+          _goNextExercise();
         } else {
           stop();
         }
@@ -94,7 +113,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void goNextSet() {
+  void _goNextSet() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasNextSet = activeWorkout
           .activeExercises[state.currentActiveExerciseIndex].sets
@@ -105,7 +124,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void goBack() {
+  void _goPreviousExercise() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasPreviousExercise = activeWorkout.activeExercises
           .hasPrevious(state.currentActiveExerciseIndex);
@@ -117,7 +136,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void skipExercise() {
+  void _goNextExercise() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasNextExercise = activeWorkout.activeExercises
           .hasNext(state.currentActiveExerciseIndex);
@@ -129,6 +148,28 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
+  //events
+  void init(ActiveWorkout activeWorkout) {
+    emit(state.copyWith(
+        activeWorkoutOption: Some(activeWorkout),
+        isCompleted: activeWorkout.activeExercises.isEmpty));
+  }
+
+  void goNext() {
+    _breakNatureFlow();
+    _continueNextStep();
+  }
+
+  void goBack() {
+    _breakNatureFlow();
+    _goPreviousExercise();
+  }
+
+  void skipExercise() {
+    _breakNatureFlow();
+    _goNextExercise();
+  }
+
   void play() {
     emit(state.copyWith(isPaused: false));
     _startSpentTimer();
@@ -137,8 +178,8 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
 
   void pause() {
     emit(state.copyWith(isPaused: true));
-    _cancelSpentTimer();
-    _cancelPerformTimer();
+    _pauseSpentTimer();
+    _pausePerformTimer();
   }
 
   void stop() {
