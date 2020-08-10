@@ -21,15 +21,16 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
       return;
     }
     _cancelRestTimer();
-    emit(state.copyWith(isResting: true));
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final activeExercise =
           activeWorkout.activeExercises[state.currentActiveExerciseIndex];
       final exerciseSet = activeExercise.sets[state.currentSetIndex];
+      final totalRest = exerciseSet.rest;
+      _onRestContinue(totalRest);
       _restTimer = Stream.periodic(Duration(seconds: 1), (i) => i)
-          .take(exerciseSet.rest)
+          .take(totalRest)
           .listen((_) {
-        _onRestContinue(state.currentRest.inSeconds + 1);
+        _onRestContinue(state.currentRest.inSeconds - 1);
       }, onDone: _onRestComplete);
     });
   }
