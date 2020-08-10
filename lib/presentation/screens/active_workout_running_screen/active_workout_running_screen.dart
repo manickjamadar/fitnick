@@ -1,4 +1,5 @@
 import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
+import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
@@ -58,12 +59,12 @@ class _ActiveWorkoutRunningScreenState
     return Stack(
       children: [
         buildMainRunner(activeWorkout, context, state),
-        if (state.isResting) buildRestRunner()
+        if (state.isResting) buildRestRunner(context, state)
       ],
     );
   }
 
-  Widget buildRestRunner() {
+  Widget buildRestRunner(BuildContext context, ActiveWorkoutRunnerState state) {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.transparent,
@@ -76,7 +77,7 @@ class _ActiveWorkoutRunningScreenState
               children: [
                 Text("Rest",
                     style: TextStyle(color: Colors.white, fontSize: 24)),
-                Text("1min 23 sec",
+                Text(formatTime(state.currentRest),
                     style: TextStyle(color: Colors.white, fontSize: 22)),
                 ActionChip(label: Text("Next"), onPressed: () {})
               ],

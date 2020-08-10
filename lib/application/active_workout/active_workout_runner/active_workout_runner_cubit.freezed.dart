@@ -20,7 +20,8 @@ class _$ActiveWorkoutRunnerStateTearOff {
       @required bool isCompleted,
       @required int currentPerformedCount,
       @required bool isPaused,
-      @required bool isResting}) {
+      @required bool isResting,
+      @required Duration currentRest}) {
     return _ActiveWorkoutRunnerState(
       activeWorkoutOption: activeWorkoutOption,
       currentActiveExerciseIndex: currentActiveExerciseIndex,
@@ -30,6 +31,7 @@ class _$ActiveWorkoutRunnerStateTearOff {
       currentPerformedCount: currentPerformedCount,
       isPaused: isPaused,
       isResting: isResting,
+      currentRest: currentRest,
     );
   }
 }
@@ -46,6 +48,7 @@ mixin _$ActiveWorkoutRunnerState {
   int get currentPerformedCount;
   bool get isPaused;
   bool get isResting;
+  Duration get currentRest;
 
   $ActiveWorkoutRunnerStateCopyWith<ActiveWorkoutRunnerState> get copyWith;
 }
@@ -62,7 +65,8 @@ abstract class $ActiveWorkoutRunnerStateCopyWith<$Res> {
       bool isCompleted,
       int currentPerformedCount,
       bool isPaused,
-      bool isResting});
+      bool isResting,
+      Duration currentRest});
 }
 
 class _$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
@@ -83,6 +87,7 @@ class _$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
     Object currentPerformedCount = freezed,
     Object isPaused = freezed,
     Object isResting = freezed,
+    Object currentRest = freezed,
   }) {
     return _then(_value.copyWith(
       activeWorkoutOption: activeWorkoutOption == freezed
@@ -104,6 +109,8 @@ class _$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
           : currentPerformedCount as int,
       isPaused: isPaused == freezed ? _value.isPaused : isPaused as bool,
       isResting: isResting == freezed ? _value.isResting : isResting as bool,
+      currentRest:
+          currentRest == freezed ? _value.currentRest : currentRest as Duration,
     ));
   }
 }
@@ -122,7 +129,8 @@ abstract class _$ActiveWorkoutRunnerStateCopyWith<$Res>
       bool isCompleted,
       int currentPerformedCount,
       bool isPaused,
-      bool isResting});
+      bool isResting,
+      Duration currentRest});
 }
 
 class __$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
@@ -146,6 +154,7 @@ class __$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
     Object currentPerformedCount = freezed,
     Object isPaused = freezed,
     Object isResting = freezed,
+    Object currentRest = freezed,
   }) {
     return _then(_ActiveWorkoutRunnerState(
       activeWorkoutOption: activeWorkoutOption == freezed
@@ -167,6 +176,8 @@ class __$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
           : currentPerformedCount as int,
       isPaused: isPaused == freezed ? _value.isPaused : isPaused as bool,
       isResting: isResting == freezed ? _value.isResting : isResting as bool,
+      currentRest:
+          currentRest == freezed ? _value.currentRest : currentRest as Duration,
     ));
   }
 }
@@ -180,7 +191,8 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
       @required this.isCompleted,
       @required this.currentPerformedCount,
       @required this.isPaused,
-      @required this.isResting})
+      @required this.isResting,
+      @required this.currentRest})
       : assert(activeWorkoutOption != null),
         assert(currentActiveExerciseIndex != null),
         assert(currentSetIndex != null),
@@ -189,6 +201,7 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
         assert(currentPerformedCount != null),
         assert(isPaused != null),
         assert(isResting != null),
+        assert(currentRest != null),
         super._();
 
   @override
@@ -207,10 +220,12 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
   final bool isPaused;
   @override
   final bool isResting;
+  @override
+  final Duration currentRest;
 
   @override
   String toString() {
-    return 'ActiveWorkoutRunnerState(activeWorkoutOption: $activeWorkoutOption, currentActiveExerciseIndex: $currentActiveExerciseIndex, currentSetIndex: $currentSetIndex, totalTimeSpent: $totalTimeSpent, isCompleted: $isCompleted, currentPerformedCount: $currentPerformedCount, isPaused: $isPaused, isResting: $isResting)';
+    return 'ActiveWorkoutRunnerState(activeWorkoutOption: $activeWorkoutOption, currentActiveExerciseIndex: $currentActiveExerciseIndex, currentSetIndex: $currentSetIndex, totalTimeSpent: $totalTimeSpent, isCompleted: $isCompleted, currentPerformedCount: $currentPerformedCount, isPaused: $isPaused, isResting: $isResting, currentRest: $currentRest)';
   }
 
   @override
@@ -242,7 +257,10 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
                     .equals(other.isPaused, isPaused)) &&
             (identical(other.isResting, isResting) ||
                 const DeepCollectionEquality()
-                    .equals(other.isResting, isResting)));
+                    .equals(other.isResting, isResting)) &&
+            (identical(other.currentRest, currentRest) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentRest, currentRest)));
   }
 
   @override
@@ -255,7 +273,8 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
       const DeepCollectionEquality().hash(isCompleted) ^
       const DeepCollectionEquality().hash(currentPerformedCount) ^
       const DeepCollectionEquality().hash(isPaused) ^
-      const DeepCollectionEquality().hash(isResting);
+      const DeepCollectionEquality().hash(isResting) ^
+      const DeepCollectionEquality().hash(currentRest);
 
   @override
   _$ActiveWorkoutRunnerStateCopyWith<_ActiveWorkoutRunnerState> get copyWith =>
@@ -273,7 +292,8 @@ abstract class _ActiveWorkoutRunnerState extends ActiveWorkoutRunnerState {
       @required bool isCompleted,
       @required int currentPerformedCount,
       @required bool isPaused,
-      @required bool isResting}) = _$_ActiveWorkoutRunnerState;
+      @required bool isResting,
+      @required Duration currentRest}) = _$_ActiveWorkoutRunnerState;
 
   @override
   Option<ActiveWorkout> get activeWorkoutOption;
@@ -291,6 +311,8 @@ abstract class _ActiveWorkoutRunnerState extends ActiveWorkoutRunnerState {
   bool get isPaused;
   @override
   bool get isResting;
+  @override
+  Duration get currentRest;
   @override
   _$ActiveWorkoutRunnerStateCopyWith<_ActiveWorkoutRunnerState> get copyWith;
 }
