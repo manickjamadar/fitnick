@@ -11,15 +11,43 @@ part 'active_workout_runner_cubit.freezed.dart';
 class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   StreamSubscription<int> _spentTimer;
   StreamSubscription<int> _performTimer;
+  StreamSubscription<int> _restTimer;
   ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
 
   //? Timers Here =========================================
+
+  void _startRestTimer() {
+    if (state.isCompleted) {
+      return;
+    }
+    _cancelRestTimer();
+    emit(state.copyWith(isResting: true));
+    state.activeWorkoutOption.fold(() => null, (activeWorkout) {
+      final activeExercise =
+          activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+      final exerciseSet = activeExercise.sets[state.currentSetIndex];
+      _restTimer = Stream.periodic(Duration(seconds: 1), (i) => i)
+          .take(exerciseSet.rest)
+          .listen((_) {
+        _onRestContinue(state.currentRest.inSeconds + 1);
+      }, onDone: _onRestComplete);
+    });
+  }
+
+  void _resetRestTimer() {
+    emit(state.copyWith(isResting: false, currentRest: Duration(seconds: 0)));
+    _restTimer?.cancel();
+  }
+
+  void _cancelRestTimer() {
+    _restTimer?.cancel();
+  }
 
   void _startPerformTimer() {
     if (state.isCompleted || state.isPaused) {
       return;
     }
-    _resetPerformTimer();
+    _cancelPerformTimer();
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final activeExercise =
           activeWorkout.activeExercises[state.currentActiveExerciseIndex];
@@ -47,7 +75,12 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     _performTimer?.cancel();
   }
 
+  void _cancelPerformTimer() {
+    _performTimer?.cancel();
+  }
+
   void _cancelAllTimer() {
+    _resetRestTimer();
     _resetPerformTimer();
     _cancelSpentTimer();
   }
@@ -75,18 +108,30 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
 
   //? Timer Functions ends here =========================================
 
+  void _onRestContinue(int seconds) {
+    emit(state.copyWith(
+        isResting: true, currentRest: Duration(seconds: seconds)));
+  }
+
+  void _onRestComplete() {
+    _resetRestTimer();
+    _autoNext();
+  }
+
   void _onPerformStart(int count) {
     emit(state.copyWith(currentPerformedCount: count));
   }
 
   void _onPerformComplete() {
-    _autoNext();
+    _resetPerformTimer();
+    _startRestTimer();
   }
 
   void _autoNext() {
-    _resetPerformTimer();
     _continueNextStep();
-    _startPerformTimer();
+    if (!state.isCompleted) {
+      _startPerformTimer();
+    }
   }
 
   void _breakNatureFlow() {
@@ -155,9 +200,12 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
         isCompleted: activeWorkout.activeExercises.isEmpty));
   }
 
-  void goNext() {
-    _breakNatureFlow();
-    _continueNextStep();
+  void skipRest() {
+    _onRestComplete();
+  }
+
+  void skipExercise() {
+    _onPerformComplete();
   }
 
   void goBack() {
@@ -165,7 +213,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     _goPreviousExercise();
   }
 
-  void skipExercise() {
+  void goFront() {
     _breakNatureFlow();
     _goNextExercise();
   }

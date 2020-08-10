@@ -34,7 +34,7 @@ class _ActiveWorkoutRunningScreenState
     return BlocConsumer<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
       listener: (_, state) {
         if (state.isCompleted) {
-          Navigator.pop(context);
+          Navigator.of(context).maybePop();
         } else {
           _pageController.animateToPage(state.currentActiveExerciseIndex,
               duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
@@ -80,7 +80,7 @@ class _ActiveWorkoutRunningScreenState
                 Text(formatTime(state.currentRest),
                     style: TextStyle(color: Colors.white, fontSize: 22)),
                 ActionChip(
-                    label: Text("Next"), onPressed: () => onGoNext(context))
+                    label: Text("Skip"), onPressed: () => onSkipRest(context))
               ],
             ),
           )),
@@ -139,7 +139,7 @@ class _ActiveWorkoutRunningScreenState
             IconButton(
               icon: Icon(Icons.arrow_forward_ios),
               iconSize: 30,
-              onPressed: () => onGoNext(context),
+              onPressed: () => onSkipExercise(context),
             ),
           ],
         ));
@@ -247,10 +247,16 @@ class _ActiveWorkoutRunningScreenState
     );
   }
 
-  void onGoNext(
+  void onSkipExercise(
     BuildContext context,
   ) {
-    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).goNext();
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipExercise();
+  }
+
+  void onSkipRest(
+    BuildContext context,
+  ) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipRest();
   }
 
   void slideRight() {
@@ -271,7 +277,7 @@ class _ActiveWorkoutRunningScreenState
   }
 
   void onSwipeRight(BuildContext context) {
-    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipExercise();
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).goFront();
   }
 
   void onSwipeLeft(BuildContext context) {
