@@ -5,6 +5,7 @@ import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/home/widgets/add_buttons.dart';
+import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("FitNick"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.headset),
+            onPressed: () => _onHeadSetTap(context),
+          )
+        ],
       ),
       floatingActionButton: AddButtons(),
       bottomNavigationBar: BottomNavigationBar(
@@ -58,5 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void _onHeadSetTap(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => MusicCenterScreen.generateRoute(),
+        ));
   }
 }
