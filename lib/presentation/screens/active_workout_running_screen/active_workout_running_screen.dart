@@ -7,8 +7,10 @@ import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/exercise_running_bar.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
+import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wakelock/wakelock.dart';
 import '../../../service_locator.dart';
 import "../../core/helpers/string_extension.dart";
 
@@ -96,6 +98,11 @@ class _ActiveWorkoutRunningScreenState
         backgroundColor: Colors.white,
         elevation: 0,
         textTheme: Theme.of(context).textTheme,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.headset, color: Colors.black),
+              onPressed: () => _onMusicIconPressed(context)),
+        ],
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -187,10 +194,8 @@ class _ActiveWorkoutRunningScreenState
         onPageChanged: (pageIndex) {
           if (pageIndex > state.currentActiveExerciseIndex) {
             onSwipeRight(context);
-            print("swipe");
           } else if (pageIndex < state.currentActiveExerciseIndex) {
             onSwipeLeft(context);
-            print("swipe");
           }
         },
         itemCount: activeWorkout.activeExercises.length,
@@ -247,6 +252,14 @@ class _ActiveWorkoutRunningScreenState
     );
   }
 
+  void _onMusicIconPressed(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => MusicCenterScreen.generateRoute(),
+        ));
+  }
+
   void onSkipExercise(
     BuildContext context,
   ) {
@@ -288,11 +301,13 @@ class _ActiveWorkoutRunningScreenState
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
+    Wakelock.enable();
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    Wakelock.disable();
     super.dispose();
   }
 }
