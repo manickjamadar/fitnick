@@ -17,7 +17,7 @@ class MusicCenterScreen extends StatelessWidget {
         builder: (_, state) {
           return state.when(
               loading: buildLoading,
-              loaded: buildLoaded,
+              loaded: (List<Music> list) => buildLoaded(context, list),
               loadedError: buildLoadedError);
         },
       ),
@@ -34,17 +34,28 @@ class MusicCenterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildLoaded(List<Music> musicList) {
+  Widget buildLoaded(BuildContext context, List<Music> musicList) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: ListView.builder(
         itemBuilder: (_, index) {
+          final music = musicList[index];
           return MusicItem(
-            music: musicList[index],
+            music: music,
+            onPressed: () => _onMusicPressed(music, context),
           );
         },
         itemCount: musicList.length,
       ),
     );
+  }
+
+  _onMusicPressed(Music music, BuildContext context) {
+    final cubit = BlocProvider.of<MusicHubCubit>(context);
+    if (music.isPlaying) {
+      cubit.stop();
+    } else {
+      cubit.play(music);
+    }
   }
 }
