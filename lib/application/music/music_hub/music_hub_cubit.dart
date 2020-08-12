@@ -49,8 +49,8 @@ class MusicHubCubit extends Cubit<MusicHubState> {
         });
   }
 
-  void stop() {
-    _stopRunningMusic();
+  Future<void> stop() async {
+    await _stopRunningMusic();
     state.maybeWhen(
         orElse: () {},
         loaded: (List<Music> musicList) {

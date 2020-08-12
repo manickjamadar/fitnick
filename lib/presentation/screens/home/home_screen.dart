@@ -1,5 +1,6 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
+import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
@@ -14,8 +15,18 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   int currentTab = 0;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      await BlocProvider.of<MusicHubCubit>(context).stop();
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,5 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(
           builder: (_) => MusicCenterScreen.generateRoute(),
         ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() async {
+    WidgetsBinding.instance.removeObserver(this);
+    await BlocProvider.of<MusicHubCubit>(context).stop();
+    super.dispose();
   }
 }
