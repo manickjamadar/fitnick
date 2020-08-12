@@ -1,6 +1,7 @@
 import 'package:fitnick/application/active_workout/active_workout_actor/active_workout_actor_cubit.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,9 @@ void main() async {
       ),
       BlocProvider<ActiveWorkoutActorCubit>(
         create: (_) => locator<ActiveWorkoutActorCubit>(),
+      ),
+      BlocProvider<MusicHubCubit>(
+        create: (_) => locator<MusicHubCubit>(),
       ),
     ],
     child: App(),

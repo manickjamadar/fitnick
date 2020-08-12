@@ -4,11 +4,13 @@ import 'package:fitnick/application/active_workout/active_workout_runner/active_
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
+import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/application/workout/workout_form/workout_form_bloc.dart';
 import 'package:fitnick/application/workout/workout_running/workout_running_bloc.dart';
 import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.dart';
 import 'package:fitnick/domain/active_workout/facade/i_active_workout_facade.dart';
 import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
+import 'package:fitnick/domain/music/facade/i_music_facade.dart';
 import 'package:fitnick/external/local_databse_provider.dart';
 import 'package:fitnick/infrastructure/active_exercise/data_source/i_active_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/active_exercise/facade/active_exercise_facade.dart';
@@ -18,6 +20,7 @@ import 'package:fitnick/infrastructure/active_workout/facade/active_workout_faca
 import 'package:fitnick/infrastructure/exercise/data_source/i_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/data_source/local_exercise_data_source.dart';
 import 'package:fitnick/infrastructure/exercise/facade/local_exercise_facade.dart';
+import 'package:fitnick/infrastructure/music/facade/local_music_facade.dart';
 import 'package:fitnick/infrastructure/workout/data_source/i_workout_data_source.dart';
 import 'package:fitnick/infrastructure/workout/data_source/local_workout_data_source.dart';
 import 'package:fitnick/infrastructure/workout/facade/local_workout_facade.dart';
@@ -67,6 +70,7 @@ void initFacade() {
   locator.registerLazySingleton<IActiveWorkoutFacade>(() => ActiveWorkoutFacade(
       activeExerciseFacade: locator<IActiveExerciseFacade>(),
       dataSource: locator<IActiveWorkoutDataSource>()));
+  locator.registerLazySingleton<IMusicFacade>(() => LocalMusicFacade());
 }
 
 void initBloc() {
@@ -94,4 +98,6 @@ void initBloc() {
           activeWorkoutFacade: locator<IActiveWorkoutFacade>()));
   locator.registerFactory<ActiveWorkoutRunnerCubit>(
       () => ActiveWorkoutRunnerCubit());
+  locator.registerFactory<MusicHubCubit>(
+      () => MusicHubCubit(musicFacade: locator<IMusicFacade>()));
 }
