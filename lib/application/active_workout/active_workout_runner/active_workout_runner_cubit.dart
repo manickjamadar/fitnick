@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import "../../core/helpers/list_extension.dart";
 part 'active_workout_runner_state.dart';
 part 'active_workout_runner_cubit.freezed.dart';
 
 class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
+  static FlutterTts tts = FlutterTts();
   StreamSubscription<int> _spentTimer;
   StreamSubscription<int> _performTimer;
   StreamSubscription<int> _restTimer;
@@ -109,7 +111,18 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
 
   //? Timer Functions ends here =========================================
 
+  void countRest(int seconds) {
+    if (seconds < 6) {
+      String word = seconds.toString();
+      if (seconds < 1) {
+        word = "start";
+      }
+      tts.speak(word);
+    }
+  }
+
   void _onRestContinue(int seconds) {
+    countRest(seconds);
     emit(state.copyWith(
         isResting: true, currentRest: Duration(seconds: seconds)));
   }
