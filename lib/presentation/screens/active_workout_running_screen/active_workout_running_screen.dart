@@ -98,7 +98,12 @@ class _ActiveWorkoutRunningScreenState
         backgroundColor: Colors.white,
         elevation: 0,
         textTheme: Theme.of(context).textTheme,
+        iconTheme: IconThemeData(color: Colors.black),
         actions: [
+          IconButton(
+              onPressed: () => _onVoiceIconPressed(context),
+              icon: Icon(Icons.record_voice_over,
+                  color: state.voiceEnabled ? Colors.black : Colors.grey[200])),
           IconButton(
               icon: Icon(Icons.headset, color: Colors.black),
               onPressed: () => _onMusicIconPressed(context)),
@@ -250,6 +255,10 @@ class _ActiveWorkoutRunningScreenState
         ],
       ),
     );
+  }
+
+  void _onVoiceIconPressed(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).toggleVoice();
   }
 
   void _onMusicIconPressed(BuildContext context) {

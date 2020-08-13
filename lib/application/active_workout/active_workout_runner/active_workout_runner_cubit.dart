@@ -19,6 +19,12 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   StreamSubscription<int> _restTimer;
   ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
 
+  Future<void> _say(String anything) async {
+    if (state.voiceEnabled) {
+      await tts.speak(anything);
+    }
+  }
+
   //? Timers Here =========================================
 
   void _startRestTimer() {
@@ -120,7 +126,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
         : "Reps";
     final word =
         "exercise started ${activeExercise.exercise.name.safeValue} ${exerciseSet.performCount} $type";
-    await tts.speak(word);
+    await _say(word);
   }
 
   void countRest(int seconds) {
@@ -129,7 +135,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
       if (seconds < 1) {
         word = "start";
       }
-      tts.speak(word);
+      _say(word);
     }
   }
 
@@ -149,7 +155,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   void _onPerformComplete() {
-    tts.speak("take a rest");
+    _say("take a rest");
     _resetPerformTimer();
     _startRestTimer();
   }
@@ -180,7 +186,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
           _goNextExercise();
         } else {
           stop();
-          tts.speak("Congratulation Workout completed");
+          _say("Congratulation Workout completed");
         }
       }
     });
@@ -221,7 +227,11 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  //events
+  //! events =================================================
+  void toggleVoice() {
+    emit(state.copyWith(voiceEnabled: !state.voiceEnabled));
+  }
+
   void init(ActiveWorkout activeWorkout) {
     emit(state.copyWith(
         activeWorkoutOption: Some(activeWorkout),

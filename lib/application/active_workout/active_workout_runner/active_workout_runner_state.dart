@@ -12,6 +12,7 @@ abstract class ActiveWorkoutRunnerState implements _$ActiveWorkoutRunnerState {
       @required int currentPerformedCount,
       @required bool isPaused,
       @required bool isResting,
+      @required bool voiceEnabled,
       @required Duration currentRest}) = _ActiveWorkoutRunnerState;
   factory ActiveWorkoutRunnerState.initial() {
     return ActiveWorkoutRunnerState(
@@ -23,6 +24,7 @@ abstract class ActiveWorkoutRunnerState implements _$ActiveWorkoutRunnerState {
         currentPerformedCount: 1,
         isPaused: true,
         isResting: false,
+        voiceEnabled: true,
         currentRest: Duration(seconds: 0));
   }
 }
