@@ -18,6 +18,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   StreamSubscription<int> _spentTimer;
   StreamSubscription<int> _performTimer;
   StreamSubscription<int> _restTimer;
+  StreamSubscription<int> _warmUpTimer;
   final MusicHubCubit musicHubCubit;
   ActiveWorkoutRunnerCubit({@required this.musicHubCubit})
       : super(ActiveWorkoutRunnerState.initial()) {
@@ -37,6 +38,21 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   //? Timers Here =========================================
+
+  void _startWarmUpTimer() {
+    _cancelWarmUpTimer();
+    final maxCount = 6;
+    _warmUpTimer = Stream.periodic(Duration(seconds: 1), (i) => i)
+        .take(maxCount)
+        .listen((value) {
+      final tick = maxCount - value;
+      _onWarmUpContinue(tick - 1);
+    }, onDone: _onWarmUpComplete);
+  }
+
+  void _cancelWarmUpTimer() {
+    _warmUpTimer?.cancel();
+  }
 
   void _startRestTimer() {
     if (state.isCompleted) {
@@ -105,6 +121,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     _resetRestTimer();
     _resetPerformTimer();
     _cancelSpentTimer();
+    _cancelWarmUpTimer();
   }
 
   void _startSpentTimer() {
@@ -140,23 +157,21 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     await _say(word);
   }
 
-  void countRest(int seconds) {
-    if (seconds < 6) {
-      String word = seconds.toString();
-      if (seconds < 1) {
-        word = "start";
-      }
-      _say(word);
-    }
+  void _onWarmUpContinue(int count) {
+    _say("$count");
+  }
+
+  void _onWarmUpComplete() {
+    _startPerformTimer();
   }
 
   void _onRestContinue(int seconds) {
-    countRest(seconds);
     emit(state.copyWith(
         isResting: true, currentRest: Duration(seconds: seconds)));
   }
 
   void _onRestComplete() {
+    _say("Get Ready");
     _resetRestTimer();
     _autoNext();
   }
@@ -166,6 +181,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   void _onPerformComplete() {
+    _cancelWarmUpTimer();
     _say("take a rest");
     _resetPerformTimer();
     _startRestTimer();
@@ -174,7 +190,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   void _autoNext() {
     _continueNextStep();
     if (!state.isCompleted) {
-      _startPerformTimer();
+      _startWarmUpTimer();
     }
   }
 
@@ -254,6 +270,9 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   void skipExercise() {
+    if (state.isPaused) {
+      emit(state.copyWith(isPaused: false));
+    }
     _onPerformComplete();
   }
 
@@ -270,7 +289,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   void play() {
     emit(state.copyWith(isPaused: false));
     _startSpentTimer();
-    _startPerformTimer();
+    _startWarmUpTimer();
   }
 
   void pause() {
