@@ -1,7 +1,9 @@
+import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/active_exercise_item.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/active_workout_running_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActiveWorkoutPreviewScreen extends StatelessWidget {
   final ActiveWorkout activeWorkout;
@@ -58,7 +60,8 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (_) => ActiveWorkoutRunningScreen.generateRoute(
-              activeWorkout: activeWorkout),
+              activeWorkout: activeWorkout,
+              musicHubCubit: BlocProvider.of<MusicHubCubit>(context)),
         ));
   }
 

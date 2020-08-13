@@ -1,5 +1,6 @@
 import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
+import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
@@ -11,7 +12,6 @@ import 'package:fitnick/presentation/screens/music_center_screen/music_center_sc
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wakelock/wakelock.dart';
-import '../../../service_locator.dart';
 import "../../core/helpers/string_extension.dart";
 
 class ActiveWorkoutRunningScreen extends StatefulWidget {
@@ -20,9 +20,12 @@ class ActiveWorkoutRunningScreen extends StatefulWidget {
       _ActiveWorkoutRunningScreenState();
 
   static const String routeName = "/active-workout-running";
-  static Widget generateRoute({@required ActiveWorkout activeWorkout}) {
+  static Widget generateRoute(
+      {@required ActiveWorkout activeWorkout,
+      @required MusicHubCubit musicHubCubit}) {
     return BlocProvider(
-      create: (_) => locator<ActiveWorkoutRunnerCubit>()..init(activeWorkout),
+      create: (_) => ActiveWorkoutRunnerCubit(musicHubCubit: musicHubCubit)
+        ..init(activeWorkout),
       child: ActiveWorkoutRunningScreen(),
     );
   }

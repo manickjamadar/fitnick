@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
@@ -17,7 +18,17 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   StreamSubscription<int> _spentTimer;
   StreamSubscription<int> _performTimer;
   StreamSubscription<int> _restTimer;
-  ActiveWorkoutRunnerCubit() : super(ActiveWorkoutRunnerState.initial());
+  final MusicHubCubit musicHubCubit;
+  ActiveWorkoutRunnerCubit({@required this.musicHubCubit})
+      : super(ActiveWorkoutRunnerState.initial()) {
+    tts.setStartHandler(() {
+      musicHubCubit.changeVolume(0.3);
+    });
+
+    tts.setCompletionHandler(() {
+      musicHubCubit.maxVolume();
+    });
+  }
 
   Future<void> _say(String anything) async {
     if (state.voiceEnabled) {

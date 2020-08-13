@@ -28,11 +28,19 @@ class MusicHubCubit extends Cubit<MusicHubState> {
     return musicList.map((m) => m.copyWith(isPlaying: false)).toList();
   }
 
-  //events
+  //!events ===============
   void _init() {
     final musicList = musicFacade.getAll();
     cachePlayer.loadAll(musicList.map((e) => e.path).toList());
     emit(MusicHubState.loaded(musics: musicList));
+  }
+
+  void changeVolume(double volume) {
+    player?.setVolume(volume);
+  }
+
+  void maxVolume() {
+    player?.setVolume(1);
   }
 
   Future<void> play(Music music) async {
