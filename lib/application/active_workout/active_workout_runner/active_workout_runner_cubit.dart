@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -56,6 +59,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
           activeWorkout.activeExercises[state.currentActiveExerciseIndex];
       final exerciseSet = activeExercise.sets[state.currentSetIndex];
       final initialCount = state.currentPerformedCount;
+      sayAboutExercise(activeExercise, exerciseSet);
       _performTimer =
           Stream.periodic(
                   Duration(
@@ -110,6 +114,16 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   //? Timer Functions ends here =========================================
+
+  void sayAboutExercise(
+      ActiveExercise activeExercise, ExerciseSet exerciseSet) async {
+    final type = exerciseSet.performType == ExercisePerformType.secs
+        ? "seconds"
+        : "Reps";
+    final word =
+        "exercise started ${activeExercise.exercise.name.safeValue} ${exerciseSet.performCount} $type";
+    await tts.speak(word);
+  }
 
   void countRest(int seconds) {
     if (seconds < 6) {
@@ -167,6 +181,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
           _goNextExercise();
         } else {
           stop();
+          tts.speak("Congratulation Workout completed");
         }
       }
     });
