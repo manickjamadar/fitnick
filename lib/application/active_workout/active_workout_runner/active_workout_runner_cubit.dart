@@ -59,16 +59,14 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
           activeWorkout.activeExercises[state.currentActiveExerciseIndex];
       final exerciseSet = activeExercise.sets[state.currentSetIndex];
       final initialCount = state.currentPerformedCount;
+      final endCount = exerciseSet.performCount - (initialCount - 1);
+      final actualTempo = activeExercise.performTempo(exerciseSet.performType);
       sayAboutExercise(activeExercise, exerciseSet);
-      _performTimer =
-          Stream.periodic(
-                  Duration(
-                      seconds:
-                          activeExercise.performTempo(exerciseSet.performType)),
-                  (i) => i + initialCount)
-              .take(exerciseSet.performCount - (initialCount - 1))
-              .listen((tick) {
-        _onPerformStart(tick + 1);
+      _performTimer = Stream.periodic(
+              Duration(seconds: actualTempo), (i) => i + initialCount)
+          .take(endCount)
+          .listen((tick) {
+        _onPerformContinue(tick + 1);
       }, onDone: _onPerformComplete);
     });
   }
@@ -146,11 +144,12 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     _autoNext();
   }
 
-  void _onPerformStart(int count) {
+  void _onPerformContinue(int count) {
     emit(state.copyWith(currentPerformedCount: count));
   }
 
   void _onPerformComplete() {
+    tts.speak("take a rest");
     _resetPerformTimer();
     _startRestTimer();
   }
