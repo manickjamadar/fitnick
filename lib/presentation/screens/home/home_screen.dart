@@ -8,6 +8,7 @@ import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/home/widgets/add_buttons.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
+import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +43,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           SizedBox(
             width: 10,
           ),
-          BalanceView()
+          GestureDetector(
+              onTap: () => _onCoinIconTap(context), child: BalanceView())
         ]),
         actions: [
           IconButton(
@@ -95,6 +97,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         context,
         MaterialPageRoute(
           builder: (_) => MusicCenterScreen.generateRoute(),
+        ));
+  }
+
+  void _onCoinIconTap(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => StoreScreen.generateRoute(),
         ));
   }
 
