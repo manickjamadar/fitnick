@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => StoreScreen.generateRoute(),
+          builder: (_) => StoreScreen.generateRoute(context),
         ));
   }
 
