@@ -10,6 +10,7 @@ import 'application/workout/workout_hub/workout_hub_bloc.dart';
 import 'domain/workout/facade/i_workout_facade.dart';
 import 'presentation/core/app.dart';
 import "application/active_workout/active_workout_hub/active_workout_hub_cubit.dart";
+import "application/account/account_hub/account_hub_cubit.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,7 @@ void main() async {
       BlocProvider<MusicHubCubit>(
         create: (_) => locator<MusicHubCubit>(),
       ),
+      BlocProvider<AccountHubCubit>(create: (_) => locator<AccountHubCubit>())
     ],
     child: App(),
   ));

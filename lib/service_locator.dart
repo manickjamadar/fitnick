@@ -30,6 +30,7 @@ import "application/active_workout/active_workout_hub/active_workout_hub_cubit.d
 import 'application/workout/workout_actor/workout_actor_bloc.dart';
 import 'domain/workout/facade/i_workout_facade.dart';
 import 'infrastructure/active_exercise/data_source/local_active_exercise_data_source.dart';
+import "application/account/account_hub/account_hub_cubit.dart";
 
 final locator = GetIt.instance;
 
@@ -98,4 +99,5 @@ void initBloc() {
           activeWorkoutFacade: locator<IActiveWorkoutFacade>()));
   locator.registerFactory<MusicHubCubit>(
       () => MusicHubCubit(musicFacade: locator<IMusicFacade>()));
+  locator.registerFactory<AccountHubCubit>(() => AccountHubCubit());
 }
