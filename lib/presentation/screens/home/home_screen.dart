@@ -2,6 +2,7 @@ import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
+import 'package:fitnick/presentation/core/widgets/balance_view.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
@@ -30,8 +31,19 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("FitNick"),
+        backgroundColor: Colors.white,
+        textTheme: Theme.of(context).textTheme,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
+        title: Row(children: [
+          Text("Fitnick"),
+          SizedBox(
+            width: 10,
+          ),
+          BalanceView()
+        ]),
         actions: [
           IconButton(
             icon: Icon(Icons.headset),
