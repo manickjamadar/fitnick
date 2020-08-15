@@ -12,4 +12,6 @@ abstract class Currency implements _$Currency {
       Currency(sign: CurrencySign.rupee, value: value);
   factory Currency.dollar(double value) =>
       Currency(sign: CurrencySign.dollar, value: value);
+
+  String get localeValue => "${sign.sign}  $value";
 }
