@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/domain/account/models/sub_models/coin.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
@@ -14,6 +15,7 @@ part 'active_workout.freezed.dart';
 
 @freezed
 abstract class ActiveWorkout implements _$ActiveWorkout {
+  static Coin price = Coin(500);
   const ActiveWorkout._();
   const factory ActiveWorkout({
     @required UniqueId id,
