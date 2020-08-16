@@ -71,7 +71,8 @@ class AddButtons extends StatelessWidget {
     String message = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (_) => ActiveWorkoutFormScreen.generateRoute(none())));
+            builder: (_) =>
+                ActiveWorkoutFormScreen.generateRoute(context, none())));
     if (message != null) {
       showMessage(context, message: message, type: SuccessMessage());
     }

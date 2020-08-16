@@ -25,8 +25,9 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
   Widget buildSaveButton(BuildContext context) {
     return BlocBuilder<ActiveWorkoutFormCubit, ActiveWorkoutFormState>(
       builder: (_, state) => IconButton(
-        onPressed:
-            state.activeWorkout.isValid ? () => onWorkoutSave(context) : null,
+        onPressed: !state.isAdding && state.activeWorkout.isValid
+            ? () => onWorkoutSave(context)
+            : null,
         icon: Icon(Icons.check),
       ),
     );
@@ -36,7 +37,8 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
     BlocProvider.of<ActiveWorkoutFormCubit>(context).saved();
   }
 
-  static Widget generateRoute(Option<ActiveWorkout> activeWorkoutOption) {
+  static Widget generateRoute(
+      BuildContext context, Option<ActiveWorkout> activeWorkoutOption) {
     return BlocProvider<ActiveWorkoutFormCubit>(
       create: (_) => locator<ActiveWorkoutFormCubit>()
         ..init(activeWorkoutOption: activeWorkoutOption),

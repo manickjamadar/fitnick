@@ -60,7 +60,7 @@ class ActiveWorkoutItem extends StatelessWidget {
   void _onEdit(BuildContext context) async {
     final String message = await Navigator.of(context).push(MaterialPageRoute(
       builder: (_) =>
-          ActiveWorkoutFormScreen.generateRoute(Some(activeWorkout)),
+          ActiveWorkoutFormScreen.generateRoute(context, Some(activeWorkout)),
     ));
     if (message != null) {
       showMessage(context, message: message, type: SuccessMessage());
