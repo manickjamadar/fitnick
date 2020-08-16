@@ -7,7 +7,6 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/error_card.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise/boundary.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/checker.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
@@ -250,7 +249,8 @@ class ExerciseItem extends StatelessWidget {
     final String message = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (_) => ExerciseFormScreen.generateRoute(Some(exercise))));
+            builder: (_) =>
+                ExerciseFormScreen.generateRoute(context, Some(exercise))));
     if (message != null) {
       showMessage(context, message: message, type: SuccessMessage());
     }

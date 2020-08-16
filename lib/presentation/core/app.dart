@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       home: HomeScreen(),
       routes: {
         ExerciseFormScreen.routeName: (_) =>
-            ExerciseFormScreen.generateRoute(none())
+            ExerciseFormScreen.generateRoute(context, none())
       },
     );
   }

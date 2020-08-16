@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/presentation/core/widgets/save_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_form_handler.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,8 @@ class ExerciseFormScreen extends StatelessWidget {
 
   const ExerciseFormScreen({Key key, this.title = "Add Exercise"})
       : super(key: key);
-  static Widget generateRoute(Option<Exercise> exerciseOption) {
+  static Widget generateRoute(
+      BuildContext context, Option<Exercise> exerciseOption) {
     return BlocProvider<ExerciseFormBloc>(
       create: (_) => locator<ExerciseFormBloc>()
         ..add(ExerciseFormEvent.init(exerciseOption)),

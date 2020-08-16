@@ -20,7 +20,6 @@ import '../../../../domain/exercise/failure/exercise_failure.dart';
 class ExerciseFormHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final exerciseformBloc = BlocProvider.of<ExerciseFormBloc>(context);
     return BlocConsumer<ExerciseFormBloc, ExerciseFormState>(
       listener: (context, state) {
         state.addStatus.fold(() => null, (failureOrSuccess) {
