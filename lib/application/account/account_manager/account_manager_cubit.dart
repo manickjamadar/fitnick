@@ -21,6 +21,8 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
           accountHubCubit.refreshed(newAccount);
           emit(AccountManagerState.purchaseSuccessful(offer));
         });
+
+    _resetState();
   }
 
   void spend(Coin coin) {
@@ -35,5 +37,11 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
             emit(AccountManagerState.spendSuccessFul(coin));
           }
         });
+
+    _resetState();
+  }
+
+  void _resetState() {
+    emit(AccountManagerState.initial());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/domain/account/models/sub_models/coin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../core/unique_id.dart';
@@ -13,6 +14,7 @@ part "exercise.freezed.dart";
 
 @freezed
 abstract class Exercise implements _$Exercise {
+  static Coin price = Coin(300);
   const Exercise._();
   const factory Exercise({
     @required UniqueId id,
