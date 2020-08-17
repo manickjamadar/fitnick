@@ -64,6 +64,12 @@ android {
             dimension "app"
             resValue "string","app_name","Fitnick"
         }
+        admin{
+            dimension "app"
+            resValue "string","app_name","Fitnick Admin"
+            versionNameSuffix "-admin"
+            applicationIdSuffix ".admin"
+        }
     }
 }
 

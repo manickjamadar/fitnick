@@ -23,6 +23,16 @@
                 "--flavor",
                 "prod"
             ]
+        },
+        {
+            "name": "admin",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_admin.dart",
+            "args": [
+                "--flavor",
+                "admin"
+            ]
         }
     ]
 }
