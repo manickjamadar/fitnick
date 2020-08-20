@@ -60,6 +60,7 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (_) => ActiveWorkoutRunningScreen.generateRoute(
+              context: context,
               activeWorkout: activeWorkout,
               musicHubCubit: BlocProvider.of<MusicHubCubit>(context)),
         ));

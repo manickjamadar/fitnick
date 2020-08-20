@@ -1,8 +1,9 @@
+import 'package:fitnick/application/active_workout/active_workout_hub/active_workout_hub_cubit.dart';
 import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
+import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
-import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
@@ -12,6 +13,7 @@ import 'package:fitnick/presentation/screens/active_workout_running_screen/widge
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
+import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wakelock/wakelock.dart';
@@ -24,10 +26,15 @@ class ActiveWorkoutRunningScreen extends StatefulWidget {
 
   static const String routeName = "/active-workout-running";
   static Widget generateRoute(
-      {@required ActiveWorkout activeWorkout,
+      {@required BuildContext context,
+      @required ActiveWorkout activeWorkout,
       @required MusicHubCubit musicHubCubit}) {
     return BlocProvider(
-      create: (_) => ActiveWorkoutRunnerCubit(musicHubCubit: musicHubCubit)
+      create: (_) => ActiveWorkoutRunnerCubit(
+          musicHubCubit: musicHubCubit,
+          activeWorkoutHubCubit:
+              BlocProvider.of<ActiveWorkoutHubCubit>(context),
+          activeExerciseFacade: locator<IActiveExerciseFacade>())
         ..init(activeWorkout),
       child: ActiveWorkoutRunningScreen(),
     );
