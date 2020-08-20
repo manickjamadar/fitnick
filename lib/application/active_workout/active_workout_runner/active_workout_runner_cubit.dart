@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/application/active_workout/active_workout_hub/active_workout_hub_cubit.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
+import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
@@ -14,13 +16,20 @@ part 'active_workout_runner_state.dart';
 part 'active_workout_runner_cubit.freezed.dart';
 
 class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
+  final IActiveExerciseFacade activeExerciseFacade;
+  final ActiveWorkoutHubCubit activeWorkoutHubCubit;
   static FlutterTts tts = FlutterTts();
   StreamSubscription<int> _spentTimer;
   StreamSubscription<int> _performTimer;
   StreamSubscription<int> _restTimer;
   StreamSubscription<int> _warmUpTimer;
+  StreamSubscription<ActiveWorkoutHubState> _workoutHubListener;
   final MusicHubCubit musicHubCubit;
-  ActiveWorkoutRunnerCubit({@required this.musicHubCubit})
+
+  ActiveWorkoutRunnerCubit(
+      {@required this.musicHubCubit,
+      @required this.activeExerciseFacade,
+      @required this.activeWorkoutHubCubit})
       : super(ActiveWorkoutRunnerState.initial()) {
     tts.setStartHandler(() {
       musicHubCubit.changeVolume(0.3);
@@ -270,6 +279,22 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     emit(state.copyWith(isLoggingReps: true));
   }
 
+  void _updateActiveExerciseSetReps(int reps) async {
+    await state.activeWorkoutOption.fold(() => null, (activeWorkout) async {
+      final activeExercise =
+          activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+      final exerciseSet = activeExercise.sets[state.currentSetIndex];
+
+      final newSets = [...activeExercise.sets];
+      newSets[state.currentSetIndex] = exerciseSet.copyWith(performCount: reps);
+
+      final newActiveExercise = activeExercise.copyWith(sets: newSets);
+
+      final either = await activeExerciseFacade.update(newActiveExercise);
+      either.fold((l) => print(l), (r) => activeWorkoutHubCubit.refreshed());
+    });
+  }
+
   //! events =================================================
   void toggleVoice() {
     emit(state.copyWith(voiceEnabled: !state.voiceEnabled));
@@ -279,6 +304,16 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     emit(state.copyWith(
         activeWorkoutOption: Some(activeWorkout),
         isCompleted: activeWorkout.activeExercises.isEmpty));
+    _workoutHubListener = activeWorkoutHubCubit.listen((hubState) {
+      hubState.maybeWhen(
+          orElse: () {},
+          loaded: (activeWorkoutList) {
+            final newActiveWorkout = optionOf(activeWorkoutList.firstWhere(
+                (w) => w.id == activeWorkout.id,
+                orElse: () => null));
+            emit(state.copyWith(activeWorkoutOption: newActiveWorkout));
+          });
+    });
   }
 
   void skipRest() {
@@ -309,8 +344,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   void logReps(int reps) {
-    //log reps then
-    print("log successful $reps");
+    _updateActiveExerciseSetReps(reps);
     _next();
   }
 
