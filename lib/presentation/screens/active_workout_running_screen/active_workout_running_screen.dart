@@ -2,6 +2,7 @@ import 'package:fitnick/application/active_workout/active_workout_runner/active_
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
@@ -162,6 +163,8 @@ class _ActiveWorkoutRunningScreenState
 
   Widget buildPerformController(
       ActiveWorkoutRunnerState state, ExerciseSet exerciseSet) {
+    final performTextStyle =
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 22);
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -170,8 +173,14 @@ class _ActiveWorkoutRunningScreenState
           child: Container(
               child: Column(
             children: [
-              Text("${state.currentPerformedCount}/${exerciseSet.performCount}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+              exerciseSet.performType == ExercisePerformType.reps
+                  ? Text(
+                      "${exerciseSet.performCount}",
+                      style: performTextStyle,
+                    )
+                  : Text(
+                      "${state.currentPerformedCount}/${exerciseSet.performCount}",
+                      style: performTextStyle),
               Text(
                 "${exerciseSet.performType.name}",
                 style: TextStyle(fontSize: 18),
