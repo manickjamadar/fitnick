@@ -6,7 +6,9 @@ import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perfor
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
+import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/backdrop.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/exercise_running_bar.dart';
+import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/log_reps_dialog.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
@@ -41,6 +43,21 @@ class _ActiveWorkoutRunningScreenState
       listener: (_, state) {
         if (state.isCompleted) {
           Navigator.of(context).maybePop();
+        } else if (state.isLoggingReps) {
+          state.activeWorkoutOption.fold(() => null, (activeWorkout) {
+            final activeExercise =
+                activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+            final exerciseSet = activeExercise.sets[state.currentSetIndex];
+            showDialog(
+                context: context,
+                builder: (_) {
+                  return LogRepsDialog(
+                    initialReps: exerciseSet.performCount.toString(),
+                    onCancel: () => _onLogRepsCancel(context),
+                    onLog: (reps) => _onLogReps(context, reps),
+                  );
+                });
+          });
         } else {
           _pageController.animateToPage(state.currentActiveExerciseIndex,
               duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
@@ -71,25 +88,17 @@ class _ActiveWorkoutRunningScreenState
   }
 
   Widget buildRestRunner(BuildContext context, ActiveWorkoutRunnerState state) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Container(
-            width: double.infinity,
-            color: Colors.black.withOpacity(0.8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Rest",
-                    style: TextStyle(color: Colors.white, fontSize: 24)),
-                Text(formatTime(state.currentRest),
-                    style: TextStyle(color: Colors.white, fontSize: 22)),
-                ActionChip(
-                    label: Text("Skip"), onPressed: () => onSkipRest(context))
-              ],
-            ),
-          )),
+    return BackDrop(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text("Rest", style: TextStyle(color: Colors.white, fontSize: 24)),
+          Text(formatTime(state.currentRest),
+              style: TextStyle(color: Colors.white, fontSize: 22)),
+          ActionChip(label: Text("Skip"), onPressed: () => onSkipRest(context))
+        ],
+      ),
     );
   }
 
@@ -115,22 +124,21 @@ class _ActiveWorkoutRunningScreenState
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            buildBar(activeWorkout, state),
-            buildExercisePageView(state, context, activeWorkout),
-            buildExerciseController(context, state, activeWorkout),
-            SizedBox(
-              height: 10,
-            ),
-            Text("Total Time Spent : ${formatTime(state.totalTimeSpent)}",
-                style: TextStyle(fontSize: 12, color: Colors.grey)),
-            SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
-      ),
+          child: Column(
+        children: [
+          buildBar(activeWorkout, state),
+          buildExercisePageView(state, context, activeWorkout),
+          buildExerciseController(context, state, activeWorkout),
+          SizedBox(
+            height: 10,
+          ),
+          Text("Total Time Spent : ${formatTime(state.totalTimeSpent)}",
+              style: TextStyle(fontSize: 12, color: Colors.grey)),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      )),
     );
   }
 
@@ -173,14 +181,14 @@ class _ActiveWorkoutRunningScreenState
           child: Container(
               child: Column(
             children: [
-              exerciseSet.performType == ExercisePerformType.reps
-                  ? Text(
-                      "${exerciseSet.performCount}",
-                      style: performTextStyle,
-                    )
-                  : Text(
-                      "${state.currentPerformedCount}/${exerciseSet.performCount}",
-                      style: performTextStyle),
+              // exerciseSet.performType == ExercisePerformType.reps
+              //     ? Text(
+              //         "${exerciseSet.performCount}",
+              //         style: performTextStyle,
+              //       )
+              //     :
+              Text("${state.currentPerformedCount}/${exerciseSet.performCount}",
+                  style: performTextStyle),
               Text(
                 "${exerciseSet.performType.name}",
                 style: TextStyle(fontSize: 18),
@@ -238,33 +246,35 @@ class _ActiveWorkoutRunningScreenState
       ActiveExercise activeExercise, int currentSetIndex) {
     final exerciseSet = activeExercise.sets[
         currentSetIndex < activeExercise.sets.length ? currentSetIndex : 0];
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          VideoPreview(path: activeExercise.exercise.videoPath),
-          SizedBox(
-            height: 20,
-          ),
-          ExerciseTitle(
-            title: activeExercise.exercise.name.safeValue,
-          ),
-          SizedBox(
-            height: 14,
-          ),
-          LevelFlash(
-            level: activeExercise.exercise.levels.first,
-            size: 22,
-          ),
-          Chip(
-            label: Text(
-                "${currentSetIndex + 1}/${activeExercise.sets.length} sets"),
-          ),
-          Chip(
-            label: Text(
-                "${exerciseSet.weightCount} ${exerciseSet.weightUnit.name}"),
-          )
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            VideoPreview(path: activeExercise.exercise.videoPath),
+            SizedBox(
+              height: 20,
+            ),
+            ExerciseTitle(
+              title: activeExercise.exercise.name.safeValue,
+            ),
+            SizedBox(
+              height: 14,
+            ),
+            LevelFlash(
+              level: activeExercise.exercise.levels.first,
+              size: 22,
+            ),
+            Chip(
+              label: Text(
+                  "${currentSetIndex + 1}/${activeExercise.sets.length} sets"),
+            ),
+            Chip(
+              label: Text(
+                  "${exerciseSet.weightCount} ${exerciseSet.weightUnit.name}"),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -316,6 +326,14 @@ class _ActiveWorkoutRunningScreenState
 
   void onSwipeLeft(BuildContext context) {
     BlocProvider.of<ActiveWorkoutRunnerCubit>(context).goBack();
+  }
+
+  void _onLogReps(BuildContext context, int reps) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).logReps(reps);
+  }
+
+  void _onLogRepsCancel(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipLogReps();
   }
 
   @override

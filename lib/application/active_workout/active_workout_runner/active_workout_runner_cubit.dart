@@ -95,6 +95,9 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
       final endCount = exerciseSet.performCount - (initialCount - 1);
       final actualTempo = activeExercise.performTempo(exerciseSet.performType);
       sayAboutExercise(activeExercise, exerciseSet);
+      if (exerciseSet.performType == ExercisePerformType.reps) {
+        return;
+      }
       _performTimer = Stream.periodic(
               Duration(seconds: actualTempo), (i) => i + initialCount)
           .take(endCount)
@@ -254,6 +257,19 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
+  void _next() {
+    emit(state.copyWith(isLoggingReps: false));
+    if (state.isPaused) {
+      emit(state.copyWith(isPaused: false));
+    }
+    _onPerformComplete();
+  }
+
+  void _showLoggingReps() {
+    _breakNatureFlow();
+    emit(state.copyWith(isLoggingReps: true));
+  }
+
   //! events =================================================
   void toggleVoice() {
     emit(state.copyWith(voiceEnabled: !state.voiceEnabled));
@@ -270,10 +286,16 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   void skipExercise() {
-    if (state.isPaused) {
-      emit(state.copyWith(isPaused: false));
-    }
-    _onPerformComplete();
+    state.activeWorkoutOption.fold(() => null, (activeWorkout) {
+      final activeExercise =
+          activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+      final exerciseSet = activeExercise.sets[state.currentSetIndex];
+      if (exerciseSet.performType == ExercisePerformType.reps) {
+        _showLoggingReps();
+      } else {
+        _next();
+      }
+    });
   }
 
   void goBack() {
@@ -284,6 +306,16 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   void goFront() {
     _breakNatureFlow();
     _goNextExercise();
+  }
+
+  void logReps(int reps) {
+    //log reps then
+    print("log successful $reps");
+    _next();
+  }
+
+  void skipLogReps() {
+    _next();
   }
 
   void play() {

@@ -22,7 +22,8 @@ class _$ActiveWorkoutRunnerStateTearOff {
       @required bool isPaused,
       @required bool isResting,
       @required bool voiceEnabled,
-      @required Duration currentRest}) {
+      @required Duration currentRest,
+      @required bool isLoggingReps}) {
     return _ActiveWorkoutRunnerState(
       activeWorkoutOption: activeWorkoutOption,
       currentActiveExerciseIndex: currentActiveExerciseIndex,
@@ -34,6 +35,7 @@ class _$ActiveWorkoutRunnerStateTearOff {
       isResting: isResting,
       voiceEnabled: voiceEnabled,
       currentRest: currentRest,
+      isLoggingReps: isLoggingReps,
     );
   }
 }
@@ -52,6 +54,7 @@ mixin _$ActiveWorkoutRunnerState {
   bool get isResting;
   bool get voiceEnabled;
   Duration get currentRest;
+  bool get isLoggingReps;
 
   $ActiveWorkoutRunnerStateCopyWith<ActiveWorkoutRunnerState> get copyWith;
 }
@@ -70,7 +73,8 @@ abstract class $ActiveWorkoutRunnerStateCopyWith<$Res> {
       bool isPaused,
       bool isResting,
       bool voiceEnabled,
-      Duration currentRest});
+      Duration currentRest,
+      bool isLoggingReps});
 }
 
 class _$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
@@ -93,6 +97,7 @@ class _$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
     Object isResting = freezed,
     Object voiceEnabled = freezed,
     Object currentRest = freezed,
+    Object isLoggingReps = freezed,
   }) {
     return _then(_value.copyWith(
       activeWorkoutOption: activeWorkoutOption == freezed
@@ -118,6 +123,9 @@ class _$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
           voiceEnabled == freezed ? _value.voiceEnabled : voiceEnabled as bool,
       currentRest:
           currentRest == freezed ? _value.currentRest : currentRest as Duration,
+      isLoggingReps: isLoggingReps == freezed
+          ? _value.isLoggingReps
+          : isLoggingReps as bool,
     ));
   }
 }
@@ -138,7 +146,8 @@ abstract class _$ActiveWorkoutRunnerStateCopyWith<$Res>
       bool isPaused,
       bool isResting,
       bool voiceEnabled,
-      Duration currentRest});
+      Duration currentRest,
+      bool isLoggingReps});
 }
 
 class __$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
@@ -164,6 +173,7 @@ class __$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
     Object isResting = freezed,
     Object voiceEnabled = freezed,
     Object currentRest = freezed,
+    Object isLoggingReps = freezed,
   }) {
     return _then(_ActiveWorkoutRunnerState(
       activeWorkoutOption: activeWorkoutOption == freezed
@@ -189,6 +199,9 @@ class __$ActiveWorkoutRunnerStateCopyWithImpl<$Res>
           voiceEnabled == freezed ? _value.voiceEnabled : voiceEnabled as bool,
       currentRest:
           currentRest == freezed ? _value.currentRest : currentRest as Duration,
+      isLoggingReps: isLoggingReps == freezed
+          ? _value.isLoggingReps
+          : isLoggingReps as bool,
     ));
   }
 }
@@ -204,7 +217,8 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
       @required this.isPaused,
       @required this.isResting,
       @required this.voiceEnabled,
-      @required this.currentRest})
+      @required this.currentRest,
+      @required this.isLoggingReps})
       : assert(activeWorkoutOption != null),
         assert(currentActiveExerciseIndex != null),
         assert(currentSetIndex != null),
@@ -215,6 +229,7 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
         assert(isResting != null),
         assert(voiceEnabled != null),
         assert(currentRest != null),
+        assert(isLoggingReps != null),
         super._();
 
   @override
@@ -237,10 +252,12 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
   final bool voiceEnabled;
   @override
   final Duration currentRest;
+  @override
+  final bool isLoggingReps;
 
   @override
   String toString() {
-    return 'ActiveWorkoutRunnerState(activeWorkoutOption: $activeWorkoutOption, currentActiveExerciseIndex: $currentActiveExerciseIndex, currentSetIndex: $currentSetIndex, totalTimeSpent: $totalTimeSpent, isCompleted: $isCompleted, currentPerformedCount: $currentPerformedCount, isPaused: $isPaused, isResting: $isResting, voiceEnabled: $voiceEnabled, currentRest: $currentRest)';
+    return 'ActiveWorkoutRunnerState(activeWorkoutOption: $activeWorkoutOption, currentActiveExerciseIndex: $currentActiveExerciseIndex, currentSetIndex: $currentSetIndex, totalTimeSpent: $totalTimeSpent, isCompleted: $isCompleted, currentPerformedCount: $currentPerformedCount, isPaused: $isPaused, isResting: $isResting, voiceEnabled: $voiceEnabled, currentRest: $currentRest, isLoggingReps: $isLoggingReps)';
   }
 
   @override
@@ -278,7 +295,10 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
                     .equals(other.voiceEnabled, voiceEnabled)) &&
             (identical(other.currentRest, currentRest) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentRest, currentRest)));
+                    .equals(other.currentRest, currentRest)) &&
+            (identical(other.isLoggingReps, isLoggingReps) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoggingReps, isLoggingReps)));
   }
 
   @override
@@ -293,7 +313,8 @@ class _$_ActiveWorkoutRunnerState extends _ActiveWorkoutRunnerState {
       const DeepCollectionEquality().hash(isPaused) ^
       const DeepCollectionEquality().hash(isResting) ^
       const DeepCollectionEquality().hash(voiceEnabled) ^
-      const DeepCollectionEquality().hash(currentRest);
+      const DeepCollectionEquality().hash(currentRest) ^
+      const DeepCollectionEquality().hash(isLoggingReps);
 
   @override
   _$ActiveWorkoutRunnerStateCopyWith<_ActiveWorkoutRunnerState> get copyWith =>
@@ -313,7 +334,8 @@ abstract class _ActiveWorkoutRunnerState extends ActiveWorkoutRunnerState {
       @required bool isPaused,
       @required bool isResting,
       @required bool voiceEnabled,
-      @required Duration currentRest}) = _$_ActiveWorkoutRunnerState;
+      @required Duration currentRest,
+      @required bool isLoggingReps}) = _$_ActiveWorkoutRunnerState;
 
   @override
   Option<ActiveWorkout> get activeWorkoutOption;
@@ -335,6 +357,8 @@ abstract class _ActiveWorkoutRunnerState extends ActiveWorkoutRunnerState {
   bool get voiceEnabled;
   @override
   Duration get currentRest;
+  @override
+  bool get isLoggingReps;
   @override
   _$ActiveWorkoutRunnerStateCopyWith<_ActiveWorkoutRunnerState> get copyWith;
 }
