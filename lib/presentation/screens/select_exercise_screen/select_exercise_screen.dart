@@ -85,7 +85,7 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
 
   Widget buildFilterButton(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.filter_list),
+      icon: Icon(Icons.filter_list, color: Theme.of(context).primaryColor),
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => ExerciseFilterScreen.generateRoute(
