@@ -20,13 +20,8 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          title: Text("Store", style: FitnickTextTheme(context).heading),
-          iconTheme: IconThemeData(color: Colors.black),
+          title: Text("Store"),
         ),
         body: StoreView());
   }

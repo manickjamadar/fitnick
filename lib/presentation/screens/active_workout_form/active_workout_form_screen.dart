@@ -15,17 +15,9 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text(title, style: FitnickTextTheme(context).heading),
+        title: Text(title),
         actions: <Widget>[buildSaveButton(context)],
-        primary: true,
-        iconTheme: IconThemeData(
-          color: Colors.black87,
-        ),
       ),
       body: GestureDetector(
           behavior: HitTestBehavior.translucent,

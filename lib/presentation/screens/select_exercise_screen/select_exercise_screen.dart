@@ -56,14 +56,8 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
       builder: (_, state) => Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            centerTitle: true,
-            title: Text("Select Exercise",
-                style: FitnickTextTheme(context).heading),
-            iconTheme: IconThemeData(color: Colors.black),
+            title: Text("Select Exercise"),
             actions: <Widget>[
               buildFilterButton(context),
               buildDoneButton(context)

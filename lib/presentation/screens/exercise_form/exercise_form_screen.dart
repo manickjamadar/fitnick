@@ -44,14 +44,11 @@ class ExerciseFormScreen extends StatelessWidget {
             inSufficientBalance: () => _onInSufficientBalance(context));
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          title: Text(title, style: FitnickTextTheme(context).heading),
+          title: Text(
+            title,
+          ),
           actions: <Widget>[buildSaveButton(context)],
-          iconTheme: IconThemeData(color: Colors.black87),
         ),
         body: ExerciseFormHandler(),
       ),

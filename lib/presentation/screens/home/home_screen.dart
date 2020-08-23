@@ -39,17 +39,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return BlocBuilder<TabCubit, TabState>(builder: (_, state) {
       final PageTab currentPageTab = state.tabs[state.currentTabIndex];
       return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          textTheme: Theme.of(context).textTheme,
-          iconTheme: IconThemeData(color: Colors.black),
-          elevation: 0,
           leading:
               Icon(FitnickIcons.logo, color: Theme.of(context).primaryColor),
-          title: Text(currentPageTab.title,
-              style: FitnickTextTheme(context).heading),
-          centerTitle: true,
+          title: Text(currentPageTab.title),
           actions: [
             IconButton(
               icon: Icon(FitnickIcons.store, color: Colors.green),
