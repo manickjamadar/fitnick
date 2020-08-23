@@ -18,6 +18,10 @@ class FitnickTheme {
   });
 
   static const Color accentColor = const Color(0xFF36C75E);
+  static TextStyle inputTextStyle(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodyText1
+      .copyWith(fontWeight: FontWeight.w500);
   static InputDecoration inputDecoration = InputDecoration(
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       fillColor: Colors.grey[200],
