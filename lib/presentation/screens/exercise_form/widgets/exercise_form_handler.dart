@@ -161,7 +161,7 @@ class ExerciseFormHandler extends StatelessWidget {
       onChanged: (value) {
         exerciseFormBloc.add(ExerciseFormEvent.nameChanged(value));
       },
-      style: FitnickTheme.inputTextStyle(context),
+      style: FitnickTextTheme(context).body1,
       decoration: FitnickTheme.inputDecoration.copyWith(
           errorText: state.shouldShowErrorMessages
               ? state.exercise.name.value.fold(

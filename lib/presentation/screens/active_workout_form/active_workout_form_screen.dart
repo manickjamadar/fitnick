@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_workout_form_handler.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,17 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(title),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text(title, style: FitnickTextTheme(context).heading),
         actions: <Widget>[buildSaveButton(context)],
+        primary: true,
+        iconTheme: IconThemeData(
+          color: Colors.black87,
+        ),
       ),
       body: GestureDetector(
           behavior: HitTestBehavior.translucent,

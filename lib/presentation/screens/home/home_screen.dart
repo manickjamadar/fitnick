@@ -6,12 +6,14 @@ import 'package:fitnick/application/tab/tab_cubit.dart';
 import 'package:fitnick/domain/page_tab/models/page_tab.dart';
 import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
+import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,15 +48,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           leading:
               Icon(FitnickIcons.logo, color: Theme.of(context).primaryColor),
           title: Text(currentPageTab.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  .copyWith(fontWeight: FontWeight.bold)),
+              style: FitnickTextTheme(context).heading),
           centerTitle: true,
           actions: [
             IconButton(
               icon: Icon(FitnickIcons.store, color: Colors.green),
-              onPressed: () {},
+              onPressed: () => _onStoreIconTap(context),
             ),
             IconButton(
               icon: Icon(
@@ -127,6 +126,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         MaterialPageRoute(
           builder: (_) => MusicCenterScreen.generateRoute(),
         ));
+  }
+
+  void _onStoreIconTap(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => StoreScreen.generateRoute(context)));
   }
 
   void _onTabSelect(BuildContext context, int newTabIndex) {

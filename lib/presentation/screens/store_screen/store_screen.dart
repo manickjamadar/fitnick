@@ -1,8 +1,8 @@
 import 'package:fitnick/application/account/account_manager/account_manager_cubit.dart';
 import 'package:fitnick/domain/account/models/account.dart';
-import 'package:fitnick/domain/account/models/sub_models/coin.dart';
 import 'package:fitnick/domain/account/models/sub_models/offer.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/balance_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +20,13 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Store"),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: Text("Store", style: FitnickTextTheme(context).heading),
+          iconTheme: IconThemeData(color: Colors.black),
         ),
         body: StoreView());
   }

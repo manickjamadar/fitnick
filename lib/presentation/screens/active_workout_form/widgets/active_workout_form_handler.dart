@@ -97,7 +97,7 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
       onChanged: (value) {
         onNameChanged(context, value);
       },
-      style: FitnickTheme.inputTextStyle(context),
+      style: FitnickTextTheme(context).body1,
       decoration:
           FitnickTheme.inputDecoration.copyWith(hintText: "Enter Workout Name"),
     );

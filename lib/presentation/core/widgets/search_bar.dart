@@ -29,7 +29,7 @@ class _SearchBarState extends State<SearchBar> {
           widget.onChanged(value);
         }
       },
-      style: FitnickTheme.inputTextStyle(context),
+      style: FitnickTextTheme(context).body1,
       decoration: FitnickTheme.inputDecoration.copyWith(
         suffixIcon: shouldShowClear
             ? IconButton(

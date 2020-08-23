@@ -5,6 +5,7 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/exercise_filter_screen/exercise_filter_screen.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
@@ -55,8 +56,14 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
       builder: (_, state) => Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text("Select Exercise"),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+            title: Text("Select Exercise",
+                style: FitnickTextTheme(context).heading),
+            iconTheme: IconThemeData(color: Colors.black),
             actions: <Widget>[
               buildFilterButton(context),
               buildDoneButton(context)
