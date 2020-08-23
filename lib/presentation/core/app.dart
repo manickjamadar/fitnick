@@ -26,7 +26,18 @@ class App extends StatelessWidget {
             ]),
           child: HomeScreen()),
       theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(
+            elevation: 0,
+            centerTitle: true,
+            iconTheme: IconThemeData(color: Colors.black),
+            color: Colors.white,
+          ),
           textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme),
+          primaryTextTheme: GoogleFonts.openSansTextTheme(Theme.of(context)
+              .textTheme
+              .apply(bodyColor: Colors.black)
+              .copyWith(headline6: FitnickTextTheme(context).heading)),
           primaryColor: FitnickTheme.primaryColor,
           primarySwatch: FitnickTheme.primarySwatch,
           accentColor: FitnickTheme.accentColor),
