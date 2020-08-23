@@ -18,7 +18,12 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
         title: Text(title),
         actions: <Widget>[buildSaveButton(context)],
       ),
-      body: ActiveWorkoutFormHandler(),
+      body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ActiveWorkoutFormHandler()),
     );
   }
 
