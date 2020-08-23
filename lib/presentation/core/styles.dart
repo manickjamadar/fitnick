@@ -32,3 +32,18 @@ class FitnickTheme {
           borderRadius: BorderRadius.circular(50),
           borderSide: BorderSide(color: Colors.grey[200])));
 }
+
+class FitnickTextTheme {
+  final BuildContext context;
+
+  FitnickTextTheme(this.context);
+
+  TextStyle get heading => Theme.of(context)
+      .textTheme
+      .bodyText1
+      .copyWith(fontWeight: FontWeight.bold);
+  TextStyle get body1 => Theme.of(context)
+      .textTheme
+      .bodyText1
+      .copyWith(fontWeight: FontWeight.w500);
+}
