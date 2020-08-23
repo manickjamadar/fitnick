@@ -4,6 +4,7 @@ import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_exercise_edit_item.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
@@ -96,10 +97,9 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
       onChanged: (value) {
         onNameChanged(context, value);
       },
-      decoration: InputDecoration(
-          errorText: _getErrorInputText(state),
-          border: OutlineInputBorder(),
-          labelText: "Workout Name"),
+      style: FitnickTheme.inputTextStyle(context),
+      decoration:
+          FitnickTheme.inputDecoration.copyWith(hintText: "Enter Workout Name"),
     );
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../styles.dart';
+
 class SearchBar extends StatefulWidget {
   final void Function(String value) onChanged;
   final String value;
@@ -27,19 +29,19 @@ class _SearchBarState extends State<SearchBar> {
           widget.onChanged(value);
         }
       },
-      decoration: InputDecoration(
-          suffixIcon: shouldShowClear
-              ? IconButton(
-                  icon: Icon(
-                    Icons.clear,
-                    color: Colors.red,
-                  ),
-                  onPressed: _onClear,
-                )
-              : null,
-          labelText: "Search",
-          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          border: OutlineInputBorder()),
+      style: FitnickTheme.inputTextStyle(context),
+      decoration: FitnickTheme.inputDecoration.copyWith(
+        suffixIcon: shouldShowClear
+            ? IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+                onPressed: _onClear,
+              )
+            : null,
+        hintText: "Search",
+      ),
     ));
   }
 
