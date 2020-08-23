@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
@@ -8,6 +6,7 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/helpers/get_video.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
@@ -162,14 +161,14 @@ class ExerciseFormHandler extends StatelessWidget {
       onChanged: (value) {
         exerciseFormBloc.add(ExerciseFormEvent.nameChanged(value));
       },
-      decoration: InputDecoration(
+      style: FitnickTheme.inputTextStyle(context),
+      decoration: FitnickTheme.inputDecoration.copyWith(
           errorText: state.shouldShowErrorMessages
               ? state.exercise.name.value.fold(
                   (nameFailure) => getValueFailureMessage(nameFailure),
                   (r) => null)
               : null,
-          border: OutlineInputBorder(),
-          labelText: "Exercise Name"),
+          hintText: "Enter Exercise Name"),
     );
   }
 
