@@ -18,4 +18,13 @@ class FitnickTheme {
   });
 
   static const Color accentColor = const Color(0xFF36C75E);
+  static InputDecoration inputDecoration = InputDecoration(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      fillColor: Colors.grey[200],
+      filled: true,
+      enabled: true,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50),
+          borderSide: BorderSide(color: Colors.grey[200])));
 }
