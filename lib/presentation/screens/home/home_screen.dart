@@ -45,10 +45,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           elevation: 0,
           leading:
               Icon(FitnickIcons.logo, color: Theme.of(context).primaryColor),
-          title: Text(
-            currentPageTab.title,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
+          title: Text(currentPageTab.title,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  .copyWith(fontWeight: FontWeight.bold)),
           centerTitle: true,
           actions: [
             IconButton(
@@ -84,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
           currentIndex: state.currentTabIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,

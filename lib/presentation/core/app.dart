@@ -7,6 +7,7 @@ import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.
 import 'package:fitnick/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class App extends StatelessWidget {
   @override
@@ -25,6 +26,7 @@ class App extends StatelessWidget {
             ]),
           child: HomeScreen()),
       theme: ThemeData(
+          textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme),
           primaryColor: FitnickTheme.primaryColor,
           primarySwatch: FitnickTheme.primarySwatch,
           accentColor: FitnickTheme.accentColor),
