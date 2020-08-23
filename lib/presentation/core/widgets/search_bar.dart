@@ -31,6 +31,7 @@ class _SearchBarState extends State<SearchBar> {
       },
       style: FitnickTextTheme(context).body1,
       decoration: FitnickTheme.inputDecoration.copyWith(
+        prefixIcon: Icon(Icons.search),
         suffixIcon: shouldShowClear
             ? IconButton(
                 icon: Icon(
