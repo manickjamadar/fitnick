@@ -9,23 +9,21 @@ class MusicItem extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          if (onPressed != null) {
-            onPressed();
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: music.isPlaying ? Colors.red : Colors.blue,
-              child: Icon(music.isPlaying ? Icons.stop : Icons.play_arrow,
-                  color: Colors.white),
-            ),
-            title: Text(music.name),
+    return InkWell(
+      onTap: () {
+        if (onPressed != null) {
+          onPressed();
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: music.isPlaying ? Colors.red : Colors.blue,
+            child: Icon(music.isPlaying ? Icons.stop : Icons.play_arrow,
+                color: Colors.white),
           ),
+          title: Text(music.name),
         ),
       ),
     );
