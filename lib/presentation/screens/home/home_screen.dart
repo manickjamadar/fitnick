@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  .copyWith(color: Colors.white)),
+                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
