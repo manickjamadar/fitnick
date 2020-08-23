@@ -1,6 +1,7 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
+import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/my_icons.dart';
 import 'package:fitnick/presentation/core/widgets/balance_view.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
@@ -38,17 +39,23 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         textTheme: Theme.of(context).textTheme,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
-        title: Row(children: [
-          Text("Fitnick"),
-          SizedBox(
-            width: 10,
-          ),
-          GestureDetector(
-              onTap: () => _onCoinIconTap(context), child: BalanceView())
-        ]),
+        leading: Icon(FitnickIcons.logo, color: Theme.of(context).primaryColor),
+        title: Text(
+          "Workouts",
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.headset),
+            icon: Icon(FitnickIcons.store, color: Colors.green),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              FitnickIcons.music,
+              size: 20,
+              color: Colors.red,
+            ),
             onPressed: () => _onHeadSetTap(context),
           )
         ],
