@@ -45,6 +45,7 @@ dependencies:
   audioplayers: ^0.15.1
   wakelock: ^0.1.4+2
   flutter_tts: ^1.2.6
+  google_fonts: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +86,6 @@ flutter:
     - family: Fitnick
       fonts:
         - asset: assets/icon/fitnick.ttf
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
