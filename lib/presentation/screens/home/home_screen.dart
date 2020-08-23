@@ -60,23 +60,37 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           )
         ],
       ),
-      floatingActionButton: AddButtons(),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        currentIndex: currentTab,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: (i) => setState(() {
-          currentTab = i;
-        }),
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(MyIcons.workout), title: Text("Workout")),
-          BottomNavigationBarItem(
-              icon: Icon(MyIcons.exercise), title: Text("Exercise")),
-          BottomNavigationBarItem(
-              icon: Icon(MyIcons.progression), title: Text("Progression")),
-        ],
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        icon: Icon(Icons.add, color: Colors.white),
+        label: Text("Add Workout",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                .copyWith(color: Colors.white)),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        elevation: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Expanded(
+              child: IconButton(
+                icon: Icon(FitnickIcons.workout),
+                onPressed: () {},
+              ),
+            ),
+            Expanded(child: Text("")),
+            Expanded(
+              child: IconButton(
+                icon: Icon(FitnickIcons.exercise),
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
