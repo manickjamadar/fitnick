@@ -1,4 +1,5 @@
 import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:flutter/material.dart';
 
 class HomeActionButton extends StatelessWidget {
@@ -16,12 +17,10 @@ class HomeActionButton extends StatelessWidget {
           FitnickActions(context).onCreateExerciseButtonPressed();
         }
       },
-      icon: Icon(Icons.add, color: Colors.white),
+      icon: Icon(Icons.add, color: Colors.white, size: 20),
       label: Text(currentIndex == 0 ? "Add Workout" : "Add Exercise",
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1
-              .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+          style:
+              FitnickTextTheme(context).button.copyWith(color: Colors.white)),
       backgroundColor: Theme.of(context).primaryColor,
     );
   }

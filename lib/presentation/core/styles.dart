@@ -41,6 +41,10 @@ class FitnickTextTheme {
   TextStyle get heading => Theme.of(context)
       .textTheme
       .bodyText1
+      .copyWith(fontWeight: FontWeight.bold, fontSize: 15);
+  TextStyle get heading2 => Theme.of(context)
+      .textTheme
+      .bodyText1
       .copyWith(fontWeight: FontWeight.bold);
   TextStyle get body1 => Theme.of(context)
       .textTheme
