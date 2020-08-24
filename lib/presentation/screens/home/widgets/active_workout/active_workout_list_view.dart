@@ -33,8 +33,11 @@ class ActiveWorkoutListView extends StatelessWidget {
   ListView buildActiveWorkoutList() {
     return ListView.builder(
       itemBuilder: (_, index) {
-        return ActiveWorkoutItem(
-          activeWorkout: activeWorkouts[index],
+        return Container(
+          margin: EdgeInsets.only(bottom: 20),
+          child: ActiveWorkoutItem(
+            activeWorkout: activeWorkouts[index],
+          ),
         );
       },
       itemCount: activeWorkouts.length,
