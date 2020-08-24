@@ -38,8 +38,11 @@ class WorkoutTab extends StatelessWidget {
   }
 
   Widget buildWorkoutLoaded(List<ActiveWorkout> activeWorkouts) {
-    return ActiveWorkoutListView(
-      activeWorkouts: activeWorkouts,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ActiveWorkoutListView(
+        activeWorkouts: activeWorkouts,
+      ),
     );
   }
 
