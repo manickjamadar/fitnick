@@ -6,6 +6,7 @@ import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/actor_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/label_circle.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/active_workout_preview_screen/active_workout_preview_screen.dart';
@@ -23,6 +24,7 @@ class ActiveWorkoutItem extends StatelessWidget {
     final totalExercise = activeWorkout.activeExercises.length;
     return GestureDetector(
       onTap: () => _onItemTap(context),
+      onLongPress: () => _onItemLongPress(context),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(FitnickTheme.radius),
         child: Stack(
@@ -116,6 +118,16 @@ class ActiveWorkoutItem extends StatelessWidget {
           builder: (_) => ActiveWorkoutPreviewScreen.generateRoute(
               activeWorkout: activeWorkout),
         ));
+  }
+
+  void _onItemLongPress(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => ActorDialog(
+              title: activeWorkout.name.safeValue.capitalize(),
+              onEdit: () => _onEdit(context),
+              onDelete: () => _onDelete(context),
+            ));
   }
 
   void _onEdit(BuildContext context) async {
