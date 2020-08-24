@@ -10,10 +10,10 @@ import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/helpers/get_image.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_exercise_edit_item.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
-import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "../../../../application/active_workout/active_workout_hub/active_workout_hub_cubit.dart";
@@ -72,6 +72,20 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                                 context, activeExercise),
                           ))
                       .toList()),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.all(18),
+                width: double.infinity,
+                child: ActionButton(
+                  elevation: 10,
+                  label: "Save Workout",
+                  onPressed: state.activeWorkout.isValid
+                      ? () => _onWorkoutSave(context)
+                      : null,
+                ),
+              ),
             ),
             if (state.isAdding) ExecutingIndicator(),
           ],
@@ -178,6 +192,10 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   void onAddExercise(BuildContext context, Exercise exercise) {
     BlocProvider.of<ActiveWorkoutFormCubit>(context)
         .exerciseAdded(exercise: exercise);
+  }
+
+  void _onWorkoutSave(BuildContext context) {
+    BlocProvider.of<ActiveWorkoutFormCubit>(context).saved();
   }
 
   void _onUploadButtonPressed(BuildContext context) async {

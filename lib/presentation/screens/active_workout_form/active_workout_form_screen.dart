@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
-import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_workout_form_handler.dart';
 import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        actions: <Widget>[buildSaveButton(context)],
       ),
       body: GestureDetector(
           behavior: HitTestBehavior.translucent,
@@ -26,21 +24,6 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
           },
           child: ActiveWorkoutFormHandler()),
     );
-  }
-
-  Widget buildSaveButton(BuildContext context) {
-    return BlocBuilder<ActiveWorkoutFormCubit, ActiveWorkoutFormState>(
-      builder: (_, state) => IconButton(
-        onPressed: !state.isAdding && state.activeWorkout.isValid
-            ? () => onWorkoutSave(context)
-            : null,
-        icon: Icon(Icons.check),
-      ),
-    );
-  }
-
-  void onWorkoutSave(BuildContext context) {
-    BlocProvider.of<ActiveWorkoutFormCubit>(context).saved();
   }
 
   static Widget generateRoute(
