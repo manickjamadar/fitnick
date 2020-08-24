@@ -1,6 +1,10 @@
 import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
+import 'package:fitnick/presentation/core/widgets/not_found_action.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
+import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseListView extends StatelessWidget {
@@ -21,7 +25,7 @@ class ExerciseListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return exercises.isEmpty && !searchable
-        ? buildEmptyExercise()
+        ? buildEmptyExercise(context)
         : buildExerciseList(context);
   }
 
@@ -55,7 +59,14 @@ class ExerciseListView extends StatelessWidget {
     );
   }
 
-  Center buildEmptyExercise() => Center(
-        child: Text("No Exercise avaialble"),
+  Widget buildEmptyExercise(BuildContext context) => NotFoundAction(
+        image: Image.asset(FitnickImageProvider.no_exercise),
+        title: "No Exercise Available",
+        actionButton: ActionButton(
+          label: "Create Exercise",
+          onPressed: () =>
+              FitnickActions(context).onCreateExerciseButtonPressed(),
+          elevation: 10,
+        ),
       );
 }

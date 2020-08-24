@@ -2,8 +2,12 @@ import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
+import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
+import 'package:fitnick/presentation/core/widgets/not_found_action.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exerise_list_view.dart';
+import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,7 +33,7 @@ class ExerciseTab extends StatelessWidget {
             return buildLoading();
           }
           return state.exercises.fold(
-              () => buildNoExercise(),
+              () => buildNoExercise(context),
               (List<Exercise> exercises) =>
                   buildExercises(context, exercises, state.searchTerm));
         },
@@ -37,9 +41,16 @@ class ExerciseTab extends StatelessWidget {
     );
   }
 
-  Widget buildNoExercise() {
-    return Center(
-      child: Text("No Exercise Available"),
+  Widget buildNoExercise(BuildContext context) {
+    return NotFoundAction(
+      image: Image.asset(FitnickImageProvider.no_exercise),
+      title: "No Exercise Available",
+      actionButton: ActionButton(
+        label: "Create Exercise",
+        onPressed: () =>
+            FitnickActions(context).onCreateExerciseButtonPressed(),
+        elevation: 10,
+      ),
     );
   }
 
@@ -66,5 +77,3 @@ class ExerciseTab extends StatelessWidget {
         .add(FilteredExerciseEvent.searched(term: searchTerm));
   }
 }
-
-class BlocListen {}
