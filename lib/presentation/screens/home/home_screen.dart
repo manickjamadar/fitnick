@@ -39,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: NavBar(
+          currentIndex: state.currentTabIndex,
+          tabs: state.tabs,
           onSelect: (newTabIndex) => _onTabSelect(context, newTabIndex),
         ),
         body: GestureDetector(
