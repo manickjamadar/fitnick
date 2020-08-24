@@ -3,8 +3,7 @@ import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/application/tab/tab_cubit.dart';
 import 'package:fitnick/domain/page_tab/models/page_tab.dart';
-import 'package:fitnick/fitnick_icons.dart';
-import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
+import 'package:fitnick/presentation/screens/home/home_action_button.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/home/widgets/header.dart';
@@ -35,22 +34,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       final PageTab currentPageTab = state.tabs[state.currentTabIndex];
       return Scaffold(
         appBar: Header(title: currentPageTab.title),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            if (state.currentTabIndex == 0) {
-              FitnickActions(context).onCreateWorkotuButtonPressed();
-            } else {
-              FitnickActions(context).onCreateExerciseButtonPressed();
-            }
-          },
-          icon: Icon(Icons.add, color: Colors.white),
-          label: Text(
-              state.currentTabIndex == 0 ? "Add Workout" : "Add Exercise",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
-          backgroundColor: Theme.of(context).primaryColor,
+        floatingActionButton: HomeActionButton(
+          currentIndex: state.currentTabIndex,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: NavBar(
