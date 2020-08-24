@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/active_workout/active_workout_actor/active_workout_actor_cubit.dart';
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
+import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
+import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/label_circle.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/active_workout_preview_screen/active_workout_preview_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,34 +20,91 @@ class ActiveWorkoutItem extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        onTap: () => _onItemTap(context),
-        title: Text(activeWorkout.name.safeValue.capitalize(),
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(
-            "${activeWorkout.activeExercises.length} exercises - ${formatTime(activeWorkout.totalDuration)} "),
-        trailing: PopupMenuButton(
-          onSelected: (value) {
-            if (value == 0) {
-              _onEdit(context);
-            } else if (value == 1) {
-              _onDelete(context);
-            }
-          },
-          itemBuilder: (BuildContext context) {
-            return [
-              PopupMenuItem(
-                child: Text("Edit"),
-                value: 0,
-              ),
-              PopupMenuItem(
-                child: Text("Delete"),
-                value: 1,
-              ),
-            ];
-          },
+    final totalExercise = activeWorkout.activeExercises.length;
+    return GestureDetector(
+      onTap: () => _onItemTap(context),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(FitnickTheme.radius),
+        child: Stack(
+          children: [
+            buildThumbnail(),
+            buildInfo(context, totalExercise),
+            buildExerciseDuration(context, activeWorkout.totalDuration)
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget buildExerciseDuration(BuildContext context, Duration duration) {
+    return Positioned(
+      bottom: 0,
+      child: Container(
+          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 14),
+          decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor.withOpacity(0.6),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(FitnickTheme.radius))),
+          child: Row(
+            children: [
+              Icon(FitnickIcons.timer, color: Colors.white),
+              SizedBox(width: 6),
+              Text(formatTime(duration),
+                  style: FitnickTextTheme(context)
+                      .heading2
+                      .copyWith(color: Colors.white)),
+            ],
+          )),
+    );
+  }
+
+  Widget buildThumbnail() {
+    return AspectRatio(
+      aspectRatio: 16 / 6,
+      child: Container(
+        color: Colors.grey[200],
+        child: activeWorkout.imagePath.fold(
+            () => Container(
+                  color: Colors.grey,
+                ),
+            (path) => Image.file(
+                  File(path),
+                  fit: BoxFit.cover,
+                  color: Colors.black.withOpacity(0.5),
+                  colorBlendMode: BlendMode.darken,
+                )),
+      ),
+    );
+  }
+
+  Widget buildInfo(BuildContext context, int totalExercise) {
+    return Container(
+      padding: EdgeInsets.only(left: 26, right: 26, top: 30),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Text(activeWorkout.name.safeValue.capitalize(),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: FitnickTextTheme(context)
+                    .heading
+                    .copyWith(color: Colors.white)),
+          ),
+          Column(
+            children: [
+              LabelCircle(
+                label: "$totalExercise",
+                radius: 120,
+              ),
+              Text("Exercises",
+                  style: FitnickTextTheme(context)
+                      .body1
+                      .copyWith(color: Colors.white))
+            ],
+          )
+        ],
       ),
     );
   }
