@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart' as dartz;
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
@@ -6,13 +5,8 @@ import 'package:fitnick/application/tab/tab_cubit.dart';
 import 'package:fitnick/domain/page_tab/models/page_tab.dart';
 import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
-import 'package:fitnick/presentation/core/helpers/show_message.dart';
-import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
-import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
-import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
-import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           actions: [
             IconButton(
               icon: Icon(FitnickIcons.store, color: Colors.green),
-              onPressed: () => _onStoreIconTap(context),
+              onPressed: () => FitnickActions(context).goStore(),
             ),
             IconButton(
               icon: Icon(
@@ -53,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 size: 20,
                 color: Colors.red,
               ),
-              onPressed: () => _onHeadSetTap(context),
+              onPressed: () => FitnickActions(context).goMusicCenter(),
             )
           ],
         ),
@@ -110,19 +104,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         ),
       );
     });
-  }
-
-  void _onHeadSetTap(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => MusicCenterScreen.generateRoute(),
-        ));
-  }
-
-  void _onStoreIconTap(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (_) => StoreScreen.generateRoute(context)));
   }
 
   void _onTabSelect(BuildContext context, int newTabIndex) {
