@@ -27,4 +27,6 @@ class FitnickIcons {
   static const IconData upload = Icons.save_alt;
   static const IconData close = Icons.close;
   static const IconData exerciseSet = Icons.refresh;
+  static const IconData delete = Icons.delete;
+  static const IconData edit = Icons.edit;
 }
