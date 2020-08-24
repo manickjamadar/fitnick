@@ -7,6 +7,8 @@ import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
+import 'package:fitnick/presentation/screens/home/widgets/header.dart';
+import 'package:fitnick/presentation/screens/home/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,25 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return BlocBuilder<TabCubit, TabState>(builder: (_, state) {
       final PageTab currentPageTab = state.tabs[state.currentTabIndex];
       return Scaffold(
-        appBar: AppBar(
-          leading:
-              Icon(FitnickIcons.logo, color: Theme.of(context).primaryColor),
-          title: Text(currentPageTab.title),
-          actions: [
-            IconButton(
-              icon: Icon(FitnickIcons.store, color: Colors.green),
-              onPressed: () => FitnickActions(context).goStore(),
-            ),
-            IconButton(
-              icon: Icon(
-                FitnickIcons.music,
-                size: 20,
-                color: Colors.red,
-              ),
-              onPressed: () => FitnickActions(context).goMusicCenter(),
-            )
-          ],
-        ),
+        appBar: Header(title: currentPageTab.title),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (state.currentTabIndex == 0) {
@@ -69,16 +53,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           backgroundColor: Theme.of(context).primaryColor,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          currentIndex: state.currentTabIndex,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          onTap: (newTabIndex) => _onTabSelect(context, newTabIndex),
-          items: state.tabs
-              .map((pageTab) => BottomNavigationBarItem(
-                  icon: Icon(pageTab.iconData), title: Text(pageTab.title)))
-              .toList(),
+        bottomNavigationBar: NavBar(
+          onSelect: (newTabIndex) => _onTabSelect(context, newTabIndex),
         ),
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
