@@ -80,7 +80,7 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                 width: double.infinity,
                 child: ActionButton(
                   elevation: 10,
-                  label: "Save Workout",
+                  label: "${state.isEditing ? 'Update' : 'Save'} Workout",
                   onPressed: state.activeWorkout.isValid
                       ? () => _onWorkoutSave(context)
                       : null,
