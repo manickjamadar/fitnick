@@ -22,18 +22,22 @@ class ActiveWorkoutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalExercise = activeWorkout.activeExercises.length;
-    return GestureDetector(
-      onTap: () => _onItemTap(context),
-      onLongPress: () => _onItemLongPress(context),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(FitnickTheme.radius),
-        child: Stack(
-          children: [
-            buildThumbnail(),
-            buildInfo(context, totalExercise),
-            buildExerciseDuration(context, activeWorkout.totalDuration)
-          ],
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(FitnickTheme.radius),
+      child: Stack(
+        children: [
+          buildThumbnail(),
+          buildInfo(context, totalExercise),
+          buildExerciseDuration(context, activeWorkout.totalDuration),
+          Positioned.fill(
+              child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Theme.of(context).accentColor.withOpacity(0.3),
+                    onTap: () => _onItemTap(context),
+                    onLongPress: () => _onItemLongPress(context),
+                  )))
+        ],
       ),
     );
   }
