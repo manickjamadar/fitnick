@@ -105,7 +105,7 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
             height: 20,
           ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(FitnickTheme.radius),
             child: Stack(
               children: [
                 AspectRatio(
