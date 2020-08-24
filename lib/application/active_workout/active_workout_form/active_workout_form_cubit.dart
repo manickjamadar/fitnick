@@ -33,6 +33,13 @@ class ActiveWorkoutFormCubit extends Cubit<ActiveWorkoutFormState> {
             activeWorkout: activeWorkout, isEditing: true, addStatus: none())));
   }
 
+  void imagePathUpdated({@required String path}) {
+    emit(state.copyWith(
+        addStatus: none(),
+        activeWorkout:
+            state.activeWorkout.copyWith(imagePath: optionOf(path))));
+  }
+
   Future<void> nameChanged({@required String name}) async {
     emit(state.copyWith(
         addStatus: none(),

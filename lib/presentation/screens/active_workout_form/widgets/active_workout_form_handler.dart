@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
+import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/workout/failure/workout_failure.dart';
+import 'package:fitnick/fitnick_icons.dart';
+import 'package:fitnick/presentation/core/helpers/get_image.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_exercise_edit_item.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
+import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "../../../../application/active_workout/active_workout_hub/active_workout_hub_cubit.dart";
@@ -44,7 +50,15 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                         height: 20,
                       ),
                       buildNameInput(context),
-                      buildAddExerciseButton(context)
+                      SizedBox(
+                        height: 20,
+                      ),
+                      buildThumbnailUploader(context, state.activeWorkout),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      buildAddExerciseButton(
+                          context, state.activeWorkout.activeExercises.length)
                     ],
                   ),
                   onReorder: (oldIndex, newIndex) =>
@@ -66,22 +80,76 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
     );
   }
 
-  FlatButton buildAddExerciseButton(BuildContext context) {
-    return FlatButton(
-      child: Text("+ Add Exercise"),
-      onPressed: () async {
-        final List<Exercise> selectedExercises = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => SelectExerciseScreen.generateRoute(context),
-            ));
-        if (selectedExercises == null || selectedExercises.isEmpty) {
-          return;
-        }
-        selectedExercises.forEach((exercise) {
-          onAddExercise(context, exercise);
-        });
-      },
+  Widget buildThumbnailUploader(
+      BuildContext context, ActiveWorkout activeWorkout) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Thumbnail", style: FitnickTextTheme(context).heading2),
+          SizedBox(
+            height: 20,
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Container(
+                    color: Colors.grey[200],
+                    child: activeWorkout.imagePath.fold(
+                        () => Center(
+                              child: Text("No Thumbnail available"),
+                            ),
+                        (path) => Image.file(File(path), fit: BoxFit.cover)),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: GestureDetector(
+                    onTap: () => _onUploadButtonPressed(context),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black.withOpacity(0.6),
+                      child: Icon(FitnickIcons.upload, color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildAddExerciseButton(BuildContext context, int totalExercises) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text("Exercises ($totalExercises)",
+            style: FitnickTextTheme(context).heading2),
+        FlatButton(
+          child: Text("+ Add Exercise",
+              style: FitnickTextTheme(context)
+                  .button
+                  .copyWith(color: Theme.of(context).primaryColorDark)),
+          onPressed: () async {
+            final List<Exercise> selectedExercises = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SelectExerciseScreen.generateRoute(context),
+                ));
+            if (selectedExercises == null || selectedExercises.isEmpty) {
+              return;
+            }
+            selectedExercises.forEach((exercise) {
+              onAddExercise(context, exercise);
+            });
+          },
+        )
+      ],
     );
   }
 
@@ -98,8 +166,8 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
         onNameChanged(context, value);
       },
       style: FitnickTextTheme(context).body1,
-      decoration:
-          FitnickTheme.inputDecoration.copyWith(hintText: "Enter Workout Name"),
+      decoration: FitnickTheme.inputDecoration.copyWith(
+          hintText: "Enter Workout Name", errorText: _getErrorInputText(state)),
     );
   }
 
@@ -110,6 +178,12 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   void onAddExercise(BuildContext context, Exercise exercise) {
     BlocProvider.of<ActiveWorkoutFormCubit>(context)
         .exerciseAdded(exercise: exercise);
+  }
+
+  void _onUploadButtonPressed(BuildContext context) async {
+    final imageFile = await pickNewImage();
+    BlocProvider.of<ActiveWorkoutFormCubit>(context)
+        .imagePathUpdated(path: imageFile.path);
   }
 
   void _onActiveExerciseRemove(
