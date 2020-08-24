@@ -5,12 +5,11 @@ import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/application/tab/tab_cubit.dart';
 import 'package:fitnick/domain/page_tab/models/page_tab.dart';
 import 'package:fitnick/fitnick_icons.dart';
+import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
-import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
-import 'package:fitnick/presentation/screens/home/tabs/progresstion_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
 import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
@@ -61,9 +60,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (state.currentTabIndex == 0) {
-              _onAddWorkout(context);
+              FitnickActions(context).onCreateWorkotuButtonPressed();
             } else {
-              _onAddExercise(context);
+              FitnickActions(context).onCreateExerciseButtonPressed();
             }
           },
           icon: Icon(Icons.add, color: Colors.white),
@@ -128,28 +127,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   void _onTabSelect(BuildContext context, int newTabIndex) {
     BlocProvider.of<TabCubit>(context).changeTab(newTabIndex);
-  }
-
-  void _onAddExercise(BuildContext context) async {
-    String message = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) =>
-                ExerciseFormScreen.generateRoute(context, dartz.none())));
-    if (message != null) {
-      showMessage(context, message: message, type: SuccessMessage());
-    }
-  }
-
-  void _onAddWorkout(BuildContext context) async {
-    String message = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) =>
-                ActiveWorkoutFormScreen.generateRoute(context, dartz.none())));
-    if (message != null) {
-      showMessage(context, message: message, type: SuccessMessage());
-    }
   }
 
   @override
