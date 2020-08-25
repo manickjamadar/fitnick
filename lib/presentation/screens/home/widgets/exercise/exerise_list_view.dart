@@ -43,6 +43,11 @@ class ExerciseListView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
           child: ExerciseTile(
             exercise: exercise,
+            trailing: Row(
+              children: [Icon(Icons.arrow_forward_ios, size: 16)],
+            ),
+            onPressed: () => FitnickActions(context)
+                .goExerciseDetailScreen(context, exercise: exercise),
             onLongPressed: () => showDialog(
                 context: context,
                 builder: (_) => ActorDialog(
