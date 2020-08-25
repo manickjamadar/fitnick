@@ -10,9 +10,15 @@ class ExerciseTile extends StatelessWidget {
   final Exercise exercise;
   final void Function() onPressed;
   final void Function() onLongPressed;
-
+  final Widget leading;
+  final Widget trailing;
   const ExerciseTile(
-      {Key key, @required this.exercise, this.onLongPressed, this.onPressed})
+      {Key key,
+      @required this.exercise,
+      this.onLongPressed,
+      this.onPressed,
+      this.leading,
+      this.trailing})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -36,40 +42,55 @@ class ExerciseTile extends StatelessWidget {
           // color: Colors.green,
           child: Row(
             children: [
-              ExerciseThumbnail(
-                exercise: exercise,
-                size: height,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Container(
-                // color: Colors.red,
-                padding: EdgeInsets.only(bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomChip(
-                      color: Colors.blue,
-                      selected: true,
-                      label: Text(
-                        exercise.primaryTargets.first.name.capitalize(),
-                        style: FitnickTextTheme(context).smallButton,
-                      ),
-                    ),
-                    Text(
-                      exercise.name.safeValue.capitalize(),
-                      style: FitnickTextTheme(context).heading,
-                    ),
-                    LevelFlash(
-                      level: exercise.levels.first,
-                    )
-                  ],
-                ),
-              )
+              if (leading != null) leading,
+              Expanded(child: buildRawExerciseInfo(height, context)),
+              if (trailing != null) trailing
             ],
           )),
+    );
+  }
+
+  Widget buildRawExerciseInfo(double height, BuildContext context) {
+    return Row(
+      children: [
+        ExerciseThumbnail(
+          exercise: exercise,
+          size: height,
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Container(
+          child: Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomChip(
+                  color: Colors.blue,
+                  selected: true,
+                  label: Text(
+                    exercise.primaryTargets.first.name.capitalize(),
+                    style: FitnickTextTheme(context).smallButton,
+                  ),
+                ),
+                Text(
+                  exercise.name.safeValue.capitalize(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: FitnickTextTheme(context).heading,
+                ),
+                LevelFlash(
+                  level: exercise.levels.first,
+                ),
+                SizedBox(
+                  height: 6,
+                )
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
