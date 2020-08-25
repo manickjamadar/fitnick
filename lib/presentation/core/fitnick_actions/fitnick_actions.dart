@@ -3,6 +3,7 @@ import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
+import 'package:fitnick/presentation/screens/exercise_details_screen/exercise_details_screen.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
 import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
@@ -62,5 +63,14 @@ class FitnickActions {
   void onDeleteExercise(Exercise exercise) {
     BlocProvider.of<ExerciseActorBloc>(context)
         .add(ExerciseActorEvent.deleted(exercise: exercise));
+  }
+
+  void goExerciseDetailScreen(BuildContext context,
+      {@required Exercise exercise}) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) =>
+                ExerciseDetailsScreen.generateRoute(exercise: exercise)));
   }
 }
