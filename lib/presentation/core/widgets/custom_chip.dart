@@ -9,10 +9,10 @@ class CustomChip extends StatelessWidget {
   const CustomChip(
       {Key key,
       @required this.label,
-      this.labelColor = Colors.white,
+      this.labelColor,
       this.color,
       this.onDelete,
-      this.selected = true})
+      this.selected = false})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,15 @@ class CustomChip extends StatelessWidget {
     final relativeSize = label.style.fontSize;
     return Container(
         padding: EdgeInsets.symmetric(
-            vertical: relativeSize * 0.4, horizontal: relativeSize * 0.8),
+            vertical: relativeSize * 0.3, horizontal: relativeSize * 0.76),
         decoration: BoxDecoration(
-            color: mainColor,
-            borderRadius: BorderRadius.circular(relativeSize * 2)),
-        child: label);
+            border: Border.all(color: mainColor, width: relativeSize * 0.2),
+            color: selected ? mainColor : mainColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(relativeSize * 3)),
+        child: Text(label.data,
+            style: label.style.copyWith(
+                color: labelColor != null
+                    ? labelColor
+                    : (selected ? Colors.white : mainColor))));
   }
 }

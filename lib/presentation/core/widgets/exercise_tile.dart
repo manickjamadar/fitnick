@@ -33,11 +33,11 @@ class ExerciseTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomChip(
+                    color: Colors.blue,
+                    selected: true,
                     label: Text(
                       exercise.primaryTargets.first.name.capitalize(),
-                      style: FitnickTextTheme(context)
-                          .smallButton
-                          .copyWith(color: Colors.white),
+                      style: FitnickTextTheme(context).smallButton,
                     ),
                   ),
                   Text(
