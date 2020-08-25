@@ -57,4 +57,8 @@ class FitnickTextTheme {
       .textTheme
       .bodyText1
       .copyWith(fontWeight: FontWeight.w600, fontSize: 13, letterSpacing: 1.2);
+  TextStyle get smallButton => Theme.of(context)
+      .textTheme
+      .bodyText1
+      .copyWith(fontWeight: FontWeight.bold, fontSize: 11);
 }
