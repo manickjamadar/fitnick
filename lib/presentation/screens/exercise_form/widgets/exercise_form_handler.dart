@@ -4,10 +4,12 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
+import 'package:fitnick/presentation/core/helpers/get_image.dart';
 import 'package:fitnick/presentation/core/helpers/get_video.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
@@ -48,6 +50,8 @@ class ExerciseFormHandler extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      buildThumnailUploader(context, state),
+                      buildSpace(),
                       buildNameInput(context),
                       buildSpace(),
                       Text(
@@ -68,6 +72,17 @@ class ExerciseFormHandler extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget buildThumnailUploader(BuildContext context, ExerciseFormState state) {
+    return Align(
+        alignment: Alignment.center,
+        child: GestureDetector(
+          onTap: () => _onThumbnailUpload(context),
+          child: ExerciseThumbnail(
+            exercise: state.exercise,
+          ),
+        ));
   }
 
   Widget buildVideoUploader(BuildContext context, ExerciseFormState state) {
@@ -196,6 +211,16 @@ class ExerciseFormHandler extends StatelessWidget {
     return SizedBox(
       height: 20,
     );
+  }
+
+  void _onThumbnailUpload(BuildContext context) async {
+    try {
+      final imageFile = await pickNewImage();
+      BlocProvider.of<ExerciseFormBloc>(context)
+          .add(ExerciseFormEvent.thumbnailPathChanged(imageFile.path));
+    } catch (error) {
+      print("exercise thumbnail upload failed");
+    }
   }
 
   void _onVideoUpload(BuildContext context) async {
