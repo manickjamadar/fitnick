@@ -1,6 +1,7 @@
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
+import 'package:fitnick/presentation/core/widgets/actor_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_tile.dart';
 import 'package:fitnick/presentation/core/widgets/not_found_action.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
@@ -42,6 +43,15 @@ class ExerciseListView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
           child: ExerciseTile(
             exercise: exercise,
+            onLongPressed: () => showDialog(
+                context: context,
+                builder: (_) => ActorDialog(
+                      title: exercise.name.safeValue,
+                      onDelete: () =>
+                          FitnickActions(context).onDeleteExercise(exercise),
+                      onEdit: () =>
+                          FitnickActions(context).onEditExercise(exercise),
+                    )),
           ),
         );
       },
