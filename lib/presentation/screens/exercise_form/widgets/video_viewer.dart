@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -20,7 +21,7 @@ class _VideoViewerState extends State<VideoViewer> {
     return Container(
         child: _controller.value.initialized
             ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: FitnickTheme.aspectRatio,
                 child: VideoPlayer(_controller),
               )
             : Center(
