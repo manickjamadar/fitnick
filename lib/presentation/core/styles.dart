@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FitnickTheme {
+  static const double aspectRatio = 16 / 9;
   static const double radius = 10.0;
   static const int _primaryColorValue = 0xFFFF6433;
   static const Color primaryColor = const Color(_primaryColorValue);

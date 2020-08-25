@@ -109,7 +109,7 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
             child: Stack(
               children: [
                 AspectRatio(
-                  aspectRatio: 16 / 9,
+                  aspectRatio: FitnickTheme.aspectRatio,
                   child: Container(
                     color: Colors.grey[200],
                     child: activeWorkout.imagePath.fold(
