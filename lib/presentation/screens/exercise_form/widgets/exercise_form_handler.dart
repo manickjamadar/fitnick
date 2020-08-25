@@ -8,6 +8,7 @@ import 'package:fitnick/presentation/core/helpers/get_video.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +55,7 @@ class ExerciseFormHandler extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       buildSpace(),
-                      VideoPreview(path: state.exercise.videoPath),
-                      buildSpace(),
-                      buildVideoUploadButton(context),
+                      buildVideoUploader(context, state),
                       buildSpace(),
                       buildOptions(context, state),
                     ],
@@ -71,13 +70,18 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  Widget buildVideoUploadButton(BuildContext context) {
-    return Center(
-      child: OutlineButton(
-        textColor: Colors.blue,
-        child: Text("Upload Video"),
-        onPressed: () => onVideoUpload(context),
-      ),
+  Widget buildVideoUploader(BuildContext context, ExerciseFormState state) {
+    return Stack(
+      children: [
+        VideoPreview(path: state.exercise.videoPath),
+        Positioned(
+          top: 10,
+          right: 10,
+          child: UploadButton(
+            onPressed: () => _onVideoUpload(context),
+          ),
+        )
+      ],
     );
   }
 
@@ -194,7 +198,7 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  void onVideoUpload(BuildContext context) async {
+  void _onVideoUpload(BuildContext context) async {
     try {
       final videoFile = await pickNewVideo();
       BlocProvider.of<ExerciseFormBloc>(context)
