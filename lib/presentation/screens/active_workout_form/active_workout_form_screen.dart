@@ -13,16 +13,17 @@ class ActiveWorkoutFormScreen extends StatelessWidget {
   static const routeName = "/active_workout_form";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: ActiveWorkoutFormHandler(),
       ),
-      body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ActiveWorkoutFormHandler()),
     );
   }
 

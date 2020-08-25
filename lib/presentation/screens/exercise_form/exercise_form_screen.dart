@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/account/account_manager/account_manager_cubit.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_form_handler.dart';
 import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
 import 'package:fitnick/service_locator.dart';
@@ -43,14 +42,20 @@ class ExerciseFormScreen extends StatelessWidget {
             spendSuccessFul: (coin) => _onExerciseAdded(context),
             inSufficientBalance: () => _onInSufficientBalance(context));
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            title,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              title,
+            ),
+            actions: <Widget>[buildSaveButton(context)],
           ),
-          actions: <Widget>[buildSaveButton(context)],
+          body: ExerciseFormHandler(),
         ),
-        body: ExerciseFormHandler(),
       ),
     );
   }
