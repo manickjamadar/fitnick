@@ -1,3 +1,4 @@
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:flutter/material.dart';
 import "../helpers/string_extension.dart";
 
@@ -10,7 +11,7 @@ class ExerciseTitle extends StatelessWidget {
     return Text(
       title.capitalize(),
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+      style: FitnickTextTheme(context).heading.copyWith(fontSize: 22),
     );
   }
 }
