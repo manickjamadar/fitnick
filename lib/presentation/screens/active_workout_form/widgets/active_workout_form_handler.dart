@@ -199,9 +199,13 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
   }
 
   void _onUploadButtonPressed(BuildContext context) async {
-    final imageFile = await pickNewImage();
-    BlocProvider.of<ActiveWorkoutFormCubit>(context)
-        .imagePathUpdated(path: imageFile.path);
+    try {
+      final imageFile = await pickNewImage();
+      BlocProvider.of<ActiveWorkoutFormCubit>(context)
+          .imagePathUpdated(path: imageFile.path);
+    } catch (error) {
+      print("picking image failed");
+    }
   }
 
   void _onActiveExerciseRemove(
