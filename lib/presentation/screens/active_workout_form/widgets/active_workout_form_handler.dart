@@ -12,6 +12,7 @@ import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_exercise_edit_item.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
 import 'package:flutter/material.dart';
@@ -120,16 +121,11 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 10,
-                  right: 10,
-                  child: GestureDetector(
-                    onTap: () => _onUploadButtonPressed(context),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black.withOpacity(0.6),
-                      child: Icon(FitnickIcons.upload, color: Colors.white),
-                    ),
-                  ),
-                )
+                    top: 10,
+                    right: 10,
+                    child: UploadButton(
+                      onPressed: () => _onUploadButtonPressed(context),
+                    ))
               ],
             ),
           )
