@@ -1,5 +1,7 @@
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
+import 'package:fitnick/fitnick_icons.dart';
+import 'package:fitnick/presentation/core/widgets/raw_exercise_tile.dart';
 import 'package:fitnick/presentation/screens/active_exercise_edit_screen/active_exercise_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,19 +14,27 @@ class ActiveExerciseEditItem extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        onTap: () => _onItemTap(context),
-        title: Text(activeExercise.exercise.name.safeValue),
-        subtitle: Text("${activeExercise.sets.length} sets"),
+    return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Theme.of(context).accentColor.withOpacity(0.3),
+      onTap: () => _onItemTap(context),
+      child: RawExerciseTile(
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 18.0),
+          child: Icon(
+            Icons.drag_handle,
+            color: Colors.grey,
+          ),
+        ),
         trailing: IconButton(
-          icon: Icon(Icons.clear, color: Colors.red),
+          icon: Icon(FitnickIcons.close, color: Colors.red),
           onPressed: () {
             if (onRemove != null) {
               onRemove();
             }
           },
         ),
+        exercise: activeExercise.exercise,
       ),
     );
   }
