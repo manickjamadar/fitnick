@@ -8,6 +8,7 @@ import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.da
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
 import 'package:fitnick/presentation/core/widgets/input_dialog.dart';
+import 'package:fitnick/presentation/core/widgets/raw_input_dialog.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/backdrop.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/exercise_running_bar.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
@@ -55,16 +56,20 @@ class _ActiveWorkoutRunningScreenState
             final activeExercise =
                 activeWorkout.activeExercises[state.currentActiveExerciseIndex];
             final exerciseSet = activeExercise.sets[state.currentSetIndex];
-            showDialog(
+            showDialog<String>(
                 context: context,
                 builder: (_) {
-                  return InputDialog(
+                  return RawInputDialog(
                     title: "Log Reps",
                     initialValue: exerciseSet.performCount.toString(),
-                    onCancel: () => _onLogRepsCancel(context),
-                    onDone: (value) => _onLogReps(context, int.parse(value)),
                   );
-                });
+                }).then((String value) {
+              if (value == null || int.tryParse(value) == null) {
+                _onLogRepsCancel(context);
+              } else {
+                _onLogReps(context, int.parse(value));
+              }
+            });
           });
         } else {
           _pageController.animateToPage(state.currentActiveExerciseIndex,
