@@ -349,7 +349,38 @@ class _ActiveWorkoutRunningScreenState
   }
 
   void onStop(BuildContext context) {
-    BlocProvider.of<ActiveWorkoutRunnerCubit>(context).stop();
+    showDialog(
+      context: context,
+      builder: (_) => ConfirmDialog(
+          title: "Quit Workout ?",
+          image: Image.asset(FitnickImageProvider.quit_workout),
+          actions: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                child: ActionButton(
+                  color: Colors.green,
+                  label: "Continue Workout",
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.infinity,
+                child: ActionButton(
+                  color: Colors.red,
+                  label: "Finish and Exit",
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
   void onSwipeRight(BuildContext context) {
