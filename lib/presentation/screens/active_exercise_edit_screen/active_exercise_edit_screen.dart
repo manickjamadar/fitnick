@@ -3,8 +3,12 @@ import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/weight_unit.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
 import 'package:fitnick/presentation/screens/active_exercise_edit_screen/widgets/value_selector.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import "../../core/helpers/string_extension.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,27 +32,158 @@ class _ActiveExerciseEditScreenState extends State<ActiveExerciseEditScreen> {
   ActiveExercise activeExercise;
   @override
   Widget build(BuildContext context) {
-    final screenPadding = MediaQuery.of(context).padding;
-    final height = MediaQuery.of(context).size.height -
-        screenPadding.top -
-        screenPadding.bottom;
-    final firstSectionHeight = height * 0.2;
-    final thirdSectionHeight = height * 0.15;
-    final secondSectionHeight =
-        height - firstSectionHeight - thirdSectionHeight;
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-            child: SafeArea(
-          child: Column(
+      body: SafeArea(
+        child: Column(children: [
+          buildHeader(context),
+          Expanded(
+            child: buildSetViewer(),
+          ),
+          buildController(context)
+        ]),
+      ),
+    );
+  }
+
+  Widget buildSetViewer() {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        final exerciseSet = activeExercise.sets[index];
+        final clearDisabled = index == 0;
+        return Column(
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.clear,
+                      color: clearDisabled ? Colors.grey : Colors.red),
+                  onPressed: clearDisabled ? null : () => onRemoveSet(index),
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ValueSelector<ExercisePerformType>(
+                        title: exerciseSet.performType.name,
+                        value: exerciseSet.performCount,
+                        items: ExercisePerformType.all
+                            .map((e) => PopupMenuItem<ExercisePerformType>(
+                                child: Text(e.name), value: e))
+                            .toList(),
+                        onSelected: (newValue) =>
+                            onPerformTypeChanged(newValue, index),
+                        onValueChanged: (value) =>
+                            onPerformCountChanged(value, index),
+                      ),
+                      ValueSelector<WeightUnit>(
+                        title: exerciseSet.weightUnit.name,
+                        value: exerciseSet.weightCount,
+                        items: WeightUnit.all
+                            .map((e) => PopupMenuItem<WeightUnit>(
+                                child: Text(e.name), value: e))
+                            .toList(),
+                        onSelected: (newValue) =>
+                            onWeightUnitChanged(newValue, index),
+                        onValueChanged: (value) =>
+                            onWeightCountChanged(value, index),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                showRestTimePicker(context, (duration) {
+                  onRestTimeChanged(duration, index);
+                }, Duration(seconds: exerciseSet.rest));
+              },
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                    "Rest : ${formatTime(Duration(seconds: exerciseSet.rest))}",
+                    style: FitnickTextTheme(context)
+                        .small
+                        .copyWith(color: Theme.of(context).accentColor)),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor.withOpacity(0.05),
+                    border: Border.all(color: Theme.of(context).accentColor),
+                    borderRadius: BorderRadius.circular(6)),
+              ),
+            )
+          ],
+        );
+      },
+      itemCount: activeExercise.sets.length,
+    );
+  }
+
+  Widget buildController(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Expanded(
+            child: ActionButton(
+              color: Colors.grey,
+              onPressed: () => onAddSet(),
+              label: "Add Set",
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: ActionButton(
+              onPressed: () => onSave(context),
+              label: "Save",
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildGap() {
+    return SizedBox(
+      height: 10,
+    );
+  }
+
+  Widget buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          FloatingActionButton(
+            elevation: 0,
+            backgroundColor: Colors.red[50],
+            child: Icon(Icons.clear, color: Colors.red),
+            onPressed: () => onSave(context),
+          ),
+          buildGap(),
+          VideoPreview(
+            path: activeExercise.exercise.videoPath,
+          ),
+          buildGap(),
+          buildGap(),
+          ExerciseTitle(
+              title: activeExercise.exercise.name.safeValue.capitalize()),
+          buildGap(),
+          buildGap(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              buildFirstSection(context, firstSectionHeight),
-              buildSecondSection(context, secondSectionHeight),
-              buildThirdSection(context, thirdSectionHeight),
+              Text("Reps Tempo", style: FitnickTextTheme(context).heading2),
+              ValueSelector(
+                  title: "Secs",
+                  value: activeExercise.repsTempo,
+                  onValueChanged: (value) => onRepTempoChanged(value),
+                  disabled: !activeExercise.isRepsTempoRequired)
             ],
           ),
-        )),
+        ],
       ),
     );
   }
