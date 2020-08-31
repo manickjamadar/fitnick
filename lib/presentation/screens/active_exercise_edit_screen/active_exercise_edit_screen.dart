@@ -32,15 +32,23 @@ class _ActiveExerciseEditScreenState extends State<ActiveExerciseEditScreen> {
   ActiveExercise activeExercise;
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
+    final height = MediaQuery.of(context).size.height;
+    final actualHeight = height - padding.top - padding.bottom;
     return Scaffold(
       body: SafeArea(
-        child: Column(children: [
-          buildHeader(context),
-          Expanded(
-            child: buildSetViewer(),
+        child: SingleChildScrollView(
+          child: Container(
+            height: actualHeight,
+            child: Column(children: [
+              buildHeader(context),
+              Expanded(
+                child: buildSetViewer(),
+              ),
+              buildController(context)
+            ]),
           ),
-          buildController(context)
-        ]),
+        ),
       ),
     );
   }
@@ -186,152 +194,6 @@ class _ActiveExerciseEditScreenState extends State<ActiveExerciseEditScreen> {
         ],
       ),
     );
-  }
-
-  Widget buildFirstSection(BuildContext context, double height) {
-    return Container(
-      height: height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ExerciseTitle(
-            title: activeExercise.exercise.name.safeValue,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("Reps Tempo"),
-              ValueSelector(
-                  title: "Secs",
-                  value: activeExercise.repsTempo,
-                  onValueChanged: (value) => onRepTempoChanged(value),
-                  disabled: !activeExercise.isRepsTempoRequired)
-            ],
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.clear, color: Colors.transparent),
-                onPressed: null,
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [Text("Repeat"), Text("Weight")],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildSecondSection(BuildContext context, double height) {
-    return Container(
-      height: height,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          final exerciseSet = activeExercise.sets[index];
-          final clearDisabled = index == 0;
-          return Column(
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.clear,
-                        color: clearDisabled ? Colors.grey : Colors.red),
-                    onPressed: clearDisabled ? null : () => onRemoveSet(index),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ValueSelector<ExercisePerformType>(
-                          title: exerciseSet.performType.name,
-                          value: exerciseSet.performCount,
-                          items: ExercisePerformType.all
-                              .map((e) => PopupMenuItem<ExercisePerformType>(
-                                  child: Text(e.name), value: e))
-                              .toList(),
-                          onSelected: (newValue) =>
-                              onPerformTypeChanged(newValue, index),
-                          onValueChanged: (value) =>
-                              onPerformCountChanged(value, index),
-                        ),
-                        ValueSelector<WeightUnit>(
-                          title: exerciseSet.weightUnit.name,
-                          value: exerciseSet.weightCount,
-                          items: WeightUnit.all
-                              .map((e) => PopupMenuItem<WeightUnit>(
-                                  child: Text(e.name), value: e))
-                              .toList(),
-                          onSelected: (newValue) =>
-                              onWeightUnitChanged(newValue, index),
-                          onValueChanged: (value) =>
-                              onWeightCountChanged(value, index),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  showRestTimePicker(context, (duration) {
-                    onRestTimeChanged(duration, index);
-                  }, Duration(seconds: exerciseSet.rest));
-                },
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  child: Text(
-                      "Rest : ${formatTime(Duration(seconds: exerciseSet.rest))}",
-                      style: FitnickTextTheme(context)
-                          .small
-                          .copyWith(color: Theme.of(context).accentColor)),
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor.withOpacity(0.05),
-                      border: Border.all(color: Theme.of(context).accentColor),
-                      borderRadius: BorderRadius.circular(6)),
-                ),
-              )
-            ],
-          );
-        },
-        itemCount: activeExercise.sets.length,
-      ),
-    );
-  }
-
-  Widget buildThirdSection(BuildContext context, double height) {
-    return Container(
-        height: height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-              width: double.infinity,
-              child: RaisedButton(
-                  elevation: 0,
-                  color: Colors.grey[300],
-                  child: Text("Add Set"),
-                  onPressed: () => onAddSet()),
-            ),
-            Container(
-              height: 48,
-              width: double.infinity,
-              child: RaisedButton(
-                elevation: 0,
-                textColor: Colors.white,
-                color: Colors.blue,
-                child: Text("Save"),
-                onPressed: () => onSave(context),
-              ),
-            )
-          ],
-        ));
   }
 
   void onAddSet() {
