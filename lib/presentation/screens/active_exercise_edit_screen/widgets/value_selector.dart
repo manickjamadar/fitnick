@@ -25,50 +25,59 @@ class ValueSelector<T> extends StatelessWidget {
     final padding = width * 0.035;
     final textFieldSize = width * 0.05;
     final fontSize = width * 0.03;
+    final double radius = 8;
     final menuButtonText =
         Text(title, style: TextStyle(color: Colors.white, fontSize: fontSize));
     return IgnorePointer(
       ignoring: disabled,
       child: Opacity(
         opacity: disabled ? 0.4 : 1,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.grey[300], borderRadius: BorderRadius.circular(8)),
-          padding: EdgeInsets.all(10),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  showValueDialog(context);
-                },
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 0, horizontal: padding),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(radius),
+          child: Container(
+            decoration: BoxDecoration(color: Colors.grey[100]),
+            // padding: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showValueDialog(context);
+                  },
                   child: Container(
-                      width: textFieldSize,
-                      height: textFieldSize,
-                      child: FittedBox(
-                          child: Text(value.toString(),
-                              style: TextStyle(fontSize: fontSize)))),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: padding),
+                    child: Container(
+                        width: textFieldSize,
+                        height: textFieldSize,
+                        child: Center(
+                          child: FittedBox(
+                            child: Text(value.toString(),
+                                style: TextStyle(
+                                    fontSize: fontSize,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        )),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: padding / 3, horizontal: padding),
-                decoration: BoxDecoration(
-                    color: Colors.blue, borderRadius: BorderRadius.circular(8)),
-                child: popupEnabled
-                    ? PopupMenuButton<T>(
-                        child: menuButtonText,
-                        onSelected: onSelected,
-                        itemBuilder: (context) => items,
-                      )
-                    : menuButtonText,
-              )
-            ],
+                SizedBox(
+                  width: 8,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: padding / 2, horizontal: padding),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorDark,
+                      borderRadius: BorderRadius.circular(radius)),
+                  child: popupEnabled
+                      ? PopupMenuButton<T>(
+                          child: menuButtonText,
+                          onSelected: onSelected,
+                          itemBuilder: (context) => items,
+                        )
+                      : menuButtonText,
+                )
+              ],
+            ),
           ),
         ),
       ),
