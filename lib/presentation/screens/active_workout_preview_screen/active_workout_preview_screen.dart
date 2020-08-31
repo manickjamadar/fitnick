@@ -97,11 +97,14 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
           color: Colors.grey,
           child: activeWorkout.imagePath.fold(
               () => null,
-              (path) => Image.file(
-                    File(path),
-                    fit: BoxFit.cover,
-                    color: Colors.black.withOpacity(0.6),
-                    colorBlendMode: BlendMode.darken,
+              (path) => Hero(
+                    tag: activeWorkout.id.value,
+                    child: Image.file(
+                      File(path),
+                      fit: BoxFit.cover,
+                      color: Colors.black.withOpacity(0.6),
+                      colorBlendMode: BlendMode.darken,
+                    ),
                   )),
         ),
         Positioned(
@@ -129,9 +132,12 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              LabelCircle(
-                  radius: 120,
-                  label: "${activeWorkout.activeExercises.length}"),
+              Hero(
+                tag: "label-circle-${activeWorkout.id.value}",
+                child: LabelCircle(
+                    radius: 120,
+                    label: "${activeWorkout.activeExercises.length}"),
+              ),
               SizedBox(
                 width: 8,
               ),

@@ -73,11 +73,17 @@ class ActiveWorkoutItem extends StatelessWidget {
             () => Container(
                   color: Colors.grey,
                 ),
-            (path) => Image.file(
-                  File(path),
-                  fit: BoxFit.cover,
-                  color: Colors.black.withOpacity(0.5),
-                  colorBlendMode: BlendMode.darken,
+            (path) => Hero(
+                  tag: activeWorkout.id.value,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(FitnickTheme.radius),
+                    child: Image.file(
+                      File(path),
+                      fit: BoxFit.cover,
+                      color: Colors.black.withOpacity(0.5),
+                      colorBlendMode: BlendMode.darken,
+                    ),
+                  ),
                 )),
       ),
     );
@@ -100,13 +106,16 @@ class ActiveWorkoutItem extends StatelessWidget {
           ),
           Column(
             children: [
-              LabelCircle(
-                label: "$totalExercise",
-                radius: 120,
+              Hero(
+                tag: "label-circle-${activeWorkout.id.value}",
+                child: LabelCircle(
+                  label: "$totalExercise",
+                  radius: 120,
+                ),
               ),
               Text("Exercises",
                   style: FitnickTextTheme(context)
-                      .body1
+                      .title
                       .copyWith(color: Colors.white))
             ],
           )
