@@ -26,8 +26,8 @@ class BalanceView extends StatelessWidget {
             width: 4,
           ),
           Text(
-            "${account.balance.value} coins",
-            style: TextStyle(fontSize: 13),
+            "${account.balance.value} Coins",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
           ),
         ],
       ),
