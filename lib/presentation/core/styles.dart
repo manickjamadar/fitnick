@@ -61,4 +61,5 @@ class FitnickTextTheme {
       .textTheme
       .bodyText1
       .copyWith(fontWeight: FontWeight.bold, fontSize: 11);
+  TextStyle get small => Theme.of(context).textTheme.caption;
 }

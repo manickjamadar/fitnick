@@ -2,6 +2,7 @@ import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/weight_unit.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
 import 'package:fitnick/presentation/screens/active_exercise_edit_screen/widgets/value_selector.dart';
 import 'package:flutter/cupertino.dart';
@@ -148,11 +149,15 @@ class _ActiveExerciseEditScreenState extends State<ActiveExerciseEditScreen> {
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
-                  child: Text(formatTime(Duration(seconds: exerciseSet.rest)),
-                      style: TextStyle(color: Colors.blue)),
+                  child: Text(
+                      "Rest : ${formatTime(Duration(seconds: exerciseSet.rest))}",
+                      style: FitnickTextTheme(context)
+                          .small
+                          .copyWith(color: Theme.of(context).accentColor)),
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: Theme.of(context).accentColor.withOpacity(0.05),
+                      border: Border.all(color: Theme.of(context).accentColor),
                       borderRadius: BorderRadius.circular(6)),
                 ),
               )
