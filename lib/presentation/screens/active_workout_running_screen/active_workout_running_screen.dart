@@ -7,9 +7,9 @@ import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
+import 'package:fitnick/presentation/core/widgets/input_dialog.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/backdrop.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/exercise_running_bar.dart';
-import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/log_reps_dialog.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
@@ -58,10 +58,11 @@ class _ActiveWorkoutRunningScreenState
             showDialog(
                 context: context,
                 builder: (_) {
-                  return LogRepsDialog(
-                    initialReps: exerciseSet.performCount.toString(),
+                  return InputDialog(
+                    title: "Log Reps",
+                    initialValue: exerciseSet.performCount.toString(),
                     onCancel: () => _onLogRepsCancel(context),
-                    onLog: (reps) => _onLogReps(context, reps),
+                    onDone: (value) => _onLogReps(context, int.parse(value)),
                   );
                 });
           });
