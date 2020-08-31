@@ -1,3 +1,4 @@
+import 'package:fitnick/presentation/core/widgets/input_dialog.dart';
 import 'package:fitnick/presentation/screens/active_exercise_edit_screen/widgets/value_input_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -85,16 +86,16 @@ class ValueSelector<T> extends StatelessWidget {
   }
 
   void showValueDialog(BuildContext context) async {
-    final String inputValue = await showDialog(
+    await showDialog(
         context: context,
         builder: (_) {
-          return ValueInputDialog(
-            title: "Title",
-            value: value.toString(),
+          return InputDialog(
+            title: title,
+            initialValue: value.toString(),
+            onDone: (newValue) {
+              onValueChanged(int.parse(newValue));
+            },
           );
         });
-    if (inputValue != null && onValueChanged != null) {
-      onValueChanged(int.parse(inputValue));
-    }
   }
 }
