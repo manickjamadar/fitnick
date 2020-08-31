@@ -2,10 +2,13 @@ import 'package:fitnick/application/active_workout/active_workout_hub/active_wor
 import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
+import 'package:fitnick/domain/account/models/sub_models/coin.dart';
 import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
+import 'package:fitnick/presentation/core/widgets/confirm_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
 import 'package:fitnick/presentation/core/widgets/input_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/raw_input_dialog.dart';
@@ -15,6 +18,7 @@ import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
 import 'package:fitnick/service_locator.dart';
+import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wakelock/wakelock.dart';
@@ -50,7 +54,18 @@ class _ActiveWorkoutRunningScreenState
     return BlocConsumer<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
       listener: (_, state) {
         if (state.isCompleted) {
-          Navigator.of(context).maybePop();
+          showDialog(
+              context: context,
+              builder: (_) => ConfirmDialog(
+                    title: "Congratulations",
+                    coin: Coin(500),
+                    image: Image.asset(FitnickImageProvider.credit_success),
+                    statement: "Credited Into Account",
+                    actions: ActionButton(
+                      label: "Completed Workout",
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  )).then((_) => _onWorkoutComplete(context));
         } else if (state.isLoggingReps) {
           state.activeWorkoutOption.fold(() => null, (activeWorkout) {
             final activeExercise =
@@ -290,6 +305,10 @@ class _ActiveWorkoutRunningScreenState
         ),
       ),
     );
+  }
+
+  void _onWorkoutComplete(BuildContext context) {
+    Navigator.pop(context);
   }
 
   void _onVoiceIconPressed(BuildContext context) {
