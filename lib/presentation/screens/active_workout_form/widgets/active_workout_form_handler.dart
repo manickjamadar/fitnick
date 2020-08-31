@@ -65,12 +65,14 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                   onReorder: (oldIndex, newIndex) =>
                       _onActiveExerciseReorder(context, oldIndex, newIndex),
                   children: state.activeWorkout.activeExercises
-                      .map((ActiveExercise activeExercise) =>
-                          ActiveExerciseEditItem(
+                      .map((ActiveExercise activeExercise) => Padding(
                             key: ValueKey(activeExercise.id),
-                            activeExercise: activeExercise,
-                            onRemove: () => _onActiveExerciseRemove(
-                                context, activeExercise),
+                            padding: const EdgeInsets.symmetric(vertical: 6.0),
+                            child: ActiveExerciseEditItem(
+                              activeExercise: activeExercise,
+                              onRemove: () => _onActiveExerciseRemove(
+                                  context, activeExercise),
+                            ),
                           ))
                       .toList()),
             ),
