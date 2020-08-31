@@ -19,27 +19,51 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final padding = MediaQuery.of(context).padding;
+    final actualHeight = screenHeight - padding.top - padding.bottom;
+    final headerHeight = actualHeight * 0.34;
+    final double buttonHeight = 56;
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          buildHeader(context),
-          SizedBox(
-            height: 20,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ClipRRect(
+                  borderRadius:
+                      BorderRadius.only(bottomRight: Radius.circular(100)),
+                  child: buildHeader(context, headerHeight)),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child:
+                    Text("Exercises (${activeWorkout.activeExercises.length})",
+                        style: FitnickTextTheme(context).body1.copyWith(
+                              fontSize: 16,
+                            )),
+              ),
+              // SizedBox(
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: buildExerciseList(context),
+              )),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text("Exercises (${activeWorkout.activeExercises.length})",
-                style: FitnickTextTheme(context).body1.copyWith(
-                      fontSize: 16,
-                    )),
-          ),
-          // SizedBox(
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: buildExerciseList(context),
-          )),
+          Positioned(
+            right: (100 - buttonHeight).toDouble(),
+            top: headerHeight - (buttonHeight / 2),
+            child: FloatingActionButton(
+              backgroundColor: Theme.of(context).primaryColor,
+              child: Icon(Icons.play_arrow, color: Colors.white),
+              onPressed: activeWorkout.activeExercises.isEmpty
+                  ? null
+                  : () => _onStartWorkout(context),
+            ),
+          )
         ],
       ),
     );
@@ -85,25 +109,26 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
             itemCount: activeWorkout.activeExercises.length);
   }
 
-  Widget buildHeader(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final padding = MediaQuery.of(context).padding;
-    final actualHeight = screenHeight - padding.top - padding.bottom;
-    final headerHeight = actualHeight * 0.3;
+  Widget buildHeader(BuildContext context, double headerHeight) {
     return Stack(
       children: [
         Container(
+          width: double.infinity,
           height: headerHeight,
-          color: Colors.grey,
+          color: Theme.of(context).primaryColor,
           child: activeWorkout.imagePath.fold(
               () => null,
               (path) => Hero(
                     tag: activeWorkout.id.value,
-                    child: Image.file(
-                      File(path),
-                      fit: BoxFit.cover,
-                      color: Colors.black.withOpacity(0.6),
-                      colorBlendMode: BlendMode.darken,
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.only(bottomRight: Radius.circular(100)),
+                      child: Image.file(
+                        File(path),
+                        fit: BoxFit.cover,
+                        color: Colors.black.withOpacity(0.6),
+                        colorBlendMode: BlendMode.darken,
+                      ),
                     ),
                   )),
         ),
@@ -118,7 +143,7 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
             onPressed: () => _onBack(context),
           ),
         ),
-        Positioned.fill(child: buildInfo(context))
+        Positioned.fill(child: buildInfo(context)),
       ],
     );
   }
