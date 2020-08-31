@@ -40,7 +40,7 @@ class ActorDialog extends StatelessWidget {
               iconData: FitnickIcons.delete,
               color: Colors.red, onPressed: () {
             Navigator.pop(context);
-            if (onEdit != null) {
+            if (onDelete != null) {
               onDelete();
             }
           }),
