@@ -5,7 +5,7 @@ import 'package:fitnick/presentation/core/widgets/actor_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_tile.dart';
 import 'package:fitnick/presentation/core/widgets/not_found_action.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
+import "../../../../core/helpers/string_extension.dart";
 import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +51,7 @@ class ExerciseListView extends StatelessWidget {
             onLongPressed: () => showDialog(
                 context: context,
                 builder: (_) => ActorDialog(
-                      title: exercise.name.safeValue,
+                      title: exercise.name.safeValue.capitalize(),
                       onDelete: () =>
                           FitnickActions(context).onDeleteExercise(exercise),
                       onEdit: () =>
