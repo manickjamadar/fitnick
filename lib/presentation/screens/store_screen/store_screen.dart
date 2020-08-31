@@ -3,8 +3,10 @@ import 'package:fitnick/domain/account/models/account.dart';
 import 'package:fitnick/domain/account/models/sub_models/offer.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/balance_view.dart';
-import 'package:fitnick/presentation/core/widgets/coin_icon.dart';
+import 'package:fitnick/presentation/core/widgets/confirm_dialog.dart';
+import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "../../../application/account/account_hub/account_hub_cubit.dart";
@@ -37,10 +39,22 @@ class StoreView extends StatelessWidget {
       listener: (_, state) {
         state.maybeWhen(
           orElse: () {},
-          purchaseSuccessful: (Offer offer) {
-            showMessage(context,
-                message: "${offer.coin.value} coins purchased successfully",
-                type: SuccessMessage());
+          purchaseSuccessful: (Offer offer) async {
+            await showDialog(
+                context: context,
+                builder: (_) => ConfirmDialog(
+                      title: "Congratulation",
+                      coin: offer.coin,
+                      image: Image.asset(FitnickImageProvider.purchase_success),
+                      statement: "Purcahsed Successfully",
+                      actions: Container(
+                        width: double.infinity,
+                        child: ActionButton(
+                          label: "Confirm",
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                    ));
           },
           purchaseUnSuccessful: (Offer offer) {
             showMessage(context,
