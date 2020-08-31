@@ -5,7 +5,10 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
+import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/exercise_tile.dart';
+import 'package:fitnick/presentation/core/widgets/raw_exercise_tile.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/exercise_filter_screen/exercise_filter_screen.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
@@ -44,6 +47,10 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
     setState(() {
       _selectedExerciseList.add(exercise);
     });
+  }
+
+  bool isExerciseSelected(Exercise exercise) {
+    return _selectedExerciseList.any((e) => e.id == exercise.id);
   }
 
   void _removeSelectedExercise(Exercise exercise) {
@@ -111,21 +118,33 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
         }
         final realIndex = index - 1;
         final exercise = exercises[realIndex];
+        final selected = isExerciseSelected(exercise);
         return Container(
-          margin: EdgeInsets.all(10),
-          child: ExerciseItem(
-            exercise: exercise,
-            exerciseItemType: ExerciseItemType.selectable(
-                onSelect: (selected) {
-                  if (selected) {
-                    _addSelectedExercise(exercise);
-                  } else {
-                    _removeSelectedExercise(exercise);
-                  }
-                },
-                selected: false),
-          ),
-        );
+            margin: EdgeInsets.all(10),
+            child: ExerciseTile(
+              onPressed: () => FitnickActions(context)
+                  .goExerciseDetailScreen(context, exercise: exercise),
+              exercise: exercise,
+              trailing: IconButton(
+                  splashColor: Colors.transparent,
+                  icon: AnimatedCrossFade(
+                    crossFadeState: selected
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: Duration(milliseconds: 300),
+                    firstChild: Icon(Icons.radio_button_checked,
+                        color: Theme.of(context).primaryColor),
+                    secondChild:
+                        Icon(Icons.radio_button_unchecked, color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    if (!selected) {
+                      _addSelectedExercise(exercise);
+                    } else {
+                      _removeSelectedExercise(exercise);
+                    }
+                  }),
+            ));
       },
       itemCount: exercises.length + 1,
     );
