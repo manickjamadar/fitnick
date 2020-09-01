@@ -7,6 +7,7 @@ import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.d
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
+import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/confirm_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
@@ -135,18 +136,17 @@ class _ActiveWorkoutRunningScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(activeWorkout.name.safeValue.capitalize()),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        textTheme: Theme.of(context).textTheme,
-        iconTheme: IconThemeData(color: Colors.black),
         actions: [
           IconButton(
               onPressed: () => _onVoiceIconPressed(context),
-              icon: Icon(Icons.record_voice_over,
-                  color: state.voiceEnabled ? Colors.black : Colors.grey[200])),
+              icon: Icon(
+                  state.voiceEnabled
+                      ? FitnickIcons.voice
+                      : FitnickIcons.voice_off,
+                  size: state.voiceEnabled ? 24 : 20,
+                  color: Theme.of(context).primaryColor)),
           IconButton(
-              icon: Icon(Icons.headset, color: Colors.black),
+              icon: Icon(FitnickIcons.music, size: 20, color: Colors.red),
               onPressed: () => _onMusicIconPressed(context)),
         ],
       ),
