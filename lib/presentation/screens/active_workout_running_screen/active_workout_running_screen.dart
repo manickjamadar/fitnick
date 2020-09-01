@@ -11,10 +11,9 @@ import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/confirm_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
-import 'package:fitnick/presentation/core/widgets/input_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/raw_input_dialog.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/backdrop.dart';
-import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/exercise_running_bar.dart';
+import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/progress_bar.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
@@ -50,6 +49,7 @@ class ActiveWorkoutRunningScreen extends StatefulWidget {
 class _ActiveWorkoutRunningScreenState
     extends State<ActiveWorkoutRunningScreen> {
   PageController _pageController;
+  double _barProgress;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
@@ -263,9 +263,8 @@ class _ActiveWorkoutRunningScreenState
   Widget buildBar(ActiveWorkout activeWorkout, ActiveWorkoutRunnerState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: ExerciseRunningBar(
-        totalExercise: activeWorkout.activeExercises.length,
-        currentExerciseIndex: state.currentActiveExerciseIndex,
+      child: ProgressBar(
+        progress: _barProgress,
       ),
     );
   }
@@ -399,16 +398,32 @@ class _ActiveWorkoutRunningScreenState
     BlocProvider.of<ActiveWorkoutRunnerCubit>(context).skipLogReps();
   }
 
+  void _onPageScroll() {
+    BlocProvider.of<ActiveWorkoutRunnerCubit>(context)
+        .state
+        .activeWorkoutOption
+        .fold(() {}, (activeWorkout) {
+      final double lastExerciseIndex =
+          (activeWorkout.activeExercises.length - 1).toDouble();
+      final double currentPage = _pageController.page;
+      setState(() {
+        _barProgress = currentPage / lastExerciseIndex;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    _barProgress = 0;
     _pageController = PageController(initialPage: 0);
+    _pageController.addListener(_onPageScroll);
     Wakelock.enable();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController?.dispose();
     Wakelock.disable();
     super.dispose();
   }
