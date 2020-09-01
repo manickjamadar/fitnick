@@ -22,7 +22,6 @@ import 'package:fitnick/service_locator.dart';
 import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
 import "../../core/helpers/string_extension.dart";
 
@@ -163,7 +162,10 @@ class _ActiveWorkoutRunningScreenState
             height: 10,
           ),
           Text("Total Time Spent : ${formatTime(state.totalTimeSpent)}",
-              style: TextStyle(fontSize: 12, color: Colors.grey)),
+              style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold)),
           SizedBox(
             height: 10,
           ),
@@ -309,16 +311,65 @@ class _ActiveWorkoutRunningScreenState
               level: activeExercise.exercise.levels.first,
               size: 22,
             ),
-            Chip(
-              label: Text(
-                  "${currentSetIndex + 1}/${activeExercise.sets.length} sets"),
+            SizedBox(
+              height: 20,
             ),
-            Chip(
-              label: Text(
-                  "${exerciseSet.weightCount} ${exerciseSet.weightUnit.name}"),
-            )
+            buildExtraInfo(context,
+                weightInfo:
+                    "${exerciseSet.weightCount} ${exerciseSet.weightUnit.name}",
+                setInfo:
+                    "${currentSetIndex + 1}/${activeExercise.sets.length}"),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildExtraInfo(BuildContext context,
+      {@required String weightInfo, @required String setInfo}) {
+    final color = Theme.of(context).primaryColor;
+    return Card(
+        elevation: 10,
+        shadowColor: Colors.black.withOpacity(0.3),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              buildInfoRow(color, FitnickIcons.weight, weightInfo, "Weight"),
+              buildInfoRow(color, FitnickIcons.exerciseSet, setInfo, "Sets"),
+            ],
+          ),
+        ));
+  }
+
+  Widget buildInfoRow(
+      Color color, IconData iconData, String title, String subtitle) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            backgroundColor: color.withOpacity(0.15),
+            radius: 22,
+            child: Icon(iconData, size: 18, color: color),
+          ),
+          SizedBox(
+            width: 16,
+          ),
+          Flexible(
+            child: Column(
+              children: [
+                Text(title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(subtitle, style: TextStyle(fontSize: 12))
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
