@@ -5,6 +5,7 @@ import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/domain/account/models/sub_models/coin.dart';
 import 'package:fitnick/domain/active_exercise/facade/i_active_exercise_facade.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
+import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perform_type.dart';
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/fitnick_icons.dart';
@@ -21,6 +22,7 @@ import 'package:fitnick/service_locator.dart';
 import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
 import "../../core/helpers/string_extension.dart";
 
@@ -205,18 +207,18 @@ class _ActiveWorkoutRunningScreenState
       alignment: Alignment.center,
       children: [
         Opacity(
-          opacity: state.isPaused ? 0.2 : 1,
+          opacity: state.isPaused ? 0.6 : 1,
           child: Container(
               child: Column(
             children: [
-              // exerciseSet.performType == ExercisePerformType.reps
-              //     ? Text(
-              //         "${exerciseSet.performCount}",
-              //         style: performTextStyle,
-              //       )
-              //     :
-              Text("${state.currentPerformedCount}/${exerciseSet.performCount}",
-                  style: performTextStyle),
+              exerciseSet.performType == ExercisePerformType.reps
+                  ? Text(
+                      "${exerciseSet.performCount}",
+                      style: performTextStyle,
+                    )
+                  : Text(
+                      "${state.currentPerformedCount}/${exerciseSet.performCount}",
+                      style: performTextStyle),
               Text(
                 "${exerciseSet.performType.name}",
                 style: TextStyle(fontSize: 18),
@@ -224,17 +226,6 @@ class _ActiveWorkoutRunningScreenState
             ],
           )),
         ),
-        if (state.isPaused)
-          GestureDetector(
-            onTap: () => onPlay(context),
-            child: CircleAvatar(
-              backgroundColor: Colors.blue,
-              child: Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-              ),
-            ),
-          )
       ],
     );
   }
@@ -254,7 +245,8 @@ class _ActiveWorkoutRunningScreenState
         itemCount: activeWorkout.activeExercises.length,
         itemBuilder: (_, index) {
           final activeExercise = activeWorkout.activeExercises[index];
-          return buildActiveExerciseView(activeExercise, state.currentSetIndex);
+          return buildActiveExerciseView(
+              state, activeExercise, state.currentSetIndex);
         },
       ),
     );
@@ -269,7 +261,7 @@ class _ActiveWorkoutRunningScreenState
     );
   }
 
-  Widget buildActiveExerciseView(
+  Widget buildActiveExerciseView(ActiveWorkoutRunnerState state,
       ActiveExercise activeExercise, int currentSetIndex) {
     final exerciseSet = activeExercise.sets[
         currentSetIndex < activeExercise.sets.length ? currentSetIndex : 0];
@@ -278,7 +270,32 @@ class _ActiveWorkoutRunningScreenState
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            VideoPreview(path: activeExercise.exercise.videoPath),
+            GestureDetector(
+              onTap: () {
+                if (state.isPaused) {
+                  onPlay(context);
+                } else {
+                  onPause(context);
+                }
+              },
+              child: Stack(
+                children: [
+                  VideoPreview(path: activeExercise.exercise.videoPath),
+                  if (state.isPaused)
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.black.withOpacity(0.7),
+                          child: Icon(Icons.play_arrow,
+                              color: Colors.white, size: 30),
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
