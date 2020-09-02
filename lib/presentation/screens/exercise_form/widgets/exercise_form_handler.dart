@@ -14,12 +14,11 @@ import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_slider.dart';
-import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import "../../../../application/core/helpers/list_extension.dart";
 import '../../../../application/exercise/exercise_form/exercise_form_bloc.dart';
 import '../../../../domain/exercise/failure/exercise_failure.dart';
 
@@ -115,7 +114,8 @@ class ExerciseFormHandler extends StatelessWidget {
             options: exercise.tools
                 .map((tool) => DeleteChip(
                       label: tool.name,
-                      onDelete: () {},
+                      onDelete: () =>
+                          _onToolDelete(context, tool, exercise.tools),
                     ))
                 .toList()),
         buildOptionSelector(context,
@@ -123,7 +123,8 @@ class ExerciseFormHandler extends StatelessWidget {
             options: exercise.types
                 .map((type) => DeleteChip(
                       label: type.name,
-                      onDelete: () {},
+                      onDelete: () =>
+                          _onTypeDelete(context, type, exercise.types),
                     ))
                 .toList()),
         buildOptionSelector(context,
@@ -131,7 +132,8 @@ class ExerciseFormHandler extends StatelessWidget {
             options: exercise.primaryTargets
                 .map((target) => DeleteChip(
                       label: target.name,
-                      onDelete: () {},
+                      onDelete: () => _onPrimaryTargetDelete(
+                          context, target, exercise.primaryTargets),
                     ))
                 .toList()),
         buildOptionSelector(context,
@@ -139,7 +141,8 @@ class ExerciseFormHandler extends StatelessWidget {
             options: exercise.secondaryTargets
                 .map((target) => DeleteChip(
                       label: target.name,
-                      onDelete: () {},
+                      onDelete: () => _onSecondaryTargetDelete(
+                          context, target, exercise.secondaryTargets),
                     ))
                 .toList()),
       ],
@@ -184,7 +187,7 @@ class ExerciseFormHandler extends StatelessWidget {
           currentLevel: exercise.levels.first,
           onChanged: (value) {
             final newLevelIndex = value.floor();
-            onLevelChanged(context, newLevelIndex);
+            onLevelChanged(context, ExerciseLevel.all[newLevelIndex]);
           },
         )
       ],
@@ -195,9 +198,51 @@ class ExerciseFormHandler extends StatelessWidget {
     BlocProvider.of<ExerciseFormBloc>(context).add(event);
   }
 
-  void onLevelChanged(BuildContext context, int levelIndex) {
+  void _onToolDelete(BuildContext context, ExerciseTool deletableTool,
+      List<ExerciseTool> sourceTools) {
+    _onToolChanged(context, sourceTools.removeBy(deletableTool));
+  }
+
+  void _onToolChanged(BuildContext context, List<ExerciseTool> tools) {
     BlocProvider.of<ExerciseFormBloc>(context)
-        .add(ExerciseFormEvent.levelsChanged([ExerciseLevel.all[levelIndex]]));
+        .add(ExerciseFormEvent.toolsChanged(tools));
+  }
+
+  void _onTypeDelete(BuildContext context, ExerciseType deletableType,
+      List<ExerciseType> sourceTypes) {
+    _onTypeChanged(context, sourceTypes.removeBy(deletableType));
+  }
+
+  void _onTypeChanged(BuildContext context, List<ExerciseType> types) {
+    BlocProvider.of<ExerciseFormBloc>(context)
+        .add(ExerciseFormEvent.typesChanged(types));
+  }
+
+  void _onPrimaryTargetDelete(BuildContext context,
+      ExerciseTarget deletableTarget, List<ExerciseTarget> sourceTargets) {
+    _onPrimaryTargetChanged(context, sourceTargets.removeBy(deletableTarget));
+  }
+
+  void _onPrimaryTargetChanged(
+      BuildContext context, List<ExerciseTarget> targets) {
+    BlocProvider.of<ExerciseFormBloc>(context)
+        .add(ExerciseFormEvent.primaryTargetsChanged(targets));
+  }
+
+  void _onSecondaryTargetDelete(BuildContext context,
+      ExerciseTarget deletableTarget, List<ExerciseTarget> sourceTargets) {
+    _onSecondaryTargetChanged(context, sourceTargets.removeBy(deletableTarget));
+  }
+
+  void _onSecondaryTargetChanged(
+      BuildContext context, List<ExerciseTarget> targets) {
+    BlocProvider.of<ExerciseFormBloc>(context)
+        .add(ExerciseFormEvent.secondaryTargetsChanged(targets));
+  }
+
+  void onLevelChanged(BuildContext context, ExerciseLevel level) {
+    BlocProvider.of<ExerciseFormBloc>(context)
+        .add(ExerciseFormEvent.levelsChanged([level]));
   }
 
   Widget buildNameInput(BuildContext context) {
