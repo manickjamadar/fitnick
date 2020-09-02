@@ -1,5 +1,6 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
+import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
@@ -11,8 +12,10 @@ import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_slider.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -105,15 +108,7 @@ class ExerciseFormHandler extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Selector<ExerciseLevel>(
-          key: ValueKey(state.isEditing.toString() + "level"),
-          title: "Level",
-          options: ExerciseLevel.all,
-          optionLabel: (option) => option.name,
-          initialValues: exercise.levels,
-          onSelect: (options) => _onOptionSelected(
-              context, ExerciseFormEvent.levelsChanged(options)),
-        ),
+        buildLevelSelector(state, exercise, context),
         buildSpace(),
         Selector<ExerciseTool>(
           key: ValueKey(state.isEditing.toString() + "tool"),
@@ -165,8 +160,35 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
+  Widget buildLevelSelector(
+      ExerciseFormState state, Exercise exercise, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("${exercise.levels.first.name} Level",
+            style: FitnickTextTheme(context).title),
+        SizedBox(height: 6),
+        LevelFlash(
+          level: exercise.levels.first,
+        ),
+        ExerciseLevelSlider(
+          currentLevel: exercise.levels.first,
+          onChanged: (value) {
+            final newLevelIndex = value.floor();
+            onLevelChanged(context, newLevelIndex);
+          },
+        )
+      ],
+    );
+  }
+
   void _onOptionSelected(BuildContext context, ExerciseFormEvent event) {
     BlocProvider.of<ExerciseFormBloc>(context).add(event);
+  }
+
+  void onLevelChanged(BuildContext context, int levelIndex) {
+    BlocProvider.of<ExerciseFormBloc>(context)
+        .add(ExerciseFormEvent.levelsChanged([ExerciseLevel.all[levelIndex]]));
   }
 
   Widget buildNameInput(BuildContext context) {
