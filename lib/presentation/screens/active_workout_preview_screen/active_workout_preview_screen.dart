@@ -218,7 +218,7 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
   }
 
   void _onStartWorkout(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => ActiveWorkoutRunningScreen.generateRoute(
