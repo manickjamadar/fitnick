@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
+import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/fitnick_icons.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/exercise_set_circle.dart';
 import "../../core/helpers/string_extension.dart";
 import 'package:fitnick/presentation/core/widgets/label_circle.dart';
 import 'package:fitnick/presentation/core/widgets/raw_exercise_tile.dart';
@@ -70,12 +72,6 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
   }
 
   Widget buildExerciseList(BuildContext context) {
-    final color = Theme.of(context).accentColor;
-    final style = FitnickTextTheme(context)
-        .small
-        .copyWith(color: color, fontWeight: FontWeight.bold);
-    final double size = 54;
-
     return activeWorkout.activeExercises.isEmpty
         ? buildNoExercise()
         : ListView.builder(
@@ -85,24 +81,8 @@ class ActiveWorkoutPreviewScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: RawExerciseTile(
                   exercise: activeExercise.exercise,
-                  trailing: Container(
-                    margin: EdgeInsets.only(right: 20),
-                    width: size,
-                    height: size,
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
-                      border: Border.all(color: color),
-                      borderRadius: BorderRadius.circular(60),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(activeExercise.sets.length.toString(),
-                            style: style),
-                        Text("Sets", style: style)
-                      ],
-                    ),
-                  ),
+                  trailing:
+                      ExerciseSetCircle(totalSets: activeExercise.sets.length),
                 ),
               );
             },
