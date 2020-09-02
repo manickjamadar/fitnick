@@ -252,19 +252,25 @@ class _ActiveWorkoutRunningScreenState
 
   SliverList buildRemainingExerciseList(
       int currentExerciseIndex, List<ActiveExercise> activeExercises) {
+    final currentActiveExercise = activeExercises[currentExerciseIndex];
     return SliverList(
-        delegate: SliverChildListDelegate(activeExercises
-            .map((active) => Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                  color: Colors.white,
-                  child: RawExerciseTile(
-                    exercise: active.exercise,
-                    trailing: ExerciseSetCircle(
-                      totalSets: active.sets.length,
-                    ),
-                  ),
-                ))
-            .toList()));
+        delegate: SliverChildListDelegate(activeExercises.map((active) {
+      final isActive = active.id == currentActiveExercise.id;
+      final color = isActive ? Colors.green : Colors.white;
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          border: Border.all(color: color),
+        ),
+        child: RawExerciseTile(
+          exercise: active.exercise,
+          trailing: ExerciseSetCircle(
+            totalSets: active.sets.length,
+          ),
+        ),
+      );
+    }).toList()));
   }
 
   Widget buildControllerSheetHeader(BuildContext context,
