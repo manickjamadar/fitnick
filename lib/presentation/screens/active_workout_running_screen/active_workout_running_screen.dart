@@ -1,3 +1,4 @@
+import 'package:circle_wave_progress/circle_wave_progress.dart';
 import 'package:fitnick/application/active_workout/active_workout_hub/active_workout_hub_cubit.dart';
 import 'package:fitnick/application/active_workout/active_workout_runner/active_workout_runner_cubit.dart';
 import 'package:fitnick/application/core/helpers/time_formatter.dart';
@@ -22,6 +23,7 @@ import 'package:fitnick/service_locator.dart';
 import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:wakelock/wakelock.dart';
 import "../../core/helpers/string_extension.dart";
 
@@ -109,24 +111,72 @@ class _ActiveWorkoutRunningScreenState
 
   Widget buildRunner(BuildContext context, ActiveWorkoutRunnerState state,
       ActiveWorkout activeWorkout) {
+    final activeExercise =
+        activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+    final exerciseSet = activeExercise.sets[state.currentSetIndex];
     return Stack(
       children: [
         buildMainRunner(activeWorkout, context, state),
-        if (state.isResting) buildRestRunner(context, state)
+        if (state.isResting)
+          buildRestRunner(
+              context, state.currentRest, Duration(seconds: exerciseSet.rest))
       ],
     );
   }
 
-  Widget buildRestRunner(BuildContext context, ActiveWorkoutRunnerState state) {
+  Widget buildRestRunner(
+      BuildContext context, Duration currentRest, Duration totalRest) {
+    double waveProgress;
+    if (totalRest.inSeconds <= 0) {
+      waveProgress = 0;
+    } else {
+      waveProgress = currentRest.inSeconds / totalRest.inSeconds;
+    }
+    final circleRadius = MediaQuery.of(context).size.width / 3;
+    final double circleWidth = 8;
     return BackDrop(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Rest", style: TextStyle(color: Colors.white, fontSize: 24)),
-          Text(formatTime(state.currentRest),
-              style: TextStyle(color: Colors.white, fontSize: 22)),
-          ActionChip(label: Text("Skip"), onPressed: () => onSkipRest(context))
+          Text("Rest",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold)),
+          SizedBox(height: 20),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CircularPercentIndicator(
+                  lineWidth: circleWidth,
+                  progressColor: Theme.of(context).primaryColor,
+                  percent: waveProgress,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  animation: true,
+                  animationDuration: 1000,
+                  animateFromLastPercent: true,
+                  curve: Curves.linear,
+                  backgroundColor: Colors.grey[700],
+                  radius: circleRadius),
+              Align(
+                alignment: Alignment.center,
+                child: FittedBox(
+                  child: Text(formatTimeInNums(currentRest),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          ActionButton(
+            label: "Skip",
+            color: Colors.blue,
+            onPressed: () => onSkipRest(context),
+          )
         ],
       ),
     );
