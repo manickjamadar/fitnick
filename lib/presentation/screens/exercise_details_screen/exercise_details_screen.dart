@@ -96,12 +96,15 @@ class ExerciseDetailsScreen extends StatelessWidget {
             runSpacing: 10,
             spacing: 10,
             children: options
-                .map((option) => CustomChip(
-                      color: color,
-                      selected: true,
+                .map((option) => Chip(
+                      backgroundColor: color.withOpacity(0.08),
                       label: Text(
                         option,
-                        style: TextStyle(fontSize: 12),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: color,
+                            letterSpacing: 0.5,
+                            fontWeight: FontWeight.w700),
                       ),
                     ))
                 .toList(),
