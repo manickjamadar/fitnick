@@ -12,7 +12,7 @@ class ExerciseLevel extends Name {
   static const beginner = ExerciseLevel(name: "Beginner");
   static const intermediate = ExerciseLevel(name: "Intermediate");
   static const advanced = ExerciseLevel(name: "Advanced");
-  static const anyLevel = ExerciseLevel(name: "Any Level");
+  static const anyLevel = ExerciseLevel(name: "Any");
 
   static const all = [anyLevel, beginner, intermediate, advanced];
   factory ExerciseLevel.fromJson(Map<String, dynamic> json) =>
