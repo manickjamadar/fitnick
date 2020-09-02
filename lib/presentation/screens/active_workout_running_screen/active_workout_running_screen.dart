@@ -189,7 +189,8 @@ class _ActiveWorkoutRunningScreenState
 
   Scaffold buildMainRunner(ActiveWorkout activeWorkout, BuildContext context,
       ActiveWorkoutRunnerState state) {
-    final sheetMinChildSize = 0.40;
+    final double sheetMinChildSize = 0.40;
+    final double sheetRadius = 30;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[100],
@@ -222,17 +223,25 @@ class _ActiveWorkoutRunningScreenState
             initialChildSize: sheetMinChildSize,
             minChildSize: sheetMinChildSize,
             builder: (BuildContext context, ScrollController scrollController) {
-              return CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  SliverStickyHeader(
-                    header: buildControllerSheetHeader(
-                        context, state, activeWorkout),
-                    sliver: buildRemainingExerciseList(
-                        state.currentActiveExerciseIndex,
-                        activeWorkout.activeExercises),
-                  )
-                ],
+              return ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(sheetRadius),
+                    topRight: Radius.circular(sheetRadius)),
+                child: Container(
+                  color: Colors.white,
+                  child: CustomScrollView(
+                    controller: scrollController,
+                    slivers: [
+                      SliverStickyHeader(
+                        header: buildControllerSheetHeader(
+                            context, state, activeWorkout),
+                        sliver: buildRemainingExerciseList(
+                            state.currentActiveExerciseIndex,
+                            activeWorkout.activeExercises),
+                      )
+                    ],
+                  ),
+                ),
               );
             },
           )
