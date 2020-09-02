@@ -12,6 +12,7 @@ import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_slider.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
@@ -109,53 +110,61 @@ class ExerciseFormHandler extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         buildLevelSelector(state, exercise, context),
-        buildSpace(),
-        Selector<ExerciseTool>(
-          key: ValueKey(state.isEditing.toString() + "tool"),
-          title: "Tool",
-          options: ExerciseTool.all,
-          optionLabel: (option) => option.name,
-          initialValues: exercise.tools,
-          selectMultiple: true,
-          onSelect: (options) => _onOptionSelected(
-              context, ExerciseFormEvent.toolsChanged(options)),
-        ),
-        buildSpace(),
-        Selector<ExerciseType>(
-          key: ValueKey(state.isEditing.toString() + "type"),
-          title: "Type",
-          options: ExerciseType.all,
-          optionLabel: (option) => option.name,
-          initialValues: exercise.types,
-          selectMultiple: true,
-          onSelect: (options) => _onOptionSelected(
-              context, ExerciseFormEvent.typesChanged(options)),
-        ),
-        buildSpace(),
-        Selector<ExerciseTarget>(
-          key: ValueKey(state.isEditing.toString() + "primary"),
-          title: "Primary Muscle",
-          options: ExerciseTarget.all,
-          optionLabel: (option) => option.name,
-          initialValues: exercise.primaryTargets,
-          selectMultiple: true,
-          onSelect: (options) => _onOptionSelected(
-              context, ExerciseFormEvent.primaryTargetsChanged(options)),
-        ),
-        buildSpace(),
-        Selector<ExerciseTarget>(
-          key: ValueKey(state.isEditing.toString() + "secondary"),
-          title: "Secondary Muscle",
-          options: ExerciseTarget.all,
-          optionLabel: (option) => option.name,
-          initialValues: exercise.secondaryTargets,
-          selectMultiple: true,
-          onSelect: (options) => _onOptionSelected(
-              context, ExerciseFormEvent.secondaryTargetsChanged(options)),
-        ),
-        buildSpace(),
-        buildSpace(),
-        buildSpace(),
+        buildOptionSelector(context,
+            title: "Tools",
+            options: exercise.tools
+                .map((tool) => DeleteChip(
+                      label: tool.name,
+                      onDelete: () {},
+                    ))
+                .toList()),
+        buildOptionSelector(context,
+            title: "Type",
+            options: exercise.types
+                .map((type) => DeleteChip(
+                      label: type.name,
+                      onDelete: () {},
+                    ))
+                .toList()),
+        buildOptionSelector(context,
+            title: "Primary Muscles",
+            options: exercise.primaryTargets
+                .map((target) => DeleteChip(
+                      label: target.name,
+                      onDelete: () {},
+                    ))
+                .toList()),
+        buildOptionSelector(context,
+            title: "Secondary Muscles",
+            options: exercise.secondaryTargets
+                .map((target) => DeleteChip(
+                      label: target.name,
+                      onDelete: () {},
+                    ))
+                .toList()),
+      ],
+    );
+  }
+
+  Widget buildOptionSelector(BuildContext context,
+      {@required String title, @required List<DeleteChip> options}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(title, style: FitnickTextTheme(context).title),
+          FlatButton(
+            child: Text("+ Add",
+                style: FitnickTextTheme(context)
+                    .smallButton
+                    .copyWith(color: Colors.grey)),
+            onPressed: () {},
+          )
+        ]),
+        Wrap(
+          spacing: 10,
+          children: options,
+        )
       ],
     );
   }
