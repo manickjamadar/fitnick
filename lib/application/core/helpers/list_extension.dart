@@ -33,4 +33,8 @@ extension ListX<T> on List<T> {
   bool hasPrevious(int currentIndex) {
     return currentIndex > 0 && currentIndex < this.length;
   }
+
+  List<T> removeBy(T element) {
+    return this.where((e) => e != element).toList();
+  }
 }
