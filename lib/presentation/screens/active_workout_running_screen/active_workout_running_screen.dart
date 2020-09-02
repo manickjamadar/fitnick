@@ -254,29 +254,45 @@ class _ActiveWorkoutRunningScreenState
   Widget buildPerformController(
       ActiveWorkoutRunnerState state, ExerciseSet exerciseSet) {
     final performTextStyle =
-        TextStyle(fontWeight: FontWeight.bold, fontSize: 22);
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
+    final actualPerformCount =
+        exerciseSet.performType == ExercisePerformType.reps
+            ? exerciseSet.performCount
+            : exerciseSet.performCount - state.currentPerformedCount + 1;
+    final progress = actualPerformCount / exerciseSet.performCount;
+    final double circleRadius = 100;
+    final double lineWidth = 5;
+
     return Stack(
       alignment: Alignment.center,
       children: [
+        CircularPercentIndicator(
+          radius: circleRadius,
+          lineWidth: lineWidth,
+          backgroundColor: Colors.grey[300],
+          progressColor: Theme.of(context).primaryColor,
+          circularStrokeCap: CircularStrokeCap.round,
+          percent: progress,
+          animation: true,
+          animateFromLastPercent: true,
+          curve: Curves.linear,
+          animationDuration: 1000,
+        ),
         Opacity(
           opacity: state.isPaused ? 0.6 : 1,
           child: Container(
+              width: circleRadius - (lineWidth * 2),
               child: Column(
-            children: [
-              exerciseSet.performType == ExercisePerformType.reps
-                  ? Text(
-                      "${exerciseSet.performCount}",
-                      style: performTextStyle,
-                    )
-                  : Text(
-                      "${state.currentPerformedCount}/${exerciseSet.performCount}",
-                      style: performTextStyle),
-              Text(
-                "${exerciseSet.performType.name}",
-                style: TextStyle(fontSize: 18),
-              )
-            ],
-          )),
+                children: [
+                  FittedBox(
+                      child: Text(actualPerformCount.toString(),
+                          style: performTextStyle)),
+                  Text(
+                    "${exerciseSet.performType.name}",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ],
+              )),
         ),
       ],
     );
