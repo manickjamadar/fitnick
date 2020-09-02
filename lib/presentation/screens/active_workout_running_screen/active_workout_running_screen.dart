@@ -10,9 +10,12 @@ import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_perfor
 import 'package:fitnick/domain/active_exercise/models/sub_models/exercise_set.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/fitnick_icons.dart';
+import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/confirm_dialog.dart';
+import 'package:fitnick/presentation/core/widgets/exercise_set_circle.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_title.dart';
+import 'package:fitnick/presentation/core/widgets/raw_exercise_tile.dart';
 import 'package:fitnick/presentation/core/widgets/raw_input_dialog.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/backdrop.dart';
 import 'package:fitnick/presentation/screens/active_workout_running_screen/widgets/progress_bar.dart';
@@ -23,9 +26,11 @@ import 'package:fitnick/service_locator.dart';
 import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:wakelock/wakelock.dart';
 import "../../core/helpers/string_extension.dart";
+import "../../../application/core/helpers/list_extension.dart";
 
 class ActiveWorkoutRunningScreen extends StatefulWidget {
   @override
@@ -184,8 +189,10 @@ class _ActiveWorkoutRunningScreenState
 
   Scaffold buildMainRunner(ActiveWorkout activeWorkout, BuildContext context,
       ActiveWorkoutRunnerState state) {
+    final sheetMinChildSize = 0.40;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey[100],
         title: Text(activeWorkout.name.safeValue.capitalize()),
         actions: [
           IconButton(
@@ -201,12 +208,110 @@ class _ActiveWorkoutRunningScreenState
               onPressed: () => _onMusicIconPressed(context)),
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
-          child: Column(
+          child: Stack(
         children: [
-          buildBar(activeWorkout, state),
-          buildExercisePageView(state, context, activeWorkout),
+          Column(
+            children: [
+              buildBar(activeWorkout, state),
+              buildExercisePageView(state, context, activeWorkout),
+            ],
+          ),
+          DraggableScrollableSheet(
+            initialChildSize: sheetMinChildSize,
+            minChildSize: sheetMinChildSize,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  SliverStickyHeader(
+                    header: buildControllerSheetHeader(
+                        context, state, activeWorkout),
+                    sliver: buildRemainingExerciseList(
+                        state.currentActiveExerciseIndex,
+                        activeWorkout.activeExercises),
+                  )
+                ],
+              );
+            },
+          )
+        ],
+      )),
+    );
+  }
+
+  SliverList buildRemainingExerciseList(
+      int currentExerciseIndex, List<ActiveExercise> activeExercises) {
+    return SliverList(
+        delegate: SliverChildListDelegate(activeExercises
+            .map((active) => Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                  color: Colors.white,
+                  child: RawExerciseTile(
+                    exercise: active.exercise,
+                    trailing: ExerciseSetCircle(
+                      totalSets: active.sets.length,
+                    ),
+                  ),
+                ))
+            .toList()));
+  }
+
+  Widget buildControllerSheetHeader(BuildContext context,
+      ActiveWorkoutRunnerState state, ActiveWorkout activeWorkout) {
+    final hasNextExercise =
+        activeWorkout.activeExercises.hasNext(state.currentActiveExerciseIndex);
+    final nextActiveExercise = activeWorkout.activeExercises[hasNextExercise
+        ? state.currentActiveExerciseIndex + 1
+        : state.currentActiveExerciseIndex];
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+              margin: EdgeInsets.only(bottom: 20),
+              width: 60,
+              height: 6,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(20),
+              )),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text("Next Up", style: FitnickTextTheme(context).title),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 200),
+                opacity: hasNextExercise ? 1 : 0.1,
+                child: RawExerciseTile(
+                  exercise: nextActiveExercise.exercise,
+                  trailing: ExerciseSetCircle(
+                    totalSets: nextActiveExercise.sets.length,
+                  ),
+                ),
+              ),
+              if (!hasNextExercise)
+                Text("No Next Exercise",
+                    style: FitnickTextTheme(context)
+                        .title
+                        .copyWith(color: Colors.grey[700]))
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
           buildExerciseController(context, state, activeWorkout),
           SizedBox(
             height: 10,
@@ -219,8 +324,9 @@ class _ActiveWorkoutRunningScreenState
           SizedBox(
             height: 10,
           ),
+          Divider(),
         ],
-      )),
+      ),
     );
   }
 
@@ -230,25 +336,23 @@ class _ActiveWorkoutRunningScreenState
         activeWorkout.activeExercises[state.currentActiveExerciseIndex];
     final exerciseSet = activeExercise.sets[state.currentSetIndex];
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 30),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: Icon(state.isPaused ? Icons.stop : Icons.pause),
-              iconSize: 30,
-              onPressed: () =>
-                  state.isPaused ? onStop(context) : onPause(context),
-            ),
-            buildPerformController(state, exerciseSet),
-            IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              iconSize: 30,
-              onPressed: () => onSkipExercise(context),
-            ),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+          icon: Icon(state.isPaused ? Icons.stop : Icons.pause),
+          iconSize: 30,
+          onPressed: () => state.isPaused ? onStop(context) : onPause(context),
+        ),
+        buildPerformController(state, exerciseSet),
+        IconButton(
+          icon: Icon(Icons.arrow_forward_ios),
+          iconSize: 30,
+          onPressed: () => onSkipExercise(context),
+        ),
+      ],
+    ));
   }
 
   Widget buildPerformController(
