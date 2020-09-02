@@ -1,3 +1,4 @@
+import 'package:fitnick/presentation/core/widgets/custom_chip.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector_chip.dart';
 import 'package:flutter/material.dart';
 
@@ -35,11 +36,11 @@ class Selector<T> extends StatelessWidget {
             runSpacing: 10,
             spacing: 10,
             children: options
-                .map((option) => SelectorChip(
+                .map((option) => CustomChip(
                       color: Theme.of(context).primaryColor,
-                      title: optionLabel(option),
+                      label: Text(optionLabel(option)),
                       selected: initialValues.indexOf(option) != -1,
-                      onTap: () => onChipTap(option),
+                      onSelect: () => onChipTap(option),
                     ))
                 .toList(),
           ),
