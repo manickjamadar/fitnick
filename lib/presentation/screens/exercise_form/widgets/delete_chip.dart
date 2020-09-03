@@ -12,6 +12,7 @@ class DeleteChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final actualColor = color ?? Theme.of(context).primaryColor;
     return Chip(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       deleteIconColor: Colors.red,
       backgroundColor: actualColor.withOpacity(0.05),
       label: Text(label, style: TextStyle(color: actualColor)),
