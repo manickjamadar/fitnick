@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
+import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
 import 'package:fitnick/presentation/screens/exercise_details_screen/exercise_details_screen.dart';
+import 'package:fitnick/presentation/screens/exercise_filter_screen/exercise_filter_screen.dart';
 import 'package:fitnick/presentation/screens/exercise_form/exercise_form_screen.dart';
 import 'package:fitnick/presentation/screens/music_center_screen/music_center_screen.dart';
 import 'package:fitnick/presentation/screens/store_screen/store_screen.dart';
@@ -77,5 +79,12 @@ class FitnickActions {
 
   void onAddExercise() {
     BlocProvider.of<ExerciseFormBloc>(context).add(ExerciseFormEvent.added());
+  }
+
+  void goExerciseFilterScreen() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => ExerciseFilterScreen.generateRoute(
+          BlocProvider.of<FilteredExerciseBloc>(context)),
+    ));
   }
 }

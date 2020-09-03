@@ -66,10 +66,7 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
       builder: (_, state) => Scaffold(
           appBar: AppBar(
             title: Text("Select Exercise"),
-            actions: <Widget>[
-              buildFilterButton(context),
-              buildDoneButton(context)
-            ],
+            actions: <Widget>[buildDoneButton(context)],
           ),
           body: Builder(
             builder: (_) {
@@ -88,12 +85,7 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
   Widget buildFilterButton(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.filter_list, color: Theme.of(context).primaryColor),
-      onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => ExerciseFilterScreen.generateRoute(
-              BlocProvider.of<FilteredExerciseBloc>(context)),
-        ));
-      },
+      onPressed: () => FitnickActions(context).goExerciseFilterScreen(),
     );
   }
 
@@ -155,13 +147,20 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(10),
-          child: SearchBar(
-            value: searchTerm,
-            onChanged: (value) {
-              BlocProvider.of<FilteredExerciseBloc>(context)
-                  .add(FilteredExerciseEvent.searched(term: value));
-            },
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Flexible(
+                child: SearchBar(
+                  value: searchTerm,
+                  onChanged: (value) {
+                    BlocProvider.of<FilteredExerciseBloc>(context)
+                        .add(FilteredExerciseEvent.searched(term: value));
+                  },
+                ),
+              ),
+              buildFilterButton(context)
+            ],
           ),
         ),
         buildFilterChips(context)
