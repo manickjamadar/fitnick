@@ -11,6 +11,7 @@ import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
+import 'package:fitnick/presentation/core/widgets/option_selector_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_slider.dart';
@@ -111,6 +112,7 @@ class ExerciseFormHandler extends StatelessWidget {
         buildLevelSelector(state, exercise, context),
         buildOptionSelector(context,
             title: "Tools",
+            onAdd: () => _onToolAddButtonPressed(context, exercise.tools),
             options: exercise.tools
                 .map((tool) => DeleteChip(
                       label: tool.name,
@@ -120,6 +122,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 .toList()),
         buildOptionSelector(context,
             title: "Type",
+            onAdd: () {},
             options: exercise.types
                 .map((type) => DeleteChip(
                       label: type.name,
@@ -129,6 +132,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 .toList()),
         buildOptionSelector(context,
             title: "Primary Muscles",
+            onAdd: () {},
             options: exercise.primaryTargets
                 .map((target) => DeleteChip(
                       label: target.name,
@@ -138,6 +142,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 .toList()),
         buildOptionSelector(context,
             title: "Secondary Muscles",
+            onAdd: () {},
             options: exercise.secondaryTargets
                 .map((target) => DeleteChip(
                       label: target.name,
@@ -150,7 +155,9 @@ class ExerciseFormHandler extends StatelessWidget {
   }
 
   Widget buildOptionSelector(BuildContext context,
-      {@required String title, @required List<DeleteChip> options}) {
+      {@required String title,
+      @required List<DeleteChip> options,
+      @required Function() onAdd}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -161,7 +168,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 style: FitnickTextTheme(context)
                     .smallButton
                     .copyWith(color: Colors.grey)),
-            onPressed: () {},
+            onPressed: onAdd,
           )
         ]),
         Wrap(
@@ -196,6 +203,21 @@ class ExerciseFormHandler extends StatelessWidget {
 
   void _onOptionSelected(BuildContext context, ExerciseFormEvent event) {
     BlocProvider.of<ExerciseFormBloc>(context).add(event);
+  }
+
+  void _onToolAddButtonPressed(
+      BuildContext context, List<ExerciseTool> initialTools) async {
+    final newTools = await showDialog<List<ExerciseTool>>(
+        context: context,
+        builder: (_) => OptionSelectorDialog<ExerciseTool>(
+              optionLabel: (option) => option.name,
+              options: ExerciseTool.all,
+              title: "Tools",
+              initialValues: initialTools,
+            ));
+    if (newTools != null && newTools is List<ExerciseTool>) {
+      _onToolChanged(context, newTools);
+    }
   }
 
   void _onToolDelete(BuildContext context, ExerciseTool deletableTool,
