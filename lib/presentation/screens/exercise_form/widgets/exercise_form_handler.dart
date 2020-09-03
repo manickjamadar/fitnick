@@ -122,7 +122,7 @@ class ExerciseFormHandler extends StatelessWidget {
                 .toList()),
         buildOptionSelector(context,
             title: "Type",
-            onAdd: () {},
+            onAdd: () => _onTypeAddButtonPressed(context, exercise.types),
             options: exercise.types
                 .map((type) => DeleteChip(
                       label: type.name,
@@ -132,7 +132,8 @@ class ExerciseFormHandler extends StatelessWidget {
                 .toList()),
         buildOptionSelector(context,
             title: "Primary Muscles",
-            onAdd: () {},
+            onAdd: () => _onPrimaryTargetAddButtonPressed(
+                context, exercise.primaryTargets),
             options: exercise.primaryTargets
                 .map((target) => DeleteChip(
                       label: target.name,
@@ -142,7 +143,8 @@ class ExerciseFormHandler extends StatelessWidget {
                 .toList()),
         buildOptionSelector(context,
             title: "Secondary Muscles",
-            onAdd: () {},
+            onAdd: () => _onSecondaryTargetAddButtonPressed(
+                context, exercise.secondaryTargets),
             options: exercise.secondaryTargets
                 .map((target) => DeleteChip(
                       label: target.name,
@@ -217,6 +219,51 @@ class ExerciseFormHandler extends StatelessWidget {
             ));
     if (newTools != null && newTools is List<ExerciseTool>) {
       _onToolChanged(context, newTools);
+    }
+  }
+
+  void _onTypeAddButtonPressed(
+      BuildContext context, List<ExerciseType> initialTypes) async {
+    final newTypes = await showDialog<List<ExerciseType>>(
+        context: context,
+        builder: (_) => OptionSelectorDialog<ExerciseType>(
+              optionLabel: (option) => option.name,
+              options: ExerciseType.all,
+              title: "Types",
+              initialValues: initialTypes,
+            ));
+    if (newTypes != null && newTypes is List<ExerciseType>) {
+      _onTypeChanged(context, newTypes);
+    }
+  }
+
+  void _onPrimaryTargetAddButtonPressed(
+      BuildContext context, List<ExerciseTarget> initialTargets) async {
+    final newTargets = await showDialog<List<ExerciseTarget>>(
+        context: context,
+        builder: (_) => OptionSelectorDialog<ExerciseTarget>(
+              optionLabel: (option) => option.name,
+              options: ExerciseTarget.all,
+              title: "PrimaryTargets",
+              initialValues: initialTargets,
+            ));
+    if (newTargets != null && newTargets is List<ExerciseTarget>) {
+      _onPrimaryTargetChanged(context, newTargets);
+    }
+  }
+
+  void _onSecondaryTargetAddButtonPressed(
+      BuildContext context, List<ExerciseTarget> initialTargets) async {
+    final newTargets = await showDialog<List<ExerciseTarget>>(
+        context: context,
+        builder: (_) => OptionSelectorDialog<ExerciseTarget>(
+              optionLabel: (option) => option.name,
+              options: ExerciseTarget.all,
+              title: "Secondary Targets",
+              initialValues: initialTargets,
+            ));
+    if (newTargets != null && newTargets is List<ExerciseTarget>) {
+      _onSecondaryTargetChanged(context, newTargets);
     }
   }
 
