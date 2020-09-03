@@ -1,13 +1,16 @@
+import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/application/music/music_hub/music_hub_cubit.dart';
 import 'package:fitnick/application/tab/tab_cubit.dart';
+import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
 import 'package:fitnick/domain/page_tab/models/page_tab.dart';
 import 'package:fitnick/presentation/screens/home/home_action_button.dart';
 import 'package:fitnick/presentation/screens/home/tabs/exercise_tab.dart';
 import 'package:fitnick/presentation/screens/home/tabs/workout_tab.dart';
 import 'package:fitnick/presentation/screens/home/widgets/header.dart';
 import 'package:fitnick/presentation/screens/home/widgets/nav_bar.dart';
+import 'package:fitnick/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,9 +60,20 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             },
             children: [
               WorkoutTab(),
-              BlocProvider<FilteredExerciseBloc>(
-                create: (_) => FilteredExerciseBloc(
-                    exerciseHubBloc: BlocProvider.of<ExerciseHubBloc>(context)),
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider<ExerciseActorBloc>(
+                    create: (_) => ExerciseActorBloc(
+                        exerciseHubBloc:
+                            BlocProvider.of<ExerciseHubBloc>(context),
+                        exerciseFacade: locator<IExerciseFacade>()),
+                  ),
+                  BlocProvider<FilteredExerciseBloc>(
+                    create: (_) => FilteredExerciseBloc(
+                        exerciseHubBloc:
+                            BlocProvider.of<ExerciseHubBloc>(context)),
+                  )
+                ],
                 child: ExerciseTab(),
               ),
             ],

@@ -20,8 +20,6 @@ class ExerciseTab extends StatelessWidget {
             orElse: () {},
             success: (String message) {
               showMessage(context, message: message, type: SuccessMessage());
-              BlocProvider.of<ExerciseHubBloc>(context)
-                  .add(ExerciseHubEvent.refreshed());
             },
             error: (String message) {
               showMessage(context, message: message, type: ErrorMessage());

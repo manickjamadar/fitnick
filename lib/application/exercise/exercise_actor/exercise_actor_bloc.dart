@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
-import 'package:fitnick/domain/exercise/failure/exercise_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -11,8 +11,16 @@ part 'exercise_actor_bloc.freezed.dart';
 
 class ExerciseActorBloc extends Bloc<ExerciseActorEvent, ExerciseActorState> {
   final IExerciseFacade exerciseFacade;
-  ExerciseActorBloc({@required this.exerciseFacade})
+  final ExerciseHubBloc exerciseHubBloc;
+  ExerciseActorBloc(
+      {@required this.exerciseFacade, @required this.exerciseHubBloc})
       : super(ExerciseActorState.initial());
+
+  @override
+  void onChange(Change<ExerciseActorState> change) {
+    exerciseHubBloc.add(ExerciseHubEvent.refreshed());
+    super.onChange(change);
+  }
 
   @override
   Stream<ExerciseActorState> mapEventToState(
