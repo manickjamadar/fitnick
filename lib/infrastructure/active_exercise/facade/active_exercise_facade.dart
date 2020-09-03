@@ -69,4 +69,30 @@ class ActiveExerciseFacade extends IActiveExerciseFacade {
       return Left(ActiveExerciseFailure.update());
     }
   }
+
+  @override
+  Future<Either<ActiveExerciseFailure, List<ActiveExercise>>> findByExerciseId(
+      UniqueId exerciseId) async {
+    try {
+      final List<ActiveExerciseEntity> activeExerciseEntities =
+          await dataSource.findByExerciseId(exerciseId);
+      if (activeExerciseEntities.isEmpty) {
+        return Right([]);
+      }
+      final Either<ExerciseFailure, List<Exercise>> exercisesFailureOrSuccess =
+          await exerciseFacade.findAll();
+
+      return exercisesFailureOrSuccess
+          .fold((_) => Left(ActiveExerciseFailure.findExercise()),
+              (List<Exercise> exercises) {
+        final List<ActiveExercise> activeExercises =
+            activeExerciseEntities.map((entity) {
+          return entity.toModelFromExercises(exercises);
+        }).toList();
+        return Right(activeExercises);
+      });
+    } catch (_) {
+      return Left(ActiveExerciseFailure.find());
+    }
+  }
 }

@@ -6,4 +6,5 @@ abstract class IActiveExerciseDataSource {
   Future<void> delete(UniqueId activeExeciseId);
   Future<void> update(ActiveExerciseEntity activeExerciseEntity);
   Future<List<ActiveExerciseEntity>> findAll();
+  Future<List<ActiveExerciseEntity>> findByExerciseId(UniqueId exerciseId);
 }

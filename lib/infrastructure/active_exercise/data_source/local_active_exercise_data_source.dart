@@ -37,4 +37,16 @@ class LocalActiveExerciseDataSource extends IActiveExerciseDataSource {
         where: "${ActiveExerciseEntity.KEY_ID}=?",
         whereArgs: [activeExerciseEntity.id.value]);
   }
+
+  @override
+  Future<List<ActiveExerciseEntity>> findByExerciseId(
+      UniqueId exerciseId) async {
+    final List<Map<String, dynamic>> rawEntities = await database.query(
+        ActiveExerciseEntity.collectionName,
+        where: "${ActiveExerciseEntity.KEY_EXERCISE_ID}=?",
+        whereArgs: [exerciseId.value]);
+    return rawEntities
+        .map((json) => ActiveExerciseEntity.fromLocalJson(json))
+        .toList();
+  }
 }

@@ -4,6 +4,8 @@ import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/core/unique_id.dart';
 
 abstract class IActiveExerciseFacade {
+  Future<Either<ActiveExerciseFailure, List<ActiveExercise>>> findByExerciseId(
+      UniqueId exerciseId);
   Future<Either<ActiveExerciseFailure, List<ActiveExercise>>> findAll();
   Future<Either<ActiveExerciseFailure, Unit>> create(
       ActiveExercise activeExercise);
