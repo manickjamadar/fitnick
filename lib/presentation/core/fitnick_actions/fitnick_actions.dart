@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/exercise/exercise_actor/exercise_actor_bloc.dart';
+import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/active_workout_form_screen.dart';
@@ -72,5 +73,9 @@ class FitnickActions {
         MaterialPageRoute(
             builder: (_) =>
                 ExerciseDetailsScreen.generateRoute(exercise: exercise)));
+  }
+
+  void onAddExercise() {
+    BlocProvider.of<ExerciseFormBloc>(context).add(ExerciseFormEvent.added());
   }
 }
