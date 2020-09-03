@@ -13,16 +13,12 @@ import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
 import 'package:fitnick/presentation/core/widgets/form_done_button.dart';
-import 'package:fitnick/presentation/core/widgets/option_selector_dialog.dart';
+import 'package:fitnick/presentation/core/widgets/option_editor.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
-import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_selector.dart';
-import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_slider.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import "../../../../application/core/helpers/list_extension.dart";
 import '../../../../application/exercise/exercise_form/exercise_form_bloc.dart';
 import '../../../../domain/exercise/failure/exercise_failure.dart';
 
@@ -122,74 +118,36 @@ class ExerciseFormHandler extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         buildLevelSelector(context, exercise),
-        buildOptionSelector(context,
-            title: "Tools",
-            onAdd: () => _onToolAddButtonPressed(context, exercise.tools),
-            options: exercise.tools
-                .map((tool) => DeleteChip(
-                      label: tool.name,
-                      onDelete: () =>
-                          _onToolDelete(context, tool, exercise.tools),
-                    ))
-                .toList()),
-        buildOptionSelector(context,
-            title: "Type",
-            onAdd: () => _onTypeAddButtonPressed(context, exercise.types),
-            options: exercise.types
-                .map((type) => DeleteChip(
-                      label: type.name,
-                      onDelete: () =>
-                          _onTypeDelete(context, type, exercise.types),
-                    ))
-                .toList()),
-        buildOptionSelector(context,
-            title: "Primary Muscles",
-            onAdd: () => _onPrimaryTargetAddButtonPressed(
-                context, exercise.primaryTargets),
-            options: exercise.primaryTargets
-                .map((target) => DeleteChip(
-                      label: target.name,
-                      onDelete: () => _onPrimaryTargetDelete(
-                          context, target, exercise.primaryTargets),
-                    ))
-                .toList()),
-        buildOptionSelector(context,
-            title: "Secondary Muscles",
-            onAdd: () => _onSecondaryTargetAddButtonPressed(
-                context, exercise.secondaryTargets),
-            options: exercise.secondaryTargets
-                .map((target) => DeleteChip(
-                      label: target.name,
-                      onDelete: () => _onSecondaryTargetDelete(
-                          context, target, exercise.secondaryTargets),
-                    ))
-                .toList()),
-      ],
-    );
-  }
-
-  Widget buildOptionSelector(BuildContext context,
-      {@required String title,
-      @required List<DeleteChip> options,
-      @required Function() onAdd}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(title, style: FitnickTextTheme(context).title),
-          FlatButton(
-            child: Text("+ Add",
-                style: FitnickTextTheme(context)
-                    .smallButton
-                    .copyWith(color: Colors.grey)),
-            onPressed: onAdd,
-          )
-        ]),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: options,
-        )
+        OptionEditor<ExerciseType>(
+          title: "Types",
+          allOptions: ExerciseType.all,
+          optionLabel: (option) => option.name,
+          initialOptions: exercise.types,
+          onOptionsChanged: (newTypes) => _onTypeChanged(context, newTypes),
+        ),
+        OptionEditor<ExerciseTool>(
+          title: "Tools",
+          allOptions: ExerciseTool.all,
+          optionLabel: (option) => option.name,
+          initialOptions: exercise.tools,
+          onOptionsChanged: (newTools) => _onToolChanged(context, newTools),
+        ),
+        OptionEditor<ExerciseTarget>(
+          title: "Primary Muscles",
+          allOptions: ExerciseTarget.all,
+          optionLabel: (option) => option.name,
+          initialOptions: exercise.primaryTargets,
+          onOptionsChanged: (newTargets) =>
+              _onPrimaryTargetChanged(context, newTargets),
+        ),
+        OptionEditor<ExerciseTarget>(
+          title: "Secondary Muscles",
+          allOptions: ExerciseTarget.all,
+          optionLabel: (option) => option.name,
+          initialOptions: exercise.secondaryTargets,
+          onOptionsChanged: (newTargets) =>
+              _onSecondaryTargetChanged(context, newTargets),
+        ),
       ],
     );
   }
@@ -197,7 +155,7 @@ class ExerciseFormHandler extends StatelessWidget {
   Widget buildLevelSelector(BuildContext context, Exercise exercise) {
     return ExerciseLevelSelector(
       level: exercise.levels.first,
-      onChanged: (newLevel) => onLevelChanged(context, newLevel),
+      onChanged: (newLevel) => _onLevelChanged(context, newLevel),
     );
   }
 
@@ -205,93 +163,14 @@ class ExerciseFormHandler extends StatelessWidget {
     BlocProvider.of<AccountManagerCubit>(context).spend(Exercise.price);
   }
 
-  void _onOptionSelected(BuildContext context, ExerciseFormEvent event) {
-    BlocProvider.of<ExerciseFormBloc>(context).add(event);
-  }
-
-  void _onToolAddButtonPressed(
-      BuildContext context, List<ExerciseTool> initialTools) async {
-    final newTools = await showDialog<List<ExerciseTool>>(
-        context: context,
-        builder: (_) => OptionSelectorDialog<ExerciseTool>(
-              optionLabel: (option) => option.name,
-              options: ExerciseTool.all,
-              title: "Tools",
-              initialValues: initialTools,
-            ));
-    if (newTools != null && newTools is List<ExerciseTool>) {
-      _onToolChanged(context, newTools);
-    }
-  }
-
-  void _onTypeAddButtonPressed(
-      BuildContext context, List<ExerciseType> initialTypes) async {
-    final newTypes = await showDialog<List<ExerciseType>>(
-        context: context,
-        builder: (_) => OptionSelectorDialog<ExerciseType>(
-              optionLabel: (option) => option.name,
-              options: ExerciseType.all,
-              title: "Types",
-              initialValues: initialTypes,
-            ));
-    if (newTypes != null && newTypes is List<ExerciseType>) {
-      _onTypeChanged(context, newTypes);
-    }
-  }
-
-  void _onPrimaryTargetAddButtonPressed(
-      BuildContext context, List<ExerciseTarget> initialTargets) async {
-    final newTargets = await showDialog<List<ExerciseTarget>>(
-        context: context,
-        builder: (_) => OptionSelectorDialog<ExerciseTarget>(
-              optionLabel: (option) => option.name,
-              options: ExerciseTarget.all,
-              title: "PrimaryTargets",
-              initialValues: initialTargets,
-            ));
-    if (newTargets != null && newTargets is List<ExerciseTarget>) {
-      _onPrimaryTargetChanged(context, newTargets);
-    }
-  }
-
-  void _onSecondaryTargetAddButtonPressed(
-      BuildContext context, List<ExerciseTarget> initialTargets) async {
-    final newTargets = await showDialog<List<ExerciseTarget>>(
-        context: context,
-        builder: (_) => OptionSelectorDialog<ExerciseTarget>(
-              optionLabel: (option) => option.name,
-              options: ExerciseTarget.all,
-              title: "Secondary Targets",
-              initialValues: initialTargets,
-            ));
-    if (newTargets != null && newTargets is List<ExerciseTarget>) {
-      _onSecondaryTargetChanged(context, newTargets);
-    }
-  }
-
-  void _onToolDelete(BuildContext context, ExerciseTool deletableTool,
-      List<ExerciseTool> sourceTools) {
-    _onToolChanged(context, sourceTools.removeBy(deletableTool));
-  }
-
   void _onToolChanged(BuildContext context, List<ExerciseTool> tools) {
     BlocProvider.of<ExerciseFormBloc>(context)
         .add(ExerciseFormEvent.toolsChanged(tools));
   }
 
-  void _onTypeDelete(BuildContext context, ExerciseType deletableType,
-      List<ExerciseType> sourceTypes) {
-    _onTypeChanged(context, sourceTypes.removeBy(deletableType));
-  }
-
   void _onTypeChanged(BuildContext context, List<ExerciseType> types) {
     BlocProvider.of<ExerciseFormBloc>(context)
         .add(ExerciseFormEvent.typesChanged(types));
-  }
-
-  void _onPrimaryTargetDelete(BuildContext context,
-      ExerciseTarget deletableTarget, List<ExerciseTarget> sourceTargets) {
-    _onPrimaryTargetChanged(context, sourceTargets.removeBy(deletableTarget));
   }
 
   void _onPrimaryTargetChanged(
@@ -300,18 +179,13 @@ class ExerciseFormHandler extends StatelessWidget {
         .add(ExerciseFormEvent.primaryTargetsChanged(targets));
   }
 
-  void _onSecondaryTargetDelete(BuildContext context,
-      ExerciseTarget deletableTarget, List<ExerciseTarget> sourceTargets) {
-    _onSecondaryTargetChanged(context, sourceTargets.removeBy(deletableTarget));
-  }
-
   void _onSecondaryTargetChanged(
       BuildContext context, List<ExerciseTarget> targets) {
     BlocProvider.of<ExerciseFormBloc>(context)
         .add(ExerciseFormEvent.secondaryTargetsChanged(targets));
   }
 
-  void onLevelChanged(BuildContext context, ExerciseLevel level) {
+  void _onLevelChanged(BuildContext context, ExerciseLevel level) {
     BlocProvider.of<ExerciseFormBloc>(context)
         .add(ExerciseFormEvent.levelsChanged([level]));
   }
