@@ -4,6 +4,7 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
+import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/option_editor.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:flutter/material.dart';
@@ -24,81 +25,108 @@ class ExerciseFilterScreen extends StatelessWidget {
       builder: (_, state) => Scaffold(
         appBar: AppBar(
           title: Text("Filter Exercise"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.check),
+              onPressed: () => _onApplyFilter(context),
+            )
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                OptionEditor<ExerciseLevel>(
-                  title: "Levels",
-                  allOptions: ExerciseLevel.all,
-                  optionLabel: (option) => option.name,
-                  initialOptions: state.filteredExercise.levels,
-                  onOptionsChanged: (newLevels) => _onFilterExerciseChanged(
-                      context,
-                      state.filteredExercise.copyWith(levels: newLevels)),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    OptionEditor<ExerciseLevel>(
+                      title: "Levels",
+                      allOptions: ExerciseLevel.all,
+                      optionLabel: (option) => option.name,
+                      initialOptions: state.filteredExercise.levels,
+                      onOptionsChanged: (newLevels) => _onFilterExerciseChanged(
+                          context,
+                          state.filteredExercise.copyWith(levels: newLevels)),
+                    ),
+                    OptionEditor<ExerciseType>(
+                      title: "Types",
+                      allOptions: ExerciseType.all,
+                      optionLabel: (option) => option.name,
+                      initialOptions: state.filteredExercise.types,
+                      onOptionsChanged: (newTypes) => _onFilterExerciseChanged(
+                          context,
+                          state.filteredExercise.copyWith(types: newTypes)),
+                    ),
+                    OptionEditor<ExerciseTool>(
+                      title: "Tools",
+                      allOptions: ExerciseTool.all,
+                      optionLabel: (option) => option.name,
+                      initialOptions: state.filteredExercise.tools,
+                      onOptionsChanged: (newTools) => _onFilterExerciseChanged(
+                          context,
+                          state.filteredExercise.copyWith(tools: newTools)),
+                    ),
+                    OptionEditor<ExerciseTarget>(
+                      title: "Primary Muscles",
+                      allOptions: ExerciseTarget.all,
+                      optionLabel: (option) => option.name,
+                      initialOptions: state.filteredExercise.primaryTargets,
+                      onOptionsChanged: (newTargets) =>
+                          _onFilterExerciseChanged(
+                              context,
+                              state.filteredExercise
+                                  .copyWith(primaryTargets: newTargets)),
+                    ),
+                    OptionEditor<ExerciseTarget>(
+                      title: "Secondary Muscles",
+                      allOptions: ExerciseTarget.all,
+                      optionLabel: (option) => option.name,
+                      initialOptions: state.filteredExercise.secondaryTargets,
+                      onOptionsChanged: (newTargets) =>
+                          _onFilterExerciseChanged(
+                              context,
+                              state.filteredExercise
+                                  .copyWith(secondaryTargets: newTargets)),
+                    ),
+                    buildSpace(),
+                    buildSpace(),
+                    buildSpace(),
+                  ],
                 ),
-                OptionEditor<ExerciseType>(
-                  title: "Types",
-                  allOptions: ExerciseType.all,
-                  optionLabel: (option) => option.name,
-                  initialOptions: state.filteredExercise.types,
-                  onOptionsChanged: (newTypes) => _onFilterExerciseChanged(
-                      context,
-                      state.filteredExercise.copyWith(types: newTypes)),
-                ),
-                OptionEditor<ExerciseTool>(
-                  title: "Tools",
-                  allOptions: ExerciseTool.all,
-                  optionLabel: (option) => option.name,
-                  initialOptions: state.filteredExercise.tools,
-                  onOptionsChanged: (newTools) => _onFilterExerciseChanged(
-                      context,
-                      state.filteredExercise.copyWith(tools: newTools)),
-                ),
-                OptionEditor<ExerciseTarget>(
-                  title: "Primary Muscles",
-                  allOptions: ExerciseTarget.all,
-                  optionLabel: (option) => option.name,
-                  initialOptions: state.filteredExercise.primaryTargets,
-                  onOptionsChanged: (newTargets) => _onFilterExerciseChanged(
-                      context,
-                      state.filteredExercise
-                          .copyWith(primaryTargets: newTargets)),
-                ),
-                OptionEditor<ExerciseTarget>(
-                  title: "Secondary Muscles",
-                  allOptions: ExerciseTarget.all,
-                  optionLabel: (option) => option.name,
-                  initialOptions: state.filteredExercise.secondaryTargets,
-                  onOptionsChanged: (newTargets) => _onFilterExerciseChanged(
-                      context,
-                      state.filteredExercise
-                          .copyWith(secondaryTargets: newTargets)),
-                ),
-                Container(
-                  width: double.infinity,
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    child: Text("Apply Filter"),
-                    onPressed: () => _onApplyFilter(context),
-                  ),
-                ),
-                buildSpace(),
-                Container(
-                  width: double.infinity,
-                  child: RaisedButton(
-                    child: Text("Reset Filter"),
-                    onPressed: () => _onResetFilter(context),
-                  ),
-                ),
-              ],
+              ),
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: buildActionButtons(context))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildActionButtons(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Expanded(
+            child: ActionButton(
+              color: Colors.grey,
+              onPressed: () => _onResetFilter(context),
+              label: "Reset",
             ),
           ),
-        ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: ActionButton(
+              onPressed: () => _onApplyFilter(context),
+              label: "Apply",
+            ),
+          ),
+        ],
       ),
     );
   }
