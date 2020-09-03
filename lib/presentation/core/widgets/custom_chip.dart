@@ -37,7 +37,8 @@ class CustomChip extends StatelessWidget {
           onSelect();
         }
       },
-      child: Container(
+      child: AnimatedContainer(
+          duration: Duration(milliseconds: 250),
           padding: EdgeInsets.symmetric(
               vertical: relativeSize * 0.3, horizontal: relativeSize * 0.76),
           decoration: BoxDecoration(
