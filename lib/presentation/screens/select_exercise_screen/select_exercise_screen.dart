@@ -1,20 +1,9 @@
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/application/exercise/filtered_exercise/filtered_exercise_bloc.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
-import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
-import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
-import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
-import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
 import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
-import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/exercise_filter_controller.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_tile.dart';
-import 'package:fitnick/presentation/core/widgets/raw_exercise_tile.dart';
-import 'package:fitnick/presentation/core/widgets/search_bar.dart';
-import 'package:fitnick/presentation/screens/exercise_filter_screen/exercise_filter_screen.dart';
-import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
-import 'package:fitnick/presentation/screens/select_exercise_screen/widgets/removable_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -76,16 +65,9 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
               return state.exercises.fold(
                   () => buildNoExercise(),
                   (List<Exercise> exercises) =>
-                      buildLoaded(context, exercises, state.searchTerm));
+                      buildLoaded(context, state, exercises));
             },
           )),
-    );
-  }
-
-  Widget buildFilterButton(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.filter_list, color: Theme.of(context).primaryColor),
-      onPressed: () => FitnickActions(context).goExerciseFilterScreen(),
     );
   }
 
@@ -93,21 +75,24 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
     return Center(child: Text("No Exercises Available"));
   }
 
-  Widget buildLoaded(
-      BuildContext context, List<Exercise> exercises, String searchTerm) {
+  Widget buildLoaded(BuildContext context, FilteredExerciseState state,
+      List<Exercise> exercises) {
     return Stack(
       children: <Widget>[
-        buildExerciseList(context, exercises, searchTerm),
+        buildExerciseList(context, state, exercises),
       ],
     );
   }
 
   Widget buildExerciseList(
-      BuildContext context, List<Exercise> exercises, String searchTerm) {
+    BuildContext context,
+    FilteredExerciseState state,
+    List<Exercise> exercises,
+  ) {
     return ListView.builder(
       itemBuilder: (context, index) {
         if (index == 0) {
-          return buildListHeader(searchTerm, context);
+          return buildListHeader(context, state);
         }
         final realIndex = index - 1;
         final exercise = exercises[realIndex];
@@ -143,110 +128,23 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
     );
   }
 
-  Widget buildListHeader(String searchTerm, BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            children: [
-              Flexible(
-                child: SearchBar(
-                  value: searchTerm,
-                  onChanged: (value) {
-                    BlocProvider.of<FilteredExerciseBloc>(context)
-                        .add(FilteredExerciseEvent.searched(term: value));
-                  },
-                ),
-              ),
-              buildFilterButton(context)
-            ],
-          ),
-        ),
-        buildFilterChips(context)
-      ],
+  Widget buildListHeader(BuildContext context, FilteredExerciseState state) {
+    return ExerciseFilterController(
+      exercise: state.filteredExercise,
+      searchTerm: state.searchTerm,
+      onSearched: (value) => _onSearch(context, value),
+      onFilter: () => FitnickActions(context).goExerciseFilterScreen(),
+      onExerciseChanged: (newExercise) =>
+          _onFilterExerciseChanged(context, newExercise),
     );
   }
 
-  Widget buildFilterChips(BuildContext context) {
-    return BlocBuilder<FilteredExerciseBloc, FilteredExerciseState>(
-      builder: (_, state) {
-        print(state.filteredExercise.levels);
-        return Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: <Widget>[
-            ...state.filteredExercise.levels.map((level) => DeleteChip(
-                  label: level.name,
-                  color: Colors.orange,
-                  onDelete: () {
-                    onLevelRemoved(state, level, context);
-                  },
-                )),
-            ...state.filteredExercise.tools.map((e) => DeleteChip(
-                  label: e.name,
-                  color: Colors.green,
-                  onDelete: () => onToolRemoved(state, e, context),
-                )),
-            ...state.filteredExercise.types.map((e) => DeleteChip(
-                  label: e.name,
-                  color: Colors.purple,
-                  onDelete: () => onTypeRemoved(state, e, context),
-                )),
-            ...state.filteredExercise.primaryTargets.map((e) => DeleteChip(
-                  label: e.name,
-                  color: Colors.teal,
-                  onDelete: () => onPrimaryTargetRemoved(state, e, context),
-                )),
-            ...state.filteredExercise.secondaryTargets.map((e) => DeleteChip(
-                  label: e.name,
-                  color: Colors.brown,
-                  onDelete: () => onSecondaryTargetRemoved(state, e, context),
-                )),
-          ],
-        );
-      },
-    );
+  void _onSearch(BuildContext context, String searchTerm) {
+    BlocProvider.of<FilteredExerciseBloc>(context)
+        .add(FilteredExerciseEvent.searched(term: searchTerm));
   }
 
-  void onLevelRemoved(
-      FilteredExerciseState state, ExerciseLevel level, BuildContext context) {
-    final newLevels = [...state.filteredExercise.levels];
-    newLevels.remove(level);
-    _onChipRemoved(context, state.filteredExercise.copyWith(levels: newLevels));
-  }
-
-  void onToolRemoved(
-      FilteredExerciseState state, ExerciseTool tool, BuildContext context) {
-    final newList = [...state.filteredExercise.tools];
-    newList.remove(tool);
-    _onChipRemoved(context, state.filteredExercise.copyWith(tools: newList));
-  }
-
-  void onTypeRemoved(
-      FilteredExerciseState state, ExerciseType type, BuildContext context) {
-    final newList = [...state.filteredExercise.types];
-    newList.remove(type);
-    _onChipRemoved(context, state.filteredExercise.copyWith(types: newList));
-  }
-
-  void onPrimaryTargetRemoved(FilteredExerciseState state,
-      ExerciseTarget target, BuildContext context) {
-    final newList = [...state.filteredExercise.primaryTargets];
-    newList.remove(target);
-    _onChipRemoved(
-        context, state.filteredExercise.copyWith(primaryTargets: newList));
-  }
-
-  void onSecondaryTargetRemoved(FilteredExerciseState state,
-      ExerciseTarget target, BuildContext context) {
-    final newList = [...state.filteredExercise.secondaryTargets];
-    newList.remove(target);
-    _onChipRemoved(
-        context, state.filteredExercise.copyWith(secondaryTargets: newList));
-  }
-
-  void _onChipRemoved(BuildContext context, Exercise exercise) {
+  void _onFilterExerciseChanged(BuildContext context, Exercise exercise) {
     BlocProvider.of<FilteredExerciseBloc>(context)
         .add(FilteredExerciseEvent.filtered(exercise));
   }
