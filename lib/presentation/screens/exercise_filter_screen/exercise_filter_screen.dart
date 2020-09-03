@@ -4,6 +4,7 @@ import 'package:fitnick/domain/exercise/models/sub_models/exercise_level.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_target.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_tool.dart';
 import 'package:fitnick/domain/exercise/models/sub_models/exercise_type.dart';
+import 'package:fitnick/presentation/core/widgets/option_editor.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,83 +31,60 @@ class ExerciseFilterScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Selector<ExerciseLevel>(
+                OptionEditor<ExerciseLevel>(
                   title: "Levels",
-                  options: ExerciseLevel.all,
+                  allOptions: ExerciseLevel.all,
                   optionLabel: (option) => option.name,
-                  initialValues: state.filteredExercise.levels,
-                  selectMultiple: true,
-                  onSelect: (selectedOptions) {
-                    _onFilterExerciseChanged(
-                        context,
-                        state.filteredExercise
-                            .copyWith(levels: selectedOptions));
-                  },
+                  initialOptions: state.filteredExercise.levels,
+                  onOptionsChanged: (newLevels) => _onFilterExerciseChanged(
+                      context,
+                      state.filteredExercise.copyWith(levels: newLevels)),
                 ),
-                buildSpace(),
-                Selector<ExerciseTool>(
-                  title: "Tools",
-                  options: ExerciseTool.all,
-                  optionLabel: (option) => option.name,
-                  initialValues: state.filteredExercise.tools,
-                  selectMultiple: true,
-                  onSelect: (selectedOptions) {
-                    _onFilterExerciseChanged(
-                        context,
-                        state.filteredExercise
-                            .copyWith(tools: selectedOptions));
-                  },
-                ),
-                buildSpace(),
-                Selector<ExerciseType>(
+                OptionEditor<ExerciseType>(
                   title: "Types",
-                  options: ExerciseType.all,
+                  allOptions: ExerciseType.all,
                   optionLabel: (option) => option.name,
-                  initialValues: state.filteredExercise.types,
-                  selectMultiple: true,
-                  onSelect: (selectedOptions) {
-                    _onFilterExerciseChanged(
-                        context,
-                        state.filteredExercise
-                            .copyWith(types: selectedOptions));
-                  },
+                  initialOptions: state.filteredExercise.types,
+                  onOptionsChanged: (newTypes) => _onFilterExerciseChanged(
+                      context,
+                      state.filteredExercise.copyWith(types: newTypes)),
                 ),
-                buildSpace(),
-                Selector<ExerciseTarget>(
+                OptionEditor<ExerciseTool>(
+                  title: "Tools",
+                  allOptions: ExerciseTool.all,
+                  optionLabel: (option) => option.name,
+                  initialOptions: state.filteredExercise.tools,
+                  onOptionsChanged: (newTools) => _onFilterExerciseChanged(
+                      context,
+                      state.filteredExercise.copyWith(tools: newTools)),
+                ),
+                OptionEditor<ExerciseTarget>(
                   title: "Primary Muscles",
-                  options: ExerciseTarget.all,
+                  allOptions: ExerciseTarget.all,
                   optionLabel: (option) => option.name,
-                  initialValues: state.filteredExercise.primaryTargets,
-                  selectMultiple: true,
-                  onSelect: (selectedOptions) {
-                    _onFilterExerciseChanged(
-                        context,
-                        state.filteredExercise
-                            .copyWith(primaryTargets: selectedOptions));
-                  },
+                  initialOptions: state.filteredExercise.primaryTargets,
+                  onOptionsChanged: (newTargets) => _onFilterExerciseChanged(
+                      context,
+                      state.filteredExercise
+                          .copyWith(primaryTargets: newTargets)),
                 ),
-                buildSpace(),
-                Selector<ExerciseTarget>(
+                OptionEditor<ExerciseTarget>(
                   title: "Secondary Muscles",
-                  options: ExerciseTarget.all,
+                  allOptions: ExerciseTarget.all,
                   optionLabel: (option) => option.name,
-                  initialValues: state.filteredExercise.secondaryTargets,
-                  selectMultiple: true,
-                  onSelect: (selectedOptions) {
-                    _onFilterExerciseChanged(
-                        context,
-                        state.filteredExercise
-                            .copyWith(secondaryTargets: selectedOptions));
-                  },
+                  initialOptions: state.filteredExercise.secondaryTargets,
+                  onOptionsChanged: (newTargets) => _onFilterExerciseChanged(
+                      context,
+                      state.filteredExercise
+                          .copyWith(secondaryTargets: newTargets)),
                 ),
-                buildSpace(),
                 Container(
                   width: double.infinity,
                   child: RaisedButton(
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     child: Text("Apply Filter"),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => _onApplyFilter(context),
                   ),
                 ),
                 buildSpace(),
@@ -128,6 +106,10 @@ class ExerciseFilterScreen extends StatelessWidget {
   void _onFilterExerciseChanged(BuildContext context, Exercise exercise) {
     BlocProvider.of<FilteredExerciseBloc>(context)
         .add(FilteredExerciseEvent.filtered(exercise));
+  }
+
+  void _onApplyFilter(BuildContext context) {
+    Navigator.pop(context);
   }
 
   void _onResetFilter(BuildContext context) {
