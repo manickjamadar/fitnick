@@ -2,6 +2,7 @@ import 'package:fitnick/presentation/core/widgets/alert_title.dart';
 import 'package:flutter/material.dart';
 
 import '../styles.dart';
+import 'done_action_buttons.dart';
 
 class InputDialog extends StatefulWidget {
   final String title;
@@ -60,29 +61,14 @@ class _InputDialogState extends State<InputDialog> {
           SizedBox(
             height: 30,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FloatingActionButton(
-                backgroundColor: Colors.red,
-                child: Icon(Icons.clear, color: Colors.white),
-                onPressed: () {
-                  Navigator.pop(context);
-                  if (widget.onCancel != null) {
-                    widget.onCancel();
-                  }
-                },
-              ),
-              FloatingActionButton(
-                backgroundColor: Colors.green,
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-                onPressed: () => _onDone(context),
-              ),
-            ],
-          )
+          DoneActionButtons(
+              onCancel: () {
+                Navigator.pop(context);
+                if (widget.onCancel != null) {
+                  widget.onCancel();
+                }
+              },
+              onDone: () => _onDone(context))
         ],
       ),
     );

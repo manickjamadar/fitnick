@@ -1,5 +1,6 @@
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/alert_title.dart';
+import 'package:fitnick/presentation/core/widgets/done_action_buttons.dart';
 import 'package:flutter/material.dart';
 
 class RawInputDialog extends StatefulWidget {
@@ -40,23 +41,9 @@ class _RawInputDialogState extends State<RawInputDialog> {
           SizedBox(
             height: 30,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FloatingActionButton(
-                  backgroundColor: Colors.red,
-                  child: Icon(Icons.clear, color: Colors.white),
-                  onPressed: () => _onCancel(context)),
-              FloatingActionButton(
-                backgroundColor: Colors.green,
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-                onPressed: () => _onDone(context),
-              ),
-            ],
-          )
+          DoneActionButtons(
+              onCancel: () => _onCancel(context),
+              onDone: () => _onDone(context))
         ],
       ),
     );
