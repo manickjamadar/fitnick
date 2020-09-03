@@ -1,3 +1,4 @@
+import 'package:fitnick/presentation/core/widgets/alert_title.dart';
 import 'package:flutter/material.dart';
 
 import '../styles.dart';
@@ -42,10 +43,8 @@ class _InputDialogState extends State<InputDialog> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(FitnickTheme.radius)),
       titlePadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      title: Text(
-        widget.title,
-        style: FitnickTextTheme(context).heading,
-        textAlign: TextAlign.center,
+      title: AlertTitle(
+        title: widget.title,
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,

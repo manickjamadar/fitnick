@@ -1,5 +1,6 @@
 import 'package:fitnick/domain/account/models/sub_models/coin.dart';
 import 'package:fitnick/presentation/core/styles.dart';
+import 'package:fitnick/presentation/core/widgets/alert_title.dart';
 import 'package:fitnick/presentation/core/widgets/coin_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +24,7 @@ class ConfirmDialog extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(FitnickTheme.radius)),
-      title: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: FitnickTextTheme(context).heading,
-      ),
+      title: AlertTitle(title: title),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
