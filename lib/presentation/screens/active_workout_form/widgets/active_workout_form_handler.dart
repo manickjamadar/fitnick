@@ -12,6 +12,7 @@ import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
+import 'package:fitnick/presentation/core/widgets/form_done_button.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/active_workout_form/widgets/active_exercise_edit_item.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/select_exercise_screen.dart';
@@ -76,19 +77,11 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                           ))
                       .toList()),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding: EdgeInsets.all(18),
-                width: double.infinity,
-                child: ActionButton(
-                  elevation: 10,
-                  label: "${state.isEditing ? 'Update' : 'Save'} Workout",
-                  onPressed: state.activeWorkout.isValid
-                      ? () => _onWorkoutSave(context)
-                      : null,
-                ),
-              ),
+            FormDoneButton(
+              label: "${state.isEditing ? 'Update' : 'Save'} Workout",
+              onDone: state.activeWorkout.isValid
+                  ? () => _onWorkoutSave(context)
+                  : null,
             ),
             if (state.isAdding) ExecutingIndicator(),
           ],
