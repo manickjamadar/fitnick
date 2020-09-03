@@ -11,6 +11,7 @@ import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/styles.dart';
 import 'package:fitnick/presentation/core/widgets/executing_indicator.dart';
 import 'package:fitnick/presentation/core/widgets/exercise_thumbnail.dart';
+import 'package:fitnick/presentation/core/widgets/form_done_button.dart';
 import 'package:fitnick/presentation/core/widgets/option_selector_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
@@ -66,10 +67,17 @@ class ExerciseFormHandler extends StatelessWidget {
                       buildVideoUploader(context, state),
                       buildSpace(),
                       buildOptions(context, state),
+                      buildSpace(),
+                      buildSpace(),
+                      buildSpace(),
                     ],
                   ),
                 ),
               ),
+              FormDoneButton(
+                  label:
+                      "${state.isEditing ? 'Update' : 'Save'} Exercise (${Exercise.price.value} coins)",
+                  onDone: () {}),
               if (state.isAdding) buildLoading()
             ],
           ),
@@ -175,6 +183,7 @@ class ExerciseFormHandler extends StatelessWidget {
         ]),
         Wrap(
           spacing: 10,
+          runSpacing: 10,
           children: options,
         )
       ],
