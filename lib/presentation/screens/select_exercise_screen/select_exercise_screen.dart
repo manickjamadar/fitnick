@@ -11,6 +11,7 @@ import 'package:fitnick/presentation/core/widgets/exercise_tile.dart';
 import 'package:fitnick/presentation/core/widgets/raw_exercise_tile.dart';
 import 'package:fitnick/presentation/core/widgets/search_bar.dart';
 import 'package:fitnick/presentation/screens/exercise_filter_screen/exercise_filter_screen.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/exercise_item_type.dart';
 import 'package:fitnick/presentation/screens/select_exercise_screen/widgets/removable_chip.dart';
@@ -176,32 +177,32 @@ class _SelectExerciseScreenState extends State<SelectExerciseScreen> {
           spacing: 10,
           runSpacing: 10,
           children: <Widget>[
-            ...state.filteredExercise.levels.map((level) => RemovableChip(
-                  title: level.name,
+            ...state.filteredExercise.levels.map((level) => DeleteChip(
+                  label: level.name,
                   color: Colors.orange,
-                  onRemove: () {
+                  onDelete: () {
                     onLevelRemoved(state, level, context);
                   },
                 )),
-            ...state.filteredExercise.tools.map((e) => RemovableChip(
-                  title: e.name,
+            ...state.filteredExercise.tools.map((e) => DeleteChip(
+                  label: e.name,
                   color: Colors.green,
-                  onRemove: () => onToolRemoved(state, e, context),
+                  onDelete: () => onToolRemoved(state, e, context),
                 )),
-            ...state.filteredExercise.types.map((e) => RemovableChip(
-                  title: e.name,
+            ...state.filteredExercise.types.map((e) => DeleteChip(
+                  label: e.name,
                   color: Colors.purple,
-                  onRemove: () => onTypeRemoved(state, e, context),
+                  onDelete: () => onTypeRemoved(state, e, context),
                 )),
-            ...state.filteredExercise.primaryTargets.map((e) => RemovableChip(
-                  title: e.name,
+            ...state.filteredExercise.primaryTargets.map((e) => DeleteChip(
+                  label: e.name,
                   color: Colors.teal,
-                  onRemove: () => onPrimaryTargetRemoved(state, e, context),
+                  onDelete: () => onPrimaryTargetRemoved(state, e, context),
                 )),
-            ...state.filteredExercise.secondaryTargets.map((e) => RemovableChip(
-                  title: e.name,
+            ...state.filteredExercise.secondaryTargets.map((e) => DeleteChip(
+                  label: e.name,
                   color: Colors.brown,
-                  onRemove: () => onSecondaryTargetRemoved(state, e, context),
+                  onDelete: () => onSecondaryTargetRemoved(state, e, context),
                 )),
           ],
         );
