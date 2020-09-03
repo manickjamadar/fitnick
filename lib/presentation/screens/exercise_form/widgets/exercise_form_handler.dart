@@ -16,6 +16,7 @@ import 'package:fitnick/presentation/core/widgets/form_done_button.dart';
 import 'package:fitnick/presentation/core/widgets/option_selector_dialog.dart';
 import 'package:fitnick/presentation/core/widgets/upload_button.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/delete_chip.dart';
+import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_selector.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_level_slider.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/video_preview.dart';
 import 'package:fitnick/presentation/screens/home/widgets/exercise/level_flash.dart';
@@ -120,7 +121,7 @@ class ExerciseFormHandler extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        buildLevelSelector(state, exercise, context),
+        buildLevelSelector(context, exercise),
         buildOptionSelector(context,
             title: "Tools",
             onAdd: () => _onToolAddButtonPressed(context, exercise.tools),
@@ -193,25 +194,10 @@ class ExerciseFormHandler extends StatelessWidget {
     );
   }
 
-  Widget buildLevelSelector(
-      ExerciseFormState state, Exercise exercise, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text("${exercise.levels.first.name} Level",
-            style: FitnickTextTheme(context).title),
-        SizedBox(height: 6),
-        LevelFlash(
-          level: exercise.levels.first,
-        ),
-        ExerciseLevelSlider(
-          currentLevel: exercise.levels.first,
-          onChanged: (value) {
-            final newLevelIndex = value.floor();
-            onLevelChanged(context, ExerciseLevel.all[newLevelIndex]);
-          },
-        )
-      ],
+  Widget buildLevelSelector(BuildContext context, Exercise exercise) {
+    return ExerciseLevelSelector(
+      level: exercise.levels.first,
+      onChanged: (newLevel) => onLevelChanged(context, newLevel),
     );
   }
 
