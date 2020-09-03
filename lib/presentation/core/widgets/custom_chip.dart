@@ -27,7 +27,11 @@ class CustomChip extends StatelessWidget {
           ),
     );
     final relativeSize = mainLabel.style.fontSize;
+    final radius = relativeSize * 3;
     return InkWell(
+      borderRadius: BorderRadius.circular(radius),
+      splashColor: mainColor.withOpacity(0.3),
+      highlightColor: Colors.transparent,
       onTap: () {
         if (onSelect != null) {
           onSelect();
@@ -39,7 +43,7 @@ class CustomChip extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border.all(color: mainColor, width: relativeSize * 0.1),
               color: selected ? mainColor : mainColor.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(relativeSize * 3)),
+              borderRadius: BorderRadius.circular(radius)),
           child: mainLabel),
     );
   }
