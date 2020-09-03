@@ -6,7 +6,7 @@ import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/core/helpers/show_message.dart';
 import 'package:fitnick/presentation/core/widgets/action_button.dart';
 import 'package:fitnick/presentation/core/widgets/not_found_action.dart';
-import 'package:fitnick/presentation/screens/home/widgets/exercise/exerise_list_view.dart';
+import 'package:fitnick/presentation/screens/home/widgets/exercise/filtered_exerise_list_view.dart';
 import 'package:fitnick/shared/fitnick_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +35,7 @@ class ExerciseTab extends StatelessWidget {
           return state.exercises.fold(
               () => buildNoExercise(context),
               (List<Exercise> exercises) =>
-                  buildExercises(context, exercises, state.searchTerm));
+                  buildExercises(context, state, exercises));
         },
       ),
     );
@@ -58,13 +58,16 @@ class ExerciseTab extends StatelessWidget {
         child: Text("Exercise loading failed"),
       );
 
-  Widget buildExercises(
-          BuildContext context, List<Exercise> exercises, String searchTerm) =>
-      ExerciseListView(
+  Widget buildExercises(BuildContext context, FilteredExerciseState state,
+          List<Exercise> exercises) =>
+      FilteredExerciseListView(
         exercises: exercises,
         slidable: true,
         searchable: true,
-        searchValue: searchTerm,
+        searchValue: state.searchTerm,
+        filteredExercise: state.filteredExercise,
+        onExerciseChanged: (newExercise) =>
+            _onExerciseFiltered(context, newExercise),
         onSearch: (term) => _onExerciseSearch(context, term),
       );
 
@@ -75,5 +78,10 @@ class ExerciseTab extends StatelessWidget {
   void _onExerciseSearch(BuildContext context, String searchTerm) {
     BlocProvider.of<FilteredExerciseBloc>(context)
         .add(FilteredExerciseEvent.searched(term: searchTerm));
+  }
+
+  void _onExerciseFiltered(BuildContext context, Exercise exercise) {
+    BlocProvider.of<FilteredExerciseBloc>(context)
+        .add(FilteredExerciseEvent.filtered(exercise));
   }
 }
