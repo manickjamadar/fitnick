@@ -1,3 +1,4 @@
+import 'package:fitnick/application/account/account_manager/account_manager_cubit.dart';
 import 'package:fitnick/application/exercise/exercise_hub/exercise_hub_bloc.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
@@ -77,7 +78,9 @@ class ExerciseFormHandler extends StatelessWidget {
               FormDoneButton(
                   label:
                       "${state.isEditing ? 'Update' : 'Save'} Exercise (${Exercise.price.value} coins)",
-                  onDone: () {}),
+                  onDone: state.isAdding || !state.exercise.isValid
+                      ? null
+                      : () => _onSaveExercise(context)),
               if (state.isAdding) buildLoading()
             ],
           ),
@@ -210,6 +213,10 @@ class ExerciseFormHandler extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void _onSaveExercise(BuildContext context) {
+    BlocProvider.of<AccountManagerCubit>(context).spend(Exercise.price);
   }
 
   void _onOptionSelected(BuildContext context, ExerciseFormEvent event) {
