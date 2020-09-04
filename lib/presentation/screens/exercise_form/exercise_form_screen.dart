@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fitnick/application/account/account_manager/account_manager_cubit.dart';
+import 'package:fitnick/application/active_workout/active_workout_hub/active_workout_hub_cubit.dart';
 import 'package:fitnick/application/exercise/exercise_form/exercise_form_bloc.dart';
+import 'package:fitnick/domain/exercise/facade/i_exercise_facade.dart';
 import 'package:fitnick/domain/exercise/models/exercise.dart';
 import 'package:fitnick/presentation/core/fitnick_actions/fitnick_actions.dart';
 import 'package:fitnick/presentation/screens/exercise_form/widgets/exercise_form_handler.dart';
@@ -20,7 +22,10 @@ class ExerciseFormScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ExerciseFormBloc>(
-          create: (_) => locator<ExerciseFormBloc>()
+          create: (_) => ExerciseFormBloc(
+              iExerciseFacade: locator<IExerciseFacade>(),
+              activeWorkoutHubCubit:
+                  BlocProvider.of<ActiveWorkoutHubCubit>(context))
             ..add(ExerciseFormEvent.init(exerciseOption)),
         ),
         BlocProvider<AccountManagerCubit>(

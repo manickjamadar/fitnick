@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fitnick/application/active_workout/active_workout_hub/active_workout_hub_cubit.dart';
 import 'package:fitnick/application/core/helpers/remove_file.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -20,8 +21,20 @@ part 'exercise_form_state.dart';
 
 class ExerciseFormBloc extends Bloc<ExerciseFormEvent, ExerciseFormState> {
   final IExerciseFacade iExerciseFacade;
-  ExerciseFormBloc({@required this.iExerciseFacade})
+  final ActiveWorkoutHubCubit activeWorkoutHubCubit;
+  ExerciseFormBloc(
+      {@required this.iExerciseFacade, @required this.activeWorkoutHubCubit})
       : super(ExerciseFormState.initial());
+
+  @override
+  void onChange(Change<ExerciseFormState> change) {
+    change.nextState.addStatus.fold(
+        () => null,
+        (failureOrSuccess) => failureOrSuccess.fold((failure) {}, (success) {
+              activeWorkoutHubCubit.refreshed();
+            }));
+    super.onChange(change);
+  }
 
   @override
   Stream<ExerciseFormState> mapEventToState(
