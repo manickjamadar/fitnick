@@ -14,16 +14,38 @@ class NavBar extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      currentIndex: currentIndex,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      onTap: onSelect,
-      items: tabs
-          .map((pageTab) => BottomNavigationBarItem(
-              icon: Icon(pageTab.iconData), title: Text(pageTab.title)))
-          .toList(),
+    // return BottomNavigationBar(
+    //   backgroundColor: Colors.white,
+    //   currentIndex: currentIndex,
+    //   showSelectedLabels: false,
+    //   showUnselectedLabels: false,
+    //   onTap: onSelect,
+    //   items: tabs
+    //       .map((pageTab) => BottomNavigationBarItem(
+    //           icon: Icon(pageTab.iconData), title: Text(pageTab.title)))
+    //       .toList(),
+    // );
+    return BottomAppBar(
+      color: Colors.white,
+      child: Row(
+        children: [
+          Expanded(
+              child: IconButton(
+                  color: Colors.grey,
+                  icon: buildIcon(context, tabs[0]),
+                  onPressed: () => onSelect(0))),
+          Expanded(child: Text("")),
+          Expanded(
+              child: IconButton(
+                  icon: buildIcon(context, tabs[1]),
+                  onPressed: () => onSelect(1))),
+        ],
+      ),
     );
+  }
+
+  Widget buildIcon(BuildContext context, PageTab tab) {
+    return Icon(tab.iconData,
+        color: tab.isActive ? Theme.of(context).primaryColor : Colors.grey);
   }
 }
