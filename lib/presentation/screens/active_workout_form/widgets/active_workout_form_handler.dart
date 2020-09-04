@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fitnick/application/active_workout/active_workout_form/active_workout_form_cubit.dart';
+import 'package:fitnick/application/core/helpers/time_formatter.dart';
 import 'package:fitnick/domain/active_exercise/models/active_exercise.dart';
 import 'package:fitnick/domain/active_workout/models/active_workout.dart';
 import 'package:fitnick/domain/core/value/value_failure.dart';
@@ -59,6 +60,11 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
+                      buildDurationViewer(
+                          context, state.activeWorkout.totalDuration),
+                      SizedBox(
+                        height: 20,
+                      ),
                       buildAddExerciseButton(
                           context, state.activeWorkout.activeExercises.length)
                     ],
@@ -87,6 +93,40 @@ class ActiveWorkoutFormHandler extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget buildDurationViewer(BuildContext context, Duration duration) {
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          Text("Total Duration", style: FitnickTextTheme(context).title),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 14),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(40)),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    FitnickIcons.timer,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  SizedBox(width: 6),
+                  Text(formatTime(duration),
+                      style: FitnickTextTheme(context)
+                          .title
+                          .copyWith(color: Colors.white)),
+                ],
+              )),
+        ],
+      ),
     );
   }
 
