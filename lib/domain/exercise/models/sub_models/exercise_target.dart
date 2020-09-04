@@ -45,8 +45,8 @@ class ExerciseTarget extends Name {
   static const neck =
       ExerciseTarget(name: "Neck", category: ExerciseTargetCategory.upperBody);
 //lower body
-  static const leg =
-      ExerciseTarget(name: "Leg", category: ExerciseTargetCategory.lowerBody);
+  static const quads =
+      ExerciseTarget(name: "Quads", category: ExerciseTargetCategory.lowerBody);
   static const calf =
       ExerciseTarget(name: "Calf", category: ExerciseTargetCategory.lowerBody);
   static const glute =
@@ -81,7 +81,7 @@ class ExerciseTarget extends Name {
     forearm,
     traps,
     neck,
-    leg,
+    quads,
     calf,
     glute,
     hamstring,
