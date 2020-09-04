@@ -11,7 +11,7 @@ class ExerciseTitle extends StatelessWidget {
     return Text(
       title.capitalize(),
       textAlign: TextAlign.center,
-      style: FitnickTextTheme(context).heading.copyWith(fontSize: 22),
+      style: FitnickTextTheme(context).heading.copyWith(fontSize: 18),
     );
   }
 }
