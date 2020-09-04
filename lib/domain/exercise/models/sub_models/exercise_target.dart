@@ -12,23 +12,22 @@ class ExerciseTarget extends Name {
   const ExerciseTarget({@required String name, @required this.category})
       : super(name);
 //upper body
-  static const biceps = ExerciseTarget(
-      name: "Biceps", category: ExerciseTargetCategory.upperBody);
-//upper body
   static const fullBody = ExerciseTarget(
       name: "Full Body", category: ExerciseTargetCategory.fullBody);
+  static const biceps = ExerciseTarget(
+      name: "Biceps", category: ExerciseTargetCategory.upperBody);
   static const triceps = ExerciseTarget(
       name: "Triceps", category: ExerciseTargetCategory.upperBody);
-  static const shoulder = ExerciseTarget(
-      name: "Shoulder", category: ExerciseTargetCategory.upperBody);
+  static const compoundShoulder = ExerciseTarget(
+      name: "Compound Shoulder", category: ExerciseTargetCategory.upperBody);
   static const rearShoulder = ExerciseTarget(
       name: "Rear Shoulder", category: ExerciseTargetCategory.upperBody);
   static const middleShoulder = ExerciseTarget(
       name: "Middle Shoulder", category: ExerciseTargetCategory.upperBody);
   static const frontShoulder = ExerciseTarget(
       name: "Front Shoulder", category: ExerciseTargetCategory.upperBody);
-  static const chest =
-      ExerciseTarget(name: "Chest", category: ExerciseTargetCategory.upperBody);
+  static const compoundChest = ExerciseTarget(
+      name: "Compound Chest", category: ExerciseTargetCategory.upperBody);
   static const upperChest = ExerciseTarget(
       name: "Upper Chest", category: ExerciseTargetCategory.upperBody);
   static const middleChest = ExerciseTarget(
@@ -61,19 +60,19 @@ class ExerciseTarget extends Name {
       ExerciseTarget(name: "Lower Abs", category: ExerciseTargetCategory.core);
   static const upperAbs =
       ExerciseTarget(name: "Upper Abs", category: ExerciseTargetCategory.core);
-  static const abs =
-      ExerciseTarget(name: "Abs", category: ExerciseTargetCategory.core);
+  static const compoundAbs = ExerciseTarget(
+      name: "Compound Abs", category: ExerciseTargetCategory.core);
   static const obliques =
       ExerciseTarget(name: "Obliques", category: ExerciseTargetCategory.core);
   static const all = [
     fullBody,
     biceps,
     triceps,
-    shoulder,
+    compoundShoulder,
     rearShoulder,
     middleShoulder,
     frontShoulder,
-    chest,
+    compoundChest,
     upperChest,
     middleChest,
     lowerChest,
@@ -87,7 +86,7 @@ class ExerciseTarget extends Name {
     glute,
     hamstring,
     hip,
-    abs,
+    compoundAbs,
     lowerAbs,
     upperAbs,
     obliques,
