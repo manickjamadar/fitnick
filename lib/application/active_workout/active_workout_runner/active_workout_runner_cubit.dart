@@ -40,13 +40,48 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
+  //? Speaking Sentences
+  //?---------------------------------------------------
+
   Future<void> _say(String anything) async {
     if (state.voiceEnabled) {
       await tts.speak(anything);
     }
   }
 
+  void _sayToTakeRest() {
+    _say("take a rest");
+  }
+
+  void _sayWhenWorkoutCompleted() {
+    _say("Congratulation Workout Completed");
+  }
+
+  void _sayToGetReady() {
+    _say("Get Ready");
+  }
+
+  void _sayAboutExerciseStarted(
+      ActiveExercise activeExercise, ExerciseSet exerciseSet) async {
+    final type = exerciseSet.performType == ExercisePerformType.secs
+        ? "seconds"
+        : "Reps";
+    final word =
+        "exercise started ${activeExercise.exercise.name.safeValue} ${exerciseSet.performCount} $type";
+    await _say(word);
+  }
+
   //? Timers Here =========================================
+
+  void _cancelAllTimer() {
+    _resetRestTimer();
+    _resetPerformTimer();
+    _cancelSpentTimer();
+    _cancelWarmUpTimer();
+  }
+
+  //!Warm Up Timer
+  //!==========================================
 
   void _startWarmUpTimer() {
     _cancelWarmUpTimer();
@@ -55,41 +90,24 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
         .take(maxCount)
         .listen((value) {
       final tick = maxCount - value;
-      _onWarmUpContinue(tick - 1);
-    }, onDone: _onWarmUpComplete);
+      _onWarmUpTick(tick - 1);
+    }, onDone: _onWarmUpDone);
   }
 
   void _cancelWarmUpTimer() {
     _warmUpTimer?.cancel();
   }
 
-  void _startRestTimer() {
-    if (state.isCompleted) {
-      return;
-    }
-    _cancelRestTimer();
-    state.activeWorkoutOption.fold(() => null, (activeWorkout) {
-      final activeExercise =
-          activeWorkout.activeExercises[state.currentActiveExerciseIndex];
-      final exerciseSet = activeExercise.sets[state.currentSetIndex];
-      final totalRest = exerciseSet.rest;
-      _onRestContinue(totalRest);
-      _restTimer = Stream.periodic(Duration(seconds: 1), (i) => i)
-          .take(totalRest)
-          .listen((_) {
-        _onRestContinue(state.currentRest.inSeconds - 1);
-      }, onDone: _onRestComplete);
-    });
+  void _onWarmUpTick(int count) {
+    _say("$count");
   }
 
-  void _resetRestTimer() {
-    emit(state.copyWith(isResting: false, currentRest: Duration(seconds: 0)));
-    _restTimer?.cancel();
+  void _onWarmUpDone() {
+    _startPerformTimer();
   }
 
-  void _cancelRestTimer() {
-    _restTimer?.cancel();
-  }
+  //!Perform Timer
+  //!====================================================
 
   void _startPerformTimer() {
     if (state.isCompleted || state.isPaused) {
@@ -103,7 +121,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
       final initialCount = state.currentPerformedCount;
       final endCount = exerciseSet.performCount - (initialCount - 1);
       final actualTempo = activeExercise.performTempo(exerciseSet.performType);
-      sayAboutExercise(activeExercise, exerciseSet);
+      _sayAboutExerciseStarted(activeExercise, exerciseSet);
       if (exerciseSet.performType == ExercisePerformType.reps) {
         return;
       }
@@ -111,8 +129,8 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
               Duration(seconds: actualTempo), (i) => i + initialCount)
           .take(endCount)
           .listen((tick) {
-        _onPerformContinue(tick + 1);
-      }, onDone: _onPerformComplete);
+        _onPerformTick(tick + 1);
+      }, onDone: _onPerformDone);
     });
   }
 
@@ -129,12 +147,58 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     _performTimer?.cancel();
   }
 
-  void _cancelAllTimer() {
-    _resetRestTimer();
-    _resetPerformTimer();
-    _cancelSpentTimer();
-    _cancelWarmUpTimer();
+  void _onPerformTick(int count) {
+    emit(state.copyWith(currentPerformedCount: count));
   }
+
+  void _onPerformDone() {
+    _cancelWarmUpTimer();
+    _resetPerformTimer();
+    skipExercise();
+  }
+
+  //! Rest Timer
+  //!========================================
+
+  void _startRestTimer() {
+    if (state.isCompleted) {
+      return;
+    }
+    _cancelRestTimer();
+    state.activeWorkoutOption.fold(() => null, (activeWorkout) {
+      final activeExercise =
+          activeWorkout.activeExercises[state.currentActiveExerciseIndex];
+      final exerciseSet = activeExercise.sets[state.currentSetIndex];
+      final totalRest = exerciseSet.rest;
+      _onRestTick(totalRest);
+      _restTimer = Stream.periodic(Duration(seconds: 1), (i) => i)
+          .take(totalRest)
+          .listen((_) {
+        _onRestTick(state.currentRest.inSeconds - 1);
+      }, onDone: _onRestDone);
+    });
+  }
+
+  void _resetRestTimer() {
+    emit(state.copyWith(isResting: false, currentRest: Duration(seconds: 0)));
+    _restTimer?.cancel();
+  }
+
+  void _cancelRestTimer() {
+    _restTimer?.cancel();
+  }
+
+  void _onRestTick(int seconds) {
+    emit(state.copyWith(
+        isResting: true, currentRest: Duration(seconds: seconds)));
+  }
+
+  void _onRestDone() {
+    skipRest();
+  }
+
+  //! Spent Timer
+  //!==========================================
 
   void _startSpentTimer() {
     _cancelSpentTimer();
@@ -149,61 +213,22 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void _pauseSpentTimer() {
-    _spentTimer?.cancel();
-  }
-
   void _cancelSpentTimer() {
     _spentTimer?.cancel();
   }
 
-  //? Timer Functions ends here =========================================
+  //? Timer Functions ends here
+  //?---------------------------------------------------
 
-  void sayAboutExercise(
-      ActiveExercise activeExercise, ExerciseSet exerciseSet) async {
-    final type = exerciseSet.performType == ExercisePerformType.secs
-        ? "seconds"
-        : "Reps";
-    final word =
-        "exercise started ${activeExercise.exercise.name.safeValue} ${exerciseSet.performCount} $type";
-    await _say(word);
-  }
+  //?==============================================================
 
-  void _onWarmUpContinue(int count) {
-    _say("$count");
-  }
+  //? Helper Function started
+  //?---------------------------------------------------
 
-  void _onWarmUpComplete() {
-    _startPerformTimer();
-  }
-
-  void _onRestContinue(int seconds) {
-    emit(state.copyWith(
-        isResting: true, currentRest: Duration(seconds: seconds)));
-  }
-
-  void _onRestComplete() {
-    _say("Get Ready");
-    _resetRestTimer();
-    _autoNext();
-  }
-
-  void _onPerformContinue(int count) {
-    emit(state.copyWith(currentPerformedCount: count));
-  }
-
-  void _onPerformComplete() {
-    _cancelWarmUpTimer();
-    _say("take a rest");
-    _resetPerformTimer();
+  void _startTakingRest() {
+    _sayToTakeRest();
+    emit(state.copyWith(isResting: true));
     _startRestTimer();
-  }
-
-  void _autoNext() {
-    _continueNextStep();
-    if (!state.isCompleted) {
-      _startWarmUpTimer();
-    }
   }
 
   void _breakNatureFlow() {
@@ -217,21 +242,23 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
           .activeExercises[state.currentActiveExerciseIndex].sets
           .hasNext(state.currentSetIndex);
       if (hasNextSet) {
-        _goNextSet();
+        _changeToNextSet();
+        play();
       } else {
         final hasNextExercise = activeWorkout.activeExercises
             .hasNext(state.currentActiveExerciseIndex);
         if (hasNextExercise) {
-          _goNextExercise();
+          _changeToNextExercise();
+          play();
         } else {
+          _sayWhenWorkoutCompleted();
           stop();
-          _say("Congratulation Workout completed");
         }
       }
     });
   }
 
-  void _goNextSet() {
+  void _changeToNextSet() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasNextSet = activeWorkout
           .activeExercises[state.currentActiveExerciseIndex].sets
@@ -242,7 +269,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void _goPreviousExercise() {
+  void _changeToPreviousExercise() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasPreviousExercise = activeWorkout.activeExercises
           .hasPrevious(state.currentActiveExerciseIndex);
@@ -254,7 +281,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
-  void _goNextExercise() {
+  void _changeToNextExercise() {
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final hasNextExercise = activeWorkout.activeExercises
           .hasNext(state.currentActiveExerciseIndex);
@@ -264,19 +291,6 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
             currentActiveExerciseIndex: state.currentActiveExerciseIndex + 1));
       }
     });
-  }
-
-  void _next() {
-    emit(state.copyWith(isLoggingReps: false));
-    if (state.isPaused) {
-      emit(state.copyWith(isPaused: false));
-    }
-    _onPerformComplete();
-  }
-
-  void _showLoggingReps() {
-    _breakNatureFlow();
-    emit(state.copyWith(isLoggingReps: true));
   }
 
   void _updateActiveExerciseSetReps(int reps) async {
@@ -295,6 +309,9 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
     });
   }
 
+  //? Helper Funtion End
+  //?---------------------------------------------------
+
   //! events =================================================
   void toggleVoice() {
     emit(state.copyWith(voiceEnabled: !state.voiceEnabled));
@@ -303,6 +320,7 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   void init(ActiveWorkout activeWorkout) {
     emit(state.copyWith(
         activeWorkoutOption: Some(activeWorkout),
+        isPaused: true,
         isCompleted: activeWorkout.activeExercises.isEmpty));
     _workoutHubListener = activeWorkoutHubCubit.listen((hubState) {
       hubState.maybeWhen(
@@ -317,61 +335,68 @@ class ActiveWorkoutRunnerCubit extends Cubit<ActiveWorkoutRunnerState> {
   }
 
   void skipRest() {
-    _onRestComplete();
+    _resetRestTimer();
+    _sayToGetReady();
+    _continueNextStep();
   }
 
   void skipExercise() {
+    _breakNatureFlow();
     state.activeWorkoutOption.fold(() => null, (activeWorkout) {
       final activeExercise =
           activeWorkout.activeExercises[state.currentActiveExerciseIndex];
       final exerciseSet = activeExercise.sets[state.currentSetIndex];
       if (exerciseSet.performType == ExercisePerformType.reps) {
-        _showLoggingReps();
+        emit(state.copyWith(isLoggingReps: true));
       } else {
-        _next();
+        _startTakingRest();
       }
     });
   }
 
   void goBack() {
     _breakNatureFlow();
-    _goPreviousExercise();
+    _changeToPreviousExercise();
   }
 
   void goFront() {
     _breakNatureFlow();
-    _goNextExercise();
+    _changeToNextExercise();
   }
 
   void logReps(int reps) {
     _updateActiveExerciseSetReps(reps);
-    _next();
+    skipLogReps();
   }
 
   void skipLogReps() {
-    _next();
+    emit(state.copyWith(isLoggingReps: false));
+    _startTakingRest();
   }
 
   void play() {
     emit(state.copyWith(isPaused: false));
-    _startSpentTimer();
+    if (_spentTimer == null) {
+      _startSpentTimer();
+    }
     _startWarmUpTimer();
   }
 
   void pause() {
-    _cancelWarmUpTimer();
     emit(state.copyWith(isPaused: true));
-    _pauseSpentTimer();
+    _cancelWarmUpTimer();
     _pausePerformTimer();
   }
 
   void stop() {
+    _cancelAllTimer();
     emit(state.copyWith(isCompleted: true));
   }
 
   @override
   Future<void> close() {
     _cancelAllTimer();
+    _workoutHubListener?.cancel();
     return super.close();
   }
 }
