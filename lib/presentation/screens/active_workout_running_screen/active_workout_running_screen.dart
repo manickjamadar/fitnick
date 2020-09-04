@@ -61,25 +61,12 @@ class _ActiveWorkoutRunningScreenState
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ActiveWorkoutRunnerCubit, ActiveWorkoutRunnerState>(
-      listener: (_, state) {
-        if (state.isCompleted) {
-          showDialog(
-              context: context,
-              builder: (_) => ConfirmDialog(
-                    title: "Congratulations",
-                    coin: Coin(500),
-                    image: Image.asset(FitnickImageProvider.credit_success),
-                    statement: "Credited Into Account",
-                    actions: ActionButton(
-                      label: "Completed Workout",
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  )).then((_) => _onWorkoutComplete(context));
-        } else if (state.isLoggingReps) {
-          state.activeWorkoutOption.fold(() => null, (activeWorkout) {
-            final activeExercise =
-                activeWorkout.activeExercises[state.currentActiveExerciseIndex];
-            final exerciseSet = activeExercise.sets[state.currentSetIndex];
+      buildWhen: (previous, current) {
+        if (current.isLoggingReps == true && previous.isLoggingReps == false) {
+          current.activeWorkoutOption.fold(() => null, (activeWorkout) {
+            final activeExercise = activeWorkout
+                .activeExercises[current.currentActiveExerciseIndex];
+            final exerciseSet = activeExercise.sets[current.currentSetIndex];
             showDialog<String>(
                 context: context,
                 builder: (_) {
@@ -95,6 +82,23 @@ class _ActiveWorkoutRunningScreenState
               }
             });
           });
+        }
+        return true;
+      },
+      listener: (_, state) {
+        if (state.isCompleted) {
+          showDialog(
+              context: context,
+              builder: (_) => ConfirmDialog(
+                    title: "Congratulations",
+                    coin: Coin(500),
+                    image: Image.asset(FitnickImageProvider.credit_success),
+                    statement: "Credited Into Account",
+                    actions: ActionButton(
+                      label: "Completed Workout",
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  )).then((_) => _onWorkoutComplete(context));
         } else {
           _pageController.animateToPage(state.currentActiveExerciseIndex,
               duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
