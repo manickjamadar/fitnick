@@ -31,11 +31,15 @@ class _OptionSelectorDialogState<T> extends State<OptionSelectorDialog<T>> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          OptionSelector<T>(
-            optionLabel: widget.optionLabel,
-            options: widget.options,
-            initialValues: _selectedOptions,
-            onSelect: (newOptions) => _onOptionSelect(newOptions),
+          Flexible(
+            child: SingleChildScrollView(
+              child: OptionSelector<T>(
+                optionLabel: widget.optionLabel,
+                options: widget.options,
+                initialValues: _selectedOptions,
+                onSelect: (newOptions) => _onOptionSelect(newOptions),
+              ),
+            ),
           ),
           SizedBox(
             height: 20,
