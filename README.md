@@ -44,6 +44,6 @@ Contributions to FitNick are more than welcome! If you encounter any bugs, have 
 FitNick is open-source and released under the MIT License. Feel free to use, modify, and distribute this project as per the terms of the license.
 
 ## Contact
-If you have any questions or inquiries about FitNick, please feel free to contact me at [manickjamadar@gmail.com](mailto:manickjamadar@gmail.com). I'm always excited to discuss potential collaborations or new opportunities.
+If you have any questions or inquiries about FitNick, please feel free to contact me at [contact@manickjamadar.com](mailto:contact@manickjamadar.com). I'm always excited to discuss potential collaborations or new opportunities.
 
 Thank you for considering FitNick as an impressive fitness workout tracker app. I look forward to the opportunity of working together and contributing to future projects.
